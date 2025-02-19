@@ -3,6 +3,7 @@ import { fetchVehicleType,singlevehicle } from '../../../../api/VehicleType';
 import { useSelector, useDispatch } from 'react-redux';
 import { FaRegEdit } from "react-icons/fa";
 import { AppDispatch } from '../../../../store/store';
+import CommonHeader from '../../../../common/CommonHeader';
 function VehicleTable() {
   const [vehicle, setVehicle] = useState([]); // State for storing vehicle types
   const data = useSelector((state: any) => state.vehicletype.vehicleType);
@@ -32,14 +33,14 @@ function VehicleTable() {
 const setProductData=(data:any)=>{
 dispatch(singlevehicle(data))
 }
+const propsData={
+  title:"Added Vehicle Type"
+}
 
   return (
     <>
-     <div className=" rounded-2xl flex justify-between gap-1 w-full p-4 my-5 text-xl font-semibold text-white bg-[#000] mt-5">
-        <div className="flex gap-1 ">
-          <h1 className="text-[#D9E821]">Added Vehicle Type</h1>
-        </div>
-      </div>
+        <CommonHeader  propsData={propsData} />
+
 
       <div className="grid grid-cols-6 gap-4">
         { data &&  data.map((item: any, index: number) => (

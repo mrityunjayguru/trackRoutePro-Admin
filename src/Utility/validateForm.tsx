@@ -40,6 +40,21 @@ export const validateForm = (formData: { [key: string]: string }) => {
       pattern: patterns.password,
       errorMessage: 'Password must be at least 4 characters long.',
     },
+    title: {
+      required: true,
+      pattern: patterns.title,
+      errorMessage: '',
+    },
+    description: {
+      required: true,
+      pattern: patterns.title,
+      errorMessage: '',
+    },
+    priority: {
+      required: true,
+      pattern: patterns.priority,
+      errorMessage: 'Password must be at least 4 characters long.',
+    },
     confirmPassword: {
       required: true,
       pattern: patterns.password,

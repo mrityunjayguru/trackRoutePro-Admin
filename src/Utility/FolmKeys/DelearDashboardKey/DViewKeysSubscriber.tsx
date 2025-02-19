@@ -122,7 +122,7 @@ export const DViewKeySubscriber = (SingleSubscriber: any,userpassword:any) => {
         name: 'idDocument',
         type: 'select',
         placeholder: 'Select ID Card',
-        options: ['gstNumber', 'companyRegCertificate', 'tradeLicense'],
+        options: ['Aadhar Card', 'PAN Card', 'Driving License'], // Example options
         value: SingleSubscriber?.idDocument || '',
         disabled: true
 

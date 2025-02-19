@@ -180,7 +180,7 @@ export const editDeviceKeys = (
         type: "text",
         placeholder: "Enter Value",
         required: true,
-        value: SingleDevice?.tankCapacity || "sdsdsd",
+        value: SingleDevice?.maximumValue || "",
 
       },
       {

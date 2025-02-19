@@ -111,17 +111,22 @@ useEffect(() => {
         <div className='flex w-full gap-2'>
         <div  className='w-full'>
         <Select
-            options={statusOptions} // Dropdown options
-            value={selectedOption}
-            onChange={handleStatusChange} // Handle selection
-            // styles={{
-            //   control: (provided) => ({
-            //     ...provided,
-            //     minHeight: '38px',
-            //   }),
-            // }}
-                 placeholder="Search Subscriber"
-          />
+  options={statusOptions} // Dropdown options
+  value={selectedOption}
+  onChange={handleStatusChange} // Handle selection
+  styles={{
+    control: (provided, state) => ({
+      ...provided,
+      border: '1px solid #D9E821', // Custom border color
+      boxShadow: state.isFocused ? '0 0 0 1px #D9E821' : 'none', // Border color on focus
+      '&:hover': {
+        borderColor: '#D9E821', // Hover state border color
+      },
+    }),
+  }}
+  placeholder="Search Subscriber"
+/>
+
         </div>
         <div className='w-full'>
         <Select
@@ -129,12 +134,16 @@ useEffect(() => {
             onChange={handleStatusChangeDevice} // Handle selection
             value={setlectedDevice}
             placeholder="Search IMEI No"
-            // styles={{
-            //   control: (provided) => ({
-            //     ...provided,
-            //     minHeight: '38px',
-            //   }),
-            // }}
+            styles={{
+              control: (provided, state) => ({
+                ...provided,
+                border: '1px solid #D9E821', // Custom border color
+                boxShadow: state.isFocused ? '0 0 0 1px #D9E821' : 'none', // Border color on focus
+                '&:hover': {
+                  borderColor: '#D9E821', // Hover state border color
+                },
+              }),
+            }}
           />
         </div>
         </div>

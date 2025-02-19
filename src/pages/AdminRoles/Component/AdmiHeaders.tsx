@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom"
+import CommonHeader from "../../../common/CommonHeader";
 
 function AdmiHeaders() {
   const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
@@ -11,16 +12,19 @@ function AdmiHeaders() {
           navigate('/Admin-Roles/Add-Admin-Roles')
     }
     }
+    const propsData={
+        title:"List of All Admin"
+    }
+    if(loginUser?.permissions?.Admin?.Add==true || loginUser.role=="SuperAdmin"){
+      Object.assign(propsData,{redirect:"admin-roles/add-admin-roles"})
+      Object.assign(propsData,{button:"Add New +"})
+
+    }
   return (
-    <div className="flex justify-between setredius items-center w-full p-4 bg-[#000]  text-xl font-semibold text-white">
-    <h1 className="text-[#D9E821]">User List</h1>
-    <button
-      className="cursor-pointer bg-transparent text-[#fff]"
-      onClick={handleclick}
-    >
-      Add New +
-    </button> 
-  </div>
+<>
+<CommonHeader  propsData={propsData} />
+
+</>
   )
 }
 

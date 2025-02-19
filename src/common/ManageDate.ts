@@ -51,14 +51,14 @@ export const formatDateToDDMMMYYYYwithDate = (dateInput:any) => {
   
 
   export const formatDateToDDMMMYYYYwithTime = (dateInput:any) => {
-    // Parse the date input into a Date object
-    const date = new Date(dateInput);
   
+
+    const date = new Date(dateInput);
     // Validate if the date is valid
     if (isNaN(date.getTime())) {
       return "-";
     }
-  
+    console.log(date,"dateInput")
     // Define an array of month names (as numbers)
     const monthNames = [
       "1", "2", "3", "4", "5", "6",

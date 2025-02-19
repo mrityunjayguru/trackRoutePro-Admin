@@ -120,9 +120,12 @@ export const AddSubscriber = createAsyncThunk<boolean, Payload>(
       }
     } catch (err:any) {
       if(err.status===400){
-      console.log(err,"errerr")
         GetMessage("warning",err.response.data.message);
       }
+      if(err.status===409){
+        console.log(err,"errerr")
+          GetMessage("warning",err.response.data.message);
+        }
       if(err.status==401){
         localStorage.removeItem("token")
         GetMessage("warning", "Unauthorized");

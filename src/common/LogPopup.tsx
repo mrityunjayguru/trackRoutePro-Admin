@@ -8,12 +8,6 @@ interface LogPopupProps {
 }
 
 const LogPopup: React.FC<LogPopupProps> = ({ isOpen, togglePopup,records }) => {
-  const updates = [
-    { updatedBy: "MG", id: "TRPA0001", date: "31/12/24", time: "12:02:56 AM" },
-    { updatedBy: "CPSC", id: "TRPA0002", date: "31/12/24", time: "11:02:56 AM" },
-    { updatedBy: "MG", id: "TRPA0001", date: "1/11/24", time: "10:10:10 PM" },
-    { updatedBy: "MG", id: "TRPA0001", date: "15/10/24", time: "10:10:10 PM" },
-  ];
 
   return (
     <div>

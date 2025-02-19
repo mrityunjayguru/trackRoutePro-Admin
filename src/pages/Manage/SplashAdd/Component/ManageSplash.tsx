@@ -3,6 +3,7 @@ import { createSplash, updatesplash, getSplash, manageSinglesplash } from '../..
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '../../../../store/store';
 import Breadcrumb from '../../../../common/Breadcrumb';
+import CommonHeader from '../../../../common/CommonHeader';
 function ManageSplash() {
   const [status, setStatus] = useState('Active'); // State for status
   const [file, setFile] = useState<File | null>(null); // State for uploaded file
@@ -67,16 +68,16 @@ if(data?.length>0){
 useEffect(()=>{
      getSplashs()
 },[])
+const propsData={
+  title:"Splash Screen A"
+}
   return (
     <>
       <div className=""><Breadcrumb/></div>
       <div className="grid gap-20 grid-cols-2 my-4">
         <div>
-          <div className=" rounded-2xl flex justify-between gap-1 w-full p-4 text-xl font-semibold text-white bg-[#000] ">
-            <div className="flex gap-1">
-              <h1 className="text-[#D9E821]">Splash Screen AD</h1>
-            </div>
-          </div>
+         
+<CommonHeader propsData={propsData}/>
 
           <div className="grid grid-cols-1 gap-6 bg-[#fff] py-5 px-5 my-5 sm:grid-cols-1">
             {/* Status Field with Radio Buttons */}
@@ -129,7 +130,7 @@ useEffect(()=>{
                 value={hyperlink}
                 onChange={(e) => setHyperlink(e.target.value)}
                 placeholder="Enter hyperlink"
-                className="w-full rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-[#000] text-[14px] font-normal outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
                 required
               />
             </div>

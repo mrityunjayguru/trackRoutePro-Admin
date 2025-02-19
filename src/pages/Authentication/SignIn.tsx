@@ -92,7 +92,7 @@ const SignIn: React.FC = () => {
                       type="text"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 bg-gray-50 py-3 pl-6 pr-10 text-black outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      className="pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none w-full"
                       placeholder="Enter User Id"
                     />
                   </div>
@@ -107,7 +107,7 @@ const SignIn: React.FC = () => {
                       type={showPassword ? 'text' : 'password'}
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="w-full rounded-lg border border-gray-300 bg-gray-50 py-3 pl-6 pr-10 text-black outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                      className="pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none w-full"
                       placeholder="Enter your password"
                     />
                     <span

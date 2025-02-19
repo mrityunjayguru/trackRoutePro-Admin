@@ -17,6 +17,7 @@ const DealerViewSubscriber: React.FC = () => {
   );
   const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
   const handleSubmit = async (e: any) => {
+
     navigate(`/DealerEditSubscriber`);
     return;
   };
@@ -30,6 +31,7 @@ const DealerViewSubscriber: React.FC = () => {
       setuserpassword(password);
     }
   };
+
   return (
     <>
       <div className="my-3"></div>
@@ -44,14 +46,14 @@ const DealerViewSubscriber: React.FC = () => {
                   userpassword,
                 )}
                 handleSubmit={handleSubmit}
-                buttontext=""
+                buttontext={SingleSubscriber.isView===true?"Edit Subscriber":""}
                 disabled={false}
               />
             ) : (
               <GlobalForm
                 fields={DViewKeySubscriber(SingleSubscriber, userpassword)}
                 handleSubmit={handleSubmit}
-                buttontext=""
+                buttontext={SingleSubscriber.isView===true?"Edit Subscriber":""}
                 disabled={false}
               />
             )}

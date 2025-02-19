@@ -38,6 +38,6 @@ export const indianStates = [
 
 export const formattedStates = indianStates.map(state => ({
   label: state,
-  value: state.toLowerCase().replace(/\s+/g, '-'), // Converts state name to lowercase and replaces spaces with dashes
+  value:state, // Converts state name to lowercase and replaces spaces with dashes
 }));
 

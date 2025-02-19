@@ -28,7 +28,7 @@ export const AddDeviceDetailKey = (devicetypeDetails: any) => {
         label: 'Device ID*',
         name: 'deviceId',
         type: 'text',
-        placeholder: 'Enter IMEI No.',
+        placeholder: 'Enter Device ID.',
         value: '', // Dummy value
         disabled: false,
       },

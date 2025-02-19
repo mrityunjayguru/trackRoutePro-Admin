@@ -240,7 +240,7 @@ const handlemanageimage=()=>{
               type={type}
               value={value}
               onChange={(e) => setter(e.target.value)}
-              className={`rounded-2xl bginput border-none py-3 px-5 w-[410px] text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary ${
+              className={`w-[300px] pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none${
                 errors[errorKey as keyof Errors] ? 'border-red-500' : ''
               }`}
               placeholder={placeholder}

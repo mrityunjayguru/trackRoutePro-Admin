@@ -244,7 +244,7 @@ function EditProfileForm({ userData }: EditProfileFormProps) {
             </label>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-6 my-1">
+        <div className=" my-1">
           {selectedOption === 'All' ? (
             <ChangePassword />
           ) : (

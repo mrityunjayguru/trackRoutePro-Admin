@@ -10,6 +10,7 @@ import {
 } from '../../../api/Noification';
 import Select from 'react-select';
 import Swal from "sweetalert2";
+import CommonHeader from '../../../common/CommonHeader';
 
 const ManageNotification: React.FC = () => {
   const searchdata = useSelector((state: any) => state.map.searchusers);
@@ -140,12 +141,16 @@ setSelectedValues(selected.value)
       timer: 2000,
     });
   };
+  const propsData={
+    title:"Send Announcement"
+}
   return (
     <>
       <div className="text-xl font-semibold text-black"></div>
-      <div className="setredius py-4 px-4 bg-[#000000] texty font-normal text-xl md:px-6 xl:px-7.5">
-        <h4 className="text-xl font-semibold texty dark:text-white">Send Announcement</h4>
-      </div>
+
+      <CommonHeader  propsData={propsData} />
+
+
       <div className="bg-white">
         <form
           onSubmit={handleSubmit}
@@ -167,6 +172,16 @@ setSelectedValues(selected.value)
                   isDisabled={selectedOption=='All'}
                   
                   className="basic-multi-select"
+                  styles={{
+                    control: (provided, state) => ({
+                      ...provided,
+                      border: '1px solid #D9E821', // Custom border color
+                      boxShadow: state.isFocused ? '0 0 0 1px #D9E821' : 'none', // Border color on focus
+                      '&:hover': {
+                        borderColor: '#D9E821', // Hover state border color
+                      },
+                    }),
+                  }}
                   classNamePrefix="select"
                 />
               </div>
@@ -265,7 +280,7 @@ setSelectedValues(selected.value)
               value={emailTitle}
               onChange={(e) => setEmailTitle(e.target.value)}
               placeholder="Enter Title"
-              className={`w-full rounded-2xl bg-gray-100 border-none py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary ${
+              className={`w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none ${
                 errors.emailTitle ? 'border-red-500' : ''
               }`}
               required
@@ -284,7 +299,7 @@ setSelectedValues(selected.value)
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Enter your message here"
-              className={`w-full rounded-2xl bg-gray-100 border-none py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary ${
+              className={`w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none ${
                 errors.message ? 'border-red-500' : ''
               }`}
               required

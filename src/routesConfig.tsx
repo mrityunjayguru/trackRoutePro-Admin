@@ -56,6 +56,10 @@ import ViewDeviceDetail from './pages/Manage/DeviceDetail/Component/ViewDeviceDe
 import TermAndCondition from './pages/Manage/termAndCondition/termAndCondition';
 import EdutUserByDelear from './pages/Delear/Component/user/EdutUserByDelear';
 import Existignuser from './pages/DelearDashboard/Component/Subscriber/Existinguser/Existignuser';
+import HeaderCommon from './pages/Request/Component/HeaderCommon';
+import ViewDelearRequestDevices from './pages/Request/Component/Devices/ViewDelearRequestDevices';
+import EditDelearRequestDevices from './pages/Request/Component/Devices/EditDelearRequestDevices';
+import Renew from './pages/Request/Component/Renew/Renew';
 export const routes = [
   { path: '/auth/signin', title: 'TRP Signin', component: <SignIn /> },
   { path: '/', title: 'TRP ashboard', component: <ECommerce /> },
@@ -73,7 +77,13 @@ export const routes = [
     component: <EditDeviceType />,
   },
 
-  { path: '/support/dealers', title: 'TRP Manage Dealer Request', component: <Request /> },
+  { path: '/support/dealers', title: 'TRP Manage Dealer Request', component: <HeaderCommon /> },
+  { path: '/support/dealers/view-Device', title: 'TRP Manage Dealer Request', component: <ViewDelearRequestDevices /> },
+  { path: '/support/dealers/Edit-Devices', title: 'TRP Manage Dealer Request', component: <EditDelearRequestDevices /> },
+  { path: '/support/Renew', title: 'TRP Manage User Request', component: <Renew /> },
+
+
+
   {
     path: '/account-management/manage-dealer',
     title: 'TRP Manage Dealer',

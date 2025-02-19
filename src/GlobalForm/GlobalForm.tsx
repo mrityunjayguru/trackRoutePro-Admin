@@ -59,7 +59,6 @@ const GlobalForm: React.FC<GlobalFormProps> = ({
       },
       {},
     );
-    console.log(fieldMap,"fieldMapfieldMap")
     dispatch(storeFormData(fieldMap)); // Set initial state in Redux
   }, [globalFormData, dispatch]);
 

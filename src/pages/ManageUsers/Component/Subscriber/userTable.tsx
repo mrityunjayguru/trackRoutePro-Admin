@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import { FaEye, FaSearch } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { singleSubscribers, Getsubscribers } from '../../../../api/users';
@@ -7,10 +6,9 @@ import { AppDispatch } from '../../../../store/store';
 import Pagination from '../../../../common/Loader/Pagination';
 import { useRef } from 'react';
 import { setSearchType } from '../../../../store/subscriber';
-import Select from 'react-select';
 import CommonTable from '../../../../common/Table/CommonTable';
-import { DelearTableKeys } from '../../../Delear/Component/Delear/DelearTableKeys';
 import { usertableKeys } from './userTableKey';
+import SearchAndFilter from '../../../../common/SearchAndFilter';
 
 // Define the shape of a subscriber object
 interface Subscriber {
@@ -89,8 +87,8 @@ const UserTable: React.FC = () => {
   };
 
   const debouncedFetch = useDebounce(GetsubscribersAll, 1000);
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearch(e.target.value);
+  const handleSearchChange = (val: any) => {
+    setSearch(val);
   };
   // Effect to fetch subscribers when search term or current page changes
   useEffect(() => {
@@ -115,61 +113,15 @@ const UserTable: React.FC = () => {
     { value: '', label: 'All' },
     { value: 'Company', label: 'Company' },
     { value: 'Individual', label: 'Individuals' },
-    { value: 'Dealer', label: 'Dealers' },
   ];
   return (
     <>
-      <div className="searchitem grid grid-cols-3 gap-4 my-2 py-1">
-        <div className="col-span-2 relative w-full">
-          <input
-            className="px-10 border border-gray-300 w-full py-2 rounded-2xl focus:border-gray-300 focus:outline-none"
-            placeholder="Search"
-            type="text"
-            onChange={handleSearchChange}
-          />
-          <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-        </div>
-        <div className="col-span-1 text-center">
-          <Select
-            options={statusOptions}
-            placeholder="Filter by Account Type"
-            isSearchable={false}
-            onChange={handleStatusChange}
-            value={statusOptions.find((option) => option.value === filter)} // Set the current value
-            styles={{
-              control: (provided: any) => ({
-                ...provided,
-                minHeight: '38px',
-                backgroundColor: '#000', // Set background color to black
-                borderRadius: '9999px', // Fully rounded border (pill shape)
-                border: 'none', // Remove any default borders
-                paddingTop: '2px',
-                paddingBottom: '2px',
-                display: 'flex',
-                justifyContent: 'center', // Centers content horizontally
-                alignItems: 'center', // Centers content vertically
-              }),
-              placeholder: (provided: any) => ({
-                ...provided,
-                // Set placeholder color to #D9E821
-                textAlign: 'center', // Center the placeholder text
-              }),
-              option: (provided: any, state: { isSelected: any }) => ({
-                ...provided,
-                color: '#000', // Set option text color to black
-
-                textAlign: 'center', // Center the option text
-              }),
-              singleValue: (provided: any) => ({
-                ...provided,
-                color: '#D9E821', // Set the color of the selected value
-                textAlign: 'center', // Center the selected value
-              }),
-            }}
-          />
-        </div>
-      </div>
-
+      <SearchAndFilter
+        statusOptions={statusOptions}
+        onSearchChange={handleSearchChange}
+        onStatusChange={handleStatusChange}
+        filter={filter}
+      />
       <div className=" overflow-y-auto rounded-sm  xl:pb-1">
         <CommonTable
           columns={usertableKeys}

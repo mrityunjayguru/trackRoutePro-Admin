@@ -1,8 +1,9 @@
 import { useState } from "react";
+import Request from "../Request";
+import ReviwDevices from "./ReviwDevices";
 
 function HeaderCommon() {
   const [activeTab, setActiveTab] = useState("Add New"); // Default active tab
-
   return (
     <>
       <div className="flex gap-5">
@@ -30,6 +31,12 @@ function HeaderCommon() {
         </div>
       </div>
       <div className="mt-3 border-b-2 border-[#D9E821]"></div>
+
+{activeTab=="Add New"?(<>
+<Request/>
+</>):(
+  <ReviwDevices/>
+)}
 
     </>
   );

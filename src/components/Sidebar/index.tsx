@@ -3,23 +3,13 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import Logo from '../../images/logo/TrPro.png';
-import { manageRoutes, useSidebarRoutes } from './SidebarLinks';
+import { useSidebarRoutes } from './SidebarLinks';
 import { LogoutIcons } from './SideBarSvgIcons';
 import { IoIosArrowUp } from 'react-icons/io';
 
 interface SidebarProps {
   sidebarOpen: boolean;
   setSidebarOpen: (open: boolean) => void;
-}
-
-interface Route {
-  path: string;
-  label: string;
-  icon: JSX.Element | string;
-  condition?: any;
-  children?: Route[];
-  subChildren?: Route[];
-  isView: boolean; // Added isView property
 }
 
 interface AuthState {
@@ -41,14 +31,12 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   const [sidebarExpanded, setSidebarExpanded] = useState<boolean>(
     localStorage.getItem('sidebar-expanded') === 'true',
   );
+  const [openGroup, setOpenGroup] = useState<string | null>(null); // Track open group
 
-  useEffect(() => {
-    localStorage.setItem('sidebar-expanded', String(sidebarExpanded));
-    document.body.classList.toggle('sidebar-expanded', sidebarExpanded);
-  }, [sidebarExpanded]);
+  const sidebarRoutes = useSidebarRoutes();
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+  const handleClickOutside = useCallback(
+    (event: MouseEvent) => {
       if (!sidebar.current || !trigger.current) return;
       if (
         !sidebarOpen ||
@@ -57,18 +45,30 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
       )
         return;
       setSidebarOpen(false);
-    };
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, [sidebarOpen]);
+    },
+    [sidebarOpen],
+  );
+
+  const handleEscPress = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && sidebarOpen) setSidebarOpen(false);
+    },
+    [sidebarOpen],
+  );
 
   useEffect(() => {
-    const handleEscPress = (event: KeyboardEvent) => {
-      if (event.key === 'Escape' && sidebarOpen) setSidebarOpen(false);
-    };
+    localStorage.setItem('sidebar-expanded', String(sidebarExpanded));
+    document.body.classList.toggle('sidebar-expanded', sidebarExpanded);
+  }, [sidebarExpanded]);
+
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
     document.addEventListener('keydown', handleEscPress);
-    return () => document.removeEventListener('keydown', handleEscPress);
-  }, [sidebarOpen]);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+      document.removeEventListener('keydown', handleEscPress);
+    };
+  }, [handleClickOutside, handleEscPress]);
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -81,38 +81,50 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
       : navigate('/');
   }, [loginUser, navigate]);
 
-  const renderNavLink = (
-    to: string,
-    label: string,
-    icon: JSX.Element | string,
-    active: boolean,
-  ) => (
-    <NavLink
-      to={to}
-      className={`group flex items-center gap-2.5 text-[14px] rounded-sm px-4 py-2 font-medium transition-all duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-        active ? 'bg-graydark text-[#D9E821]' : 'text-[#fff]'
-      }`}
-    >
-      <span>{icon}</span> {label}
-    </NavLink>
+  const renderNavLink = useCallback(
+    (
+      to: string,
+      label: string,
+      icon: JSX.Element | string,
+      active: boolean,
+    ) => (
+      <NavLink
+        to={to}
+        className={`text14 group flex items-center gap-2.5 text-[14px] rounded-sm px-4 py-2 font-medium transition-all duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
+          active ? 'bg-graydark text-[#D9E821]' : 'text-[#fff]'
+        }`}
+      >
+        <span>{icon}</span> {label}
+      </NavLink>
+    ),
+    [],
   );
 
   const renderNestedRoutes = useCallback(
-    (routes: Route[], depth: number = 0) => {
-      return routes.map((route: any, index: any) => {
+    (routes: any[], depth: number = 0) => {
+      return routes.map((route, index) => {
         const isActive = pathname.includes(route.path);
         const hasNested = route.children?.length || route.subChildren?.length;
-        const shouldRender = route.isView;
-        if (!shouldRender) return null;
+        if (!route.isView) return null;
+
+        const handleClick = (
+          event: React.MouseEvent,
+          groupKey: string,
+          i: any,
+        ) => {
+          event.preventDefault();
+          setOpenGroup(openGroup?.includes(groupKey) ? null : groupKey);
+        };
+
         return (
           <li key={index}>
             {hasNested ? (
               <SidebarLinkGroup activeCondition={isActive}>
-                {(handleClick, open) => (
+                {(handleClickInner, open) => (
                   <>
                     <NavLink
                       to="#"
-                      onClick={handleClick}
+                      onClick={(event) => handleClick(event, route.path, index)}
                       className={`group flex items-center gap-2.5 px-4 py-2 pl-${
                         depth * 4
                       } font-medium text-white hover:bg-graydark ${
@@ -120,15 +132,19 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
                       }`}
                     >
                       <span>{route.icon}</span> {route.label}
-                      <IoIosArrowUp
-                        className={`ml-1 transition-transform ${
-                          open ? 'rotate-180' : ''
-                        }`}
-                      />
+                      {hasNested && (
+                        <IoIosArrowUp
+                          className={`ml-1 transition-transform ${
+                            openGroup === route.path ? 'rotate-180' : ''
+                          }`}
+                        />
+                      )}
                     </NavLink>
                     <ul
-                      className={`transition-all ${
-                        open ? 'max-h-screen' : 'max-h-0 overflow-hidden'
+                      className={`text-[#000000] transition-all ease-in-out duration-300 overflow-hidden ${
+                        openGroup?.includes(route.path)
+                          ? 'max-h-screen'
+                          : 'max-h-0'
                       }`}
                     >
                       {route.children &&
@@ -146,8 +162,12 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
         );
       });
     },
-    [pathname],
+    [pathname, renderNavLink, openGroup],
   );
+
+  const handleClick5 = (path: any) => {
+    setOpenGroup(openGroup?.includes(path) ? null : path);
+  };
 
   return (
     <aside
@@ -170,39 +190,40 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
         />
       </div>
 
-      <div className="no-scrollbar rounded-xl mt-5 bg-[#000] flex flex-col overflow-y-auto">
+      <div className="no-scrollbar rounded-xl mt-5 bg-[#000] flex flex-col overflow-y-auto text14">
         <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
           <ul className="mb-6 flex flex-col gap-1.5">
-            {/* SuperAdmin Routes */}
             {loginUser?.role &&
-              useSidebarRoutes().map(
+              sidebarRoutes.map(
                 ({ path, label, icon, condition, children, isView }, index) =>
-                  isView && (
+                  isView ? (
                     <li key={index}>
                       {children ? (
                         <SidebarLinkGroup activeCondition={condition(pathname)}>
-                          {(handleClick, open) => (
+                          {(handleClick2, open) => (
                             <>
                               <NavLink
                                 to="#"
-                                onClick={handleClick}
+                                onClick={() => handleClick5(path)}
                                 className={`group flex items-center gap-2.5 px-4 py-2 font-medium text-white hover:bg-graydark ${
                                   condition(pathname) ? 'bg-graydark' : ''
                                 }`}
                               >
                                 <span>{icon}</span>{' '}
-                                <p className="w-full text-[14px]"> {label}</p>
+                                <p className="w-full text-[14px]">{label}</p>
                                 {children && (
                                   <IoIosArrowUp
                                     className={`ml-1 transition-transform ${
-                                      open ? 'rotate-180' : ''
+                                      openGroup?.includes(path)
+                                        ? 'rotate-180'
+                                        : ''
                                     }`}
                                   />
                                 )}
                               </NavLink>
                               <ul
                                 className={`transition-all pl-2.5 ${
-                                  open
+                                  openGroup?.includes(path)
                                     ? 'max-h-screen'
                                     : 'max-h-0 overflow-hidden'
                                 }`}
@@ -216,61 +237,8 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
                         renderNavLink(path, label, icon, condition(pathname))
                       )}
                     </li>
-                  ),
+                  ) : null,
               )}
-
-            {/* Manage Routes */}
-            {loginUser?.role === 'SuperAdmin' &&
-              manageRoutes.map(
-                ({ path, label, icon, children, isView }, index) =>
-                  isView && ( // Only render if isView is true
-                    <li key={index}>
-                      {children ? (
-                        <SidebarLinkGroup activeCondition={pathname == 'path'}>
-                          {(handleClick, open) => (
-                            <>
-                              <NavLink
-                                to="#"
-                                onClick={handleClick}
-                                className={`group flex items-center gap-2.5 px-4 py-2 font-medium text-white hover:bg-graydark ${
-                                  pathname == 'path' ? 'bg-graydark' : ''
-                                }`}
-                              >
-                                <span>{icon}</span>{' '}
-                                <p className="w-full text-[14px]">{label}</p>
-                                {children && (
-                                  <IoIosArrowUp
-                                    className={`ml-1 transition-transform ${
-                                      open ? 'rotate-180' : ''
-                                    }`}
-                                  />
-                                )}
-                              </NavLink>
-                              <ul
-                                className={`transition-all ml-2  ${
-                                  open
-                                    ? 'max-h-screen'
-                                    : 'max-h-0 overflow-hidden'
-                                }`}
-                              >
-                                {children && renderNestedRoutes(children)}
-                              </ul>
-                            </>
-                          )}
-                        </SidebarLinkGroup>
-                      ) : (
-                        renderNavLink(
-                          path,
-                          label,
-                          icon,
-                          pathname.includes(path),
-                        )
-                      )}
-                    </li>
-                  ),
-              )}
-
-            {/* Logout */}
             <li onClick={handleLogout}>
               {renderNavLink(
                 '#',

@@ -244,14 +244,14 @@ export const updateMany = createAsyncThunk<boolean, Payload>(
 
 
 
-export const DeviceByOwnerId = createAsyncThunk<boolean, Payload>(
+export const DeviceByOwnerId = createAsyncThunk<any, Payload>(
   APIName.updateDevices,
   async (payload, thunkAPI) => {
     try {
       const data = await userRepo.deviceOwnerID(payload);
       if (data.status === 200) {
         thunkAPI.dispatch(userDevices(data.data.data));
-        return true;
+        return data;
       }
     } catch (err:any) {
       if(err.status==401){

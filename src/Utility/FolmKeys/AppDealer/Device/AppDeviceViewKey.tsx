@@ -134,7 +134,7 @@ export const AppDeviceViewKey = (SingleDevice: any, VehiclwType: any,devicetypeD
       
     ];
            
-    if(formData.fuleOutput=="On"){
+    if(SingleDevice.fuleOutput=="On"){
       fields.push(  {
         label: 'Output *',
         name: 'fuleOutput',
@@ -146,7 +146,7 @@ export const AppDeviceViewKey = (SingleDevice: any, VehiclwType: any,devicetypeD
 
     })
     }
-    if (formData.fuleOutput === "Anolage/Voltage") {
+    if (SingleDevice.fuleOutput === "Anolage/Voltage") {
         fields.push(
           {
             label: "Tank Capacity",
@@ -213,7 +213,7 @@ export const AppDeviceViewKey = (SingleDevice: any, VehiclwType: any,devicetypeD
         );
       }
     
-      if (formData.fuleOutput === "Anolage/Ble") {
+      if (SingleDevice.fuleOutput === "Anolage/Ble") {
         fields.push(
           {
             label: "Tank Capacity",

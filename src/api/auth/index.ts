@@ -79,7 +79,8 @@ export const updateProfile = createAsyncThunk<boolean, Payload>(
     try {
       const response = await AuthRepo.updateProfile(payload);
       if (response.status === 200) {
-        thunkAPI.dispatch(setLoginUserData(response.data.data));
+        // console.log(response.data.data.data)
+        thunkAPI.dispatch(setLoginUserData(response.data.data.data));
         // thunkAPI.dispatch(setUserTableData(response.data.user)); // Ensure you're using the correct action
         return true;
       }
@@ -97,7 +98,7 @@ export const updateUserDetails = createAsyncThunk<boolean, Payload>(
       if (response.status === 200) {
         showMessage("success", "Profile Updated");
 
-        thunkAPI.dispatch(setLoginUserData(response.data.data));
+        thunkAPI.dispatch(setLoginUserData(response.data.data.data));
         return true;
       }
     } catch (err: any) {
@@ -137,7 +138,43 @@ export const ResetPasswordWithOldPassword = createAsyncThunk<boolean, Payload>(
     return false;
   }
 );
+export const sendOtp = createAsyncThunk<boolean, Payload>(
+  APIName.alluser,
+  async (payload, thunkAPI) => {
+    try {
+      const response = await AuthRepo.sendOtp(payload);
+      if (response.status === 200) {
+        showMessage("success", "otp send on your emailAddress");
+        return true;
+      }
+    } catch (err: any) {
+      console.error(err);
+    }
+    return false;
+  }
+);
 
+
+export const resetpassword = createAsyncThunk<boolean, Payload>(
+  APIName.alluser,
+  async (payload, thunkAPI) => {
+    try {
+      const response = await AuthRepo.resetpassword(payload);
+      if (response.status === 200) {
+        showMessage("success", "Success");
+        localStorage.removeItem("token")
+        window.location.href = "/auth/signin"; 
+        return true;
+      }
+    } catch (err: any) {
+      console.log(err,"err")
+      showMessage("error", err?.response?.data?.message);
+
+      console.error(err);
+    }
+    return false;
+  }
+);
 const showMessage = (type: "success" | "error", message: string) => {
   Swal.fire({
     icon: type,

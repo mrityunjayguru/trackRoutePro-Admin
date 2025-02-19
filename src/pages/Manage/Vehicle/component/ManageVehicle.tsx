@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../../../store/store';
 import Breadcrumb from '../../../../common/Breadcrumb';
 import Swal from 'sweetalert2';
+import CommonHeader from '../../../../common/CommonHeader';
 interface FormData {
   vehicleTypeName: string;
   file: File | null;
@@ -150,16 +151,16 @@ const ManageVehicle: React.FC = () => {
   //     console.error(err);
   //   }
   // };
+  const propsData={
+    title:"Vehicle Type Add"
+  }
   return (
     <div className="w-full">
       <h1 className="">
         <Breadcrumb />
       </h1>
-      <div className=" rounded-2xl flex justify-between gap-1 mt-5 w-full p-4 text-xl font-semibold text-white bg-[#000]">
-        <div className="flex gap-1">
-          <h1 className="text-[#D9E821]">Vehicle Type Add</h1>
-        </div>
-      </div>
+      <CommonHeader  propsData={propsData} />
+
       <div className="my-5 ">
         <div className="px-4 py-2 grid grid-cols-4 gap-3 justify-center items-center">
           <div className="mb-2">
@@ -172,7 +173,7 @@ const ManageVehicle: React.FC = () => {
               placeholder="Enter Vehicle Type Name"
               value={formData.vehicleTypeName}
               onChange={handleChange}
-              className={`w-59 rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary ${
+              className={` pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none  ${
                 errors.vehicleTypeName ? 'border-red-500' : ''
               }`}
             />

@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import Pagination from '../../common/Loader/Pagination';
 import { useNavigate } from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa';
+import RejectionModal from './component/RejectionModal';
 function Suport() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ function Suport() {
   const [filter, setFilter] = useState(''); // State for filter
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10; // Adjust this value as needed
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const total = useSelector(
     (state: any) => state.suport?.Allsuport?.totalCount,
   );
@@ -61,6 +63,9 @@ function Suport() {
 
   const handleStatusChange = (selectedOption: any) => {
     setSearchTerm('');
+    if (selectedOption.value === 'Rejected') {
+      setIsModalOpen(true); // Open the modal when 'Rejected' is selected
+    }
     setFilter(selectedOption.value);
   };
   useEffect(() => {
@@ -94,7 +99,7 @@ function Suport() {
         <div className="col-span-2 relative w-full">
           <input
             onChange={debouncedSearch}
-            className="px-10 border border-gray-300 w-full py-2 rounded-2xl focus:border-gray-300 focus:outline-none"
+            className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
 
             placeholder="Search"
             type="text"

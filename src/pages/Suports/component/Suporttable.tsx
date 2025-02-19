@@ -9,7 +9,8 @@ import {
   formatDateToDDMMMYYYY,
   formatDateToDDMMMYYYYwithDate,
 } from '../../../common/ManageDate';
-// import Pagination from '../../../common/Loader/Pagination';
+import RejectionModal from './RejectionModal';
+
 interface HandleSnNo {
   currentPage: number;
   itemsPerPage: number;
@@ -18,16 +19,18 @@ interface HandleSnNo {
 interface SuportTableProps {
   handleSnNo: HandleSnNo;
 }
+
 const Suporttable = ({ handleSnNo }: SuportTableProps) => {
   const dispatch = useDispatch<AppDispatch>();
-  // const [currentPage, setCurrentPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
-  const [Suportdetails, setSuportdetails] = useState<any>(null); // State to hold selected notification data
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [Suportdetails, setSuportdetails] = useState<any>(null);
+  const [open, setOpen] = useState(false);
+  const [rejectionReason, setRejectionReason] = useState<string>(''); // Added state for rejection reason
   const suportdata = useSelector(
     (state: any) => state.suport?.Allsuport?.records,
   );
-  // const total = useSelector((state: any) => state.suport?.Allsuport?.totalCount);
   const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
+
   const statusOptions = [
     { value: 'Pending', label: 'Pending' },
     { value: 'Resolved', label: 'Resolved' },
@@ -35,147 +38,157 @@ const Suporttable = ({ handleSnNo }: SuportTableProps) => {
   ];
 
   useEffect(() => {}, [handleSnNo]);
+
   const viewDetails = (subscriber: any) => {
     const suportData = {
-      title: subscriber.suport, // Use subject from subscriber
-      description: subscriber.description, // Use description
-      createdAt: subscriber.createdAt, // Set creation time
-      emailAddress: subscriber?.userdata?.emailAddress, // Set email
-      name: subscriber?.userdata?.Name, // Set user name
+      title: subscriber.suport,
+      description: subscriber.description,
+      createdAt: subscriber.createdAt,
+      emailAddress: subscriber?.userdata?.emailAddress,
+      name: subscriber?.userdata?.Name,
     };
     setSuportdetails(suportData);
-    setIsModalOpen(true); // Open the modal
+    setIsModalOpen(true);
   };
+
   const [disabled, setdisabled] = useState(false);
+const [id,setid]=useState(null)
   const handleStatusChange = async (selectedOption: any, subscriberId: any) => {
-    const payload: any = {
-      status: selectedOption.value,
-      _id: subscriberId,
+    setid(subscriberId)
+    if (selectedOption.value === 'Rejected') {
+      setOpen(true);
+    } else {
+      const payload:any = {
+        status: selectedOption.value,
+        _id: subscriberId,
+      };
+      const payload2:any={}
+      try {
+        await dispatch(updateSuport(payload));
+        await dispatch(getAllSuport(payload2));
+      } catch (err: any) {
+        console.log(err);
+      }
+    }
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  useEffect(() => {
+    if (
+      loginUser.permissions.Support?.Update !== true &&
+      loginUser.role !== 'SuperAdmin'
+    ) {
+      setdisabled(true);
+    }
+  }, [loginUser]);
+
+  const handleclose = () => {
+    setOpen(false);
+  };
+
+  const handlesubmit = async (reason: string, subscriberId: any) => {
+    // Handle rejection logic here
+    const payload:any = {
+      status: 'Rejected',
+      message: reason,
+      _id: id,
     };
+const payload2:any={}
     try {
-      await dispatch(updateSuport(payload));
-      await dispatch(getAllSuport(payload));
+      await dispatch(updateSuport(payload)); // Update status to 'Rejected' along with reason
+      await dispatch(getAllSuport(payload2));
+      setRejectionReason(''); // Reset rejection reason
+      setOpen(false); // Close the rejection modal
     } catch (err: any) {
       console.log(err);
     }
   };
-  const handleCloseModal = () => {
-    setIsModalOpen(false); // Function to close the modal
-  };
-  useEffect(() => {
-    if (
-      loginUser.permissions.Support?.Update != true &&
-      loginUser.role != 'SuperAdmin'
-    ) {
-      setdisabled(true);
-    }
-  }, []);
+
   return (
     <>
-      <div className="rounded-sm  xl:pb-1 overflow-auto min-h-[60vh]">
-        <table className="min-w-full table-auto">
-          <thead className="bg-[#F0F4FD] text-gray-700">
+      <RejectionModal
+        isOpen={open}
+        onClose={handleclose}
+        onSubmit={(reason: string) => handlesubmit(reason, Suportdetails?._id)} // Passing the rejection reason and subscriberId
+      />
+      <div className="rounded-sm xl:pb-1 overflow-auto min-h-[60vh]">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className=" text-gray-700 font-semibold text-base">
             <tr>
-              <th className="px-1 py-0.5">No#</th>
-              <th className="px-1 py-0.5">Date</th>
-              <th className="px-1 py-0.5">Name</th>
-              <th className="px-1 py-0.5">Email</th>
-
-              <th className="px-1 py-0.5">Subject</th>
-              <th className="px-1 py-0.5">Detail</th>
-              <th className="px-1 py-0.5">Status</th>
-              <th className="px-1 py-0.5">Manage</th>
+              <th className="p-1 text-[#949495] text-sm cursor-pointer">No#</th>
+              <th className="p-1 text-[#949495] text-sm cursor-pointer">Date</th>
+              <th className="p-1 text-[#949495] text-sm cursor-pointer">Name</th>
+              <th className="p-1 text-[#949495] text-sm cursor-pointer">Email</th>
+              <th className="p-1 text-[#949495] text-sm cursor-pointer">Subject</th>
+              <th className="p-1 text-[#949495] text-sm cursor-pointer">Detail</th>
+              <th className="p-1 text-[#949495] text-sm cursor-pointer">Status</th>
+              {/* <th className="p-1 text-[#949495] text-sm cursor-pointer">Manage</th> */}
             </tr>
           </thead>
-          <tbody>
+          <tbody className='bg-white divide-y divide-gray-200'>
             {suportdata && suportdata?.length > 0 ? (
               suportdata.map((subscriber: any, i: number) => (
                 <tr
-                  key={subscriber.id} // Use subscriber.id for unique key
-                  className={`border-b border-stroke dark:border-strokedark  text-[14px] font-medium ${
-                    subscriber.status === 'Resolved'
-                      ? 'text-[#949495]'
-                      : 'text-black'
+                  key={subscriber.id}
+                  className={` text-black border-b border-[#D9E821] text-center text-[15px] font-medium ${
+                    subscriber.status === 'Resolved' ? 'text-[#949495]' : 'text-black'
                   }`}
                 >
-                  <td className="px-1 py-0.5 text-center">
+                  <td className="p-1 border-b border-[#D9E821]">
                     {handleSnNo?.currentPage > 1
-                      ? (handleSnNo?.currentPage - 1) *
-                          handleSnNo?.itemsPerPage +
-                        i +
-                        1
+                      ? (handleSnNo?.currentPage - 1) * handleSnNo?.itemsPerPage + i + 1
                       : i + 1}
                   </td>
-                  <td className="px-1  py-0.5 text-center">
+                  <td className="p-1 border-b border-[#D9E821]">
                     {formatDateToDDMMMYYYY(subscriber.updatedAt)}
                   </td>
-                  <td className="px-1 py-0.5 text-center">
-                    {subscriber?.userdata?.Name}
-                  </td>
-                  <td className="px-1 py-0.5 text-center">
+                  <td className="p-1 border-b border-[#D9E821]">{subscriber?.userdata?.Name}</td>
+                  <td className="p-1 border-b border-[#D9E821]">
                     {subscriber.userdata?.emailAddress?.length > 15
                       ? `${subscriber.userdata?.emailAddress.slice(0, 15)}...`
                       : subscriber.userdata?.emailAddress}
                   </td>
-
-                  <td className="px-1 py-0.5 text-center">
+                  <td className="p-1 border-b border-[#D9E821]">
                     {subscriber.suport?.length > 15
                       ? `${subscriber.suport.slice(0, 15)}...`
                       : subscriber.suport}
                   </td>
-                  <td className="px-1 py-0.5 text-center">
+                  <td className="p-1 border-b border-[#D9E821]">
                     {subscriber.description?.length > 15
                       ? `${subscriber.description.slice(0, 15)}...`
                       : subscriber.description}
                   </td>
-                  <td className="px-1 py-0.5 text-center">
+                  <td className="p-1 border-b border-[#D9E821]">
                     <Select
-                      key={subscriber.status} // Force re-render when status changes
+                      key={subscriber.status}
                       isSearchable={false}
                       options={statusOptions}
-                      defaultValue={statusOptions.find(
-                        (option) => option.value === subscriber.status,
-                      )}
+                      defaultValue={statusOptions.find((option) => option.value === subscriber.status)}
                       onChange={(selectedOption) =>
                         handleStatusChange(selectedOption, subscriber._id)
                       }
                       styles={{
-                        control: (provided) => ({
+                        control: (provided, state) => ({
                           ...provided,
-                          width: '100%',
-                          minHeight: '38px',
-                          textOverflow: 'ellipsis',
-                          overflow: 'visible',
-                          whiteSpace: 'normal',
-                          backgroundColor:
-                            subscriber.status === 'Resolved'
-                              ? '#f5f5f5'
-                              : '#fff',
-                          color:
-                            subscriber.status === 'Resolved' ? 'gray' : '#000',
-                        }),
-                        menu: (provided) => ({
-                          ...provided,
-                          width: '100%',
-                          maxHeight: '300px',
-                          overflowY: 'auto',
-                        }),
-                        option: (provided) => ({
-                          ...provided,
-                          whiteSpace: 'normal',
-                          wordBreak: 'break-word',
-                          overflow: 'visible',
+                          border: '1px solid #D9E821', // Custom border color
+                          boxShadow: state.isFocused ? '0 0 0 1px #D9E821' : 'none', // Border color on focus
+                          '&:hover': {
+                            borderColor: '#D9E821', // Hover state border color
+                          },
                         }),
                       }}
                     />
                   </td>
-                  <td className="px-1 py-0.5 flex justify-center text-center">
+                  {/* <td className="p-1 border-b border-[#D9E821]">
                     <FaEye
                       className="text-[#02B754]"
                       style={{ fontSize: '24px', cursor: 'pointer' }}
-                      onClick={() => viewDetails(subscriber)} // Open modal on click
+                      onClick={() => viewDetails(subscriber)}
                     />
-                  </td>
+                  </td> */}
                 </tr>
               ))
             ) : (
@@ -188,15 +201,6 @@ const Suporttable = ({ handleSnNo }: SuportTableProps) => {
           </tbody>
         </table>
       </div>
-
-      {/* Render Modal when isModalOpen is true */}
-      {isModalOpen && (
-        <Modal
-          isOpen={isModalOpen}
-          onClose={handleCloseModal}
-          suportdetail={Suportdetails} // Pass selected notification data to the modal
-        />
-      )}
     </>
   );
 };

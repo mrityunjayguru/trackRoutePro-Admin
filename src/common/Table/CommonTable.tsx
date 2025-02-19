@@ -42,15 +42,29 @@ const CommonTable: React.FC<TableProps> = ({
     if (colKey === 'phonenumber') {
       return data?.phone
     } 
-    
+    if (colKey === 'topic') {
+      return data?.topic?.title
+    } 
+    if (colKey === 'User') {
+      console.log(data, "llllllllllllllllllllllllllll")
+      if (data.sendTo === "Selected") {
+        // Joining names from the result array into a single string
+        return data.result.slice(0, 5).map((val: any) => val.name).join(', ');
+      }
+      return ""; // Return empty string if sendTo is not "Selected"
+    }
     if (colKey === 'createdAt') {
       return formatDateToDDMMMYYYY(val);
     } 
    else if (colKey === 'createdDealerRecord') {
       return val?.uniqueCode || 'N/A';  
     }
+    else if (colKey === 'SimNo') {
+      return data?.userDevices?.deviceSimNumber || '-';  
+    }
+    
     else if (colKey === 'deviceType') {
-      return val?.deviceType || 'N/A';  
+      return val?.deviceType?val.deviceType:val || 'N/A';  
     }
     else  if(colKey=='Assignedon'){
       return  formatDateToDDMMMYYYY(data?.userDevices?.createdAt)
@@ -147,7 +161,7 @@ const CommonTable: React.FC<TableProps> = ({
              <tr
   key={index}
   className={`${
-    row.status === false 
+    row.status === false ||  row.status === "Inactive" ||  row.status === "InActive"
       ? 'bg-[#FFE2E2] text-black border-b border-[#D9E821] text-center text-[15px] font-medium'
       : 'text-black border-b border-[#D9E821] text-center text-[15px] font-medium'
   }`}

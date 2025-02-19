@@ -7,6 +7,8 @@ import { FaEye } from 'react-icons/fa';
 import Pagination from '../../../../common/Loader/Pagination'; // Assuming you have a Pagination component
 import { useNavigate } from 'react-router-dom';
 import SearchAndFilter from '../../../../common/SearchAndFilter';
+import CommonTable from '../../../../common/Table/CommonTable';
+import { DeviceTypeTableKey } from '../../../../Utility/CommonTableKey/DeviceTypeTableKey';
 const DeviceTypeTable = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -51,7 +53,7 @@ const DeviceTypeTable = () => {
     button: 'Add New',
     redirect: 'deviceType',
   };
-  const handleSingleType = (val: any) => {
+  const handleRowClick = (val: any) => {
     dispatch(singleDeviceType(val));
     navigate('/EditDeviceType');
   };
@@ -73,7 +75,9 @@ const DeviceTypeTable = () => {
         filter={filter}
       />
       <div className="overflow-y-auto rounded-sm xl:pb-1 my-5">
-        <table className="min-w-full divide-y divide-gray-200">
+
+
+        {/* <table className="min-w-full divide-y divide-gray-200">
           <thead className="bg-[#F0F4FD] text-gray-700 font-semibold text-base">
             <tr>
               <th scope="col" className="p-1 text-center">
@@ -132,7 +136,14 @@ const DeviceTypeTable = () => {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table> */}
+ <CommonTable
+          columns={DeviceTypeTableKey}
+          data={devicetypeDetails}
+          onRowClick={handleRowClick} // Optional: Add row click behavior
+          currentPage={currentPage}
+        />
+
         <Pagination
           totalCount={total}
           itemsPerPage={itemsPerPage}

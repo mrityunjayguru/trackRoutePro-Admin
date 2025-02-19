@@ -13,6 +13,11 @@ interface AuthRepo {
   adminRegister: (payload: Payload) => Promise<AxiosResponse>;
   allUsers: (payload: Payload) => Promise<AxiosResponse>;
   updatePassowrdWithOld: (payload: Payload) => Promise<AxiosResponse>;
+  sendOtp: (payload: Payload) => Promise<AxiosResponse>;
+  resetpassword: (payload: Payload) => Promise<AxiosResponse>;
+
+  
+
 
 }
 
@@ -39,5 +44,11 @@ export const AuthRepo: AuthRepo = {
   },
   updatePassowrdWithOld(payload: Payload) {
     return Repository.post(APIName.updatePassword, payload);
+  },
+  sendOtp(payload: Payload) {
+    return Repository.post(APIName.sendotp, payload);
+  },
+  resetpassword(payload: Payload) {
+    return Repository.post(APIName.resetpassword, payload);
   },
 };

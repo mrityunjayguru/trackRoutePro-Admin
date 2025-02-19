@@ -67,7 +67,7 @@ const TableOne: React.FC<TableOneProps> = ({ type, Subscriber }) => {
 
   return (
     <>
-      <div className="flex justify-between setredius gap-1 w-full p-4 bg-[#000]  text-xl font-semibold text-white">
+      {/* <div className="flex justify-between setredius gap-1 w-full p-4 bg-[#000]  text-xl font-semibold text-white">
         <div className="flex gap-1 ">
           <h1 className="text-[#D9E821]">Latest Subscribers</h1>
           <span>({type})</span>
@@ -75,8 +75,18 @@ const TableOne: React.FC<TableOneProps> = ({ type, Subscriber }) => {
         <div onClick={moveviewall} className="cursor-pointer">
           View All
         </div>
-      </div>
-
+      </div> */}
+ <div className="rounded-2xl flex justify-between gap-1 w-full px-4   font-semibold ">
+      <h1 className="text-[#000000] cursor-pointer sm:text-xs md:text-xl ">
+      Latest Subscribers   <span>({type})</span>
+      </h1>
+    <div className="flex gap-2">
+   <div onClick={moveviewall} className="text-sm text-[#000000]  sm:py-1 px-10 md:py-2 flex justify-center items-center cursor-pointer bg-[#D9E821]">
+    View All
+        </div>
+    </div>
+    </div>
+    <div className="border-b-2 border-[#D9E821]"></div>
       <div className="">
         <table className="min-w-full table-auto">
           <thead className="bg-[#F0F4FD] text-gray-700 tableradius">

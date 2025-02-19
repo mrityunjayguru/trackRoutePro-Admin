@@ -90,8 +90,6 @@ export const vehicleFields = (devicetypeDetails: any,DealerRecord:any=[]) => {
         { label: 'Humidity', value: 'humidity' },
         { label: 'bluetooth', value: 'bluetooth' },
     ],
-   
-      // value: ['AC', 'GPS','Relay'],
     },
     {
       label: 'Fuel Status *',

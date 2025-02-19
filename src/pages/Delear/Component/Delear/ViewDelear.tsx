@@ -39,10 +39,9 @@ const ViewDelear: React.FC = () => {
         <div className="">
           {userpassword?(
               <GlobalForm
-              fields={ViewDealerKey(SingleSubscriber,userpassword)}
+              fields={ViewDealerKey(SingleSubscriber, userpassword)}
               handleSubmit={handleSubmit}
-              buttontext="Edit Subscriber"
-            />
+              buttontext="Edit Subscriber" disabled={false}            />
           ):(null)}
         
         </div>

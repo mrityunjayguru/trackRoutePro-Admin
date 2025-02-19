@@ -70,6 +70,8 @@ const adminauthAPI = {
   register: 'auth/signup',
   LdapLogin: 'LDAPLOGIN',
   updateprofile: 'auth/updateUser',
+  sendotp: 'auth/send_otp',
+  resetpassword: 'auth/reset_password',
   alluser: 'auth/alluser',
   updatePassword:"/admin/reset_password"
 };

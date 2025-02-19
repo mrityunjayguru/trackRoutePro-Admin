@@ -64,6 +64,7 @@ const AddSubscribe: React.FC = () => {
 
     const payload = {
       ...formData,
+      isView:false,
       subscribeType: subscriberType,
       status: formData.status === 'Active' ? true : false,
     };

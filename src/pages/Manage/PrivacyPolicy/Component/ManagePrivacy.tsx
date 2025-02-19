@@ -99,7 +99,7 @@ useEffect(()=>{
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Description"
             required
-            className="w-full h-64 rounded-2xl bginput border-none bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+            className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none min-h-[200px]"
             rows={4}
           />
           {error && <p className="text-red-500">{error}</p>} {/* Show validation error */}

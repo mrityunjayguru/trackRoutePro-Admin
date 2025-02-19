@@ -8,6 +8,7 @@ import GlobalForm from '../../../../GlobalForm/GlobalForm';
 import { editDeviceKeys } from '../../../../Utility/FolmKeys/Devices/editDeviceKeys';
 import { getDeviceType } from '../../../../api/DeviceType';
 import DeviceHeader from './DeviceHeader';
+import ExpiryComponent from '../../../../common/ExpiryComponent';
 
 const EditDevices = () => {
   const navigate = useNavigate();
@@ -114,7 +115,8 @@ const EditDevices = () => {
         <GlobalForm fields={editDeviceKeys(singleUserDevice, formattedVehicleTypes,devicetypeDetails,DealerRecord)} handleSubmit={handleSubmit} buttontext="Submit" disabled={loder}/>
 
         {/* Subscription Expiry and Renewal */}
-        <div className="py-2 px-5 flex gap-24">
+        <ExpiryComponent singleDevices={singleUserDevice} />
+        {/* <div className="py-2 px-5 flex gap-24">
           <div>
             <p className="textred font-bold text-[12px]">Subscription Expire</p>
             <h1 className="text-[#000] font-bold text-[14px]">
@@ -124,7 +126,7 @@ const EditDevices = () => {
           <div onClick={reniewsubscribes} className="bg-[#000] text-[12px] font-bold cursor-pointer texty flex justify-center items-center py-1 px-5 rounded-2xl">
             Renew / Extend Subscription
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

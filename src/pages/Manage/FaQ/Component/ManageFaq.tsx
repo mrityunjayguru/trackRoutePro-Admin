@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { GetFaQPrioritys } from '../../../../api/FaQPriorityList';
 import Pagination from '../../../../common/Loader/Pagination';
 import Select from 'react-select';
+import CommonTable from '../../../../common/Table/CommonTable';
+import { TopicTableKeys } from '../../../../Utility/CommonTableKey/TopicTableKeys';
 
 const ManageFaq = () => {
   const navigate = useNavigate();
@@ -17,7 +19,7 @@ const ManageFaq = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [filter,setfilter]=useState("")
 
-  const viewDetails = (faq: any) => {
+  const handleRowClick = (faq: any) => {
     // if (loginUser.permissions.FAQ?.Update == true) {
     let payload: any = faq;
     dispatch(singleFaQLis(payload));
@@ -63,7 +65,7 @@ const ManageFaq = () => {
     const payload:any={
       offset:offset
     }
-    if(filter){
+    if(filter){   
       Object.assign(payload,{status:filter})
     }
     if(filter==""){
@@ -89,6 +91,7 @@ const ManageFaq = () => {
     { value: 'Active', label: 'Active' },
     { value: 'InActive', label: 'InActive' }
   ];
+  console.log(FaQList,"FaQListFaQList")
   return (
     <>
       <div className="searchitem grid grid-cols-3 gap-4 my-2 py-1 ">
@@ -143,78 +146,14 @@ const ManageFaq = () => {
       </div>
 
       <div className="rounded-sm  xl:pb-1">
-        <table className="w-full table-auto border-collapse">
-          <thead className="bg-[#F0F4FD] text-gray-700">
-            <tr className="font-semibold text-base text-center">
-              <th className="p-1  xsm:text-base">No#</th>
-              <th className="p-1  xsm:text-base">Title</th>
-              <th className="p-1  xsm:text-base">Topic</th>
-              <th className="p-1  xsm:text-base text-center">Priority</th>
-              <th className="p-1  xsm:text-base text-center">Status</th>
-              <th className="p-1  xsm:text-base text-center hidden sm:table-cell">
-                Manage
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {FaQList && FaQList?.result?.length > 0 ? (
-              FaQList?.result?.map((faq: any, i: number) => (
-                <tr
-                  key={faq._id}
-                  className={`text-center text-[14px] font-medium ${
-                    i % 2 === 0 ? 'dark:bg-meta-6' : ''
-                  } border-b border-[#EFEFEF] ${
-                    faq.status === 'InActive'
-                      ? 'text-[#949495]'
-                      : 'text-[#000000]'
-                  }`}
-                >
-                  {/* Table row content */}
+    
+      <CommonTable
+          columns={TopicTableKeys}
+          data={FaQList?.result}
+          onRowClick={handleRowClick} // Optional: Add row click behavior
+          currentPage={currentPage}
+        />
 
-                  {/* Table row content */}
-
-                  <td className="p-1  dark:text-white">    {currentPage > 1
-                      ? (currentPage - 1) * itemsPerPage + i + 1
-                      : i + 1}</td>
-                  <td className="p-1  dark:text-white">{faq.title}</td>
-                  <td className="p-1  dark:text-white">{faq.topic.title}</td>
-                  <td className="p-1  dark:text-white text-center">
-                    {faq.priority}
-                  </td>
-                  <td className="p-1 text-center">
-                    <span
-                      className={`text-${
-                        faq.status === 'Active' ? 'green' : 'red'
-                      }-500`}
-                    >
-                      {faq.status}
-                    </span>
-                  </td>
-                  <td className="p-1 text-center hidden sm:table-cell mcenter">
-                    <FaEye
-                      style={{
-                        fontSize: '24px',
-                        cursor: 'pointer',
-                        color: '#02B754',
-                      }}
-                      onClick={() => viewDetails(faq)}
-                    />
-                  </td>
-                </tr>
-                
-              ))
-            ) : (
-              <tr>
-                <td
-                  colSpan={6}
-                  className="p-1 text-center text-black dark:text-white"
-                >
-                  No FAQs available
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
         <Pagination
         totalCount={totalCount}
         itemsPerPage={itemsPerPage}

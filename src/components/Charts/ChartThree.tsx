@@ -76,6 +76,7 @@ const [series, setSeries] = useState<number[]>([]);
       }
     });
   }, [datadashboard]);
+  console.log(Inactivecount,"InactivecountInactivecount")
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 rounded-sm border border-stroke bg-[#F0F4FD] p-5 shadow-default dark:border-strokedark dark:bg-boxdark">
       <div className="flex flex-col justify-between">

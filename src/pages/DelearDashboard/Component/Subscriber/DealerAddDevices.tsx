@@ -69,6 +69,8 @@ const DealerAddDevices = () => {
       status: val.deviceStatus,
       fule: val.fuelStatus == 'of' ? false : true,
       ownerID: data2?._id,
+      isAppCreated: true,
+
     };
 
     let responce=await dispatch(addDevice(payload));

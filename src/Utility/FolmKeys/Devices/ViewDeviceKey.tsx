@@ -15,7 +15,6 @@ export const ViewDeviceKeys = (
 
   // Ensure the displayParameters exists and is populated before processing
   const displayParams = SingleDevice?.displayParameters || {};
-console.log(SingleDevice,"SingleDeviceSingleDeviceSingleDevice")
   // Get the keys with true values
   const trueKeys = getKeysWithTrueValues(displayParams);
 
@@ -29,7 +28,7 @@ console.log(SingleDevice,"SingleDeviceSingleDeviceSingleDevice")
     value: dealer._id,
   }));
   const formData = useSelector((state: any) => state?.subscriber?.formData);
-  console.log(formData,"formDataformData")
+  console.log(SingleDevice,"formDataformData")
   let fields: any = [
     {
       label: 'Device Type *',
@@ -135,11 +134,11 @@ console.log(SingleDevice,"SingleDeviceSingleDeviceSingleDevice")
         { label: 'On', value: 'On' },
       ],
       value: SingleDevice?.fuelStatus ? SingleDevice?.fuelStatus : 'Off',
-      disabled: false,
+      disabled: true,
     },
  
   ];
-if(formData.fuelStatus=="On"){
+if(SingleDevice.fuelStatus=="On"){
 fields.push(   {
   label: 'Output *',
   name: 'fuleOutput',
@@ -147,10 +146,10 @@ fields.push(   {
   placeholder: 'Select Fuel System',
   options: ['Anolage/Voltage', 'Anolage/Ble', 'Anolage/Device'],
   value: SingleDevice?.fuleOutput,
-  disabled: false,
+  disabled: true,
 },)
 }
-  if (formData.fuleOutput === "Anolage/Voltage" && formData.fuelStatus=="On") {
+  if (SingleDevice.fuleOutput === "Anolage/Voltage" && SingleDevice.fuelStatus=="On") {
     fields.push(
       {
         label: "Tank Capacity",
@@ -159,6 +158,8 @@ fields.push(   {
         placeholder: "Enter Fuel Tank Capacity",
         required: true,
         value: SingleDevice?.tankCapacity,
+  disabled: true,
+
 
       },
       {
@@ -168,6 +169,8 @@ fields.push(   {
         placeholder: "Enter Value",
         required: true,
         value: SingleDevice?.minimumValue,
+  disabled: true,
+
 
       },
       {
@@ -177,15 +180,17 @@ fields.push(   {
         placeholder: "Enter Value",
         required: true,
         value: SingleDevice?.fillDifference,
+        disabled: true,
 
       },
       {
         label: "Data Filtration Level",
         name: "dataFiltrationLevel",
         type: "text",
-        placeholder: "10",
+        placeholder: "Data Filtration Level",
         required: true,
         value: SingleDevice?.dataFiltrationLevel,
+        disabled: true,
 
       },
       {
@@ -194,7 +199,8 @@ fields.push(   {
         type: "text",
         placeholder: "Enter Value",
         required: true,
-        value: SingleDevice?.tankCapacity || "sdsdsd",
+        value: SingleDevice?.maximumValue || "",
+        disabled: true,
 
       },
       {
@@ -204,12 +210,13 @@ fields.push(   {
         placeholder: "Enter Value",
         required: true,
         value: SingleDevice?.drainDifference,
+        disabled: true,
 
       }
     );
   }
 
-  if (formData.fuleOutput === "Anolage/Ble" && formData.fuelStatus=="On") {
+  if (SingleDevice.fuleOutput === "Anolage/Ble" && SingleDevice.fuelStatus=="On") {
     fields.push(
       {
         label: "Tank Capacity",
@@ -218,6 +225,7 @@ fields.push(   {
         placeholder: "Enter Fuel Tank Capacity",
         required: true,
         value: SingleDevice?.tankCapacity,
+        disabled: true,
 
       },
       {
@@ -227,6 +235,7 @@ fields.push(   {
         placeholder: "Enter Value",
         required: true,
         value: SingleDevice?.fillDifference,
+        disabled: true,
 
       },
       {
@@ -236,6 +245,7 @@ fields.push(   {
         placeholder: "10",
         required: true,
         value: SingleDevice?.dataFiltrationLevel,
+        disabled: true,
 
       },
       {
@@ -245,6 +255,7 @@ fields.push(   {
         placeholder: "Enter Value",
         required: true,
         value: SingleDevice?.drainDifference,
+        disabled: true,
 
       }
     );

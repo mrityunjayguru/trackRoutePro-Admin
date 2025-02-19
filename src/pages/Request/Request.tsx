@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import HeaderCommon from './Component/HeaderCommon';
+// import HeaderCommon from './Component/HeaderCommon';
 import CommonTable from '../../common/Table/CommonTable';
 import { useDispatch, useSelector } from 'react-redux';
 import Pagination from '../../common/Loader/Pagination';
-import { getDelearSuports, Getsubscribers, singleSubscribers } from '../../api/users';
+import { getDelearSuports, singleSubscribers } from '../../api/users';
 import { AppDispatch } from '../../store/store';
 import { RequestTableColumn } from './Component/RequestTableKeys';
 import { useNavigate } from 'react-router-dom';
@@ -37,12 +37,11 @@ function Request() {
   }, [currentPage]);
   return (
     <div>
-      <HeaderCommon />
       <div className="mt-5">
         <CommonTable
           columns={RequestTableColumn}
           data={subscriber}
-          onRowClick={handleRowClick} // Optional: Add row click behavior
+          onRowClick={handleRowClick} 
           currentPage={currentPage}
         />
       </div>

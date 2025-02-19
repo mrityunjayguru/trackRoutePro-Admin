@@ -27,8 +27,8 @@ const ExpiryComponent: React.FC<ExpiryComponentProps> = ({ singleDevices }) => {
   };
 
   return (
-    <div className="flex gap-24 mt-5">
-      <div className="bg-gray-2 px-2 py-2 rounded-2xl">
+    <div className="flex gap-24 mt-5 bg-[#F0F4FA]">
+      <div className="px-5 py-2 rounded-2xl">
         <p className="text-red-500 font-bold text-[12px]">
           Subscription Expire
         </p>
@@ -38,11 +38,11 @@ const ExpiryComponent: React.FC<ExpiryComponentProps> = ({ singleDevices }) => {
             : '-'}
         </h1>
       </div>
-      <div
+      <button
         onClick={reniewsubscribes}
-        className="bg-[#000] text-[12px] font-bold cursor-pointer text-white flex justify-center items-center  px-5 rounded-2xl">
+        className="w-[250px] bg-[#000000]  text-[#D9E821] py-1 my-3 rounded-lg font-medium transition ">
         Renew / Extend Subscription
-      </div>
+      </button>
     </div>
   );
 };

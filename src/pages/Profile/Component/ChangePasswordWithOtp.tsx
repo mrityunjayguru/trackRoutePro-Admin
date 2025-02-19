@@ -42,7 +42,8 @@ function ChangePasswordWithOtp() {
     const payload :any= {
       password:oldPassword,
       newpassword:newPassword,
-      emailAddress:loginUser.emailAddress
+      emailAddress:loginUser.emailAddress,
+      _id:loginUser._id
     };
 
     // Dispatch action to reset password
@@ -54,7 +55,8 @@ function ChangePasswordWithOtp() {
 
   return (
     <>
-      <div>
+  <div className="grid grid-cols-3 gap-5 bg-white p-8 rounded-lg shadow-lg">
+  <div>
         <label className="block text-sm font-medium text-gray-600">Enter Old Password</label>
         <input
           type="password"
@@ -90,11 +92,12 @@ function ChangePasswordWithOtp() {
       <div className="mt-auto">
         <button
           onClick={handleClick}
-          className="px-14 py-2 my-1 text-[#D9E821] bg-[#000000] font-medium text-[14px]"
+          className="w-[200px] bg-[#000000] mt-2 text-[#D9E821] py-2 rounded-lg font-medium transition "
         >
           Reset
         </button>
       </div>
+  </div>
     </>
   );
 }

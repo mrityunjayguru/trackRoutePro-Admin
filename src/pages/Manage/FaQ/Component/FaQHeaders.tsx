@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Breadcrumb from "../../../../common/Breadcrumb";
+import CommonHeader from "../../../../common/CommonHeader";
 
 function FaQHeaders() {
     const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
@@ -10,18 +11,17 @@ function FaQHeaders() {
         navigate('/manage/Add-List');
         // }
       };
+      const propsData={
+        title:"FAQs List",
+        redirect:"manage/Add-List",
+        button:"Add New +"
+
+      }
   return (
   <>
     <div className=''><Breadcrumb/></div>
+    <CommonHeader  propsData={propsData} />
 
-<div className="flex justify-between gap-1 w-full p-4 mt-5 bg-[#000] setredius text-xl font-semibold text-white">
-    <div className="flex gap-1">
-      <h1 className="text-[#D9E821]">FAQs List</h1>
-    </div>
-    <div onClick={AddList} className="cursor-pointer">
-      Add New +
-    </div>
-  </div>
   </>
   )
 }

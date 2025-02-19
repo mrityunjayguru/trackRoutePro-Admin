@@ -9,6 +9,7 @@ import GlobalForm from '../../../../GlobalForm/GlobalForm';
 import { getDeviceType } from '../../../../api/DeviceType';
 import DeviceHeader from './DeviceHeader';
 import ListOfDevices from './ListOfDevices';
+import ExpiryComponent from '../../../../common/ExpiryComponent';
 interface VehicleType {
   _id: string;
   icons: string;
@@ -25,9 +26,9 @@ const VeiwDevices = () => {
   const singleDevices = useSelector(
     (state: any) => state.subscriber.singleDevice,
   );
-
   const allDevices = useSelector((state: any) => state.subscriber.userDevices);
 
+ 
   const [owner, setOwner] = useState<{ uniqueID?: string; _id?: string }>({});
   const DealerRecord = useSelector((state: any) => state?.subscriber?.DelearCode);
 
@@ -60,15 +61,7 @@ const VeiwDevices = () => {
   };
   // Handler for the change event
   
-  const getDates = (mydate: any): string => {
-    const date = new Date(mydate);
-    const options: Intl.DateTimeFormatOptions = {
-      day: '2-digit',
-      month: 'short',
-      year: 'numeric',
-    };
-    return date.toLocaleDateString('en-GB', options); // Formats to "11 Jan 2024"
-  };
+
 
   const formattedVehicleTypes = VehiclwType?.map((vehicle: any) => ({
     label: vehicle.vehicleTypeName, // Use the name of the vehicle type as label
@@ -78,7 +71,7 @@ const VeiwDevices = () => {
   const getDeviceTypes = async () => {
     try {
       const payload: any = {};
-      const response: any = await dispatch(getDeviceType(payload));
+   await dispatch(getDeviceType(payload));
     } catch (err) {
       console.error(err);
     }
@@ -91,7 +84,7 @@ const VeiwDevices = () => {
     ...data2,
     ...singleDevices,
   };
-  console.log(singleDevices,"singleDevicessingleDevices")
+ 
   return (
     <>
       <div className="w-full">
@@ -102,30 +95,16 @@ const VeiwDevices = () => {
               singleDevices,
               formattedVehicleTypes,
               devicetypeDetails,
-              DealerRecord,
+              DealerRecord
             )}
             handleSubmit={handleSubmit}
-            buttontext="Edit Device"
-          />
+            buttontext="Edit Device" disabled={false}          />
 
-          <div className="py-2 px-5 flex gap-24">
-            <div>
-              <p className="textred font-bold text-[12px]">
-                Subscription Expire
-              </p>
-              <h1 className="text-[#000] font-bold text-[14px]">
-                {singleDevices?.subscriptionexp
-                  ? getDates(singleDevices.subscriptionexp)
-                  : '-'}
-              </h1>{' '}
-            </div>
-            <div
-              onClick={reniewsubscribes}
-              className="bg-[#000] text-[12px] font-bold cursor-pointer texty flex justify-center items-center py-1 px-5 rounded-2xl"
-            >
-              Renew / Extend Subscription
-            </div>
-          </div>
+
+<ExpiryComponent singleDevices={singleDevices} />
+
+
+         
           <div className="mt-20">
             {/* <OtherDetails /> */}
             <ListOfDevices />

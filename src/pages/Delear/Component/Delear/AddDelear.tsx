@@ -115,7 +115,8 @@ const AddDelear: React.FC = () => {
   return (
     <>
       <div className="my-3">
-        <div className="mt-3 border-b-2 border-[#D9E821]"></div>
+        <p className='text-[#000000]  text-xl   '>Add Delear</p>
+        <div className=" border-b-2 border-[#D9E821]"></div>
       </div>
 
       <div className="w-full">
