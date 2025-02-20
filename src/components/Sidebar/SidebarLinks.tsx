@@ -109,14 +109,14 @@ export const useSidebarRoutes = () => {
           condition: (pathname: string) =>
             pathname.includes('account-management'),
         },
-        // {
-        //   path: '/support/Renew',
-        //   label: 'User renew',
-        //   icon: '',
-        //   isView: loginUser.role == 'SuperAdmin', // Added the isView property
-        //   condition: (pathname: string) =>
-        //     pathname.includes('account-management'),
-        // },
+        {
+          path: '/support/Renew',
+          label: 'User renew',
+          icon: '',
+          isView: loginUser.role == 'SuperAdmin', // Added the isView property
+          condition: (pathname: string) =>
+            pathname.includes('account-management'),
+        },
       ],
       isView:
         loginUser.role == 'SuperAdmin' || loginUser?.permissions?.Support?.View

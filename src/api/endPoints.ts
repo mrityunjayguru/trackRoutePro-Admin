@@ -39,6 +39,8 @@ const device = {
   updateMany:'vehicle/updateMany',
   devicesByOwnerID:'vehicle/devicesByOwnerID',
   dealearRecord:'subscribers/getUserUserCode',
+  getRenewRequest:'vehicle/getRenewRequest',
+
 };
 const privacyPolicy = {
   createprivacyPolicy: 'privacyPolicy/create',
@@ -123,8 +125,14 @@ const deviceDetails={
   updateDeviceDetail:"Imei/update",
   createDeviceDetail:"Imei/create",
   getDeviceDetail:"Imei/get",
-
-
+}
+const downloadDetailsExcel={
+  downloadAdmin:"download/downloadAmin",
+  downloadDelear:"download/downloadDelear",
+  dowonloadUser:"download/downloadUser",
+ downloadDevices:"download/downloadDevices",
+ deviceTypes:"download/downloaddeviceTypes",
+ downloadInventry:"download/downloadInventry",
 }
 const APIName = {
   ...BillboardAPI,
@@ -147,7 +155,8 @@ const APIName = {
   ...suport,
   ...deviceType,
   ...deviceDetails,
-  ...TermAndCondition
+  ...TermAndCondition,
+  ...downloadDetailsExcel
 };
 
 export default APIName;

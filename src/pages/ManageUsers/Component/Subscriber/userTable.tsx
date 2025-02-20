@@ -49,7 +49,7 @@ const UserTable: React.FC = () => {
     setfilter(filterType);
   }, [filterType]);
 
-  const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
+ useSelector((state: any) => state.Auth?.loginUserData);
 
   useEffect(() => {
     if (data) {

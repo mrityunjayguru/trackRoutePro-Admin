@@ -13,7 +13,8 @@ interface UserDataState {
   globalFormData:any,
   formData:any,
   singleDelearUser:any,
-  DelearCode:any
+  DelearCode:any,
+  reneqrequest:any
 }
 
 // Initial state for the slice
@@ -29,7 +30,8 @@ const initialState: UserDataState = {
   globalFormData:[],
   formData:{},
   singleDelearUser:null,
-  DelearCode:[]
+  DelearCode:[],
+  reneqrequest:null
 };
 
 // Create the user data slice
@@ -91,6 +93,10 @@ export const subscriberSlice = createSlice({
         state.DelearCode=action.payload
         // state.globalFormData=[]
       },
+      renewRequest: (state, action: PayloadAction<any>) => {
+        state.reneqrequest=action.payload
+        // state.globalFormData=[]
+      },
     clearUserData: (state) => {
       state.AllSubscriber = null; // Clear login user data
       state.userTableData = null; // Clear user table data
@@ -101,7 +107,7 @@ export const subscriberSlice = createSlice({
 });
 
 // Export actions
-export const {singleDelearSubscriber,handleFormData,setBlank,setFormData,dealearCode,setAllSubscriber,singleSubscriber, clearUserData,singleDevices,groupSubscriber,userDevices,ExPDevices,setSearchType,updateDevice } = subscriberSlice.actions;
+export const {singleDelearSubscriber,handleFormData,setBlank,setFormData,dealearCode,setAllSubscriber,singleSubscriber, clearUserData,singleDevices,groupSubscriber,userDevices,ExPDevices,setSearchType,updateDevice,renewRequest } = subscriberSlice.actions;
 
 // Export reducer
 export default subscriberSlice.reducer;

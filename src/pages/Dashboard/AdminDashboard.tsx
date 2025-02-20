@@ -8,6 +8,7 @@ import { GetDashboard } from '../../api/dashboard';
 import { AppDispatch } from '../../store/store';
 import Table from '../../components/Tables/Table';
 import Loader from '../../layout/Loader';
+import DownloadData from './DownloadData';
 const ECommerce: React.FC = () => {
   const [subscriberndividual, setSubscriberndividual] = useState([]);
   const [subscriberndCompany, setSubscriberndCompany] = useState([]);
@@ -193,6 +194,9 @@ const [toggle,settoggle]=useState(false)
    </div>
       ) : (null)}
      
+     <div className="my-10">
+     <DownloadData/>
+     </div>
     </>
   );
 };

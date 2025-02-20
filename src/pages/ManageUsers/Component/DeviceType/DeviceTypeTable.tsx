@@ -9,17 +9,18 @@ import { useNavigate } from 'react-router-dom';
 import SearchAndFilter from '../../../../common/SearchAndFilter';
 import CommonTable from '../../../../common/Table/CommonTable';
 import { DeviceTypeTableKey } from '../../../../Utility/CommonTableKey/DeviceTypeTableKey';
+import { deviceTypes, dowonloadUser } from '../../../../api/DownloadDetail';
 const DeviceTypeTable = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const [searchQuery, setSearchQuery] = useState("");
-  const [filter, setFilter] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filter, setFilter] = useState('');
 
   // Define status options
   const statusOptions = [
-    { value: "", label: "All" },
-    { value: "Active", label: "Active" },
-    { value: "InActive", label: "InActive" }
+    { value: '', label: 'All' },
+    { value: 'Active', label: 'Active' },
+    { value: 'InActive', label: 'InActive' },
   ];
   const devicetypeDetails = useSelector(
     (state: any) => state?.DeviceTye.deviceType,
@@ -34,8 +35,8 @@ const DeviceTypeTable = () => {
       const payload: any = {
         offset: (currentPage - 1) * itemsPerPage,
       };
-      Object.assign(payload,{search:searchQuery})
-      Object.assign(payload,{status:filter})
+      Object.assign(payload, { search: searchQuery });
+      Object.assign(payload, { status: filter });
 
       const response: any = await dispatch(getDeviceType(payload));
       setTotal(response?.totalCount); // Set the total count for pagination
@@ -46,12 +47,13 @@ const DeviceTypeTable = () => {
 
   useEffect(() => {
     getDeviceTypes();
-  }, [currentPage,searchQuery,filter]);
+  }, [currentPage, searchQuery, filter]);
 
   const propsData = {
     title: 'List Of All Device Type',
     button: 'Add New',
     redirect: 'deviceType',
+    button3: "Download deviceType's",
   };
   const handleRowClick = (val: any) => {
     dispatch(singleDeviceType(val));
@@ -65,9 +67,31 @@ const DeviceTypeTable = () => {
   const handleStatusChange = (selectedOption: any) => {
     setFilter(selectedOption.value); // Update the selected filter
   };
+  const handledownload = async () => {
+    try {
+      const payload: any = {};
+      let response = await dispatch(deviceTypes(payload));
+      // Ensure we have a valid file URL
+      if (response.payload?.data?.data) {
+        const fileUrl = `${import.meta.env.VITE_APP_Image_Url}${
+          response.payload.data.data
+        }`; // Construct full URL
+        const a = document.createElement('a');
+        a.href = fileUrl;
+        a.download = response.payload.data.data.split('/').pop(); // Extract file name from URL
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } else {
+        console.error('Download failed: No file URL received');
+      }
+    } catch (error) {
+      console.error('Error while downloading:', error);
+    }
+  };
   return (
     <>
-      <CommonHeader propsData={propsData} />
+      <CommonHeader propsData={propsData} handledownload={handledownload} />
       <SearchAndFilter
         statusOptions={statusOptions} // Pass the options here
         onSearchChange={handleSearchChange}
@@ -75,69 +99,7 @@ const DeviceTypeTable = () => {
         filter={filter}
       />
       <div className="overflow-y-auto rounded-sm xl:pb-1 my-5">
-
-
-        {/* <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-[#F0F4FD] text-gray-700 font-semibold text-base">
-            <tr>
-              <th scope="col" className="p-1 text-center">
-                No#
-              </th>
-              <th scope="col" className="p-1 text-center">
-                Device Type
-              </th>
-              <th scope="col" className="p-1 text-center">
-                Status
-              </th>
-              <th scope="col" className="p-1 text-center">
-                Created At
-              </th>
-              <th scope="col" className="p-1 text-center">
-                Manage
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {devicetypeDetails?.map((deviceType: any, key: number) => (
-              <tr
-                key={key}
-                className={` border-[#EFEFEF] text-center text-[15px] font-medium dark:border-strokedark${
-                  deviceType.status=='InActive' ? 'text-[#949495]' : 'text-[#000000]'
-                }`}
-              >
-                <td className="p-1 border-b border-[#EFEFEF] dark:border-strokedark">
-                  {(currentPage - 1) * itemsPerPage + key + 1}
-                </td>
-                <td className="p-1 border-b border-[#EFEFEF] dark:border-strokedark">
-                  <p className="text-black dark:text-white">
-                    {deviceType.deviceType}
-                  </p>
-                </td>
-                <td className="p-1 border-b border-[#EFEFEF] dark:border-strokedark">
-                <p className={` dark:text-white ${deviceType.status === 'InActive' ? 'text-red-500' : 'text-black'}`}>
-                    {deviceType.status || 'none'}
-                  </p>
-                </td>
-                <td className="p-1 text-center border-b border-[#EFEFEF] dark:border-strokedark">
-                  {new Date(deviceType.createdAt).toLocaleDateString('en-GB', {
-                    day: '2-digit',
-                    month: 'short',
-                    year: 'numeric',
-                  })}
-                </td>
-                <td className="p-1 text-center hidden sm:table-cell border-b border-[#EFEFEF] dark:border-strokedark">
-                  <p
-                    className="text-[#02B754] cursor-pointer flex justify-center items-center"
-                    onClick={() => handleSingleType(deviceType)}
-                  >
-                    <FaEye style={{ fontSize: '24px' }} />
-                  </p>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
- <CommonTable
+        <CommonTable
           columns={DeviceTypeTableKey}
           data={devicetypeDetails}
           onRowClick={handleRowClick} // Optional: Add row click behavior
