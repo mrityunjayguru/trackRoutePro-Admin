@@ -60,6 +60,7 @@ import HeaderCommon from './pages/Request/Component/HeaderCommon';
 import ViewDelearRequestDevices from './pages/Request/Component/Devices/ViewDelearRequestDevices';
 import EditDelearRequestDevices from './pages/Request/Component/Devices/EditDelearRequestDevices';
 import Renew from './pages/Request/Component/Renew/Renew';
+import ManageRenew from './pages/Request/Component/Renew/ManageRenew';
 export const routes = [
   { path: '/auth/signin', title: 'TRP Signin', component: <SignIn /> },
   { path: '/', title: 'TRP ashboard', component: <ECommerce /> },
@@ -81,6 +82,8 @@ export const routes = [
   { path: '/support/dealers/view-Device', title: 'TRP Manage Dealer Request', component: <ViewDelearRequestDevices /> },
   { path: '/support/dealers/Edit-Devices', title: 'TRP Manage Dealer Request', component: <EditDelearRequestDevices /> },
   { path: '/support/Renew', title: 'TRP Manage User Request', component: <Renew /> },
+  { path: '/support/Renew/manage', title: 'TRP Manage User Request', component: <ManageRenew /> },
+
 
 
 

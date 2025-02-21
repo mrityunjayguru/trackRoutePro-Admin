@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setAllSubscriber,dealearCode,singleSubscriber,singleDevices,ExPDevices,userDevices,setFormData,setBlank ,handleFormData} from "../../store/subscriber";
+import { setAllSubscriber,dealearCode,singleSubscriber,singleDevices,ExPDevices,userDevices,setFormData,setBlank ,handleFormData,renewRequest} from "../../store/subscriber";
 import APIName from "../endPoints";
 import { userRepo } from "./deviceRepo";
 import Swal from "sweetalert2";
@@ -307,6 +307,22 @@ export const storeFormData = createAsyncThunk<boolean, Payload>(
         thunkAPI.dispatch(handleFormData(payload));
         return true;
 
+    } catch (err:any) {
+      console.error(err);
+    }
+    return false;
+  }
+);
+
+export const getRenewRequest = createAsyncThunk<any, Payload>(
+  APIName.subscribers,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await userRepo.getRenewRequest(payload);
+      if (data.status === 200) {
+        thunkAPI.dispatch(renewRequest(data.data.data));
+        return data;
+      }
     } catch (err:any) {
       console.error(err);
     }

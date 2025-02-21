@@ -7,6 +7,7 @@ import { AppDispatch } from '../../../../store/store';
 import Select from 'react-select';
 import { Getsubscribers } from '../../../../api/users';
 import CommonHeader from '../../../../common/CommonHeader';
+import { downloadDevices, dowonloadUser } from '../../../../api/DownloadDetail';
 
 interface Device {
   _id: string;
@@ -45,7 +46,7 @@ const ListOfDevices: React.FC = () => {
 
   // Filter devices by search query or status
   useEffect(() => {
-    const filtered = devices.filter((device:any) => {
+    const filtered = devices.filter((device: any) => {
       // Safely check for device properties before calling toLowerCase()
       const matchesSearch =
         (device.deviceId?.toLowerCase() || '').includes(
@@ -106,19 +107,45 @@ const ListOfDevices: React.FC = () => {
   }, []);
   const propsData = {
     title: 'List of All Devices',
+    button3: "Download Device's",
   };
   if (
     loginUser.permissions?.Device?.Add === true ||
     loginUser.role === 'SuperAdmin'
   ) {
-    Object.assign(propsData, { redirect: 'account-management/manage-subscriber/add-device' });
+    Object.assign(propsData, {
+      redirect: 'account-management/manage-subscriber/add-device',
+    });
     Object.assign(propsData, { button: 'Add New +' });
 
-    console.log(deviceRecords,"deviceRecordsdeviceRecords")
   }
+
+ const handledownload = async () => {
+    try {
+      const payload: any = {
+        ownerID:data._id
+      };
+      let response = await dispatch(downloadDevices(payload));
+      // Ensure we have a valid file URL
+      if (response.payload?.data?.data) {
+        const fileUrl = `${import.meta.env.VITE_APP_Image_Url}${response.payload.data.data}`; // Construct full URL
+        const a = document.createElement("a");
+        a.href = fileUrl;
+        a.download = response.payload.data.data.split("/").pop(); // Extract file name from URL
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } else {
+        console.error("Download failed: No file URL received");
+      }
+    } catch (error) {
+      console.error("Error while downloading:", error);
+    }
+  };
+
   return (
     <>
-      <CommonHeader propsData={propsData} />
+      <CommonHeader propsData={propsData} handledownload={handledownload} />
 
       {/* Search and Filter Section */}
       {(loginUser.permissions?.Device?.View === true ||
@@ -195,7 +222,7 @@ const ListOfDevices: React.FC = () => {
 
                 {/* Table Body */}
                 <tbody>
-                  {deviceRecords.map((device:any, i) => (
+                  {deviceRecords.map((device: any, i) => (
                     <tr
                       key={device._id}
                       className="border-b border-stroke dark:border-strokedark text-black text-[15px] font-medium"

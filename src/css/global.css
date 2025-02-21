@@ -7,6 +7,9 @@
     border: 2px solid #EDEDED;
     transition: all 0.3s ease;  /* Smooth transition for all properties */
 }
+
+
+
 .globalform input[type="radio"] {
     appearance: none;
     width: 25px;

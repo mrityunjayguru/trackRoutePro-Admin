@@ -15,8 +15,7 @@ interface UserRepo {
   expDevices:(payload: Payload) => Promise<AxiosResponse>;
   updateMany:(payload: Payload) => Promise<AxiosResponse>;
   deviceOwnerID:(payload: Payload) => Promise<AxiosResponse>;
-
-
+  getRenewRequest:(payload: Payload) => Promise<AxiosResponse>;
 }
 
 export const userRepo: UserRepo = {
@@ -40,5 +39,8 @@ export const userRepo: UserRepo = {
   },
   getDealearRecord(payload) {
     return Repository.post(APIName.dealearRecord, payload);
+  },
+  getRenewRequest(payload) {
+    return Repository.post(APIName.getRenewRequest, payload);
   },
 };

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { FaEye } from 'react-icons/fa';
 import { formatDateToDDMMMYYYY } from '../ManageDate';
 import { ManageNestedKey } from './DynamicKey';
+import CountdownTimer from '../CountdownTimer';
 
 interface Column {
   key: string; // Key used in data
@@ -46,7 +47,6 @@ const CommonTable: React.FC<TableProps> = ({
       return data?.topic?.title
     } 
     if (colKey === 'User') {
-      console.log(data, "llllllllllllllllllllllllllll")
       if (data.sendTo === "Selected") {
         // Joining names from the result array into a single string
         return data.result.slice(0, 5).map((val: any) => val.name).join(', ');
@@ -68,6 +68,15 @@ const CommonTable: React.FC<TableProps> = ({
     }
     else  if(colKey=='Assignedon'){
       return  formatDateToDDMMMYYYY(data?.userDevices?.createdAt)
+    }
+    else  if(colKey=='vehiclenos'){
+      return  data?.deviceDetail?.vehicleNo
+    }
+    
+    else if (colKey === "timeRemaning") {
+     return (
+      <CountdownTimer createdAt={data?.createdAt} />
+     )
     }
     else if(colKey==='owneriddetail'){
       return data?.userDevices?.owneriddetail?.uniqueCode || "-"
