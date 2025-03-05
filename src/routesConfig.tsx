@@ -61,6 +61,9 @@ import ViewDelearRequestDevices from './pages/Request/Component/Devices/ViewDele
 import EditDelearRequestDevices from './pages/Request/Component/Devices/EditDelearRequestDevices';
 import Renew from './pages/Request/Component/Renew/Renew';
 import ManageRenew from './pages/Request/Component/Renew/ManageRenew';
+import Root from './pages/Manage/RootHistory/Root';
+import Reports from './pages/Reports/Reports';
+import ReportRecord from './pages/Reports/component/ReportRecord';
 export const routes = [
   { path: '/auth/signin', title: 'TRP Signin', component: <SignIn /> },
   { path: '/', title: 'TRP ashboard', component: <ECommerce /> },
@@ -275,6 +278,11 @@ export const routes = [
     component: <EdiTopicsList />,
   },
   {
+    path: '/device-management/Root-History',
+    title: 'TRP Edit Topic List',
+    component: <Root />,
+  },
+  {
     path: '/admin-roles/edit-admin-roles',
     title: 'TRP Edit Admin Roles',
     component: <EditAdmin />,
@@ -330,4 +338,15 @@ export const routes = [
     component: <Existignuser />,
   },
   
+// Manage Reports
+{
+  path: '/Reports',
+  title: 'Reports',
+  component: <Reports />,
+},
+{
+  path: '/Reports/records',
+  title: 'Reports',
+  component: <ReportRecord />,
+},
 ];
