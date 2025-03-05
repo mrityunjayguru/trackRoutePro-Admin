@@ -18,6 +18,8 @@ import notification from "./Notification/index"
 import suport from "./suport/index"
 import DeviceTye from "./deviceType/index"
 import deviceDetail from "./DeviceDetail/index"
+import userReport from "./Reports/index"
+
 const appReducer = combineReducers({
   userData: userDataSlice,
   Auth: authDataSlice,
@@ -36,7 +38,8 @@ const appReducer = combineReducers({
   notification:notification,
   suport:suport,
   DeviceTye:DeviceTye,
-  deviceDetail:deviceDetail
+  deviceDetail:deviceDetail,
+  userReport:userReport
 });
 
 // Create a root reducer with reset functionality

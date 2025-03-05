@@ -439,3 +439,18 @@ border-bottom-right-radius: 20px;
     opacity: 0;
   }
 }
+
+/* Thin and minimal scrollbar */
+.scroll-thin::-webkit-scrollbar {
+  width: 5px;  /* Thin scrollbar width */
+  height: 5px; /* Thin scrollbar height for horizontal scrolling */
+}
+
+.scroll-thin::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* Light gray thumb */
+  border-radius: 10px;
+}
+
+.scroll-thin::-webkit-scrollbar-track {
+  background: transparent; /* No background */
+}

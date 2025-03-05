@@ -59,10 +59,25 @@ const CommonTable: React.FC<TableProps> = ({
    else if (colKey === 'createdDealerRecord') {
       return val?.uniqueCode || 'N/A';  
     }
+    else if (colKey === 'userName') {
+     return data?.users?.Name || '-';  
+    }
+    else if (colKey === 'useremailAddress') {
+      return data?.users?.emailAddress || '-';  
+     }
+ 
     else if (colKey === 'SimNo') {
       return data?.userDevices?.deviceSimNumber || '-';  
     }
-    
+    else if (colKey === 'title') {
+      return data?.notificationalert?.notification.title  || '-';  
+    }
+    else if (colKey === 'message') {
+      return data?.notificationalert?.notification.body  || '-';  
+    }
+    else if (colKey === 'test') {
+      return data?.notificationalert?.notification.title  || '-';  
+    }
     else if (colKey === 'deviceType') {
       return val?.deviceType?val.deviceType:val || 'N/A';  
     }
@@ -142,7 +157,7 @@ const CommonTable: React.FC<TableProps> = ({
   };
 
   return (
-    <div className="table-container min-h-[60vh]">
+    <div className="table-container overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-[#EDEDED] text-gray-700 font-semibold text-base">
           <tr>
@@ -163,8 +178,8 @@ const CommonTable: React.FC<TableProps> = ({
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {sortedData.length > 0 ? (
-            sortedData.map((row: any, index: number) => (
+          {sortedData?.length > 0 ? (
+            sortedData?.map((row: any, index: number) => (
               
               <>
              <tr
@@ -176,14 +191,14 @@ const CommonTable: React.FC<TableProps> = ({
   }`}
 >
 
-                <td className=" p-1 text-center  cursor-pointer flex justify-center items-center ">
+                <td className=" p-1 text-center  cursor-pointer flex justify-center items-center  ">
                
                   {currentPage > 1
                     ? (currentPage - 1) * 10 + index + 1
                     : index + 1}
                 </td>
                 {Object.keys(columns).map((colKey) => (
-                  <td key={colKey} className="p-1 border-b border-[#D9E821]">
+                  <td key={colKey} className="p-1 border-b border-[#D9E821]  whitespace-nowrap overflow-hidden text-ellipsis">
                     {/* Handle Boolean Values */}
                     {typeof row[colKey] === 'boolean' ? (
                       row[colKey] ? (

@@ -30,7 +30,7 @@ const ListOfDevices: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
-  const data = useSelector((state: any) => state.subscriber.singleSubscriber);
+  const data = useSelector((state: any) => state.subscriber.singleSubscriber); 
 
   // Fetch devices and sync with Redux state
   useEffect(() => {

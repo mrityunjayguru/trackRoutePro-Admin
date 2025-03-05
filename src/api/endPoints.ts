@@ -92,8 +92,18 @@ const FaQPriority = {
 const Admin = {
   addadmin: 'admin/createAdmin',
   allAdmin:"admin/All-Admin",
-  updateAdmin:"admin/updateAdmin"
-
+  updateAdmin:"admin/updateAdmin",
+  RootHistory:"trackVehicle/rootHistory",
+  summaryReports:"/SummaryReport/travelSummary",
+  traivelReport:"/SummaryReport/consolidateSummary",
+  tripSummary:"/SummaryReport/tripSummary",
+  eventReports:"/SummaryReport/eventReport",
+  distanceReport:"/SummaryReport/monthlyDistance",
+  stopAndIdols:"/SummaryReport/idelLogs",
+  AlertsReport:"/SummaryReport/AlertsReport"
+};
+const ReportsUser={
+  ReportsUser:"Reports/get"
 };
 const getmanageSetting={
   getmanageSetting: 'managesetting/get',
@@ -156,7 +166,8 @@ const APIName = {
   ...deviceType,
   ...deviceDetails,
   ...TermAndCondition,
-  ...downloadDetailsExcel
+  ...downloadDetailsExcel,
+  ...ReportsUser
 };
 
 export default APIName;

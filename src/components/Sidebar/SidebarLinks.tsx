@@ -165,6 +165,22 @@ export const useSidebarRoutes = () => {
             pathname.includes('/device-management/vehicle-icons'),
         },
         {
+          path: '/Reports',
+          label: 'Reports',
+          icon: <AddVehicleIcon />,
+          isView: true, // Added the isView property
+          condition: (pathname: string) =>
+            pathname.includes('/device-management/Reports'),
+        },
+        {
+          path: '/device-management/Root-History',
+          label: 'Root History',
+          icon: <AddVehicleIcon />,
+          isView: true, // Added the isView property
+          condition: (pathname: string) =>
+            pathname.includes('/device-management/Root-History'),
+        },
+        {
           path: '/device-management/app-settings',
           label: 'Application Settings',
           icon: '',
