@@ -9,7 +9,7 @@ interface ReportDataState {
 }
 const initialState: ReportDataState = {
   UserReportData: null,
-  RootHistory: null,
+  RootHistory: [],
   singleRecordsImei:null,
   reportType:null,
   traivelSummary:null
@@ -24,6 +24,9 @@ export const settingSlice = createSlice({
     },
     RootHistory: (state, action: PayloadAction<any>) => {
       state.RootHistory = action.payload; 
+    },
+    RootHistorysetBlanks: (state, action: PayloadAction<any>) => {
+      state.RootHistory = []; 
     },
     singleRecords: (state, action: PayloadAction<any>) => {
       state.singleRecordsImei = action.payload; 
@@ -43,7 +46,7 @@ export const settingSlice = createSlice({
 });
 
 // Export actions
-export const {setUserReportData,RootHistory,singleRecords,reportType,traivelSummary} = settingSlice.actions;
+export const {setUserReportData,RootHistory,singleRecords,reportType,traivelSummary,RootHistorysetBlanks} = settingSlice.actions;
 
 // Export reducer
 export default settingSlice.reducer;

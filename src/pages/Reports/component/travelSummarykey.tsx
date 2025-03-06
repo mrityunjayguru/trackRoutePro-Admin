@@ -1,4 +1,5 @@
 export const travelSummarykey = {
+  imei:"imei",
   vehicleNo: 'vehicleNo',
   driverName: 'driverName',
   Distance_Kms: 'Distance_Kms', // Name
