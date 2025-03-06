@@ -20,7 +20,7 @@ function ReportRecord() {
     (state: any) => state?.userReport?.traivelSummary|| [],
   );
   const handleRowClick = (val:any) => {
-    if(imeiRecords.name == 'Travel Report' || imeiRecords.name == 'Trip Report'  ){
+    if(imeiRecords.name == 'Travel Report' || imeiRecords.name == 'Trip Report' || imeiRecords.name == 'Summary'   ){
       setVal(val)
       setOpen(true)
     }
