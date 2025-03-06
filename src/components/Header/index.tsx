@@ -45,9 +45,8 @@ const Header = (props: {
     '/EditDeviceType': 'Edit DeviceType',
     '/manage/edit-Topic-List': 'Edit Topic List',
     '/Manage/Edit-FAQs': 'Edit FAQs',
-
-
-    
+    "/Reports":"Report's",
+    "/Reports/records":"Report's",
     '/Request': 'Request',
     '/Delear': 'Dealer Management',
     '/AddDelear': 'Add Dealer',

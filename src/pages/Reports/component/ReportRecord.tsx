@@ -19,6 +19,10 @@ function ReportRecord() {
   const traivelSummary = useSelector(
     (state: any) => state?.userReport?.traivelSummary|| [],
   );
+  const distanceRecord = useSelector(
+    (state: any) => state?.userReport?.distanceRecord|| [],
+  );
+  console.log(distanceRecord,"distanceRecorddistanceRecord")
   const handleRowClick = (val:any) => {
     if(imeiRecords.name == 'Travel Report' || imeiRecords.name == 'Trip Report' || imeiRecords.name == 'Summary'   ){
       setVal(val)
@@ -28,10 +32,9 @@ function ReportRecord() {
   const handleonclose = () => {
     setOpen(false)
   };
-  console.log(traivelSummary,"traivelSummarytraivelSummary")
   return (
     <div>
-      {open?(<Mappopup records={val} onClose={handleonclose }/>):(null)}
+      {open?(<Mappopup text="Vehicle Report" showheader={false} records={val} onClose={handleonclose }/>):(null)}
       
       <SummaryFilter />
 
@@ -87,7 +90,7 @@ function ReportRecord() {
           />
             <CommonTable
             columns={distanceReportKeysss}
-            data={traivelSummary[0]?.dailyDistances}
+            data={distanceRecord}
             onRowClick={handleRowClick} // Optional: Add row click behavior
             currentPage={currentPage}
           />

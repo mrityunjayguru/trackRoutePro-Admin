@@ -48,7 +48,7 @@ function Root() {
     <div>
    <div className='z-99999'>
    {open?(
-    <Mappopup onClose={handleonclose} records={undefined}  />
+    <Mappopup text="Route History" showheader={true} onClose={handleonclose} records={undefined}  />
       ):(null)}
    </div>
           <SearchAndFilter

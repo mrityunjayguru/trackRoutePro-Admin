@@ -73,6 +73,22 @@ export const useSidebarRoutes = () => {
           : false, // Added the isView property
     },
     {
+      path: '/Reports',
+      label: 'Reports',
+      icon: <AddVehicleIcon />,
+      isView: true, // Added the isView property
+      condition: (pathname: string) =>
+        pathname.includes('/device-management/Reports'),
+    },
+    {
+      path: '/device-management/Root-History',
+      label: 'Route History',
+      icon: <AddVehicleIcon />,
+      isView: true, // Added the isView property
+      condition: (pathname: string) =>
+        pathname.includes('/device-management/Root-History'),
+    },
+    {
       path: '/notifications',
       label: 'Notifications',
       icon: <NotificationsIcons />,
@@ -164,22 +180,7 @@ export const useSidebarRoutes = () => {
           condition: (pathname: string) =>
             pathname.includes('/device-management/vehicle-icons'),
         },
-        {
-          path: '/Reports',
-          label: 'Reports',
-          icon: <AddVehicleIcon />,
-          isView: true, // Added the isView property
-          condition: (pathname: string) =>
-            pathname.includes('/device-management/Reports'),
-        },
-        {
-          path: '/device-management/Root-History',
-          label: 'Route History',
-          icon: <AddVehicleIcon />,
-          isView: true, // Added the isView property
-          condition: (pathname: string) =>
-            pathname.includes('/device-management/Root-History'),
-        },
+  
         {
           path: '/device-management/app-settings',
           label: 'Application Settings',

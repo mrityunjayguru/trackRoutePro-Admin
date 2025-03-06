@@ -21,7 +21,7 @@ export default function SummaryFilter() {
     (state: any) => state?.userReport?.reportType,
   );
 
-  const [showCustomRange, setShowCustomRange] = useState<any>(null);
+  const [showCustomRange, setShowCustomRange] = useState<any>("today");
   const [showVehicleModal, setShowVehicleModal] = useState(false);
   const [selectedVehicles, setSelectedVehicles] = useState<string[]>([]);
   const [imei, setImeino] = useState('');
@@ -29,8 +29,8 @@ export default function SummaryFilter() {
   const [mingap, setminmingap] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
-  const [starttime,setstartTime]=useState("")
-  const [endTime,setendTime]=useState("")
+  const [starttime, setstartTime] = useState('');
+  const [endTime, setendTime] = useState('');
 
   const datas: any = [
     { value: 'door', label: 'Door' },
@@ -47,16 +47,18 @@ export default function SummaryFilter() {
     const payload: any = {};
     dispatch(DeviceByOwnerId(payload));
   }, [dispatch]);
-
+  const [loder, setloder] = useState(false);
   const handleReportAction = async (actionType: string) => {
+    setloder(true);
     const payload: any = {
       deviceId: selectedVehicles,
       days: showCustomRange,
       eventType: eventType,
     };
+
     if (mingap) Object.assign(payload, { mingap: mingap });
-    if (startDate) payload.startDate = startDate;
-    if (endDate) payload.endDate = endDate;
+    if (startDate) payload.startDate = `${startDate} ${starttime}`;
+    if (endDate) payload.endDate = `${endDate} ${endTime}`;
 
     let response;
     const reportActions: Record<string, any> = {
@@ -71,6 +73,7 @@ export default function SummaryFilter() {
     if (imeiRecords.name in reportActions) {
       response = await dispatch(reportActions[imeiRecords.name](payload));
     }
+    setloder(false);
 
     if (actionType === 'download' && response?.payload?.data?.files) {
       const fileUrl = `${import.meta.env.VITE_APP_Image_Url}${
@@ -96,13 +99,15 @@ export default function SummaryFilter() {
     const payload: any = {};
     dispatch(setBlanckData(payload));
   }, [dispatch]);
-  const formatTime = (time:any) => {
-    if (!time) return ""; // Handle empty input case
-    const [hours, minutes] = time.split(":");
-    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+  const formatTime = (time: any) => {
+    if (!time) return ''; // Handle empty input case
+    const [hours, minutes] = time.split(':');
+    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(
+      2,
+      '0',
+    )}`;
   };
-  
-  
+
   return (
     <div className="w-full">
       <div className="flex items-center space-x-2">
@@ -159,13 +164,26 @@ export default function SummaryFilter() {
           </div>
         )}
 
-        <div className="flex space-x-2">
-          <button
-            onClick={() => handleReportAction('view')}
-            className="w-10 h-10 bg-[#000000] rounded-lg flex items-center justify-center"
-          >
-            <FaEye className="text-yellow-400 text-lg" />
-          </button>
+        <div className="flex space-x-2 ">
+          {loder ? (
+            <div className="flex justify-center items-center gap-2">
+              {/* Loader */}
+              <div className="flex ">
+                <span className="w-4 h-4 rounded-full bg-[#000000] animate-bounce delay-100"></span>
+                <span className="w-4 h-4 rounded-full bg-[#000000] animate-bounce delay-200 ml-1"></span>
+                <span className="w-4 h-4 rounded-full bg-[#000000] animate-bounce delay-300 ml-1"></span>
+              </div>
+              <span className="text-[#000000]">Processing...</span>
+            </div>
+          ) : (
+            <button
+              onClick={() => handleReportAction('view')}
+              className="w-10 h-10 bg-[#000000] rounded-lg flex items-center justify-center"
+            >
+              <FaEye className="text-yellow-400 text-lg" />
+            </button>
+          )}
+
           <button
             onClick={() => handleReportAction('download')}
             className="w-10 h-10 bg-[#D9E821] rounded-lg flex items-center justify-center"
@@ -227,39 +245,45 @@ export default function SummaryFilter() {
       )}
 
       {showCustomRange === 'custom' && (
-        <div className="absolute top-20 left-1/2 transform -translate-x-1/2 w-80 bg-white shadow-lg p-4 rounded-lg">
-          <h3 className="text-lg font-semibold mb-2">Custom Range</h3>
-          <label className="block text-sm font-medium">Start Date</label>
+        <div className="absolute text-[#000000] top-20 left-1/2 transform -translate-x-1/2 w-80 bg-white shadow-lg p-4 rounded-lg">
+          <h3 className="text-[#000000] text-[16px] font-medium leading-[24px] font-[Satoshi]">
+            Custom Range
+          </h3>
+          <label className="block text-sm font-medium text-[#000000]">
+            Start Date
+          </label>
           <input
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-            className="w-full p-2 border rounded-lg mb-2"
+            className="w-full text-[#000000] p-2 border rounded-lg mb-2"
           />
-          <label className="block text-sm font-medium">End Date</label>
+          <label className="block text-sm font-medium text-[#000000]">
+            End Date
+          </label>
           <input
             type="date"
             value={endDate}
             onChange={(e) => setEndDate(e.target.value)}
             className="w-full p-2 border rounded-lg mb-4"
           />
-<label className="block text-sm font-medium">Start Time</label>
-<input
-  type="time"
-  value={starttime}
-  onChange={(e) => setstartTime(formatTime(e.target.value))}
-  className="w-full p-2 border rounded-lg mb-4"
-  step="60" // Ensures input follows proper HH:mm (without seconds)
-/>
+          <label className="block text-sm font-medium">Start Time</label>
+          <input
+            type="time"
+            value={starttime}
+            onChange={(e) => setstartTime(formatTime(e.target.value))}
+            className="w-full p-2 border rounded-lg mb-4"
+            step="60" // Ensures input follows proper HH:mm (without seconds)
+          />
 
-<label className="block text-sm font-medium">End Time</label>
-<input
-  type="time"
-  value={endTime}
-  onChange={(e) => setendTime(formatTime(e.target.value))}
-  className="w-full p-2 border rounded-lg mb-4"
-  step="60"
-/>
+          <label className="block text-sm font-medium">End Time</label>
+          <input
+            type="time"
+            value={endTime}
+            onChange={(e) => setendTime(formatTime(e.target.value))}
+            className="w-full p-2 border rounded-lg mb-4"
+            step="60"
+          />
 
           <button
             className="w-full bg-black text-yellow-400 py-2 rounded-lg mb-2"
