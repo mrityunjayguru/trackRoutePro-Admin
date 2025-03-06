@@ -1,8 +1,8 @@
 export const consolidateSummaryKeys = {
     vehicleNo: 'vehicleNo', // Status
     driverName: 'driverName', // Status
-    Start_Time:'Start_Time',
-    End_Time: 'End_Time', // Name
+    startTime:'Start_Time',
+    endTime: 'End_Time', // Name
     Start_Coords:"Start_Coords",
     End_Coords:"End_Coords",
     Start_Address:"Start_Address",

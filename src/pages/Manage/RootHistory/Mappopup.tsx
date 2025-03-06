@@ -24,6 +24,7 @@ const Mappopup: React.FC<{ records: any; onClose: () => void }> = ({ records, on
   });
 
   useEffect(() => {
+    console.log(records,"recordsrecords")
     if (records?.imei && (records?.startTime || records?.First_Ignition)) {
       const payload:any = {
         imei: records.imei,
