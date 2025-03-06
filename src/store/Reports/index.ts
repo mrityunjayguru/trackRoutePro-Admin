@@ -6,13 +6,15 @@ interface ReportDataState {
   singleRecordsImei:any;
   reportType:any;
   traivelSummary:any;
+  distanceRecord:any;
 }
 const initialState: ReportDataState = {
   UserReportData: null,
   RootHistory: [],
   singleRecordsImei:null,
   reportType:null,
-  traivelSummary:null
+  traivelSummary:null,
+  distanceRecord:null
 };
 // Create the user data slice
 export const settingSlice = createSlice({
@@ -37,6 +39,9 @@ export const settingSlice = createSlice({
     traivelSummary: (state, action: PayloadAction<any>) => {
       state.traivelSummary = action.payload; 
     },
+    setDistanceRecod: (state, action: PayloadAction<any>) => {
+      state.distanceRecord = action.payload; 
+    },
     clearReportData: (state) => {
       state.UserReportData = null; // Clear login user data
     },
@@ -46,7 +51,7 @@ export const settingSlice = createSlice({
 });
 
 // Export actions
-export const {setUserReportData,RootHistory,singleRecords,reportType,traivelSummary,RootHistorysetBlanks} = settingSlice.actions;
+export const {setUserReportData,RootHistory,singleRecords,reportType,traivelSummary,RootHistorysetBlanks,setDistanceRecod} = settingSlice.actions;
 
 // Export reducer
 export default settingSlice.reducer;

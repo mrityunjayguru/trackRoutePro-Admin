@@ -10,9 +10,10 @@ import { AppDispatch } from "../../../store/store";
 import { RootHistorys, RootHistorysSetBlank } from "../../../api/Reports";
 import { RxCross2 } from "react-icons/rx";
 
-const Mappopup: React.FC<{ records: any; onClose: () => void }> = ({ records, onClose }) => {
+const Mappopup: React.FC<{text:any;showheader:any; records: any; onClose: () => void }> = ({text, records, onClose,showheader }) => {
   const dispatch = useDispatch<AppDispatch>();
-
+  const [startTime,setStartTime]=useState("")
+  const [endTime,setEndTime]=useState("")
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
   
@@ -48,12 +49,16 @@ const Mappopup: React.FC<{ records: any; onClose: () => void }> = ({ records, on
 
     const payload:any = {
       imei: imeiRecords.imei,
-      startdate: startDate,
-      enddate: endDate,
+      startdate: `${startDate} ${startTime}`,
+      enddate: `${endDate} ${endTime}`,
     };
     dispatch(RootHistorys(payload));
   };
-
+  const formatTime = (time:any) => {
+    if (!time) return ""; // Handle empty input case
+    const [hours, minutes] = time.split(":");
+    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+  };
   const pathCoordinates = MapReports?.map((vehicle: any) => ({
       lat: vehicle?.trackingData?.location?.latitude,
       lng: vehicle?.trackingData?.location?.longitude,
@@ -66,28 +71,51 @@ const Mappopup: React.FC<{ records: any; onClose: () => void }> = ({ records, on
         <button onClick={onClose} className="absolute top-2 right-2 bg-red-500 text-white px-3 py-1 rounded">
           <RxCross2 />
         </button>
-        <h1 className="text-center text-xl font-bold mb-4">Vehicles on Google Map</h1>
-        
-        <div className="flex gap-5 mb-4">
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-            className="w-full py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
-          <input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-            className="w-full py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-          />
-          <button
-            onClick={fetchMapReports}
-            className="w-[200px] bg-blue-600 text-white py-2 rounded-lg font-medium transition"
-          >
-            Submit
-          </button>
-        </div>
+        <h1 className="py-1 text-[#000000] text-center text-[20px] font-medium leading-[24px] font-[Satoshi]">{text}</h1>
+        {showheader?( <div className="flex flex-wrap gap-5 mb-4">
+      {/* Start Date */}
+      <input
+        type="date"
+        value={startDate}
+        onChange={(e) => setStartDate(e.target.value)}
+        className="w-full md:w-auto py-2 px-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+      />
+      
+      {/* End Date */}
+      <input
+        type="date"
+        value={endDate}
+        onChange={(e) => setEndDate(e.target.value)}
+        className="w-full md:w-auto py-2 px-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+      />
+
+      {/* Start Time */}
+      <input
+        type="time"
+        value={startTime}
+        onChange={(e) => setStartTime(formatTime(e.target.value))}
+        className="w-full md:w-auto p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        step="60"
+      />
+
+      {/* End Time */}
+      <input
+        type="time"
+        value={endTime}
+        onChange={(e) => setEndTime(formatTime(e.target.value))}
+        className="w-full md:w-auto p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
+        step="60"
+      />
+
+      {/* Submit Button */}
+      <button
+        onClick={fetchMapReports}
+        className="w-full md:w-[200px] bg-blue-600 text-white py-2 px-4 rounded-lg font-medium transition hover:bg-blue-700"
+      >
+        Submit
+      </button>
+    </div>):(null)}
+     
 
         <div style={{ height: "80%", width: "100%" }}>
           {isLoaded && (

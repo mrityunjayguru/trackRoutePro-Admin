@@ -3,7 +3,7 @@ import { setAdmin,setSingleAdmin } from '../../store/Admin';
 import APIName from '../endPoints';
 import { ReportsRepo } from './ReportsRepo';
 import Swal from 'sweetalert2';
-import { setUserReportData,RootHistory,singleRecords,reportType,traivelSummary,RootHistorysetBlanks } from '../../store/Reports';
+import { setUserReportData,RootHistory,singleRecords,reportType,traivelSummary,RootHistorysetBlanks,setDistanceRecod } from '../../store/Reports';
 
 interface Payload {
   someField: string; // replace this with actual fields
@@ -307,6 +307,11 @@ export const distanceReport = createAsyncThunk<any, Payload>(
       if (data.status === 200) {
         
         thunkAPI.dispatch(traivelSummary(data.data.data));
+        console.log(data.data.distanceRecord,"data.data.distanceRecorddata.data.distanceRecord")
+        if(data.data.distanceRecord){
+        thunkAPI.dispatch(setDistanceRecod(data.data.distanceRecord));
+
+        }
       }
         return data;
     } catch (err: any) {
