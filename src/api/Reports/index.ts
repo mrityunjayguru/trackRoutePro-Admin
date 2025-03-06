@@ -3,7 +3,7 @@ import { setAdmin,setSingleAdmin } from '../../store/Admin';
 import APIName from '../endPoints';
 import { ReportsRepo } from './ReportsRepo';
 import Swal from 'sweetalert2';
-import { setUserReportData,RootHistory,singleRecords,reportType,traivelSummary } from '../../store/Reports';
+import { setUserReportData,RootHistory,singleRecords,reportType,traivelSummary,RootHistorysetBlanks } from '../../store/Reports';
 
 interface Payload {
   someField: string; // replace this with actual fields
@@ -407,6 +407,37 @@ export const setBlanckData = createAsyncThunk<any, Payload>(
       
         thunkAPI.dispatch(traivelSummary(payload));
       
+    } catch (err: any) {
+      if(err.status==409){
+        GetMessage("warning", err.response.data.message)
+      }
+      if (err.status == 500) {
+        // console.error(err.response.data.message);
+        GetMessage("error", "something went wrong")
+      }
+      if (err.status == 400) {
+        // console.error(err.response.data.message);
+        GetMessage("error", err.response.data.message)
+
+      }
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }
+    }
+    return false;
+  },
+);
+
+
+export const RootHistorysSetBlank = createAsyncThunk<boolean, Payload>(
+  APIName.addadmin,
+  async (payload,thunkAPI) => {
+    try {
+        
+        thunkAPI.dispatch(RootHistorysetBlanks(payload));
+        return true;
     } catch (err: any) {
       if(err.status==409){
         GetMessage("warning", err.response.data.message)
