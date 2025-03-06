@@ -1,10 +1,5 @@
 import { useEffect, useState } from 'react';
-import {
-  FaCalendarAlt,
-  FaSearch,
-  FaEye,
-  FaCloudDownloadAlt,
-} from 'react-icons/fa';
+import { FaSearch, FaEye, FaCloudDownloadAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../../store/store';
 import { DeviceByOwnerId } from '../../../api/Device';
@@ -31,9 +26,12 @@ export default function SummaryFilter() {
   const [selectedVehicles, setSelectedVehicles] = useState<string[]>([]);
   const [imei, setImeino] = useState('');
   const [eventType, setEventType] = useState<string[]>([]);
-const [mingap,setminmingap]=useState("")
+  const [mingap, setminmingap] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
+  const [starttime,setstartTime]=useState("")
+  const [endTime,setendTime]=useState("")
+
   const datas: any = [
     { value: 'door', label: 'Door' },
     { value: 'parking', label: 'Parking' },
@@ -56,8 +54,7 @@ const [mingap,setminmingap]=useState("")
       days: showCustomRange,
       eventType: eventType,
     };
-    if(mingap)
-      Object.assign(payload,{mingap:mingap})
+    if (mingap) Object.assign(payload, { mingap: mingap });
     if (startDate) payload.startDate = startDate;
     if (endDate) payload.endDate = endDate;
 
@@ -99,13 +96,20 @@ const [mingap,setminmingap]=useState("")
     const payload: any = {};
     dispatch(setBlanckData(payload));
   }, [dispatch]);
+  const formatTime = (time:any) => {
+    if (!time) return ""; // Handle empty input case
+    const [hours, minutes] = time.split(":");
+    return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+  };
+  
+  
   return (
     <div className="w-full">
       <div className="flex items-center space-x-2">
-        <div className="bg-lime-300 p-2 rounded-lg">
-          <span className="text-xl">📋</span>
-        </div>
-        <h2 className="text-lg font-semibold">Summary</h2>
+        <div className=" ">{imeiRecords?.icon}</div>
+        <h2 className="text-black text-center text-[20px] font-medium leading-[24px] font-[Satoshi]">
+          {imeiRecords?.name}
+        </h2>
       </div>
       <div className="flex items-center space-x-4 mt-5">
         <button
@@ -127,7 +131,7 @@ const [mingap,setminmingap]=useState("")
         </select>
 
         {imeiRecords.name === 'Alerts Report' && (
-          <div className="w-full">
+          <div className="w-[200px]">
             <Select
               options={datas}
               isMulti
@@ -136,7 +140,9 @@ const [mingap,setminmingap]=useState("")
               onChange={(selected) =>
                 setEventType(selected.map((item: any) => item.value))
               }
-              value={datas.filter((option:any) => eventType.includes(option.value))}
+              value={datas.filter((option: any) =>
+                eventType.includes(option.value),
+              )}
               placeholder="Select Events"
             />
           </div>
@@ -144,20 +150,25 @@ const [mingap,setminmingap]=useState("")
 
         {imeiRecords.name === 'Stop Idle Report' && (
           <div className="">
-      <input onChange={(e:any)=>setminmingap(e.target.value)} className='bg-gray-100 rounded-lg p-2 px-10 text-sm' type="number" placeholder='Minimum Stop Minutes' />
+            <input
+              onChange={(e: any) => setminmingap(e.target.value)}
+              className="bg-gray-100 rounded-lg p-2 px-10 text-sm"
+              type="number"
+              placeholder="Minimum Stop Minutes"
+            />
           </div>
         )}
 
         <div className="flex space-x-2">
           <button
             onClick={() => handleReportAction('view')}
-            className="w-10 h-10 bg-black rounded-lg flex items-center justify-center"
+            className="w-10 h-10 bg-[#000000] rounded-lg flex items-center justify-center"
           >
             <FaEye className="text-yellow-400 text-lg" />
           </button>
           <button
             onClick={() => handleReportAction('download')}
-            className="w-10 h-10 bg-lime-300 rounded-lg flex items-center justify-center"
+            className="w-10 h-10 bg-[#D9E821] rounded-lg flex items-center justify-center"
           >
             <FaCloudDownloadAlt className="text-black text-lg" />
           </button>
@@ -167,7 +178,9 @@ const [mingap,setminmingap]=useState("")
       {showVehicleModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
           <div className="bg-white w-96 rounded-lg p-4 shadow-lg">
-            <h3 className="text-lg font-semibold mb-3">Search Device</h3>
+            <h3 className="text-black  text-[20px] font-medium leading-[24px] font-[Satoshi] my-1">
+              Search Device
+            </h3>
             <div className="flex items-center border p-2 rounded-lg bg-gray-100 mb-3">
               <FaSearch className="text-gray-500 mr-2" />
               <input
@@ -203,7 +216,7 @@ const [mingap,setminmingap]=useState("")
                 Cancel
               </button>
               <button
-                className="w-1/2 bg-blue-500 text-white py-2 rounded-lg"
+                className="w-1/2 bg-[#000000]  text-[#D9E821] py-2 rounded-lg font-medium transition "
                 onClick={() => setShowVehicleModal(false)}
               >
                 Confirm
@@ -230,6 +243,24 @@ const [mingap,setminmingap]=useState("")
             onChange={(e) => setEndDate(e.target.value)}
             className="w-full p-2 border rounded-lg mb-4"
           />
+<label className="block text-sm font-medium">Start Time</label>
+<input
+  type="time"
+  value={starttime}
+  onChange={(e) => setstartTime(formatTime(e.target.value))}
+  className="w-full p-2 border rounded-lg mb-4"
+  step="60" // Ensures input follows proper HH:mm (without seconds)
+/>
+
+<label className="block text-sm font-medium">End Time</label>
+<input
+  type="time"
+  value={endTime}
+  onChange={(e) => setendTime(formatTime(e.target.value))}
+  className="w-full p-2 border rounded-lg mb-4"
+  step="60"
+/>
+
           <button
             className="w-full bg-black text-yellow-400 py-2 rounded-lg mb-2"
             onClick={() => setShowCustomRange(false)}
