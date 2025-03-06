@@ -174,7 +174,7 @@ export const useSidebarRoutes = () => {
         },
         {
           path: '/device-management/Root-History',
-          label: 'Root History',
+          label: 'Route History',
           icon: <AddVehicleIcon />,
           isView: true, // Added the isView property
           condition: (pathname: string) =>
