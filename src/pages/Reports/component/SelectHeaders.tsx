@@ -48,6 +48,9 @@ export default function SummaryFilter() {
     const payload: any = {};
     dispatch(DeviceByOwnerId(payload));
   }, [dispatch]);
+  useEffect(()=>{
+alert(showCustomRange)
+  },[])
   const [loder, setloder] = useState(false);
   const handleReportAction = async (actionType: string) => {
     setloder(true);
