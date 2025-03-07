@@ -14,6 +14,7 @@ import {
   AlertsReport,
 } from '../../../api/Reports';
 import Select from 'react-select';
+import { DateAndTime } from '../../../common/DateAndTime';
 export default function SummaryFilter() {
   const dispatch = useDispatch<AppDispatch>();
   const data = useSelector((state: any) => state.subscriber.userDevices);
@@ -99,15 +100,14 @@ export default function SummaryFilter() {
     const payload: any = {};
     dispatch(setBlanckData(payload));
   }, [dispatch]);
-  const formatTime = (time: any) => {
-    if (!time) return ''; // Handle empty input case
-    const [hours, minutes] = time.split(':');
-    return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(
-      2,
-      '0',
-    )}`;
+ 
+  const handleChange = (event:any) => {
+    setstartTime(event.target.value);
   };
-
+  const handleChange2 = (event:any) => {
+    setendTime(event.target.value);
+  };
+  const [search,setSearch]=useState("")
   return (
     <div className="w-full">
       <div className="flex items-center space-x-2">
@@ -204,7 +204,9 @@ export default function SummaryFilter() {
               <input
                 type="text"
                 placeholder="Search Vehicle"
+                value={search}
                 className="bg-transparent w-full focus:outline-none"
+                onChange={(e)=>setSearch(e.target.value)}
               />
             </div>
             <div className="max-h-60 overflow-y-auto">
@@ -267,24 +269,24 @@ export default function SummaryFilter() {
             onChange={(e) => setEndDate(e.target.value)}
             className="w-full p-2 border rounded-lg mb-4"
           />
-          <label className="block text-sm font-medium">Start Time</label>
-          <input
-            type="time"
-            value={starttime}
-            onChange={(e) => setstartTime(formatTime(e.target.value))}
-            className="w-full p-2 border rounded-lg mb-4"
-            step="60" // Ensures input follows proper HH:mm (without seconds)
-          />
+<div className='flex gap-1 my-2'>
+<select className="w-full p-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none " value={starttime} onChange={handleChange}>
+        {DateAndTime.map((time:any, index:any) => (
+          <option key={index} value={time}>
+            {time}
+          </option>
+        ))}
+      </select>
 
-          <label className="block text-sm font-medium">End Time</label>
-          <input
-            type="time"
-            value={endTime}
-            onChange={(e) => setendTime(formatTime(e.target.value))}
-            className="w-full p-2 border rounded-lg mb-4"
-            step="60"
-          />
-
+      {/* End Time */}
+      <select className="w-full border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none " value={endTime} onChange={handleChange2}>
+        {DateAndTime.map((time:any, index:any) => (
+          <option key={index} value={time}>
+            {time}
+          </option>
+        ))}
+      </select>
+</div>
           <button
             className="w-full bg-black text-yellow-400 py-2 rounded-lg mb-2"
             onClick={() => setShowCustomRange(false)}

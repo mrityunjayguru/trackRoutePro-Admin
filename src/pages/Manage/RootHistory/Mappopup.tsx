@@ -9,13 +9,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../../store/store";
 import { RootHistorys, RootHistorysSetBlank } from "../../../api/Reports";
 import { RxCross2 } from "react-icons/rx";
-
+import { DateAndTime } from "../../../common/DateAndTime";
 const Mappopup: React.FC<{text:any;showheader:any; records: any; onClose: () => void }> = ({text, records, onClose,showheader }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const [startTime,setStartTime]=useState("")
-  const [endTime,setEndTime]=useState("")
-  const [startDate, setStartDate] = useState<string>("");
-  const [endDate, setEndDate] = useState<string>("");
+  const [startTime,setStartTime]=useState("00:00")
+  const [endTime,setEndTime]=useState("23:30")
+  const [startDate, setStartDate] = useState<string>(() => new Date().toISOString().split("T")[0]);
+  const [endDate, setEndDate] = useState<string>(() => new Date().toISOString().split("T")[0]);
   
   const MapReports = useSelector((state: any) => state?.userReport?.RootHistory || []);
   const imeiRecords = useSelector((state: any) => state?.userReport?.singleRecordsImei);
@@ -23,9 +23,7 @@ const Mappopup: React.FC<{text:any;showheader:any; records: any; onClose: () => 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_APP_MAP_KEY || "YOUR_API_KEY",
   });
-
   useEffect(() => {
-    console.log(records,"recordsrecords")
     if (records?.imei && (records?.startTime || records?.First_Ignition)) {
       const payload:any = {
         imei: records.imei,
@@ -36,6 +34,10 @@ const Mappopup: React.FC<{text:any;showheader:any; records: any; onClose: () => 
     }
   }, [records, dispatch]);
   useEffect(() => {
+    if(text=="Route History"){
+      fetchMapReports()
+
+    }
       const payload:any = []
       dispatch(RootHistorysSetBlank(payload));
   }, []);
@@ -45,7 +47,7 @@ const Mappopup: React.FC<{text:any;showheader:any; records: any; onClose: () => 
   };
 
   const fetchMapReports = async () => {
-    if (!imeiRecords?.imei || !startDate || !endDate) return;
+    // if (!imeiRecords?.imei || !startDate || !endDate) return;
 
     const payload:any = {
       imei: imeiRecords.imei,
@@ -65,6 +67,12 @@ const Mappopup: React.FC<{text:any;showheader:any; records: any; onClose: () => 
     }))
     .filter((point:any) => point.lat != null && point.lng != null);
 
+    const handleChange = (event:any) => {
+      setStartTime(event.target.value);
+    };
+    const handleChange2 = (event:any) => {
+      setEndTime(event.target.value);
+    };
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-99999">
       <div className="bg-white p-6 rounded-lg shadow-lg w-[80%] h-[90%] relative">
@@ -90,22 +98,22 @@ const Mappopup: React.FC<{text:any;showheader:any; records: any; onClose: () => 
       />
 
       {/* Start Time */}
-      <input
-        type="time"
-        value={startTime}
-        onChange={(e) => setStartTime(formatTime(e.target.value))}
-        className="w-full md:w-auto p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-        step="60"
-      />
+      <select className="w-20 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none " value={startTime} onChange={handleChange}>
+        {DateAndTime.map((time:any, index:any) => (
+          <option key={index} value={time}>
+            {time}
+          </option>
+        ))}
+      </select>
 
       {/* End Time */}
-      <input
-        type="time"
-        value={endTime}
-        onChange={(e) => setEndTime(formatTime(e.target.value))}
-        className="w-full md:w-auto p-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none"
-        step="60"
-      />
+      <select className="w-20 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none " value={endTime} onChange={handleChange2}>
+        {DateAndTime.map((time:any, index:any) => (
+          <option key={index} value={time}>
+            {time}
+          </option>
+        ))}
+      </select>
 
       {/* Submit Button */}
       <button
@@ -126,12 +134,12 @@ const Mappopup: React.FC<{text:any;showheader:any; records: any; onClose: () => 
             >
               {pathCoordinates?.map((point:any, index:any) => (
                 <Marker key={`marker-${index}`} position={point}   
-                // label={{
-                //   text: (index + 1).toString(), 
-                //   color: "white",
-                //   fontWeight: "bold",
-                //   fontSize: "12px",
-                // }}
+                label={{
+                  text: (index + 1).toString(), 
+                  color: "white",
+                  fontWeight: "bold",
+                  fontSize: "12px",
+                }}
                 />
               ))}
 
