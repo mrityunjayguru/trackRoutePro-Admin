@@ -21,20 +21,12 @@ const Mappopup: React.FC<{
   const dispatch = useDispatch<AppDispatch>();
   const [startTime, setStartTime] = useState('00:01');
   const [endTime, setEndTime] = useState('23:30');
-  const [startDate, setStartDate] = useState<string>(
-    () => new Date().toISOString().split('T')[0],
-  );
-  const [endDate, setEndDate] = useState<string>(
-    () => new Date().toISOString().split('T')[0],
-  );
-  const [selectedMarker, setSelectedMarker] = useState<any>(null); // To store selected marker data
+  const [startDate, setStartDate] = useState<string>(() => new Date().toISOString().split('T')[0]);
+  const [endDate, setEndDate] = useState<string>(() => new Date().toISOString().split('T')[0]);
+  const [selectedMarker, setSelectedMarker] = useState<any>(null);
 
-  const MapReports = useSelector(
-    (state: any) => state?.userReport?.RootHistory || [],
-  );
-  const imeiRecords = useSelector(
-    (state: any) => state?.userReport?.singleRecordsImei,
-  );
+  const MapReports = useSelector((state: any) => state?.userReport?.RootHistory || []);
+  const imeiRecords = useSelector((state: any) => state?.userReport?.singleRecordsImei);
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_APP_MAP_KEY || 'YOUR_API_KEY',
@@ -52,21 +44,16 @@ const Mappopup: React.FC<{
   }, [records, dispatch]);
 
   useEffect(() => {
-    if (text == 'Route History') {
+    if (text === 'Route History') {
       fetchMapReports();
     }
-    const payload: any = {};
+    const payload:any={}
     dispatch(RootHistorysSetBlank(payload));
   }, []);
 
   const formatDateTime = (dateString: string) => {
     const date = new Date(dateString);
-    return `${date.getFullYear()}-${String(date.getUTCMonth() + 1).padStart(
-      2,
-      '0',
-    )}-${String(date.getUTCDate()).padStart(2, '0')} ${String(
-      date.getUTCHours(),
-    ).padStart(2, '0')}:${String(date.getUTCMinutes()).padStart(2, '0')}`;
+    return `${date.getFullYear()}-${String(date.getUTCMonth() + 1).padStart(2, '0')}-${String(date.getUTCDate()).padStart(2, '0')} ${String(date.getUTCHours()).padStart(2, '0')}:${String(date.getUTCMinutes()).padStart(2, '0')}`;
   };
 
   const fetchMapReports = async () => {
@@ -78,20 +65,20 @@ const Mappopup: React.FC<{
     dispatch(RootHistorys(payload));
   };
 
-  const pathCoordinates:any = Array.from(
+  // ✅ Remove duplicate locations & extract relevant data
+  const pathCoordinates: any = Array.from(
     new Map(
       MapReports?.map((vehicle: any) => [
-        `${vehicle?.trackingData?.location?.latitude},${vehicle?.trackingData?.location?.longitude}`, // Unique key
+        `${vehicle?.trackingData?.location?.latitude},${vehicle?.trackingData?.location?.longitude}`,
         {
           lat: vehicle?.trackingData?.location?.latitude,
           lng: vehicle?.trackingData?.location?.longitude,
-          speed: vehicle?.trackingData?.speed || 0, // Speed
-          time: vehicle?.trackingData?.timestamp || '', // Timestamp
+          speed: vehicle?.trackingData?.currentSpeed?.toFixed(2) || 0, // ✅ Fix speed property
+          time: vehicle?.dateFiled || 'Unknown Time', // ✅ Fix timestamp property
         },
       ])
     ).values()
   );
-  
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-99999">
@@ -162,7 +149,8 @@ const Mappopup: React.FC<{
               center={pathCoordinates[0] || { lat: 28.183788, lng: 76.619042 }}
               zoom={13}
             >
-              {pathCoordinates?.map((point: any, index: any) => (
+              {/* Render Markers */}
+              {pathCoordinates?.map((point: any, index: number) => (
                 <Marker
                   key={`marker-${index}`}
                   position={{ lat: point.lat, lng: point.lng }}
@@ -172,18 +160,37 @@ const Mappopup: React.FC<{
                     fontWeight: 'bold',
                     fontSize: '12px',
                   }}
-                  onClick={() => setSelectedMarker(point)} // Handle marker click
+                  onClick={() => setSelectedMarker(point)}
                 />
               ))}
-          
 
+              {/* Show InfoWindow on Marker Click */}
+              {selectedMarker && (
+                <InfoWindow
+                  position={{ lat: selectedMarker.lat, lng: selectedMarker.lng }}
+                  onCloseClick={() => setSelectedMarker(null)}
+                >
+                  <div className="text-black text-sm">
+                    <p><strong>Speed:</strong> {selectedMarker.speed} km/h</p>
+                    <p><strong>Time:</strong> {selectedMarker.time}</p>
+                  </div>
+                </InfoWindow>
+              )}
+
+              {/* Draw Polyline for route history */}
               {pathCoordinates.length > 1 && (
                 <Polyline
                   path={pathCoordinates}
                   options={{
-                    strokeColor: '#FF0000',
+                    strokeColor: '#007BFF', // 🔵 Blue color for better visibility
                     strokeOpacity: 0.8,
                     strokeWeight: 4,
+                    icons: [
+                      {
+                        icon: { path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW },
+                        offset: '100%',
+                      },
+                    ],
                   }}
                 />
               )}

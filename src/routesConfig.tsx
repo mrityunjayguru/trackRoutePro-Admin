@@ -247,7 +247,7 @@ export const routes = [
     component: <EditFaQlist />,
   },
   {
-    path: '/device-management/gps/manage-Inventory',
+    path: '/manage-Inventory',
     title: 'TRP Manage-Inventory',
     component: <DeviceDetail />,
   },
