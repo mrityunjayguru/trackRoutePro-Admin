@@ -89,6 +89,14 @@ export const useSidebarRoutes = () => {
         pathname.includes('/device-management/Root-History'),
     },
     {
+      path: '/manage-Inventory',
+      label: 'Manage Inventory',
+      icon: '',
+      isView: true, // Added the isView property
+      condition: (pathname: string) =>
+        pathname.includes('/manage-Inventory'),
+    },
+    {
       path: '/notifications',
       label: 'Notifications',
       icon: <NotificationsIcons />,
@@ -161,14 +169,7 @@ export const useSidebarRoutes = () => {
               condition: (pathname: string) =>
                 pathname.includes('/device-management/gps/add-devices'),
             },
-            {
-              path: '/device-management/gps/manage-Inventory',
-              label: 'Manage Inventory',
-              icon: '',
-              isView: true, // Added the isView property
-              condition: (pathname: string) =>
-                pathname.includes('/device-management/gps/manage-Inventory'),
-            },
+        
           ],
           isView: true, // Added the isView property
         },

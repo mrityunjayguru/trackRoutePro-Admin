@@ -26,7 +26,7 @@ function ViewDeviceDetail() {
       await dispatch(getDeviceDetail(payload2))
   setloder(false)
 
-      navigate("/device-management/gps/manage-Inventory")
+      navigate("/viewDeviceDetail")
     }
   }
   useEffect(() => {
