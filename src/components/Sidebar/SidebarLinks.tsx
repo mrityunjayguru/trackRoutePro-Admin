@@ -38,7 +38,7 @@ export const useSidebarRoutes = () => {
     },
     {
       path: '/account-management',
-      label: 'Manage users',
+      label: 'Manage Users',
       icon: <ManageUserIcos />,
       condition: (pathname: string) => pathname.includes('account-management'),
       children: [
@@ -72,7 +72,7 @@ export const useSidebarRoutes = () => {
     },
     {
       path: '/Manage-device',
-      label: 'Manage device',
+      label: 'Manage Device',
       icon: <ManageDeviceIcons />,
       condition: (pathname: string) => pathname === '/Manage-device',
       isView:
