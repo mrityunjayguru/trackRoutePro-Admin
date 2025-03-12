@@ -11,7 +11,6 @@ import { AppDispatch } from '../../../store/store';
 import { RootHistorys, RootHistorysSetBlank } from '../../../api/Reports';
 import { RxCross2 } from 'react-icons/rx';
 import { DateAndTime } from '../../../common/DateAndTime';
-
 const Mappopup: React.FC<{
   text: any;
   showheader: any;
@@ -28,10 +27,8 @@ const Mappopup: React.FC<{
   const MapReports = useSelector((state: any) => state?.userReport?.RootHistory || []);
   const imeiRecords = useSelector((state: any) => state?.userReport?.singleRecordsImei);
 
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: import.meta.env.VITE_APP_MAP_KEY || 'YOUR_API_KEY',
-  });
-console.log(imeiRecords,"imeiRecordsimeiRecords")
+  const isLoaded = JSON.parse(localStorage.getItem("isLoaded") || "false");
+
   useEffect(() => {
     if (records?.imei && (records?.startTime || records?.First_Ignition)) {
       const payload: any = {

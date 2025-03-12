@@ -61,8 +61,8 @@ export default function SummaryFilter() {
     };
 
     if (mingap) Object.assign(payload, { mingap: mingap });
-    if (startDate) payload.startDate = `${startDate} ${starttime}`;
-    if (endDate) payload.endDate = `${endDate} ${endTime}`;
+    if (startDate) payload.startDate = `${startDate}T${starttime}:00.000Z`;
+    if (endDate) payload.endDate = `${endDate}T${endTime}:00.000Z`;
 
     let response;
     const reportActions: Record<string, any> = {

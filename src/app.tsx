@@ -4,6 +4,7 @@ import Loader from './common/Loader';
 import DefaultLayout from './layout/DefaultLayout';
 import PageTitle from './components/PageTitle';
 import { routes } from './routesConfig';
+import MapLoader from './pages/MapLoader';
 
 function App() {
   const [loading, setLoading] = useState<boolean>(true);
@@ -26,6 +27,7 @@ function App() {
     <Loader />
   ) : (
     <>
+    <MapLoader/>
       <Routes>
         <Route
           path="/auth/signin"
