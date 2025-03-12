@@ -25,7 +25,10 @@ const Editusr: React.FC = () => {
   }, [SingleSubscriber, navigate, userId]);
 
   const handleSubmit = async (e: any) => {
-    if (loginUser.permissions.Subscribers?.Update === true || loginUser.role=="SuperAdmin") {
+    if (
+      loginUser.permissions.Subscribers?.Update === true ||
+      loginUser.role == 'SuperAdmin'
+    ) {
       navigate(
         `/account-management/manage-subscriber/Edit-subscriber/${SingleSubscriber._id}`,
       );
@@ -51,12 +54,19 @@ const Editusr: React.FC = () => {
                 <GlobalForm
                   fields={ViewKeySubscriber(SingleSubscriber, userpassword)}
                   handleSubmit={handleSubmit}
-                  buttontext="Edit Subscriber" disabled={false}                />
+                  buttontext="Edit Subscriber"
+                  disabled={false}
+                />
               ) : (
                 <GlobalForm
-                    fields={viewCompanySubscriberkey(SingleSubscriber, userpassword)}
-                    handleSubmit={handleSubmit}
-                    buttontext="Edit Subscriber" disabled={false}                />
+                  fields={viewCompanySubscriberkey(
+                    SingleSubscriber,
+                    userpassword,
+                  )}
+                  handleSubmit={handleSubmit}
+                  buttontext="Edit Subscriber"
+                  disabled={false}
+                />
               )}
             </>
           ) : null}

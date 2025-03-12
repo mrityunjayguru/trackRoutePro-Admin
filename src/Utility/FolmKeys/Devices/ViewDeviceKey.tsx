@@ -1,10 +1,10 @@
-import { useSelector } from "react-redux";
+import { useSelector } from 'react-redux';
 
 export const ViewDeviceKeys = (
-  SingleDevice: any, 
-  VehiclwType: any, 
-  devicetypeDetails: any, 
-  DealerRecord: any
+  SingleDevice: any,
+  VehiclwType: any,
+  devicetypeDetails: any,
+  DealerRecord: any,
 ) => {
   // Function to filter and get keys with true values
   const getKeysWithTrueValues = (obj: any): string[] => {
@@ -28,7 +28,7 @@ export const ViewDeviceKeys = (
     value: dealer._id,
   }));
   const formData = useSelector((state: any) => state?.subscriber?.formData);
-  console.log(SingleDevice,"formDataformData")
+  console.log(SingleDevice, 'formDataformData');
   let fields: any = [
     {
       label: 'Device Type *',
@@ -44,8 +44,8 @@ export const ViewDeviceKeys = (
       name: 'imei',
       type: 'text',
       placeholder: 'Enter IMEI No.',
-      value:SingleDevice?.deviceTypeDetail?.imeiNo,
-      disabled: false,
+      value: SingleDevice?.deviceTypeDetail?.imeiNo,
+      disabled: true,
     },
     {
       label: 'vehicle Number *',
@@ -53,6 +53,7 @@ export const ViewDeviceKeys = (
       type: 'text',
       placeholder: 'Enter Device vehicle No.',
       value: SingleDevice.vehicleNo, // Dummy value
+      disabled: true,
     },
     {
       label: 'Dealer Code *',
@@ -61,7 +62,7 @@ export const ViewDeviceKeys = (
       placeholder: 'Select Dealer Code',
       options: dealerRecord,
       value: SingleDevice?.dealerCode,
-      disabled: false,
+      disabled: true,
     },
     {
       label: 'Device SIM No. *',
@@ -69,6 +70,7 @@ export const ViewDeviceKeys = (
       type: 'text',
       placeholder: 'Enter Device Mobile No.',
       value: SingleDevice?.deviceSimNumber,
+      disabled: true,
     },
     {
       label: 'Operator',
@@ -77,7 +79,7 @@ export const ViewDeviceKeys = (
       placeholder: 'Choose Operator',
       options: ['Airtel', 'Jio', 'Vodafone', 'Other'],
       value: SingleDevice?.operator,
-      disabled: false,
+      disabled: true,
     },
     {
       label: 'Vehicle Category *',
@@ -86,7 +88,7 @@ export const ViewDeviceKeys = (
       placeholder: 'Select Vehicle Type',
       options: VehiclwType,
       value: SingleDevice?.vehicleType,
-      disabled: false,
+      disabled: true,
     },
     {
       label: 'Device Status *',
@@ -95,7 +97,7 @@ export const ViewDeviceKeys = (
       placeholder: 'Choose Status',
       options: ['Active', 'Inactive'],
       value: SingleDevice?.status,
-      disabled: false,
+      disabled: true,
     },
     {
       label: 'Device ID',
@@ -103,27 +105,29 @@ export const ViewDeviceKeys = (
       type: 'text',
       placeholder: 'Enter Device ID',
       value: SingleDevice?.deviceTypeDetail?.deviceId,
-      disabled: false,
+      disabled: true,
     },
     {
       label: 'Display Parameters *',
       name: 'displayParameters',
       type: 'checkboxGroup',
+      disabled: true,     
       options: [
-        { label: 'AC', value: 'AC' },
-        { label: 'Relay / Immobiliser', value: 'Relay' },
-        { label: 'GPS', value: 'GPS' },
-        { label: 'Door', value: 'Door' },
-        { label: 'GeoFencing', value: 'GeoFencing' },
-        { label: 'Network', value: 'Network' },
-        { label: 'Engine', value: 'Engine' },
-        { label: 'Parking', value: 'Parking' },
-        { label: 'Charging', value: 'Charging' },
-        { label: 'Temperature', value: 'temperature' },
-        { label: 'Humidity', value: 'humidity' },
-        { label: 'bluetooth', value: 'bluetooth' },
+        { label: 'AC', value: 'AC', disabled: true },
+        { label: 'Relay / Immobiliser', value: 'Relay', disabled: true },
+        { label: 'GPS', value: 'GPS', disabled: true },
+        { label: 'Door', value: 'Door', disabled: true },
+        { label: 'GeoFencing', value: 'GeoFencing', disabled: true },
+        { label: 'Network', value: 'Network', disabled: true },
+        { label: 'Engine', value: 'Engine', disabled: true },
+        { label: 'Parking', value: 'Parking', disabled: true },
+        { label: 'Charging', value: 'Charging', disabled: true },
+        { label: 'Temperature', value: 'temperature', disabled: true },
+        { label: 'Humidity', value: 'humidity', disabled: true },
+        { label: 'bluetooth', value: 'bluetooth', disabled: true },
+        
       ],
-      value: trueKeys,  // Display only the keys with 'true' values (e.g., 'AC')
+      value: trueKeys, // Display only the keys with 'true' values (e.g., 'AC')
     },
     {
       label: 'Fuel Status *',
@@ -136,130 +140,123 @@ export const ViewDeviceKeys = (
       value: SingleDevice?.fuelStatus ? SingleDevice?.fuelStatus : 'Off',
       disabled: true,
     },
- 
   ];
-if(SingleDevice.fuelStatus=="On"){
-fields.push(   {
-  label: 'Output *',
-  name: 'fuleOutput',
-  type: 'select',
-  placeholder: 'Select Fuel System',
-  options: ['Anolage/Voltage', 'Anolage/Ble', 'Anolage/Device'],
-  value: SingleDevice?.fuleOutput,
-  disabled: true,
-},)
-}
-  if (SingleDevice.fuleOutput === "Anolage/Voltage" && SingleDevice.fuelStatus=="On") {
+  if (SingleDevice.fuelStatus == 'On') {
+    fields.push({
+      label: 'Output *',
+      name: 'fuleOutput',
+      type: 'select',
+      placeholder: 'Select Fuel System',
+      options: ['Anolage/Voltage', 'Anolage/Ble', 'Anolage/Device'],
+      value: SingleDevice?.fuleOutput,
+      disabled: true,
+    });
+  }
+  if (
+    SingleDevice.fuleOutput === 'Anolage/Voltage' &&
+    SingleDevice.fuelStatus == 'On'
+  ) {
     fields.push(
       {
-        label: "Tank Capacity",
-        name: "tankCapacity",
-        type: "text",
-        placeholder: "Enter Fuel Tank Capacity",
+        label: 'Tank Capacity',
+        name: 'tankCapacity',
+        type: 'text',
+        placeholder: 'Enter Fuel Tank Capacity',
         required: true,
         value: SingleDevice?.tankCapacity,
-  disabled: true,
-
-
+        disabled: true,
       },
       {
-        label: "Minimum Value",
-        name: "minimumValue",
-        type: "text",
-        placeholder: "Enter Value",
+        label: 'Minimum Value',
+        name: 'minimumValue',
+        type: 'text',
+        placeholder: 'Enter Value',
         required: true,
         value: SingleDevice?.minimumValue,
-  disabled: true,
-
-
+        disabled: true,
       },
       {
-        label: "Fill Difference",
-        name: "fillDifference",
-        type: "text",
-        placeholder: "Enter Value",
+        label: 'Fill Difference',
+        name: 'fillDifference',
+        type: 'text',
+        placeholder: 'Enter Value',
         required: true,
         value: SingleDevice?.fillDifference,
         disabled: true,
-
       },
       {
-        label: "Data Filtration Level",
-        name: "dataFiltrationLevel",
-        type: "text",
-        placeholder: "Data Filtration Level",
+        label: 'Data Filtration Level',
+        name: 'dataFiltrationLevel',
+        type: 'text',
+        placeholder: 'Data Filtration Level',
         required: true,
         value: SingleDevice?.dataFiltrationLevel,
         disabled: true,
-
       },
       {
-        label: "Maximum Value",
-        name: "maximumValue",
-        type: "text",
-        placeholder: "Enter Value",
+        label: 'Maximum Value',
+        name: 'maximumValue',
+        type: 'text',
+        placeholder: 'Enter Value',
         required: true,
-        value: SingleDevice?.maximumValue || "",
+        value: SingleDevice?.maximumValue || '',
         disabled: true,
-
       },
       {
-        label: "Drain Difference",
-        name: "drainDifference",
-        type: "text",
-        placeholder: "Enter Value",
+        label: 'Drain Difference',
+        name: 'drainDifference',
+        type: 'text',
+        placeholder: 'Enter Value',
         required: true,
         value: SingleDevice?.drainDifference,
         disabled: true,
-
-      }
+      },
     );
   }
 
-  if (SingleDevice.fuleOutput === "Anolage/Ble" && SingleDevice.fuelStatus=="On") {
+  if (
+    SingleDevice.fuleOutput === 'Anolage/Ble' &&
+    SingleDevice.fuelStatus == 'On'
+  ) {
     fields.push(
       {
-        label: "Tank Capacity",
-        name: "tankCapacity",
-        type: "text",
-        placeholder: "Enter Fuel Tank Capacity",
+        label: 'Tank Capacity',
+        name: 'tankCapacity',
+        type: 'text',
+        placeholder: 'Enter Fuel Tank Capacity',
         required: true,
         value: SingleDevice?.tankCapacity,
         disabled: true,
-
       },
       {
-        label: "Fill Difference",
-        name: "fillDifference",
-        type: "text",
-        placeholder: "Enter Value",
+        label: 'Fill Difference',
+        name: 'fillDifference',
+        type: 'text',
+        placeholder: 'Enter Value',
         required: true,
         value: SingleDevice?.fillDifference,
         disabled: true,
-
       },
       {
-        label: "Data Filtration Level",
-        name: "dataFiltrationLevel",
-        type: "text",
-        placeholder: "10",
+        label: 'Data Filtration Level',
+        name: 'dataFiltrationLevel',
+        type: 'text',
+        placeholder: '10',
         required: true,
         value: SingleDevice?.dataFiltrationLevel,
         disabled: true,
-
       },
       {
-        label: "Drain Difference",
-        name: "drainDifference",
-        type: "text",
-        placeholder: "Enter Value",
+        label: 'Drain Difference',
+        name: 'drainDifference',
+        type: 'text',
+        placeholder: 'Enter Value',
         required: true,
         value: SingleDevice?.drainDifference,
         disabled: true,
-
-      }
+      },
     );
   }
 
-  return fields
+  return fields;
 };
