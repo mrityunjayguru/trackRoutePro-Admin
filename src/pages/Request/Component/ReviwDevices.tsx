@@ -24,7 +24,6 @@ function ReviwDevices() {
     navigate('/support/dealers/view-Device');
   };
   const userDevices = useSelector((state: any) => state.subscriber.userDevices);
-  console.log(userDevices, 'userDevicesuserDevices');
   const getMapDetails = async () => {
     const payload: any = {
       isAppCreated: true,

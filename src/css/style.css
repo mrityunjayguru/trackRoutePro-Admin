@@ -454,3 +454,8 @@ border-bottom-right-radius: 20px;
 .scroll-thin::-webkit-scrollbar-track {
   background: transparent; /* No background */
 }
+
+
+.padding10{
+  padding-left: 30px!important;
+}

@@ -154,7 +154,7 @@ setSelectedValues(selected.value)
       <div className="bg-white">
         <form
           onSubmit={handleSubmit}
-          className="space-y-4 py-5 px-5 max-w-2xl mx-auto"
+          className="space-y-4 py-5 px-5 max-w-2xl "
         >
           {/* Select User */}
           <div className="mb-4">
@@ -233,13 +233,10 @@ setSelectedValues(selected.value)
             </label>
             {[
               '#02B754',
-              '#000000',
               '#F5AD01',
-              '#D9D9D9',
               '#FE5513',
-              '#D9D9D6',
             ].map((color, index) => (
-              <div       className={`input-group ${index+1 ==3 || index+1 ==5 ? 'pl-7' : ''}`} key={index}>
+              <div       className={`input-group ${index+1 ==1 ? 'pl-7' : ''}`} key={index}>
                 {/* {index+1} */}
                 <label>
                   <input

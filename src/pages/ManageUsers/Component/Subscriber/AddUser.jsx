@@ -70,11 +70,15 @@ const AddUser = () => {
                     placeholder="Enter unique user ID"
                     {...formik.getFieldProps('uniqueUserId')}
                     className={`w-full rounded-2xl bg-[#F1F2F4] border-none py-3 px-5 text-black outline-none transition focus:border-primary ${
-                      formik.touched.uniqueUserId && formik.errors.uniqueUserId ? 'border-red-500' : ''
+                      formik.touched.uniqueUserId && formik.errors.uniqueUserId
+                        ? 'border-red-500'
+                        : ''
                     }`}
                   />
                   {formik.touched.uniqueUserId && formik.errors.uniqueUserId ? (
-                    <div className="text-red-500 text-sm">{formik.errors.uniqueUserId}</div>
+                    <div className="text-red-500 text-sm">
+                      {formik.errors.uniqueUserId}
+                    </div>
                   ) : null}
                 </div>
 
@@ -88,11 +92,15 @@ const AddUser = () => {
                     placeholder="Enter your password"
                     {...formik.getFieldProps('password')}
                     className={`w-full rounded-2xl bg-[#F1F2F4] border-none py-3 px-5 text-black outline-none transition focus:border-primary ${
-                      formik.touched.password && formik.errors.password ? 'border-red-500' : ''
+                      formik.touched.password && formik.errors.password
+                        ? 'border-red-500'
+                        : ''
                     }`}
                   />
                   {formik.touched.password && formik.errors.password ? (
-                    <div className="text-red-500 text-sm">{formik.errors.password}</div>
+                    <div className="text-red-500 text-sm">
+                      {formik.errors.password}
+                    </div>
                   ) : null}
                 </div>
               </div>
@@ -106,14 +114,20 @@ const AddUser = () => {
                   </label>
                   <input
                     type="text"
-                    placeholder={type ? 'Enter company name' : 'Enter user name'}
+                    placeholder={
+                      type ? 'Enter company name' : 'Enter user name'
+                    }
                     {...formik.getFieldProps('companyName')}
                     className={`w-full rounded-2xl bg-[#F1F2F4] border-none py-3 px-5 text-black outline-none transition focus:border-primary ${
-                      formik.touched.companyName && formik.errors.companyName ? 'border-red-500' : ''
+                      formik.touched.companyName && formik.errors.companyName
+                        ? 'border-red-500'
+                        : ''
                     }`}
                   />
                   {formik.touched.companyName && formik.errors.companyName ? (
-                    <div className="text-red-500 text-sm">{formik.errors.companyName}</div>
+                    <div className="text-red-500 text-sm">
+                      {formik.errors.companyName}
+                    </div>
                   ) : null}
                 </div>
 
@@ -127,11 +141,15 @@ const AddUser = () => {
                     placeholder="Enter phone number"
                     {...formik.getFieldProps('phoneNumber')}
                     className={`w-full rounded-2xl bg-[#F1F2F4] border-none py-3 px-5 text-black outline-none transition focus:border-primary ${
-                      formik.touched.phoneNumber && formik.errors.phoneNumber ? 'border-red-500' : ''
+                      formik.touched.phoneNumber && formik.errors.phoneNumber
+                        ? 'border-red-500'
+                        : ''
                     }`}
                   />
                   {formik.touched.phoneNumber && formik.errors.phoneNumber ? (
-                    <div className="text-red-500 text-sm">{formik.errors.phoneNumber}</div>
+                    <div className="text-red-500 text-sm">
+                      {formik.errors.phoneNumber}
+                    </div>
                   ) : null}
                 </div>
 
@@ -145,11 +163,15 @@ const AddUser = () => {
                     placeholder="Enter your email address"
                     {...formik.getFieldProps('email')}
                     className={`w-full rounded-2xl bg-[#F1F2F4] border-none py-3 px-5 text-black outline-none transition focus:border-primary ${
-                      formik.touched.email && formik.errors.email ? 'border-red-500' : ''
+                      formik.touched.email && formik.errors.email
+                        ? 'border-red-500'
+                        : ''
                     }`}
                   />
                   {formik.touched.email && formik.errors.email ? (
-                    <div className="text-red-500 text-sm">{formik.errors.email}</div>
+                    <div className="text-red-500 text-sm">
+                      {formik.errors.email}
+                    </div>
                   ) : null}
                 </div>
 
@@ -163,11 +185,15 @@ const AddUser = () => {
                     placeholder="Enter street address"
                     {...formik.getFieldProps('address')}
                     className={`w-full rounded-2xl bg-[#F1F2F4] border-none py-3 px-5 text-black outline-none transition focus:border-primary ${
-                      formik.touched.address && formik.errors.address ? 'border-red-500' : ''
+                      formik.touched.address && formik.errors.address
+                        ? 'border-red-500'
+                        : ''
                     }`}
                   ></textarea>
                   {formik.touched.address && formik.errors.address ? (
-                    <div className="text-red-500 text-sm">{formik.errors.address}</div>
+                    <div className="text-red-500 text-sm">
+                      {formik.errors.address}
+                    </div>
                   ) : null}
                 </div>
 
@@ -194,11 +220,15 @@ const AddUser = () => {
                     placeholder="Enter your state"
                     {...formik.getFieldProps('state')}
                     className={`w-full rounded-2xl bg-[#F1F2F4] border-none py-3 px-5 text-black outline-none transition focus:border-primary ${
-                      formik.touched.state && formik.errors.state ? 'border-red-500' : ''
+                      formik.touched.state && formik.errors.state
+                        ? 'border-red-500'
+                        : ''
                     }`}
                   />
                   {formik.touched.state && formik.errors.state ? (
-                    <div className="text-red-500 text-sm">{formik.errors.state}</div>
+                    <div className="text-red-500 text-sm">
+                      {formik.errors.state}
+                    </div>
                   ) : null}
                 </div>
 
@@ -212,11 +242,15 @@ const AddUser = () => {
                     placeholder="Enter your city"
                     {...formik.getFieldProps('city')}
                     className={`w-full rounded-2xl bg-[#F1F2F4] border-none py-3 px-5 text-black outline-none transition focus:border-primary ${
-                      formik.touched.city && formik.errors.city ? 'border-red-500' : ''
+                      formik.touched.city && formik.errors.city
+                        ? 'border-red-500'
+                        : ''
                     }`}
                   />
                   {formik.touched.city && formik.errors.city ? (
-                    <div className="text-red-500 text-sm">{formik.errors.city}</div>
+                    <div className="text-red-500 text-sm">
+                      {formik.errors.city}
+                    </div>
                   ) : null}
                 </div>
 
@@ -230,11 +264,15 @@ const AddUser = () => {
                     placeholder="Enter your pin code"
                     {...formik.getFieldProps('pinCode')}
                     className={`w-full rounded-2xl bg-[#F1F2F4] border-none py-3 px-5 text-black outline-none transition focus:border-primary ${
-                      formik.touched.pinCode && formik.errors.pinCode ? 'border-red-500' : ''
+                      formik.touched.pinCode && formik.errors.pinCode
+                        ? 'border-red-500'
+                        : ''
                     }`}
                   />
                   {formik.touched.pinCode && formik.errors.pinCode ? (
-                    <div className="text-red-500 text-sm">{formik.errors.pinCode}</div>
+                    <div className="text-red-500 text-sm">
+                      {formik.errors.pinCode}
+                    </div>
                   ) : null}
                 </div>
 
@@ -248,11 +286,15 @@ const AddUser = () => {
                     placeholder="Select ID (e.g., 12345 67890)"
                     {...formik.getFieldProps('companyId')}
                     className={`w-full rounded-2xl bg-[#F1F2F4] border-none py-3 px-5 text-black outline-none transition focus:border-primary ${
-                      formik.touched.companyId && formik.errors.companyId ? 'border-red-500' : ''
+                      formik.touched.companyId && formik.errors.companyId
+                        ? 'border-red-500'
+                        : ''
                     }`}
                   />
                   {formik.touched.companyId && formik.errors.companyId ? (
-                    <div className="text-red-500 text-sm">{formik.errors.companyId}</div>
+                    <div className="text-red-500 text-sm">
+                      {formik.errors.companyId}
+                    </div>
                   ) : null}
                 </div>
 
@@ -265,7 +307,9 @@ const AddUser = () => {
                     <select
                       {...formik.getFieldProps('gender')}
                       className={`w-full rounded-2xl bg-[#F1F2F4] border-none py-3 px-5 text-black outline-none transition focus:border-primary ${
-                        formik.touched.gender && formik.errors.gender ? 'border-red-500' : ''
+                        formik.touched.gender && formik.errors.gender
+                          ? 'border-red-500'
+                          : ''
                       }`}
                     >
                       <option value="">Select gender</option>
@@ -274,7 +318,9 @@ const AddUser = () => {
                       <option value="other">Other</option>
                     </select>
                     {formik.touched.gender && formik.errors.gender ? (
-                      <div className="text-red-500 text-sm">{formik.errors.gender}</div>
+                      <div className="text-red-500 text-sm">
+                        {formik.errors.gender}
+                      </div>
                     ) : null}
                   </div>
                 )}
@@ -288,7 +334,9 @@ const AddUser = () => {
                       onBlur={formik.handleBlur}
                     />
                     {formik.touched.dob && formik.errors.dob ? (
-                      <div className="text-red-500 text-sm">{formik.errors.dob}</div>
+                      <div className="text-red-500 text-sm">
+                        {formik.errors.dob}
+                      </div>
                     ) : null}
                   </div>
                 )}
@@ -301,14 +349,21 @@ const AddUser = () => {
                   <input
                     type="file"
                     onChange={(event) => {
-                      formik.setFieldValue('file', event.currentTarget.files[0]);
+                      formik.setFieldValue(
+                        'file',
+                        event.currentTarget.files[0],
+                      );
                     }}
                     className={`w-full rounded-2xl bg-[#F1F2F4] border-none py-3 px-5 text-black outline-none transition focus:border-primary ${
-                      formik.touched.file && formik.errors.file ? 'border-red-500' : ''
+                      formik.touched.file && formik.errors.file
+                        ? 'border-red-500'
+                        : ''
                     }`}
                   />
                   {formik.touched.file && formik.errors.file ? (
-                    <div className="text-red-500 text-sm">{formik.errors.file}</div>
+                    <div className="text-red-500 text-sm">
+                      {formik.errors.file}
+                    </div>
                   ) : null}
                 </div>
 

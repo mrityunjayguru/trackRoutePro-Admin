@@ -20,7 +20,7 @@ const Mappopup: React.FC<{
 }> = ({ text, records, onClose, showheader }) => {
   const dispatch = useDispatch<AppDispatch>();
   const [startTime, setStartTime] = useState('00:01');
-  const [endTime, setEndTime] = useState('23:30');
+  const [endTime, setEndTime] = useState('24:00');
   const [startDate, setStartDate] = useState<string>(() => new Date().toISOString().split('T')[0]);
   const [endDate, setEndDate] = useState<string>(() => new Date().toISOString().split('T')[0]);
   const [selectedMarker, setSelectedMarker] = useState<any>(null);
@@ -31,7 +31,7 @@ const Mappopup: React.FC<{
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: import.meta.env.VITE_APP_MAP_KEY || 'YOUR_API_KEY',
   });
-
+console.log(imeiRecords,"imeiRecordsimeiRecords")
   useEffect(() => {
     if (records?.imei && (records?.startTime || records?.First_Ignition)) {
       const payload: any = {
@@ -49,7 +49,7 @@ const Mappopup: React.FC<{
     }
     const payload:any={}
     dispatch(RootHistorysSetBlank(payload));
-  }, []);
+  }, [dispatch]);
 
   const formatDateTime = (dateString: string) => {
     const date = new Date(dateString);
@@ -59,8 +59,8 @@ const Mappopup: React.FC<{
   const fetchMapReports = async () => {
     const payload: any = {
       imei: imeiRecords.imei,
-      startdate: `${startDate} ${startTime}`,
-      enddate: `${endDate} ${endTime}`,
+      startdate: `${startDate}T${startTime}:00.000Z`,
+      enddate: `${endDate}T${endTime}:00.000Z`,
     };
     dispatch(RootHistorys(payload));
   };
@@ -81,7 +81,10 @@ const Mappopup: React.FC<{
   );
 
   return (
+<>
+
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-99999">
+   
       <div className="bg-white p-6 rounded-lg shadow-lg w-[80%] h-[90%] relative">
         <button
           onClick={onClose}
@@ -92,6 +95,15 @@ const Mappopup: React.FC<{
         <h1 className="py-1 text-[#000000] text-center text-[20px] font-medium leading-[24px] font-[Satoshi]">
           {text}
         </h1>
+        {text === 'Route History'?(  <div className="flex flex-wrap gap-4 p-4  rounded-lg">
+  <p className="text-gray-700 font-medium">
+    IMEI No: <span className="font-semibold text-black">{imeiRecords?.imei}</span>
+  </p>
+  <p className="text-gray-700 font-medium">
+    Name: <span className="font-semibold text-black">{imeiRecords?.users?.Name}</span>
+  </p>
+</div>):(null)}
+      
 
         {showheader && (
           <div className="flex flex-wrap gap-5 mb-4">
@@ -199,6 +211,7 @@ const Mappopup: React.FC<{
         </div>
       </div>
     </div>
+</>
   );
 };
 
