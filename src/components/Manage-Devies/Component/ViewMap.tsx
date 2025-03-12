@@ -2,8 +2,9 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getmapDetails } from "../../../api/Map";
 import { AppDispatch } from "../../../store/store";
-import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, Marker, } from "@react-google-maps/api";
 import VehicleRecord from "./VehicleRecord";
+import { useOutletContext } from "react-router-dom";
 
 const GOOGLE_MAPS_API_KEY = import.meta.env.VITE_APP_MAP_KEY; // Ensure API Key is set
 
@@ -11,15 +12,13 @@ function ViewMap() {
   const dispatch = useDispatch<AppDispatch>();
   const devices = useSelector((state: any) => state.subscriber?.singleDevice);
   const maprecords = useSelector((state: any) => state?.map?.AllmapDetails || []);
+  const isLoaded = JSON.parse(localStorage.getItem("isLoaded") || "false");
 
   const [center, setCenter] = useState({ lat: 37.7749, lng: -122.4194 }); // Default location
   const [zoom, setZoom] = useState(12);
   const [mapMode, setMapMode] = useState<any>("roadmap");
 
   // Load Google Maps API
-  const { isLoaded, loadError } = useJsApiLoader({
-    googleMapsApiKey: GOOGLE_MAPS_API_KEY, // Use environment variable for API Key
-  });
 
   useEffect(() => {
     if (devices?.imei) {
@@ -56,7 +55,6 @@ function ViewMap() {
     setZoom(16);
   };
 
-  if (loadError) return <div>Error loading Google Maps</div>;
   if (!isLoaded) return <div>Loading Google Maps...</div>;
 
   return (

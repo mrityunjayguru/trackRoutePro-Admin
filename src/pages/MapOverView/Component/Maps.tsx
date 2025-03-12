@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { GoogleMap, Marker, useJsApiLoader } from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 import { useDispatch, useSelector } from "react-redux";
 import { setZomm } from "../../../store/manageMap";
-
-const API_KEY = import.meta.env.VITE_APP_MAP_KEY;
 
 const Maps: React.FC = () => {
   const maprecords = useSelector((state: any) => state.map.AllmapDetails);
   const autoZoom: any = useSelector((state: any) => state.map.autoZoom);
   const [mapMode,setMapmode]=useState<any>("roadmap")
   const dispatch = useDispatch();
+  const isLoaded = JSON.parse(localStorage.getItem("isLoaded") || "false");
 
   const [zoom, setZoom] = useState<number>(5);
   const [center, setCenter] = useState<{ lat: number; lng: number }>({
@@ -32,10 +31,6 @@ const Maps: React.FC = () => {
     setCenter({ lat: Number(location.latitude), lng: Number(location.longitude) });
   };
 
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: API_KEY,
-    libraries: ["places"],
-  });
 
   const mapRef = React.useRef<google.maps.Map | null>(null);
 
