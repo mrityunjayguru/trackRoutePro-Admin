@@ -12,10 +12,10 @@ function mapoverview() {
   const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
   const navigate = useNavigate();
   const dispatch=useDispatch<AppDispatch>()
-  const getDevicesList=()=>{
-    const payload:any={}
-    dispatch(searchDevices(payload))
-  }
+  // const getDevicesList=()=>{
+  //   const payload:any={}
+  //   dispatch(searchDevices(payload))
+  // }
   //   useEffect(() => {
   //   const userId = 'All'; // Example: replace this with actual userId
   //   socket.emit('registerUser', { userId, socketId: socket.id });
@@ -28,7 +28,7 @@ function mapoverview() {
   // }, []);
 
   useEffect(() => {
-    getDevicesList()
+    // getDevicesList()
     if (
       loginUser?.permissions?.Map?.View !=true && loginUser.role!="SuperAdmin"
     ) {

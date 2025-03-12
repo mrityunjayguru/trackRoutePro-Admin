@@ -103,8 +103,8 @@ const Maps: React.FC = () => {
         streetViewControl: true,
         mapTypeId:mapMode,
         fullscreenControl: true,
-         fullscreenControlOptions: {
-    position: google?.maps?.ControlPosition?.LEFT_TOP, // Set position to the right
+        fullscreenControlOptions: {
+        position: google?.maps?.ControlPosition?.LEFT_TOP, // Set position to the right
   },
       }}
     >

@@ -5,18 +5,24 @@ import { getmapDetails, searchuser, setblank } from '../../../api/Map';
 // import { setZomm } from '../../../store/manageMap';
 import { setZomm } from '../../../store/manageMap';
 import Select from 'react-select';
+import { searchDevices } from '../../../api/Map';
 
 const ManageMaps = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [ownerid, setownerid] = useState<string | null>(null);
-  const [deviceId,setDeviceId]=useState(null)
+  const [deviceId, setDeviceId] = useState(null);
   const searchdata = useSelector((state: any) => state.map.searchusers) || [];
-  const searchDevices = useSelector((state: any) => state.map.devicesList) || [];
+  const searchRecord = useSelector((state: any) => state.map.devicesList) || [];
   const maprecords = useSelector((state: any) => state.map.AllmapDetails);
 
-const [selectedOption,setselectedOption]=useState(null)
-const [setlectedDevice,setSelectedDevice]=useState(null)
+  const [selectedOption, setselectedOption] = useState(null);
+  const [setlectedDevice, setSelectedDevice] = useState(null);
+  const getDevicesList = () => {
+    const payload: any = {};
+    dispatch(searchDevices(payload));
+  };
   useEffect(() => {
+    getDevicesList();
     const payload: any = [];
     dispatch(setblank(payload)); // Clear previous data on mount
     const payload2: any = { search: '' };
@@ -30,36 +36,38 @@ const [setlectedDevice,setSelectedDevice]=useState(null)
       if (ownerid) {
         Object.assign(payload, { ownerId: ownerid });
       }
-      if(deviceId){
+      if (deviceId) {
         Object.assign(payload, { deviceId: deviceId });
       }
       await dispatch(getmapDetails(payload)); // Fetch map details based on ownerId
     } catch (err) {
       console.log(err);
     }
-  }, [dispatch, ownerid,deviceId]);
+  }, [dispatch, ownerid, deviceId]);
   // Handle ownerId change from the dropdown
   const handleStatusChange = (val: any) => {
-    setselectedOption(val)
+    const payload: any = {
+      ownerID:val?.value
+    };
+    dispatch(searchDevices(payload));
+    console.log(val,"valval")
+    setselectedOption(val);
     setownerid(val.value); // Update ownerid based on dropdown selection
-    setDeviceId(null)
-    setSelectedDevice(null)
+    setDeviceId(null);
+    setSelectedDevice(null);
   };
 
   const handleShowAllClick = async () => {
     setownerid(null); // Clear ownerid before fetching all maps
-    setDeviceId(null)
-    setselectedOption(null)
-    setSelectedDevice(null)
-
+    setDeviceId(null);
+    setselectedOption(null);
+    setSelectedDevice(null);
     await getAllmaps(); // Fetch all maps
   };
 
-  const showonmap = async() => {
+  const showonmap = async () => {
     await getAllmaps(); // Fetch and show maps based on ownerId
-    await dispatch(setZomm(true))
-    console.log(maprecords,"maprecordsmaprecords")
- 
+    await dispatch(setZomm(true));
   };
 
   // Interval setup to call `getAllmaps` every 5 seconds
@@ -73,93 +81,92 @@ const [setlectedDevice,setSelectedDevice]=useState(null)
     };
   }, [getAllmaps]);
 
-  useEffect(()=>{
+  useEffect(() => {
     getAllmaps();
-  },[])
+  }, []);
   const statusOptions = searchdata.map((val: any) => ({
     label: val.Name, // Display Name in the dropdown
     value: val.userID, // Use userID as the value
   }));
-const deviceoption=searchDevices.map((val:any)=>({
-  label: val.imei,
-  value: val._id, 
-}))
+  const deviceoption = searchRecord.map((val: any) => ({
+    label: val.imei,
+    value: val._id,
+  }));
 
-const handleStatusChangeDevice=(val: any)=>{
-  setDeviceId(val.label)
-  setSelectedDevice(val)
-  setownerid(null)
-  setselectedOption(null)
-}
-const [disabled,setDisabled]=useState(false)
-useEffect(() => {
-  if (deviceId == null && ownerid == null) {
-    setDisabled(true); // Disable button if either value is null
-  } else {
-    setDisabled(false); // Enable button if both values are non-null
-  }
+  const handleStatusChangeDevice = (val: any) => {
+    setDeviceId(val.label);
+    setSelectedDevice(val);
+    // setownerid(null);
+    // setselectedOption(null);
+  };
+  const [disabled, setDisabled] = useState(false);
+  useEffect(() => {
+    if (deviceId == null && ownerid == null) {
+      setDisabled(true); // Disable button if either value is null
+    } else {
+      setDisabled(false); // Enable button if both values are non-null
+    }
 
-//  if(maprecords.length==0){
-//   alert("alert")
-//  }
-}, [deviceId, ownerid]);
+    //  if(maprecords.length==0){
+    //   alert("alert")
+    //  }
+  }, [deviceId, ownerid]);
   return (
     <>
       {/* <div className="text-2xl font-semibold text-[#000]">Map Overview</div> */}
 
       <div className="grid grid-cols-[60.25%_auto_auto] gap-10 my-2">
-        <div className='flex w-full gap-2'>
-        <div  className='w-full'>
-        <Select
-  options={statusOptions} // Dropdown options
-  value={selectedOption}
-  onChange={handleStatusChange} // Handle selection
-  styles={{
-    control: (provided, state) => ({
-      ...provided,
-      border: '1px solid #D9E821', // Custom border color
-      boxShadow: state.isFocused ? '0 0 0 1px #D9E821' : 'none', // Border color on focus
-      '&:hover': {
-        borderColor: '#D9E821', // Hover state border color
-      },
-    }),
-  }}
-  placeholder="Search Subscriber"
-/>
-
-        </div>
-        <div className='w-full'>
-        <Select
-            options={deviceoption} // Dropdown options
-            onChange={handleStatusChangeDevice} // Handle selection
-            value={setlectedDevice}
-            placeholder="Search IMEI No"
-            styles={{
-              control: (provided, state) => ({
-                ...provided,
-                border: '1px solid #D9E821', // Custom border color
-                boxShadow: state.isFocused ? '0 0 0 1px #D9E821' : 'none', // Border color on focus
-                '&:hover': {
-                  borderColor: '#D9E821', // Hover state border color
-                },
-              }),
-            }}
-          />
-        </div>
+        <div className="flex w-full gap-2">
+          <div className="w-full">
+            <Select
+              options={statusOptions} // Dropdown options
+              value={selectedOption}
+              onChange={handleStatusChange} // Handle selection
+              styles={{
+                control: (provided, state) => ({
+                  ...provided,
+                  border: '1px solid #D9E821', // Custom border color
+                  boxShadow: state.isFocused ? '0 0 0 1px #D9E821' : 'none', // Border color on focus
+                  '&:hover': {
+                    borderColor: '#D9E821', // Hover state border color
+                  },
+                }),
+              }}
+              placeholder="Search Subscriber"
+            />
+          </div>
+          <div className="w-full">
+            <Select
+              options={deviceoption} // Dropdown options
+              onChange={handleStatusChangeDevice} // Handle selection
+              value={setlectedDevice}
+              placeholder="Search IMEI No"
+              styles={{
+                control: (provided, state) => ({
+                  ...provided,
+                  border: '1px solid #D9E821', // Custom border color
+                  boxShadow: state.isFocused ? '0 0 0 1px #D9E821' : 'none', // Border color on focus
+                  '&:hover': {
+                    borderColor: '#D9E821', // Hover state border color
+                  },
+                }),
+              }}
+            />
+          </div>
         </div>
         <div onClick={showonmap}>
-  <button
-    type="submit"
-    className={`h-[40px] py-1 px-5 w-full rounded-2xl font-medium ${
-      disabled
-        ? ' text-[#fff] cursor-not-allowed bg-gray-400'  // Disabled state color
-        : 'bg-[#000] text-[#D9E821] '   // Active state color
-    }`}
-    disabled={disabled}
-  >
-    Show on Map
-  </button>
-</div>
+          <button
+            type="submit"
+            className={`h-[40px] py-1 px-5 w-full rounded-2xl font-medium ${
+              disabled
+                ? ' text-[#fff] cursor-not-allowed bg-gray-400' // Disabled state color
+                : 'bg-[#000] text-[#D9E821] ' // Active state color
+            }`}
+            disabled={disabled}
+          >
+            Show on Map
+          </button>
+        </div>
 
         <div onClick={handleShowAllClick}>
           <button
@@ -175,4 +182,3 @@ useEffect(() => {
 };
 
 export default ManageMaps;
-

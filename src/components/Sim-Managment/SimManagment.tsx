@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
-import Pagination from "../../../../common/Loader/Pagination";
-import CommonTable from "../../../../common/Table/CommonTable";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../../../store/store";
-import { getDeviceDetail, singleDeviceDetails } from "../../../../api/DeviceDetails";
 // import { DeviceDetailTableKeys } from "./DeveiceDetailTableKeys";
 import { useNavigate } from "react-router-dom";
-import SearchAndFilter from "../../../../common/SearchAndFilter";
-import { DeveiceDetailTableKeys } from "./DeveiceDetailTableKeys";
+import { getDeviceDetail, singleDeviceDetails } from "../../api/DeviceDetails";
+import SearchAndFilter from "../../common/SearchAndFilter";
+import CommonTable from "../../common/Table/CommonTable";
+import { DeveiceDetailTableKeys } from "../../pages/Manage/DeviceDetail/Component/DeveiceDetailTableKeys";
+import Pagination from "../../common/Loader/Pagination";
+import { AppDispatch } from "../../store/store";
+import { SimManagmentkeys } from "./Component/SimManagmentkeys";
 
-function DeviceDetailTable() {
+
+function SimManagment() {
   const navigate = useNavigate();
   const deviceDetail = useSelector((state: any) => state?.deviceDetail?.deviceDetail);
   const [searchQuery, setSearchQuery] = useState("");
@@ -21,7 +23,7 @@ function DeviceDetailTable() {
 const [total,setTotal]=useState<any>(0)
   const handleRowClick = async (data: any) => {
     await dispatch(singleDeviceDetails(data));
-    navigate("/manage/viewDeviceDetail");
+    navigate("/sim-managment/edit");
   };
 
   const getRecord =async () => {
@@ -65,7 +67,7 @@ const [total,setTotal]=useState<any>(0)
         </div>
         <div className="mt-5">
           <CommonTable
-            columns={DeveiceDetailTableKeys}
+            columns={SimManagmentkeys}
             data={deviceDetail}
             onRowClick={handleRowClick} // Optional: Add row click behavior
             currentPage={currentPage}
@@ -82,4 +84,4 @@ const [total,setTotal]=useState<any>(0)
   );
 }
 
-export default DeviceDetailTable;
+export default SimManagment;

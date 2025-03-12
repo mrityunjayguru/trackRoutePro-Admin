@@ -64,6 +64,9 @@ import ManageRenew from './pages/Request/Component/Renew/ManageRenew';
 import Root from './pages/Manage/RootHistory/Root';
 import Reports from './pages/Reports/Reports';
 import ReportRecord from './pages/Reports/component/ReportRecord';
+import ManageDevices from './components/Manage-Devies/ManageDevices';
+import ViewMap from './components/Manage-Devies/Component/ViewMap';
+import SimManagment from './components/Sim-Managment/SimManagment';
 export const routes = [
   { path: '/auth/signin', title: 'TRP Signin', component: <SignIn /> },
   { path: '/', title: 'TRP ashboard', component: <ECommerce /> },
@@ -349,4 +352,24 @@ export const routes = [
   title: 'Reports',
   component: <ReportRecord />,
 },
+
+  {
+    path: 'Manage-device/view-map',
+    title: 'Manage-device',
+    component: <ViewMap />,
+  },
+{
+  path: '/Manage-device',
+  title: 'Manage-device',
+  component: <ManageDevices />,
+},
+{
+  path: '/sim-managment',
+  title: 'sim-managment',
+  component: <SimManagment />,
+},
+
+
+//sim managment
+
 ];

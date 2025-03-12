@@ -90,23 +90,21 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
     ) => (
       <NavLink
         to={to}
-        className={`text14 group flex items-center gap-2.5 text-[14px] rounded-sm px-4 py-2 font-medium transition-all duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${
-          active ? 'bg-graydark text-[#D9E821]' : 'text-[#fff]'
-        }`}
+        className={`text14 group flex items-center gap-2.5 text-[15px] rounded-sm px-4 py-2 font-medium transition-all duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${active ? 'bg-graydark text-[#D9E821]' : 'text-[#fff]'
+          }`}
       >
         <span>{icon}</span> {label}
       </NavLink>
     ),
     [],
   );
-
   const renderNestedRoutes = useCallback(
     (routes: any[], depth: number = 0) => {
       return routes.map((route, index) => {
         const isActive = pathname.includes(route.path);
         const hasNested = route.children?.length || route.subChildren?.length;
         if (!route.isView) return null;
-
+  
         const handleClick = (
           event: React.MouseEvent,
           groupKey: string,
@@ -115,7 +113,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
           event.preventDefault();
           setOpenGroup(openGroup?.includes(groupKey) ? null : groupKey);
         };
-
+  
         return (
           <li key={index}>
             {hasNested ? (
@@ -125,27 +123,22 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
                     <NavLink
                       to="#"
                       onClick={(event) => handleClick(event, route.path, index)}
-                      className={`group flex items-center gap-2.5 px-4 py-2 pl-${
-                        depth * 4
-                      } font-medium text-white hover:bg-graydark ${
-                        isActive ? 'bg-graydark text-[#D9E821]' : ''
-                      }`}
+                      className={`group flex items-center gap-2.5 pl-10 px-4 py-2 font-medium text-white hover:bg-graydark ${isActive ? 'bg-graydark text-[#D9E821]' : ''
+                        }`}
                     >
                       <span>{route.icon}</span> {route.label}
                       {hasNested && (
                         <IoIosArrowUp
-                          className={`ml-1 transition-transform ${
-                            openGroup === route.path ? 'rotate-180' : ''
-                          }`}
+                          className={`ml-1 transition-transform ${openGroup === route.path ? '' : 'rotate-180'
+                            }`}
                         />
                       )}
                     </NavLink>
                     <ul
-                      className={`text-[#000000] transition-all ease-in-out duration-300 overflow-hidden ${
-                        openGroup?.includes(route.path)
+                      className={`text-[#000000] transition-all ease-in-out duration-300 overflow-hidden pl-6 ${openGroup?.includes(route.path)
                           ? 'max-h-screen'
                           : 'max-h-0'
-                      }`}
+                        }`}
                     >
                       {route.children &&
                         renderNestedRoutes(route.children, depth + 1)}
@@ -156,7 +149,9 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
                 )}
               </SidebarLinkGroup>
             ) : (
-              renderNavLink(route.path, route.label, route.icon, isActive)
+              <div className={`pl-${depth * 4}`}>
+                {renderNavLink(route.path, route.label, route.icon, isActive)}
+              </div>
             )}
           </li>
         );
@@ -164,6 +159,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
     },
     [pathname, renderNavLink, openGroup],
   );
+  
 
   const handleClick5 = (path: any) => {
     setOpenGroup(openGroup?.includes(path) ? null : path);
@@ -172,9 +168,8 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   return (
     <aside
       ref={sidebar}
-      className={`mt-1 mr-5 ml-5 mb-5 absolute left-[-30px] top-0 z-50 flex h-screen w-72 flex-col overflow-y-hidden transition-all duration-300 ease-in-out dark:bg-boxdark lg:static lg:translate-x-0 ${
-        sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-      }`}
+      className={`mt-1 mr-5 ml-5 mb-5 absolute left-[-30px] top-0 z-50 flex h-screen w-72 flex-col overflow-y-hidden transition-all duration-300 ease-in-out dark:bg-boxdark lg:static lg:translate-x-0 ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        }`}
     >
       <div
         onClick={handleRoutes}
@@ -190,7 +185,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
         />
       </div>
 
-      <div className="no-scrollbar rounded-xl mt-5 bg-[#000] flex flex-col overflow-y-auto text14">
+      <div className="no-scrollbar rounded-xl mt-5 bg-[#000] flex flex-col overflow-y-auto text-[15px]">
         <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
           <ul className="mb-6 flex flex-col gap-1.5">
             {loginUser?.role &&
@@ -205,28 +200,25 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
                               <NavLink
                                 to="#"
                                 onClick={() => handleClick5(path)}
-                                className={`group flex items-center gap-2.5 px-4 py-2 font-medium text-white hover:bg-graydark ${
-                                  condition(pathname) ? 'bg-graydark' : ''
-                                }`}
+                                className={`group flex items-center gap-2.5 px-4 py-2 font-medium text-white hover:bg-graydark ${condition(pathname) ? 'bg-graydark' : ''
+                                  }`}
                               >
                                 <span>{icon}</span>{' '}
-                                <p className="w-full text-[14px]">{label}</p>
+                                <p className="w-full text-[15px]">{label}</p>
                                 {children && (
                                   <IoIosArrowUp
-                                    className={`ml-1 transition-transform ${
-                                      openGroup?.includes(path)
-                                        ? 'rotate-180'
-                                        : ''
-                                    }`}
+                                    className={`ml-1 transition-transform ${openGroup?.includes(path)
+                                        ? ''
+                                        : 'rotate-180'
+                                      }`}
                                   />
                                 )}
                               </NavLink>
                               <ul
-                                className={`transition-all pl-2.5 ${
-                                  openGroup?.includes(path)
+                                className={`transition-all pl-2.5 ${openGroup?.includes(path)
                                     ? 'max-h-screen'
                                     : 'max-h-0 overflow-hidden'
-                                }`}
+                                  }`}
                               >
                                 {children && renderNestedRoutes(children)}
                               </ul>

@@ -52,6 +52,7 @@ export default function SummaryFilter() {
   },[])
   const [loder, setloder] = useState(false);
   const handleReportAction = async (actionType: string) => {
+    if(selectedVehicles.length==0) return
     setloder(true);
     const payload: any = {
       deviceId: selectedVehicles,
@@ -118,9 +119,9 @@ export default function SummaryFilter() {
           {imeiRecords?.name}
         </h2>
       </div>
-      <div className="flex items-center space-x-4 mt-5">
+      <div className="flex  space-x-4 mt-5">
         <button
-          className="bg-gray-100 rounded-lg p-2 px-10 text-sm"
+          className="py-2 w-[400px] border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
           onClick={() => setShowVehicleModal(true)}
         >
           {selectedVehicles.length
@@ -128,7 +129,7 @@ export default function SummaryFilter() {
             : 'Select Vehicle'}
         </button>
         <select
-          className="bg-gray-100 rounded-lg p-2 px-10 text-sm"
+          className=" py-2 w-[250px] border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
           onChange={(e) => setShowCustomRange(e.target.value)}
         >
           <option value="today">Today</option>
@@ -201,16 +202,17 @@ export default function SummaryFilter() {
             <h3 className="text-black  text-[20px] font-medium leading-[24px] font-[Satoshi] my-1">
               Search Device
             </h3>
-            <div className="flex items-center border p-2 rounded-lg bg-gray-100 mb-3">
-              <FaSearch className="text-gray-500 mr-2" />
-              <input
-                type="text"
-                placeholder="Search Vehicle"
-                value={search}
-                className="bg-transparent w-full focus:outline-none"
-                onChange={(e)=>setSearch(e.target.value)}
-              />
-            </div>
+           <div className="relative w-full">
+  <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+  <input
+    type="text"
+    placeholder="Search Vehicle"
+    value={search}
+    className="w-full pl-10 pr-5 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
+    onChange={(e) => setSearch(e.target.value)}
+  />
+</div>
+
             <div className="max-h-60 overflow-y-auto">
               {data.map((vehicle: any) => (
                 <div

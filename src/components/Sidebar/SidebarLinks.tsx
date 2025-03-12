@@ -1,11 +1,19 @@
 import { useSelector } from 'react-redux';
 import {
   AddVehicleIcon,
+  ApplicationSetting,
   DeviceManager,
+  ManageDeviceIcons,
   ManageIcons,
+  ManageinventryIcon,
   ManageSubscriberIcos,
   ManageSubscribersIcon,
+  ManageType,
+  ManageUserIcos,
+  MapOverViewIcons,
   NotificationsIcons,
+  ReportsIcons,
+  RouteHistoryIcons,
   SuportIcons,
 } from './SideBarSvgIcons';
 export const useSidebarRoutes = () => {
@@ -30,8 +38,8 @@ export const useSidebarRoutes = () => {
     },
     {
       path: '/account-management',
-      label: 'Account Management',
-      icon: <ManageSubscriberIcos />,
+      label: 'Manage users',
+      icon: <ManageUserIcos />,
       condition: (pathname: string) => pathname.includes('account-management'),
       children: [
         {
@@ -63,9 +71,20 @@ export const useSidebarRoutes = () => {
           : false, // Added the isView property
     },
     {
+      path: '/Manage-device',
+      label: 'Manage device',
+      icon: <ManageDeviceIcons />,
+      condition: (pathname: string) => pathname === '/Manage-device',
+      isView:
+        loginUser.role === 'SuperAdmin' || loginUser.role === 'Admin'
+          ? true
+          : false, // Added the isView property
+    },
+  
+    {
       path: '/map-overview',
       label: 'Map Overview',
-      icon: <ManageSubscribersIcon />,
+      icon: <MapOverViewIcons />,
       condition: (pathname: string) => pathname.includes('map-overview'),
       isView:
         loginUser.role == 'SuperAdmin' || loginUser?.permissions?.Map?.View
@@ -75,7 +94,7 @@ export const useSidebarRoutes = () => {
     {
       path: '/Reports',
       label: 'Reports',
-      icon: <AddVehicleIcon />,
+      icon: <ReportsIcons />,
       isView: true, // Added the isView property
       condition: (pathname: string) =>
         pathname.includes('/device-management/Reports'),
@@ -83,7 +102,7 @@ export const useSidebarRoutes = () => {
     {
       path: '/device-management/Root-History',
       label: 'Route History',
-      icon: <AddVehicleIcon />,
+      icon: <RouteHistoryIcons />,
       isView: true, // Added the isView property
       condition: (pathname: string) =>
         pathname.includes('/device-management/Root-History'),
@@ -91,11 +110,19 @@ export const useSidebarRoutes = () => {
     {
       path: '/manage-Inventory',
       label: 'Manage Inventory',
-      icon: '',
+      icon: <ManageinventryIcon/>,
       isView: true, // Added the isView property
       condition: (pathname: string) =>
         pathname.includes('/manage-Inventory'),
     },
+    // {
+    //   path: '/sim-managment',
+    //   label: 'Sim Managment',
+    //   icon: '',
+    //   isView: true, // Added the isView property
+    //   condition: (pathname: string) =>
+    //     pathname.includes('/sim-managment'),
+    // },
     {
       path: '/notifications',
       label: 'Notifications',
@@ -109,13 +136,13 @@ export const useSidebarRoutes = () => {
 
     {
       path: '/support',
-      label: 'Support',
+      label: 'Requests',
       icon: <SuportIcons />,
       condition: (pathname: string) => pathname.includes('support'),
       children: [
         {
           path: '/support/subscribers',
-          label: 'Subscriber Support',
+          label: 'Subscriber Requests',
           icon: '',
           isView:
             loginUser.role == 'SuperAdmin' ||
@@ -127,7 +154,7 @@ export const useSidebarRoutes = () => {
         },
         {
           path: '/support/dealers',
-          label: 'Dealer Support',
+          label: 'Dealer Requests',
           icon: '',
           isView: loginUser.role == 'SuperAdmin', // Added the isView property
           condition: (pathname: string) =>
@@ -135,7 +162,7 @@ export const useSidebarRoutes = () => {
         },
         {
           path: '/support/Renew',
-          label: 'User renew',
+          label: 'Renew Requests',
           icon: '',
           isView: loginUser.role == 'SuperAdmin', // Added the isView property
           condition: (pathname: string) =>
@@ -149,153 +176,141 @@ export const useSidebarRoutes = () => {
     },
     {
       path: '/device-management',
-      label: 'Manage',
-      icon: <ManageIcons />,
+      label: 'Manage Type',
+      icon: <ManageType />,
       condition: (pathname: string) => pathname.includes('device-management'),
       children: [
         {
-          path: '/device-management/gps',
-          label: 'GPS Devices',
-          icon: <DeviceManager />,
-          condition: (pathname: string) =>
-            pathname.includes('/device-management/gps'),
-
-          subChildren: [
-            {
               path: '/device-management/gps/add-device',
               label: 'Add Device Type',
               icon: '',
               isView: true, // Added the isView property
               condition: (pathname: string) =>
-                pathname.includes('/device-management/gps/add-devices'),
-            },
-        
-          ],
-          isView: true, // Added the isView property
+              pathname.includes('/device-management/gps/add-devices'),
         },
         {
           path: '/device-management/vehicle-icons',
           label: 'Add Vehicle Icons',
-          icon: <AddVehicleIcon />,
+          icon: "",
           isView: true, // Added the isView property
           condition: (pathname: string) =>
             pathname.includes('/device-management/vehicle-icons'),
         },
   
+       
+      ],
+      isView: loginUser.role == 'SuperAdmin' ? true : false, // Added the isView property
+    },
+    {
+      path: '/device-management/app-settings',
+      label: 'App Settings',
+      icon: <ApplicationSetting/>,
+      isView: true, // Make sure this is true
+      condition: (pathname: string) =>
+        pathname.includes('/device-management/app-settings'),
+        children: [
         {
-          path: '/device-management/app-settings',
-          label: 'Application Settings',
+          path: '/device-management/app-settings/content-manager',
+          label: 'Content Manager',
           icon: '',
-          isView: true, // Make sure this is true
+          isView: true, // Check this too
           condition: (pathname: string) =>
-            pathname.includes('/device-management/app-settings'),
+            pathname.includes(
+              '/device-management/app-settings/content-manager',
+            ),
 
           children: [
             {
-              path: '/device-management/app-settings/content-manager',
-              label: 'Content Manager',
+              path: '/device-management/content/about-us',
+              label: 'About us',
               icon: '',
-              isView: true, // Check this too
+              isView: true, // Ensure it's not false
               condition: (pathname: string) =>
-                pathname.includes(
-                  '/device-management/app-settings/content-manager',
-                ),
-
-              children: [
-                {
-                  path: '/device-management/content/about-us',
-                  label: 'About us',
-                  icon: '',
-                  isView: true, // Ensure it's not false
-                  condition: (pathname: string) =>
-                    pathname.includes('/device-management/content/about-us'),
-                },
-                {
-                  path: '/device-management/content/privacy-policy',
-                  label: 'Privacy Policy',
-                  icon: '',
-                  isView: true, // Added the isView property
-                  condition: (pathname: string) =>
-                    pathname.includes(
-                      '/device-management/content/privacy-policy',
-                    ),
-                },
-                {
-                  path: '/device-management/content/terms-of-use',
-                  label: 'Terms of Use',
-                  icon: '',
-                  isView: true, // Added the isView property
-                  condition: (pathname: string) =>
-                    pathname.includes(
-                      '/device-management/content/terms-of-use',
-                    ),
-                },
-                {
-                  path: '/device-management/content/faqs',
-                  label: 'FAQs Topics',
-                  icon: '',
-                  isView: true, // Added the isView property
-                  condition: (pathname: string) =>
-                    pathname.includes('/device-management/content/faqs'),
-                },
-                {
-                  path: '/device-management/content/faqs-content',
-                  label: 'FAQs Content',
-                  icon: '',
-                  isView: true, // Added the isView property
-                  condition: (pathname: string) =>
-                    pathname.includes(
-                      '/device-management/content/faqs-content',
-                    ),
-                },
-              ],
+                pathname.includes('/device-management/content/about-us'),
             },
             {
-              path: '/device-management/app-settings/customization',
-              label: 'App Customization',
+              path: '/device-management/content/privacy-policy',
+              label: 'Privacy Policy',
               icon: '',
-              isView: true, // Ensure this is true
+              isView: true, // Added the isView property
               condition: (pathname: string) =>
                 pathname.includes(
-                  '/device-management/app-settings/customization',
+                  '/device-management/content/privacy-policy',
                 ),
-              children: [
-                {
-                  path: '/device-management/customization/splash-screen',
-                  label: 'Splash Screen',
-                  icon: '',
-                  isView: true, // Added the isView property
-                  condition: (pathname: string) =>
-                    pathname.includes(
-                      '/device-management/customization/splash-screen',
-                    ),
-                },
-                {
-                  path: '/device-management/customization/settings-screen',
-                  label: 'Settings Screen',
-                  icon: '',
-                  isView: true, // Added the isView property
-                  condition: (pathname: string) =>
-                    pathname.includes(
-                      '/device-management/customization/settings-screen',
-                    ),
-                },
-                {
-                  path: '/device-management/customization/settings',
-                  label: 'Settings',
-                  icon: '',
-                  isView: true, // Added the isView property
-                  condition: (pathname: string) =>
-                    pathname.includes(
-                      '/device-management/customization/settings',
-                    ),
-                },
-              ],
+            },
+            {
+              path: '/device-management/content/terms-of-use',
+              label: 'Terms of Use',
+              icon: '',
+              isView: true, // Added the isView property
+              condition: (pathname: string) =>
+                pathname.includes(
+                  '/device-management/content/terms-of-use',
+                ),
+            },
+            {
+              path: '/device-management/content/faqs',
+              label: 'FAQs Topics',
+              icon: '',
+              isView: true, // Added the isView property
+              condition: (pathname: string) =>
+                pathname.includes('/device-management/content/faqs'),
+            },
+            {
+              path: '/device-management/content/faqs-content',
+              label: 'FAQs Content',
+              icon: '',
+              isView: true, // Added the isView property
+              condition: (pathname: string) =>
+                pathname.includes(
+                  '/device-management/content/faqs-content',
+                ),
+            },
+          ],
+        },
+        {
+          path: '/device-management/app-settings/customization',
+          label: 'App Customization',
+          icon: '',
+          isView: true, // Ensure this is true
+          condition: (pathname: string) =>
+            pathname.includes(
+              '/device-management/app-settings/customization',
+            ),
+          children: [
+            {
+              path: '/device-management/customization/splash-screen',
+              label: 'Splash Image',
+              icon: '',
+              isView: true, // Added the isView property
+              condition: (pathname: string) =>
+                pathname.includes(
+                  '/device-management/customization/splash-screen',
+                ),
+            },
+            {
+              path: '/device-management/customization/settings-screen',
+              label: 'Settings Ad Image ',
+              icon: '',
+              isView: true, // Added the isView property
+              condition: (pathname: string) =>
+                pathname.includes(
+                  '/device-management/customization/settings-screen',
+                ),
+            },
+            {
+              path: '/device-management/customization/settings',
+              label: 'Settings',
+              icon: '',
+              isView: true, // Added the isView property
+              condition: (pathname: string) =>
+                pathname.includes(
+                  '/device-management/customization/settings',
+                ),
             },
           ],
         },
       ],
-      isView: loginUser.role == 'SuperAdmin' ? true : false, // Added the isView property
     },
   ];
 };
