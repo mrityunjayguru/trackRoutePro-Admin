@@ -15,7 +15,9 @@ const SubscriberHeader: React.FC<SubscriberHeaderProps> = ({
     setIsPopupOpen(!isPopupOpen); // Toggle the popup
   };
   // Safeguard to ensure userDetails is an array and has at least one item
-  const userDetails = SingleSubscriber?.userDetails?.[0] || null;
+  const userDetails =
+  SingleSubscriber?.userDetails?.[SingleSubscriber.userDetails.length - 1] || null;
+
   const createdByUser = SingleSubscriber?.createdByUser?.[0] || null;
   const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
 
