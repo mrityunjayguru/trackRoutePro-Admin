@@ -56,12 +56,20 @@ const CommonTable: React.FC<TableProps> = ({
     if (colKey === 'createdAt') {
       return formatDateToDDMMMYYYY(val);
     } 
+    if(colKey=="isOnlines"){
+      if(data?.isOnline==true){
+        return "Online"
+      }else{
+        return "Retail"
+      }
+    }
    else if (colKey === 'createdDealerRecord') {
       return val?.uniqueCode || 'N/A';  
     }
     else if (colKey === 'userName') {
      return data?.users?.Name || '-';  
     }
+
     else if (colKey === 'useremailAddress') {
       return data?.users?.emailAddress || '-';  
      }
@@ -136,7 +144,6 @@ const CommonTable: React.FC<TableProps> = ({
           ? aValue.toLowerCase().localeCompare(bValue.toLowerCase())
           : bValue.toLowerCase().localeCompare(aValue.toLowerCase());
       }
-
       // For non-string values, fallback to normal comparison
       if (aValue > bValue) return direction === 'asc' ? 1 : -1;
       if (aValue < bValue) return direction === 'asc' ? -1 : 1;
@@ -146,7 +153,6 @@ const CommonTable: React.FC<TableProps> = ({
     setSortedData(sorted);
     setSortConfig({ key: columnKey, direction });
   };
-
   // Render sorting indicator (arrow) in the header
   const getSortIndicator = (columnKey: string) => {
     return sortConfig.key === columnKey
@@ -155,7 +161,6 @@ const CommonTable: React.FC<TableProps> = ({
         : '↓'
       : '';
   };
-
   return (
     <div className="table-container overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
@@ -180,7 +185,6 @@ const CommonTable: React.FC<TableProps> = ({
         <tbody className="bg-white divide-y divide-gray-200">
           {sortedData?.length > 0 ? (
             sortedData?.map((row: any, index: number) => (
-              
               <>
              <tr
   key={index}
@@ -190,7 +194,6 @@ const CommonTable: React.FC<TableProps> = ({
       : 'text-black border-b border-[#D9E821] text-center text-[15px] font-medium'
   }`}
 >
-
                 <td className=" p-1 text-center  cursor-pointer flex justify-center items-center  ">
                
                   {currentPage > 1

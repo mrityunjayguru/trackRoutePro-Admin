@@ -33,8 +33,8 @@ const Mappopup: React.FC<{
     if (records?.imei && (records?.startTime || records?.First_Ignition)) {
       const payload: any = {
         imei: records.imei,
-        startdate: formatDateTime(records.startTime || records.Last_Ignition),
-        enddate: formatDateTime(records.endTime || records.First_Ignition),
+        startdate: records.startTime || records.Last_Ignition,
+        enddate: records.endTime || records.First_Ignition,
       };
       dispatch(RootHistorys(payload));
     }
