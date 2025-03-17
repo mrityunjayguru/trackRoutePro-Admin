@@ -1,5 +1,3 @@
-let uniqueCode="createdDealerRecord.uniqueCode"
-
 export const RequestTableColumn = {
     Name: 'Name', // Name
     subscribeType: 'A/c Type', // A/c Type
@@ -7,5 +5,6 @@ export const RequestTableColumn = {
     address: 'Location', // Location
     updatedAt: 'Reg. Date', // Reg. Date
     userDevicesCount: 'Devices', // Devices (array)
+    isOnlines: 'Mode', // Devices (array)
     status: 'Status', // Status
   };

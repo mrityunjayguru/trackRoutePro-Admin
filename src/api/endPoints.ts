@@ -93,7 +93,7 @@ const Admin = {
   addadmin: 'admin/createAdmin',
   allAdmin:"admin/All-Admin",
   updateAdmin:"admin/updateAdmin",
-  RootHistory:"trackVehicle/rootHistory",
+  RootHistory:"trackVehicle/AdminrootHistory",
   summaryReports:"/SummaryReport/travelSummary",
   traivelReport:"/SummaryReport/consolidateSummary",
   tripSummary:"/SummaryReport/tripSummary",
