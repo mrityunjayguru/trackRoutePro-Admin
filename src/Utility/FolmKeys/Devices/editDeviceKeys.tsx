@@ -88,7 +88,7 @@ export const editDeviceKeys = (
       name: 'deviceStatus',
       type: 'select',
       placeholder: 'Choose Status',
-      options: ['Active', 'Inactive'],
+      options: ['Active', 'InActive'],
       value: SingleDevice?.status,
       disabled: false,
     },
