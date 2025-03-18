@@ -26,6 +26,10 @@ export const adminLogin = createAsyncThunk<boolean, Payload>(
       } else if (err.response?.status === 400) {
         showMessage("error",err.response?.data.message);
       }
+      else if (err.response?.status === 405) {
+        showMessage("error",'Maximum 3 active logins allowed.');
+      }
+      
     }
     return false; // Return false on failure
   }
@@ -175,6 +179,24 @@ export const resetpassword = createAsyncThunk<boolean, Payload>(
     return false;
   }
 );
+
+
+export const handleLogouts = createAsyncThunk<boolean, Payload>(
+  APIName.alluser,
+  async (payload, thunkAPI) => {
+    try {
+      const response = await AuthRepo.handlelogout(payload);
+   
+    } catch (err: any) {
+      console.log(err,"err")
+      showMessage("error", err?.response?.data?.message);
+
+      console.error(err);
+    }
+    return false;
+  }
+);
+
 const showMessage = (type: "success" | "error", message: string) => {
   Swal.fire({
     icon: type,

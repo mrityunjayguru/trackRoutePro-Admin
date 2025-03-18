@@ -1,11 +1,14 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import SidebarLinkGroup from './SidebarLinkGroup';
 import Logo from '../../images/logo/TrPro.png';
 import { useSidebarRoutes } from './SidebarLinks';
 import { LogoutIcons } from './SideBarSvgIcons';
 import { IoIosArrowUp } from 'react-icons/io';
+import { adminLogin, handleLogouts } from '../../api/auth';
+import { AppDispatch } from '../../store/store';
+import { getDeviceInfo } from '../../common/getDeviceInfo';
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -22,7 +25,8 @@ interface AuthState {
 
 const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
   const { pathname } = useLocation();
-  const loginUser = useSelector(
+  const dispatch=useDispatch<AppDispatch>()
+  const loginUser:any = useSelector(
     (state: AuthState) => state.Auth?.loginUserData,
   );
   const trigger = useRef<HTMLButtonElement>(null);
@@ -70,7 +74,11 @@ const Sidebar: React.FC<SidebarProps> = ({ sidebarOpen, setSidebarOpen }) => {
     };
   }, [handleClickOutside, handleEscPress]);
 
-  const handleLogout = () => {
+  const handleLogout =async () => {
+       const payload: any = {userId:loginUser?._id, deviceInfo:getDeviceInfo() };
+   
+          const response: any = await dispatch(handleLogouts(payload));
+    
     localStorage.removeItem('token');
     navigate('/auth/signin');
   };

@@ -69,6 +69,8 @@ const aboutUs = {
 
 const adminauthAPI = {
   login: 'adminAuth/login',
+  logout: 'adminAuth/logout',
+
   register: 'auth/signup',
   LdapLogin: 'LDAPLOGIN',
   updateprofile: 'auth/updateUser',

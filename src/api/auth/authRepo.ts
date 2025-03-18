@@ -15,6 +15,8 @@ interface AuthRepo {
   updatePassowrdWithOld: (payload: Payload) => Promise<AxiosResponse>;
   sendOtp: (payload: Payload) => Promise<AxiosResponse>;
   resetpassword: (payload: Payload) => Promise<AxiosResponse>;
+  handlelogout: (payload: Payload) => Promise<AxiosResponse>;
+
 
   
 
@@ -50,5 +52,8 @@ export const AuthRepo: AuthRepo = {
   },
   resetpassword(payload: Payload) {
     return Repository.post(APIName.resetpassword, payload);
+  },
+  handlelogout(payload: Payload) {
+    return Repository.post(APIName.logout, payload);
   },
 };
