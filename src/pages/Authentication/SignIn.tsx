@@ -8,6 +8,7 @@ import { AppDispatch } from '../../store/store';
 import { adminLogin } from '../../api/auth';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Footer } from '../../components/Footer/Footer';
+import { getDeviceInfo } from '../../common/getDeviceInfo';
 // import './SignIn.css'; // Import CSS for loader styles
 
 const SignIn: React.FC = () => {
@@ -37,7 +38,7 @@ const SignIn: React.FC = () => {
       return;
     }
 
-    const payload: any = { password: password.trim() };
+    const payload: any = { password: password.trim(),deviceInfo:getDeviceInfo() };
     if (email.includes('@')) {
       payload.email = email.trim();
       payload.role = 'Admin';
