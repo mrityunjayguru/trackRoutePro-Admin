@@ -38,7 +38,7 @@ const SubscriberHeader: React.FC<SubscriberHeaderProps> = ({ SingleSubscriber })
               </p>
             </>
           ) : (
-            <p className="text-[#9F9EA2]">No creator information available</p>
+            <p className="text-[#9F9EA2]">Created via an app</p>
           )}
         </div>
 

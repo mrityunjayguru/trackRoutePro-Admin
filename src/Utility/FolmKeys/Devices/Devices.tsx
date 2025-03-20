@@ -73,24 +73,17 @@ export const vehicleFields = (devicetypeDetails: any,DealerRecord:any=[]) => {
       value: 'Active', // Dummy value
     },
     {
-      label: 'Display Parameters *',
-      name: 'displayParameters',
-      type: 'checkboxGroup',
+      label: 'Wired Device *',
+      name: 'isWired',
+      type: 'radioGroup',
       options: [
-        { label: 'AC', value: 'AC' },
-        { label: 'Relay / Immobiliser', value: 'Relay' },
-        { label: 'GPS', value: 'GPS' },
-        { label: 'Door', value: 'Door' },
-        { label: 'GeoFencing', value: 'GeoFencing' },
-        { label: 'Network', value: 'Network' },
-        { label: 'Engine', value: 'Engine' },
-        { label: 'Parking', value: 'Parking' },
-        { label: 'Charging', value: 'Charging' },
-        { label: 'Temperature', value: 'temperature' },
-        { label: 'Humidity', value: 'humidity' },
-        { label: 'bluetooth', value: 'bluetooth' },
-    ],
+        { label: 'true', value: 'true' },
+        { label: 'false', value: 'false' },
+      ],
+      value: 'true', 
     },
+   
+   
     {
       label: 'Fuel Status *',
       name: 'fuelStatus',
@@ -104,6 +97,53 @@ export const vehicleFields = (devicetypeDetails: any,DealerRecord:any=[]) => {
    
      
     ]
+    if(formData.isWired=="true"){
+      filed.push(
+        {
+          label: 'Display Parameters *',
+          name: 'displayParameters',
+          type: 'checkboxGroup',
+          options: [
+            { label: 'AC', value: 'AC' },
+            { label: 'Relay / Immobiliser', value: 'Relay' },
+            { label: 'GPS', value: 'GPS' },
+            { label: 'Door', value: 'Door' },
+            { label: 'GeoFencing', value: 'GeoFencing' },
+            { label: 'Network', value: 'Network' },
+            { label: 'Engine', value: 'Engine' },
+            { label: 'Parking', value: 'Parking' },
+            { label: 'Charging', value: 'Charging' },
+            { label: 'Temperature', value: 'temperature' },
+            { label: 'Humidity', value: 'humidity' },
+            { label: 'bluetooth', value: 'bluetooth' },
+            { label: 'internalBattery', value: 'internalBattery' },
+            { label: 'extBattery', value: 'extBattery' },
+            { label: 'vehicleMotion', value: 'vehicleMotion' },
+        ],
+        },
+      )
+    }else{
+      filed.push(
+        {
+          label: 'Display Parameters *',
+          name: 'displayParameters',
+          type: 'checkboxGroup',
+          options: [
+            { label: 'GPS', value: 'GPS' },
+            { label: 'GeoFencing', value: 'GeoFencing' },
+            { label: 'Network', value: 'Network' },
+            { label: 'Parking', value: 'Parking' },
+            { label: 'Temperature', value: 'temperature' },
+            { label: 'Humidity', value: 'humidity' },
+            { label: 'bluetooth', value: 'bluetooth' },
+            { label: 'internalBattery', value: 'internalBattery' },
+       
+            { label: 'vehicleMotion', value: 'vehicleMotion' },
+        ],
+        },
+      )
+
+    }
     if(formData.fuelStatus=="On"){
       filed.push(
         {

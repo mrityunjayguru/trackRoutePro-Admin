@@ -125,7 +125,9 @@ export const ViewDeviceKeys = (
         { label: 'Temperature', value: 'temperature', disabled: true },
         { label: 'Humidity', value: 'humidity', disabled: true },
         { label: 'bluetooth', value: 'bluetooth', disabled: true },
-        
+        { label: 'internalBattery', value: 'internalBattery' },
+        { label: 'extBattery', value: 'extBattery' },
+        { label: 'vehicleMotion', value: 'vehicleMotion' },
       ],
       value: trueKeys, // Display only the keys with 'true' values (e.g., 'AC')
     },

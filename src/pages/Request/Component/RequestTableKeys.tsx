@@ -5,6 +5,6 @@ export const RequestTableColumn = {
     address: 'Location', // Location
     updatedAt: 'Reg. Date', // Reg. Date
     userDevicesCount: 'Devices', // Devices (array)
-    isOnlines: 'Mode', // Devices (array)
+    isOnlines: 'Purchase', // Devices (array)
     status: 'Status', // Status
   };

@@ -66,26 +66,7 @@ export const DealervehicleFields = (
       options: ['Active', 'InActive'], // Example options
       value: 'Active', // Dummy value
     },
-    {
-      label: 'Display Parameters *',
-      name: 'displayParameters',
-      type: 'checkboxGroup',
-      options: [
-        { label: 'AC', value: 'AC' },
-        { label: 'Relay / Immobiliser', value: 'Relay' },
-        { label: 'GPS', value: 'GPS' },
-        { label: 'Door', value: 'Door' },
-        { label: 'GeoFencing', value: 'GeoFencing' },
-        { label: 'Network', value: 'Network' },
-        { label: 'Engine', value: 'Engine' },
-        { label: 'Parking', value: 'Parking' },
-        { label: 'Charging', value: 'Charging' },
-        { label: 'Temperature', value: 'temperature' },
-        { label: 'Humidity', value: 'humidity' },
-        { label: 'bluetooth', value: 'bluetooth' },
-      ],
-      // value: ['AC', 'GPS','Relay'],
-    },
+   
     {
       label: 'Fuel Status *',
       name: 'fuelStatus',

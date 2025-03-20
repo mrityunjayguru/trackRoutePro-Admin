@@ -56,6 +56,9 @@ const CommonTable: React.FC<TableProps> = ({
     if (colKey === 'createdAt') {
       return formatDateToDDMMMYYYY(val);
     } 
+    if (colKey === 'userNames') {
+      return data?.ownerIDDetail?.Name
+    } 
     if(colKey=="isOnlines"){
       if(data?.isOnline==true){
         return "Online"
