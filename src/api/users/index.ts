@@ -110,7 +110,11 @@ export const editSubscriber = createAsyncThunk<boolean, Payload>(
 
 export const AddSubscriber = createAsyncThunk<boolean, Payload>(
   APIName.addNewSubscriber,
-  async (payload) => {
+  async (payload:any) => {
+    if (payload.isWired=="false" && payload.displayParameters) {
+      const { AC, Relay,Door,Charging,Engine,extBattery, ...filteredDisplayParameters } = payload.displayParameters;
+      payload.displayParameters = filteredDisplayParameters;
+    }
     try {
       const data = await userRepo.addNewSubscriber(payload);
       if (data.status === 200) {

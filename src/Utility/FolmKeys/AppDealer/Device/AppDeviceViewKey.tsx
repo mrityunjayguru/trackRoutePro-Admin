@@ -99,25 +99,14 @@ export const AppDeviceViewKey = (SingleDevice: any, VehiclwType: any,devicetypeD
 
         },
         {
-            label: 'Display Parameters *',
-            name: 'displayParameters',
-            type: 'checkboxGroup',
-            disabled:true,
-            options: [
-                { label: 'AC', value: 'AC' },
-                { label: 'Relay / Immobiliser', value: 'Relay' },
-                { label: 'GPS', value: 'GPS' },
-                { label: 'Door', value: 'Door' },
-                { label: 'GeoFencing', value: 'GeoFencing' },
-                { label: 'Network', value: 'Network' },
-                { label: 'Engine', value: 'Engine' },
-                { label: 'Parking', value: 'Parking' },
-                { label: 'Charging', value: 'Charging' },
-                { label: 'Temperature', value: 'temperature' },
-                { label: 'Humidity', value: 'humidity' },
-                { label: 'bluetooth', value: 'bluetooth' },
-            ],
-            value: trueKeys,  // Display only the keys with 'true' values (e.g., 'AC')
+          label: 'Wired Device *',
+          name: 'isWired',
+          type: 'radioGroup',
+          options: [
+            { label: 'true', value: 'true' },
+            { label: 'false', value: 'false' },
+          ],
+          value:SingleDevice?.isWired?"true":"false", 
         },
         {
             label: 'Fuel Status *',
@@ -133,7 +122,55 @@ export const AppDeviceViewKey = (SingleDevice: any, VehiclwType: any,devicetypeD
         },
       
     ];
-           
+    if(formData.isWired=="true"){
+      fields.push(
+        {
+          label: 'Display Parameters *',
+          name: 'displayParameters',
+          type: 'checkboxGroup',
+          options: [
+            { label: 'AC', value: 'AC' },
+            { label: 'Relay / Immobiliser', value: 'Relay' },
+            { label: 'GPS', value: 'GPS' },
+            { label: 'Door', value: 'Door' },
+            { label: 'GeoFencing', value: 'GeoFencing' },
+            { label: 'Network', value: 'Network' },
+            { label: 'Engine', value: 'Engine' },
+            { label: 'Parking', value: 'Parking' },
+            { label: 'Charging', value: 'Charging' },
+            { label: 'Temperature', value: 'temperature' },
+            { label: 'Humidity', value: 'humidity' },
+            { label: 'bluetooth', value: 'bluetooth' },
+            { label: 'internalBattery', value: 'internalBattery' },
+            { label: 'extBattery', value: 'extBattery' },
+            { label: 'vehicleMotion', value: 'vehicleMotion' },
+
+        ],
+        value: trueKeys,  // Display only the keys with 'true' values (e.g., 'AC')
+  
+        },
+      )
+    }else{
+      fields.push(
+        {
+          label: 'Display Parameters *',
+          name: 'displayParameters',
+          type: 'checkboxGroup',
+          options: [
+            { label: 'GPS', value: 'GPS' },
+            { label: 'GeoFencing', value: 'GeoFencing' },
+            { label: 'Network', value: 'Network' },
+            { label: 'Parking', value: 'Parking' },
+            { label: 'Temperature', value: 'temperature' },
+            { label: 'Humidity', value: 'humidity' },
+            { label: 'bluetooth', value: 'bluetooth' },
+            { label: 'internalBattery', value: 'internalBattery' },
+            { label: 'vehicleMotion', value: 'vehicleMotion' },
+        ],
+        value: trueKeys,  // Display only the keys with 'true' values (e.g., 'AC')
+        },
+      )
+    }
     if(SingleDevice.fuleOutput=="On"){
       fields.push(  {
         label: 'Output *',

@@ -49,7 +49,7 @@ const [toggle,settoggle]=useState(false)
   return (
     <>
     {toggle?(<Loader/>):(null)}
-      <div className="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-5   justify-between px-3">
+      <div className="grid grid-cols-1 sm:grid-cols-1 text-xl font-semibold text-black dark:text-white md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-5   justify-between px-3">
 
         <div className="col-span-2 ">
           {' '}

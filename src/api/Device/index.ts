@@ -106,32 +106,37 @@ export const editSubscriber = createAsyncThunk<boolean, Payload>(
 
 export const addDevice = createAsyncThunk<boolean, Payload>(
   APIName.createDevice,
-  async (payload) => {
+  async (payload:any) => {
     try {
+      // If isWired is false, remove Ac and imobilizer from displayParameters
+      if (payload.isWired=="false" && payload.displayParameters) {
+        const { AC, Relay,Door,Charging,Engine,extBattery, ...filteredDisplayParameters } = payload.displayParameters;
+        payload.displayParameters = filteredDisplayParameters;
+      }
+
       const data = await userRepo.AddDevice(payload);
       if (data.status === 200) {
-        GetMessage("success","Devices Created")
-        // thunkAPI.dispatch(singleSubscriber(data.data.data));
+        GetMessage("success", "Devices Created");
         return true;
       }
-    } catch (err:any) {
-      if(err.status==401){
-        localStorage.removeItem("token")
+    } catch (err: any) {
+      if (err.status == 401) {
+        localStorage.removeItem("token");
         GetMessage("warning", "Unauthorized");
-        window.location.href = "/auth/signin"; 
+        window.location.href = "/auth/signin";
       }
-      if(err.status==400){
+      if (err.status == 400) {
         console.error(err.response.data.message);
-          GetMessage("error",err.response.data.message)
-        }
-        if(err.response?.data?.error?.status==404){
-            GetMessage("error","Invalid IMEI Number")
-          }
-         
+        GetMessage("error", err.response.data.message);
+      }
+      if (err.response?.data?.error?.status == 404) {
+        GetMessage("error", "Invalid IMEI Number");
+      }
     }
     return false;
   }
 );
+
 export const manageSingleDevices = createAsyncThunk<boolean, Payload>(
   APIName.createDevice,
   async (payload, thunkAPI) => {
@@ -155,7 +160,11 @@ export const manageSingleDevices = createAsyncThunk<boolean, Payload>(
 
 export const updateDevices = createAsyncThunk<boolean, Payload>(
   APIName.updateDevices,
-  async (payload, thunkAPI) => {
+  async (payload:any, thunkAPI) => {
+    if (payload.isWired=="false" && payload.displayParameters) {
+      const { AC, Relay,Door,Charging,Engine,extBattery, ...filteredDisplayParameters } = payload.displayParameters;
+      payload.displayParameters = filteredDisplayParameters;
+    }
     try {
       const data = await userRepo.updatedevices(payload);
       if (data.status === 200) {
