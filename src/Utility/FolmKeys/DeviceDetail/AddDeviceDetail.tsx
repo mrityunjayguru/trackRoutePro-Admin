@@ -32,6 +32,15 @@ export const AddDeviceDetailKey = (devicetypeDetails: any) => {
         value: '', // Dummy value
         disabled: false,
       },
+      {
+        label: 'Wired Device *',
+        name: 'isWired',
+        type: 'select',
+        placeholder: 'Choose Device',
+        options: ["true","false"], // Example options
+        value: 'true', // Dummy value
+        disabled: false,
+      },
     ]
   
       return filed

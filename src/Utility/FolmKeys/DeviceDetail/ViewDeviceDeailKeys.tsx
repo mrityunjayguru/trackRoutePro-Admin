@@ -36,6 +36,15 @@ export const ViewDeviceDeailKeys = (
       value: deviceDetail?.deviceId, // Strictly pass value from deviceDetail
       disabled: false,
     },
+    {
+      label: 'Wired Device *',
+      name: 'isWired',
+      type: 'select',
+      placeholder: 'Choose Device',
+     options: ["true","false"], // Example options
+      value:deviceDetail?.isWired?"true":"false", // Dummy value
+      disabled: false,
+    },
   ];
 
   return filed;

@@ -26,7 +26,7 @@ function ViewDeviceDetail() {
       await dispatch(getDeviceDetail(payload2))
   setloder(false)
 
-      navigate("/viewDeviceDetail")
+      navigate("/manage-Inventory")
     }
   }
   useEffect(() => {
