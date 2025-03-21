@@ -69,6 +69,10 @@ const CommonTable: React.FC<TableProps> = ({
    else if (colKey === 'createdDealerRecord') {
       return val?.uniqueCode || 'N/A';  
     }
+    else if (colKey === 'isWireds') {
+      return data?.isWired?"Wire":"Wireless";  
+    }
+    
     else if (colKey === 'userName') {
      return data?.users?.Name || '-';  
     }

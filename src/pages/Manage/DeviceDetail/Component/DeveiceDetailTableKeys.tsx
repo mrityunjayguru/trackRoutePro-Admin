@@ -8,4 +8,5 @@ export const DeveiceDetailTableKeys = {
     Assignedon:'Assigned on', 
     Assignedto:"Assigned to",
     DealerCode:'Dealer Code', 
+    isWireds:'Connection Type', 
   };
