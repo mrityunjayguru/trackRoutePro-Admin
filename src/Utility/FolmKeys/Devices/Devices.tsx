@@ -115,10 +115,10 @@ export const vehicleFields = (devicetypeDetails: any,DealerRecord:any=[]) => {
             { label: 'Charging', value: 'Charging' },
             { label: 'Temperature', value: 'temperature' },
             { label: 'Humidity', value: 'humidity' },
-            { label: 'bluetooth', value: 'bluetooth' },
-            { label: 'internalBattery', value: 'internalBattery' },
-            { label: 'extBattery', value: 'extBattery' },
-            { label: 'vehicleMotion', value: 'vehicleMotion' },
+            { label: 'Bluetooth', value: 'bluetooth' },
+            { label: 'Device Battery', value: 'internalBattery' },
+            { label: 'Vehicle Battery', value: 'extBattery' },
+            { label: 'Vehicle Motion', value: 'vehicleMotion' },
         ],
         },
       )
@@ -135,10 +135,9 @@ export const vehicleFields = (devicetypeDetails: any,DealerRecord:any=[]) => {
             { label: 'Parking', value: 'Parking' },
             { label: 'Temperature', value: 'temperature' },
             { label: 'Humidity', value: 'humidity' },
-            { label: 'bluetooth', value: 'bluetooth' },
-            { label: 'internalBattery', value: 'internalBattery' },
-       
-            { label: 'vehicleMotion', value: 'vehicleMotion' },
+            { label: 'Bluetooth', value: 'bluetooth' },
+            { label: 'Device Battery', value: 'internalBattery' },
+            { label: 'Vehicle Motion', value: 'vehicleMotion' },
         ],
         },
       )

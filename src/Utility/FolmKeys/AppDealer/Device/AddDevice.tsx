@@ -66,7 +66,16 @@ export const DealervehicleFields = (
       options: ['Active', 'InActive'], // Example options
       value: 'Active', // Dummy value
     },
-   
+    {
+      label: 'Wired Device *',
+      name: 'isWired',
+      type: 'radioGroup',
+      options: [
+        { label: 'Wired', value: 'true' },
+        { label: 'Wireless', value: 'false' },
+      ],
+      value: 'true', 
+    },
     {
       label: 'Fuel Status *',
       name: 'fuelStatus',
@@ -78,6 +87,52 @@ export const DealervehicleFields = (
       value: 'Off', 
     },
   ];
+  if(formData.isWired=="true"){
+    fields.push(
+      {
+        label: 'Display Parameters *',
+        name: 'displayParameters',
+        type: 'checkboxGroup',
+        options: [
+          { label: 'AC', value: 'AC' },
+          { label: 'Relay / Immobiliser', value: 'Relay' },
+          { label: 'GPS', value: 'GPS' },
+          { label: 'Door', value: 'Door' },
+          { label: 'GeoFencing', value: 'GeoFencing' },
+          { label: 'Network', value: 'Network' },
+          { label: 'Engine', value: 'Engine' },
+          { label: 'Parking', value: 'Parking' },
+          { label: 'Charging', value: 'Charging' },
+          { label: 'Temperature', value: 'temperature' },
+          { label: 'Humidity', value: 'humidity' },
+          { label: 'Bluetooth', value: 'bluetooth' },
+          { label: 'Device Battery', value: 'internalBattery' },
+          { label: 'Vehicle Battery', value: 'extBattery' },
+          { label: 'Vehicle Motion', value: 'vehicleMotion' },
+      ],
+      },
+    )
+  }else{
+    fields.push(
+      {
+        label: 'Display Parameters *',
+        name: 'displayParameters',
+        type: 'checkboxGroup',
+        options: [
+          { label: 'GPS', value: 'GPS' },
+          { label: 'GeoFencing', value: 'GeoFencing' },
+          { label: 'Network', value: 'Network' },
+          { label: 'Parking', value: 'Parking' },
+          { label: 'Temperature', value: 'temperature' },
+          { label: 'Humidity', value: 'humidity' },
+          { label: 'Bluetooth', value: 'bluetooth' },
+          { label: 'Device Battery', value: 'internalBattery' },
+          { label: 'Vehicle Motion', value: 'vehicleMotion' },
+      ],
+      },
+    )
+
+  }
   if (formData.fuelStatus == 'On') {
     fields.push({
       label: 'Output *',

@@ -71,12 +71,12 @@ export const AppDeviceEditKeys = (SingleDevice: any, VehiclwType: any,devicetype
 
         },
         {
-          label: 'Wired Device *',
+          label: 'Device Type *',
           name: 'isWired',
           type: 'radioGroup',
           options: [
-            { label: 'true', value: 'true' },
-            { label: 'false', value: 'false' },
+            { label: 'Wired', value: 'true' },
+            { label: 'Wireless', value: 'false' },
           ],
           value:SingleDevice?.isWired?"true":"false", 
         },
@@ -121,10 +121,10 @@ export const AppDeviceEditKeys = (SingleDevice: any, VehiclwType: any,devicetype
             { label: 'Charging', value: 'Charging' },
             { label: 'Temperature', value: 'temperature' },
             { label: 'Humidity', value: 'humidity' },
-            { label: 'bluetooth', value: 'bluetooth' },
-            { label: 'internalBattery', value: 'internalBattery' },
-            { label: 'extBattery', value: 'extBattery' },
-            { label: 'vehicleMotion', value: 'vehicleMotion' },
+            { label: 'Bluetooth', value: 'bluetooth' },
+            { label: 'Device Battery', value: 'internalBattery' },
+            { label: 'Vehicle Battery', value: 'extBattery' },
+            { label: 'Vehicle Motion', value: 'vehicleMotion' },
         ],
         value: trueKeys,  // Display only the keys with 'true' values (e.g., 'AC')
   
@@ -143,9 +143,9 @@ export const AppDeviceEditKeys = (SingleDevice: any, VehiclwType: any,devicetype
             { label: 'Parking', value: 'Parking' },
             { label: 'Temperature', value: 'temperature' },
             { label: 'Humidity', value: 'humidity' },
-            { label: 'bluetooth', value: 'bluetooth' },
-            { label: 'internalBattery', value: 'internalBattery' },
-            { label: 'vehicleMotion', value: 'vehicleMotion' },
+            { label: 'Bluetooth', value: 'bluetooth' },
+            { label: 'Device Battery', value: 'internalBattery' },
+            { label: 'Vehicle Motion', value: 'vehicleMotion' },
         ],
         value: trueKeys,  // Display only the keys with 'true' values (e.g., 'AC')
   
