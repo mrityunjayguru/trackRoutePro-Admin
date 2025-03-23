@@ -3,36 +3,36 @@ import Request from "../Request";
 import ReviwDevices from "./ReviwDevices";
 
 function HeaderCommon() {
-  const [activeTab, setActiveTab] = useState("New Subscriber"); // Default active tab
+  const [activeTab, setActiveTab] = useState("Add New"); // Default active tab
   return (
     <>
       <div className="flex gap-5">
         <div
-          onClick={() => setActiveTab("New Subscriber")}
+          onClick={() => setActiveTab("Add New")}
           className={`font-medium text-xl cursor-pointer relative transition-colors duration-300 ease-in-out ${
-            activeTab === "New Subscriber" ? "text-[#D9E821]" : "text-[#000000]"
+            activeTab === "Add New" ? "text-[#D9E821]" : "text-[#000000]"
           }`}
         >
-          New Subscriber
-          {activeTab === "New Subscriber" && (
+          Add New
+          {activeTab === "Add New" && (
             <div className="absolute bottom-0 left-0 w-full h-[2px] bg-[#D9E821] transition-all duration-300 ease-in-out"></div>
           )}
         </div>
         <div
-          onClick={() => setActiveTab("New Device")}
+          onClick={() => setActiveTab("Review")}
           className={`font-medium text-xl cursor-pointer relative transition-colors duration-300 ease-in-out ${
-            activeTab === "New Device" ? "text-[#D9E821]" : "text-[#000000]"
+            activeTab === "Review" ? "text-[#D9E821]" : "text-[#000000]"
           }`}
         >
-          New Device
-          {activeTab === "New Device" && (
+          Review
+          {activeTab === "Review" && (
             <div className="absolute bottom-0 left-0 w-full h-[2px] bg-[#D9E821] transition-all duration-300 ease-in-out"></div>
           )}
         </div>
       </div>
       <div className="mt-3 border-b-2 border-[#D9E821]"></div>
 
-{activeTab=="New Subscriber"?(<>
+{activeTab=="Add New"?(<>
 <Request/>
 </>):(
   <ReviwDevices/>

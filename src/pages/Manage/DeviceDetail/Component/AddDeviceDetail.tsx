@@ -55,7 +55,7 @@ const [disabled,setDesabled]=useState(false)
         };
         try {
           await dispatch(createDeviceDetailWithExcel(payload));
-          navigate("/device-management/gps/manage-Inventory");
+          navigate("/manage-Inventory");
           setSelectedFile(null); // Reset after dispatch
         } catch (error) {
           console.error("Error uploading file:", error);
@@ -84,7 +84,7 @@ const [disabled,setDesabled]=useState(false)
           Upload Excel
         </button>
         <button className="w-[200px] text-[#000000] bg-[#D9E821] py-2 rounded-lg font-medium transition 1">
-          <a href="/public/sampleexcel.xlsx" download="sample.xlsx">
+          <a href="/public/sampleexcel.csv" download="sample.csv">
             Download Sample
           </a>
         </button>

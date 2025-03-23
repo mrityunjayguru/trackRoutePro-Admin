@@ -22,7 +22,6 @@ function ReportRecord() {
   const distanceRecord = useSelector(
     (state: any) => state?.userReport?.distanceRecord|| [],
   );
-  console.log(distanceRecord,"distanceRecorddistanceRecord")
   const handleRowClick = (val:any) => {
     if(imeiRecords.name == 'Travel Report' || imeiRecords.name == 'Trip Report' || imeiRecords.name == 'Summary'   ){
       setVal(val)

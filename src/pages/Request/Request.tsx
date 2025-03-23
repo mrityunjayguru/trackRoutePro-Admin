@@ -7,7 +7,10 @@ import { getDelearSuports, singleSubscribers } from '../../api/users';
 import { AppDispatch } from '../../store/store';
 import { RequestTableColumn } from './Component/RequestTableKeys';
 import { useNavigate } from 'react-router-dom';
+import SearchAndFilter from '../../common/SearchAndFilter';
 function Request() {
+  const [filter, setfilter] = useState('InActive');
+  const [search, setSearch] = useState('');
   const dispatch = useDispatch<AppDispatch>();
   const itemsPerPage = 10; // Adjust this value as needed
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,21 +30,45 @@ function Request() {
   const GetsubscribersAll = () => {
     const payload: any = {
       role: 'User',
-      isAppCreated:true,
+      search: search,
+      isAppCreated: true,
       offset: (currentPage - 1) * itemsPerPage,
     };
+    if(filter=="Active"){
+      Object.assign(payload,{status:true})
+    }
+    if(filter=="InActive"){
+      Object.assign(payload,{status:false})
+    }
     dispatch(getDelearSuports(payload));
   };
   useEffect(() => {
     GetsubscribersAll();
-  }, [currentPage]);
+  }, [currentPage, search, filter]);
+  const statusOptions = [
+    { value: '', label: 'All' },
+    { value: 'Active', label: 'Active' },
+    { value: 'InActive', label: 'InActive' },
+  ];
+  const handleSearchChange = (val: any) => {
+    setSearch(val);
+  };
+  const handleStatusChange = (e: any) => {
+    setfilter(e.value);
+  };
   return (
     <div>
+      <SearchAndFilter
+        statusOptions={statusOptions}
+        onSearchChange={handleSearchChange}
+        onStatusChange={handleStatusChange}
+        filter={filter}
+      />
       <div className="mt-5">
         <CommonTable
           columns={RequestTableColumn}
           data={subscriber}
-          onRowClick={handleRowClick} 
+          onRowClick={handleRowClick}
           currentPage={currentPage}
         />
       </div>

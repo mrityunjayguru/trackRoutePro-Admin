@@ -9,34 +9,42 @@ import ExistingUserDetail from './ExistingUserDetail';
 import { useNavigate } from 'react-router-dom';
 
 function ExistingUser() {
-  // Redux dispatch and state selectors
   const dispatch = useDispatch<AppDispatch>();
   const existingUser = useSelector(
     (state: any) => state.subscriber.singleSubscriber,
   );
 
-  // Local state for phone number input
-  const [phone, setPhone] = useState<string | null>(null);
-
-  // Navigation hook
+  const [phone, setPhone] = useState<string>('');
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  // Handle submit action when phone number is entered
-  const handleClick = async () => {
-    if (phone == '') {
-      return;
-    }
-    if (phone) {
-      const payload: any = { phone };
-      let responce: any = await dispatch(checkExistingUser(payload));
-
-      if (responce.payload.data == null) {
-        navigate('/DealerAddSubscriber');
-      }
+  // Handle phone number input change
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (/^\d*$/.test(value)) {
+      setPhone(value);
+      setError(null);
+    } else {
+      setError('Only numeric values are allowed');
     }
   };
 
-  // Handle the "Add new" action if no existing user is found
+  // Handle submit action
+  const handleClick = async () => {
+    if (!phone || phone.length !== 10) {
+      setError('Phone number must be exactly 10 digits');
+      return;
+    }
+
+    const payload:any = { phone };
+    const response:any = await dispatch(checkExistingUser(payload));
+
+    if (response.payload.data == null) {
+      navigate('/DealerAddSubscriber');
+    }
+  };
+
+  // Handle "Add new" action
   const handleAddNew = () => {
     if (existingUser) {
       navigate('/DealerAddDevices');
@@ -44,8 +52,8 @@ function ExistingUser() {
   };
 
   useEffect(() => {
-    if (phone == null) {
-      const payload: any = {};
+    if (!phone) {
+      const payload:any={}
       dispatch(setBlankcheckExistingUser(payload));
     }
   }, []);
@@ -56,11 +64,11 @@ function ExistingUser() {
 
       <div className="full my-2">
         <input
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setPhone(e.target.value)
-          }
+          onChange={handleChange}
+          value={phone}
           placeholder="Enter Phone number"
           type="text"
+          maxLength={10}
           className="w-1/3 pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
         />
         <button
@@ -71,7 +79,9 @@ function ExistingUser() {
         </button>
       </div>
 
-      {existingUser != null && Object.keys(existingUser).length > 0 && (
+      {error && <p className="text-red-500">{error}</p>}
+
+      {existingUser && Object.keys(existingUser).length > 0 && (
         <div className="mt-20">
           <ExistingUserDetail />
 
@@ -83,7 +93,7 @@ function ExistingUser() {
               Add new +
             </button>
             <button
-              onClick={() => navigate('/DealearDashboard')}
+              onClick={() => navigate('/DealerDashboard')}
               className="w-[200px] border mx-5 text-[#000000] py-2 rounded-lg font-medium transition"
             >
               Cancel
