@@ -64,7 +64,8 @@ export const DealervehicleFields = (
       type: 'select',
       placeholder: 'Choose Status',
       options: ['Active', 'InActive'], // Example options
-      value: 'Active', // Dummy value
+      value: 'InActive', // Dummy value
+      disabled:true
     },
     {
       label: 'Wired Device *',

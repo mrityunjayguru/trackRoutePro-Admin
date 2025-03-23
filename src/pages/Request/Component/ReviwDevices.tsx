@@ -7,6 +7,7 @@ import CommonTable from '../../../common/Table/CommonTable';
 import { RequestTableColumn } from './RequestTableKeys';
 import Pagination from '../../../common/Loader/Pagination';
 import { DevicesKeys } from './DevicesKeys';
+import SearchAndFilter from '../../../common/SearchAndFilter';
 
 function ReviwDevices() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -14,7 +15,8 @@ function ReviwDevices() {
   const total = 10;
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-
+  const [filter, setfilter] = useState('InActive');
+  const [search, setSearch] = useState('');
   const handleRowClick = (payload: any) => {
     dispatch(manageSingleDevices(payload));
     let newpayload: any = {
@@ -27,16 +29,35 @@ function ReviwDevices() {
   const getMapDetails = async () => {
     const payload: any = {
       isAppCreated: true,
+      search:search,
+      status:filter,
     };
     await dispatch(DeviceByOwnerId(payload));
   };
 
   useEffect(() => {
     getMapDetails();
-  }, []);
+  }, [search,filter]);
+  const statusOptions = [
+    { value: '', label: 'All' },
+    { value: 'Active', label: 'Active' },
+    { value: 'InActive', label: 'InActive' },
+  ];
+  const handleSearchChange = (val: any) => {
+    setSearch(val);
+  };
+  const handleStatusChange = (e: any) => {
+    setfilter(e.value);
+  };
 
   return (
     <div>
+      <SearchAndFilter
+        statusOptions={statusOptions}
+        onSearchChange={handleSearchChange}
+        onStatusChange={handleStatusChange}
+        filter={filter}
+      />
       <div className="mt-5">
         <CommonTable
           columns={DevicesKeys}

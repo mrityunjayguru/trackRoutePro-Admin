@@ -10,8 +10,6 @@ export const tripSummaryKeys = {
   Distance_Kms: 'Distance_Kms', // Name
   avgSpeed: 'avgSpeed', // Dealer Code
   maxSpeed: 'maxSpeed', // Status
-  Max_Speed_Time: 'Max_Speed_Time', // Status
   startAddress: 'start Address', // Status
   endAddress: 'end Address', // Status
-  waitingTime: 'waitingTime', // Status
 };

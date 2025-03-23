@@ -32,6 +32,7 @@ export default function SummaryFilter() {
   const [endDate, setEndDate] = useState('');
   const [starttime, setstartTime] = useState('');
   const [endTime, setendTime] = useState('');
+  const [search,setSearch]=useState("")
 
   const datas: any = [
     { value: 'door', label: 'Door' },
@@ -110,7 +111,10 @@ export default function SummaryFilter() {
   const handleChange2 = (event:any) => {
     setendTime(event.target.value);
   };
-  const [search,setSearch]=useState("")
+  useEffect(()=>{
+    const payload: any = {search:search};
+    dispatch(DeviceByOwnerId(payload));
+  },[search])
   return (
     <div className="w-full">
       <div className="flex items-center space-x-2">
