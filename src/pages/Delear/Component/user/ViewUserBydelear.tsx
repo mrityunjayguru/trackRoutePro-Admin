@@ -20,7 +20,7 @@ const ViewUserBydelear: React.FC = () => {
   const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
 
   const handleSubmit = async (e: any) => {
-    if (loginUser.permissions.Subscribers?.Update === true || loginUser.role=="SuperAdmin") {
+    if (loginUser.permissions.Manage_Dealer?.Update  || loginUser.role=="SuperAdmin") {
       navigate(`/account-management/manage-subscriber/EdutUser-ByDelear/${SingleSubscriber._id}`);
     }
     return;

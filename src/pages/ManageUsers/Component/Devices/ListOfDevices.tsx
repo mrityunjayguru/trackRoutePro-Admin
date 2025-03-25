@@ -80,7 +80,7 @@ const ListOfDevices: React.FC = () => {
 
   const manageDevice = (payload: any) => {
     if (
-      loginUser.permissions?.Device?.Update === true ||
+      loginUser.permissions?.Manage_User?.Update === true ||
       loginUser.role === 'SuperAdmin'
     ) {
       dispatch(manageSingleDevices(payload));
@@ -107,19 +107,20 @@ const ListOfDevices: React.FC = () => {
   }, []);
   const propsData = {
     title: 'List of All Devices',
-    button3: "Download Device's",
   };
   if (
-    loginUser.permissions?.Device?.Add === true ||
+    loginUser.permissions?.Manage_User?.Add ||
     loginUser.role === 'SuperAdmin'
   ) {
     Object.assign(propsData, {
       redirect: 'account-management/manage-subscriber/add-device',
     });
     Object.assign(propsData, { button: 'Add New +' });
-
   }
+if(loginUser.role=="SuperAdmin"){
+  Object.assign(propsData, { button3: "Download Device's" });
 
+}
  const handledownload = async () => {
     try {
       const payload: any = {
@@ -148,7 +149,7 @@ const ListOfDevices: React.FC = () => {
       <CommonHeader propsData={propsData} handledownload={handledownload} />
 
       {/* Search and Filter Section */}
-      {(loginUser.permissions?.Device?.View === true ||
+      {(loginUser.permissions?.Manage_User?.View === true ||
         loginUser.role === 'SuperAdmin') && (
         <>
           <div className="searchitem grid grid-cols-3 gap-4 my-2 py-1">

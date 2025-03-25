@@ -68,6 +68,7 @@ const UserTable: React.FC = () => {
     const payload: any = {
       search,
       role: 'User',
+      isApproved:true,
       offset: (currentPage - 1) * itemsPerPage,
     };
     if (filter) Object.assign(payload, { filter: filter });

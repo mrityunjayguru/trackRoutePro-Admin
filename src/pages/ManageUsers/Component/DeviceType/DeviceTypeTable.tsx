@@ -28,6 +28,7 @@ const DeviceTypeTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10; // Number of items per page
   const [total, setTotal] = useState(0); // Assuming you have total count info
+  const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
 
   // Fetching device types
   const getDeviceTypes = async () => {
@@ -51,10 +52,12 @@ const DeviceTypeTable = () => {
 
   const propsData = {
     title: 'List Of All Device Type',
-    button: 'Add New',
     redirect: 'deviceType',
-    button3: "Download deviceType's",
   };
+  if(loginUser.role=="SuperAdmin"){
+    Object.assign(propsData,{button:'Add New'})
+    Object.assign(propsData,{button3:"Download deviceType's"})
+  }
   const handleRowClick = (val: any) => {
     dispatch(singleDeviceType(val));
     navigate('/EditDeviceType');

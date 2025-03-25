@@ -26,7 +26,7 @@ const Editusr: React.FC = () => {
 
   const handleSubmit = async (e: any) => {
     if (
-      loginUser.permissions.Subscribers?.Update === true ||
+      loginUser.permissions.Manage_User?.Update === true ||
       loginUser.role == 'SuperAdmin'
     ) {
       navigate(

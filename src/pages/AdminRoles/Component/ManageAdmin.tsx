@@ -5,10 +5,13 @@ import { AppDispatch } from "../../../store/store";
 import { Permission } from "../../../layout/Permision";
 import { useNavigate } from "react-router";
 import Breadcrumb from "../../../common/Breadcrumb";
+import Admincheckbox from "./Admincheckbox";
+import Operator from "./Operator";
+import Moderate from "./Moderate";
 const ManageAdmin = () => {
   const dispatch = useDispatch<AppDispatch>();
   const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
-  
+  const [permissions, setPermissions] = useState<any>({});
   // Initial state for the form fields
   const initialFormData = {
     fullName: '',
@@ -73,7 +76,7 @@ if(profile=='' || null){
     setFormData(initialFormData); // Reset form data to initial state
     setErrors({ fullName: '', phoneNumber: '', newPassword: '', confirmPassword: '',profile:'',emailAddress:"" }); // Reset errors
   };
-  const [permissions, setPermissions] = useState<any>({});
+
   const [preivew,setPreview]=useState<any>(null)
   const [profile,setprofile]=useState<any>(null)
   const handleSubmit = async(e: any) => {
@@ -82,6 +85,7 @@ if(profile=='' || null){
     if (validateForm()) {
       const uniqueNumber = [...new Set(Array.from({ length: 4 }, () => Math.floor(Math.random() * 10)))].join('');
       const payload: any = {
+        operator:selectedRole,
         username: formData.fullName,
         phone: formData.phoneNumber,
         password: formData.newPassword,
@@ -124,30 +128,19 @@ if(profile=='' || null){
       setErrors((prevErrors) => ({ ...prevErrors, confirmPassword: '' }));
     }
   };
+  const [selectedRole, setSelectedRole] = useState<string>("");
 
-  const handleinputchange = (e: any) => {
-    const { name, checked } = e.target;
-    let split: string[] = name.split("-");
-    let updatedPermissions = { ...permissions };
-    if (checked) {
-      if (!updatedPermissions[split[0]]) {
-        updatedPermissions[split[0]] = {}; 
-      }
-      updatedPermissions[split[0]][split[1]] = true; 
-    } else {
-      if (updatedPermissions[split[0]]) {
-        updatedPermissions[split[0]][split[1]] = false; 
-      }
-    }
-    setPermissions(updatedPermissions);
-  
+  const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedRole(e.target.value);
   };
+
 const navigate=useNavigate()
 useEffect(()=>{
 if(loginUser.role!="SuperAdmin"){
   navigate("/")
 }
 },[])
+console.log(permissions,"permissions")
   return (
     <div className="w-full">
       <div className="rounded-xl py-2 w-full flex items-center gap-28 px-3">
@@ -170,7 +163,7 @@ if(loginUser.role!="SuperAdmin"){
                 placeholder="Enter Name"
                 value={formData.fullName}
                 onChange={handleChange}
-                className="w-full rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
               />
               {errors.fullName && <p className="text-red-500 text-[12px]">{errors.fullName}</p>}
             </div>
@@ -184,7 +177,7 @@ if(loginUser.role!="SuperAdmin"){
                 placeholder="Enter Mobile"
                 value={formData.phoneNumber}
                 onChange={handleChange}
-                className="w-full rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
               />
               {errors.phoneNumber && <p className="text-red-500 text-[12px]">{errors.phoneNumber}</p>}
             </div>
@@ -196,7 +189,7 @@ if(loginUser.role!="SuperAdmin"){
                 placeholder="Enter emailAddress"
                 value={formData.emailAddress}
                 onChange={handleChange}
-                className="w-full rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
               />
               {errors.emailAddress && <p className="text-red-500 text-[12px]">{errors.emailAddress}</p>}
             </div>
@@ -207,7 +200,7 @@ if(loginUser.role!="SuperAdmin"){
                 name="status"
                 value={formData.status}
                 onChange={handleChange}
-                className="w-full rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
               >
                 <option value="Active">Active</option>
                 <option value="Inactive">Inactive</option> {/* Fixed typo from "InaAtive" */}
@@ -223,7 +216,7 @@ if(loginUser.role!="SuperAdmin"){
                 placeholder="**********"
                 value={formData.newPassword}
                 onChange={handleChange}
-                className="w-full rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
               />
               {errors.newPassword && <p className="text-red-500 text-[12px]">{errors.newPassword}</p>}
             </div>
@@ -237,7 +230,7 @@ if(loginUser.role!="SuperAdmin"){
                 placeholder="**********"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="w-full rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
               />
               {errors.confirmPassword && <p className="text-red-500 text-[12px]">{errors.confirmPassword}</p>}
             </div>
@@ -249,41 +242,62 @@ if(loginUser.role!="SuperAdmin"){
                 placeholder="**********"
            
                 onChange={handleFileChange}
-                className="w-full rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
               />
               {errors.profile && <p className="text-red-500 text-[12px]">{errors.profile}</p>}
             </div>
           </div>
-     <div className="">
-      <div>
-        <h2 className="text-black text-sm font-semibold px-4 ">Permission</h2>
+          <div className="flex gap-5 w-full">
+    <div className="checkbox flex gap-5 w-full globalform items-center">
+      <div className="flex justify-center items-center gap-2">
+        <label htmlFor="admin">Admin</label>
+        <input
+          type="radio"
+          id="admin"
+          name="role"
+          value="Admin"
+          checked={selectedRole === "Admin"}
+          onChange={handleRoleChange}
+        />
       </div>
-      <div className="px-4 py-2 grid grid-cols-4 gap-6 sm:grid-cols-5">
-        {Permission.map((val:any, index:number) => {
-          return (
-            <div key={index}>
-              <h1 className="py-2 text-black text-sm font-medium">{val.name}</h1>
-              {val.Permission.map((perm:any, subIndex:number) => {
-                return (
-                  <div className=" flex w-full py-1" key={subIndex}>
-                    <label className="mb-1 block w-1/2  text-sm font-medium dark:text-white">
-                      {perm}
-                    </label>
-                    <input
-                      type="checkbox"
-                      name={`${val.name}-${perm}`} // unique name based on permission type
-                      id={`${val.name}-${perm}`} // add unique ID for accessibility
-                      className="w-1/2  rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                   onChange={handleinputchange}
-                   />
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
+      <div className="flex justify-center items-center gap-2">
+        <label htmlFor="moderator">Moderator</label>
+        <input
+          type="radio"
+          id="moderator"
+          name="role"
+          value="Moderator"
+          checked={selectedRole === "Moderator"}
+          onChange={handleRoleChange}
+        />
       </div>
+      <div className="flex justify-center items-center gap-2">
+        <label htmlFor="operator">Operator</label>
+        <input
+          type="radio"
+          id="operator"
+          name="role"
+          value="Operator"
+          checked={selectedRole === "Operator"}
+          onChange={handleRoleChange}
+        />
       </div>
+    </div>
+  </div>
+{selectedRole==="Admin"?(
+  <>
+  <Admincheckbox permissions={permissions} setPermissions={setPermissions}/></>
+):(null)}
+{selectedRole==="Moderator"?(
+  <><Moderate permissions={permissions} setPermissions={setPermissions}/>
+ </>
+):(null)}
+{selectedRole==="Operator"?(
+  <>
+   <Operator permissions={permissions} setPermissions={setPermissions}/>
+  </>
+):(null)}
+    
       <div className="my-5 flex gap-5 mx-3">
               {/* <label className="mb-1 block text-black text-sm font-medium dark:text-white">Confirm Password</label> */}
               <button

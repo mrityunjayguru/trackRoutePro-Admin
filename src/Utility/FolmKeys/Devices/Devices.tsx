@@ -82,8 +82,6 @@ export const vehicleFields = (devicetypeDetails: any,DealerRecord:any=[]) => {
       ],
       value: 'true', 
     },
-   
-   
     {
       label: 'Fuel Status *',
       name: 'fuelStatus',
@@ -94,8 +92,6 @@ export const vehicleFields = (devicetypeDetails: any,DealerRecord:any=[]) => {
       ],
       value: 'Off', 
     },
-   
-     
     ]
     if(formData.isWired=="true"){
       filed.push(

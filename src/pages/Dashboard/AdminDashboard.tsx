@@ -182,7 +182,7 @@ const [toggle,settoggle]=useState(false)
           </svg>
         </CardDataStats>
       </div>
-      {loginUser?.permissions?.Subscribers?.View === true || loginUser?.role=="SuperAdmin" ? (
+      {loginUser?.permissions?.Manage_User?.View === true || loginUser?.role=="SuperAdmin" ? (
      <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
      <div className="col-span-12 xl:col-span-12">
        <TableOne type="Company" Subscriber={subscriberndCompany} />

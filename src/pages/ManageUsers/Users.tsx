@@ -37,7 +37,7 @@ function Users() {
   return (
     <>
      <UserTableHeader/>
-     {loginUser?.permissions?.Subscribers?.View === true || loginUser?.role=="SuperAdmin" ? (
+     {loginUser?.permissions?.Manage_User?.View === true || loginUser?.role=="SuperAdmin" ? (
         <UserTable />
       ) : (null)}
 

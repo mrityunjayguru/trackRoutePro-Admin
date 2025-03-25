@@ -72,6 +72,7 @@ const AddSubscriberByDelear: React.FC = () => {
     const payload = {
       ...formData,
       delearid: singleDelear._id,
+      isApproved:false,
       isView:false,
       createdDelearId: singleDelear._id,
       dealerCode: singleDelear._id,

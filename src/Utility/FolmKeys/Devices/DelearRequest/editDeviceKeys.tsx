@@ -92,6 +92,15 @@ export const editDeviceKeysRequest = (
       disabled: false,
     },
     {
+      label: 'Device Approval Status *',
+      name: 'isApproved',
+      type: 'select',
+      placeholder: 'Select Status',
+      options: ['Approved', 'Unapproved'],
+      value: SingleDevice?.isApproved==true ? 'Approved' : 'Unapproved',
+      disabled: false,
+    }, 
+    {
       label: 'Wired Device *',
       name: 'isWired',
       type: 'radioGroup',

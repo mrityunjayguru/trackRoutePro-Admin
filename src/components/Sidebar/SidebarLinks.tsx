@@ -54,7 +54,7 @@ export const useSidebarRoutes = () => {
           label: 'Manage Dealer',
           icon: '',
           condition: (pathname: string) => pathname.includes('manage-dealer'),
-          isView: loginUser.role == 'SuperAdmin' ? true : false, // Added the isView property
+          isView:true, // Added the isView property
         },
         {
           path: '/account-management/manage-subscriber',
@@ -72,11 +72,11 @@ export const useSidebarRoutes = () => {
     },
     {
       path: '/Manage-device',
-      label: 'Manage Device',
+      label: 'View Device',
       icon: <ManageDeviceIcons />,
       condition: (pathname: string) => pathname === '/Manage-device',
       isView:
-        loginUser.role === 'SuperAdmin' || loginUser.role === 'Admin'
+        loginUser.role === 'SuperAdmin' || loginUser.permissions?.Manage_Device?.View
           ? true
           : false, // Added the isView property
     },
@@ -87,7 +87,7 @@ export const useSidebarRoutes = () => {
       icon: <MapOverViewIcons />,
       condition: (pathname: string) => pathname.includes('map-overview'),
       isView:
-        loginUser.role == 'SuperAdmin' || loginUser?.permissions?.Map?.View
+        loginUser.role == 'SuperAdmin' || loginUser?.permissions?.Map_Overview?.View
           ? true
           : false, // Added the isView property
     },
@@ -95,7 +95,7 @@ export const useSidebarRoutes = () => {
       path: '/Reports',
       label: 'Reports',
       icon: <ReportsIcons />,
-      isView: true, // Added the isView property
+      isView: loginUser?.permissions?.Reports?.View || loginUser?.role=="SuperAdmin", // Added the isView property
       condition: (pathname: string) =>
         pathname.includes('/device-management/Reports'),
     },
@@ -103,7 +103,9 @@ export const useSidebarRoutes = () => {
       path: '/device-management/Root-History',
       label: 'Route History',
       icon: <RouteHistoryIcons />,
-      isView: true, // Added the isView property
+      isView:  loginUser.role === 'SuperAdmin' || loginUser.permissions?.Route_History?.View
+      ? true
+      : false, // Added the isView property
       condition: (pathname: string) =>
         pathname.includes('/device-management/Root-History'),
     },
@@ -133,7 +135,6 @@ export const useSidebarRoutes = () => {
           ? true
           : false, // Corrected condition
     },
-
     {
       path: '/support',
       label: 'Requests',
@@ -144,11 +145,9 @@ export const useSidebarRoutes = () => {
           path: '/support/subscribers',
           label: 'Subscriber Requests',
           icon: '',
-          isView:
-            loginUser.role == 'SuperAdmin' ||
-            loginUser?.permissions?.Support?.View
-              ? true
-              : false, // Added the isView property
+          isView:loginUser.role == 'SuperAdmin' || loginUser?.permissions?.Subscriber_Support?.View
+          ? true
+          : false, // Added the isView property
           condition: (pathname: string) =>
             pathname.includes('account-management'),
         },
@@ -156,7 +155,7 @@ export const useSidebarRoutes = () => {
           path: '/support/dealers',
           label: 'Dealer Requests',
           icon: '',
-          isView: loginUser.role == 'SuperAdmin', // Added the isView property
+          isView: true, // Added the isView property
           condition: (pathname: string) =>
             pathname.includes('account-management'),
         },
@@ -164,15 +163,12 @@ export const useSidebarRoutes = () => {
           path: '/support/Renew',
           label: 'Renew Requests',
           icon: '',
-          isView: loginUser.role == 'SuperAdmin', // Added the isView property
+          isView: true, // Added the isView property
           condition: (pathname: string) =>
             pathname.includes('account-management'),
         },
       ],
-      isView:
-        loginUser.role == 'SuperAdmin' || loginUser?.permissions?.Support?.View
-          ? true
-          : false, // Added the isView property
+      isView:true
     },
     {
       path: '/device-management',
@@ -184,7 +180,7 @@ export const useSidebarRoutes = () => {
               path: '/device-management/gps/add-device',
               label: 'Add Device Type',
               icon: '',
-              isView: true, // Added the isView property
+              isView: loginUser?.permissions?.Manage_Type_Vehicle_Icon?.View || loginUser.role=="SuperAdmin", // Added the isView property
               condition: (pathname: string) =>
               pathname.includes('/device-management/gps/add-devices'),
         },
@@ -192,20 +188,20 @@ export const useSidebarRoutes = () => {
           path: '/device-management/vehicle-icons',
           label: 'Add Vehicle Icons',
           icon: "",
-          isView: true, // Added the isView property
+          isView: loginUser?.permissions?.Manage_Type_Vehicle_Icon?.View || loginUser.role=="SuperAdmin", // Added the isView property
           condition: (pathname: string) =>
             pathname.includes('/device-management/vehicle-icons'),
         },
   
        
       ],
-      isView: loginUser.role == 'SuperAdmin' ? true : false, // Added the isView property
+      isView: loginUser?.permissions?.Manage_Type_Vehicle_Icon?.View || loginUser.role=="SuperAdmin" // Added the isView property
     },
     {
       path: '/device-management/app-settings',
       label: 'App Settings',
       icon: <ApplicationSetting/>,
-      isView: true, // Make sure this is true
+      isView: loginUser?.role=="SuperAdmin", // Make sure this is true
       condition: (pathname: string) =>
         pathname.includes('/device-management/app-settings'),
         children: [
@@ -310,6 +306,7 @@ export const useSidebarRoutes = () => {
             },
           ],
         },
+
       ],
     },
   ];

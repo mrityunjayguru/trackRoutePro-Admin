@@ -2,18 +2,23 @@ import DeviceDetailTable from './Component/DeviceDetailTable'
 import CommonHeader from '../../../common/CommonHeader'
 import { getDeviceType } from '../../../api/DeviceType';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../../store/store';
 import { downloadInventry, dowonloadUser } from '../../../api/DownloadDetail';
 function DeviceDetail() {
+  const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
+
   const dispatch=useDispatch<AppDispatch>()
     const propsData={
         title:"GPS Device Inventory",
-        button:"Add New +",
         redirect:"manage/AddDeviceDetail",
-        button3: "Download Inventory",
-
     }
+if(loginUser?.permissions?.Manage_Inventory?.Add || loginUser.role=="SuperAdmin"){
+  Object.assign(propsData,{button:"Add New +"})
+}
+if(loginUser.role=="SuperAdmin"){
+  Object.assign(propsData,{button3:"Download Inventory"})
+}
       const getDeviceTypes = async () => {
         try {
           const payload: any = {

@@ -52,6 +52,15 @@ export const EditKeySubscriber = (SingleSubscriber: any,userpassword:any) => {
       disabled:false,
     },
     {
+      label: 'User Approval Status *',
+      name: 'isApproved',
+      type: 'select',
+      placeholder: 'Select Status',
+      options: ['Approved', 'Unapproved'],
+      value: SingleSubscriber?.isApproved==true ? 'Approved' : 'Unapproved',
+      disabled: false,
+    }, 
+    {
       label: 'Gender',
       name: 'gender',
       type: 'select',

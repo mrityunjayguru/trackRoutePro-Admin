@@ -9,6 +9,7 @@ import { RequestTableColumn } from './Component/RequestTableKeys';
 import { useNavigate } from 'react-router-dom';
 import SearchAndFilter from '../../common/SearchAndFilter';
 function Request() {
+  const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
   const [filter, setfilter] = useState('InActive');
   const [search, setSearch] = useState('');
   const dispatch = useDispatch<AppDispatch>();
@@ -23,9 +24,11 @@ function Request() {
   );
 
   const handleRowClick = (rowData: any) => {
-    dispatch(singleSubscribers(rowData));
-
-    navigat('/ViewRequest');
+    if(loginUser?.permissions?.Renew_Request?.Update || loginUser.role=="SuperAdmin"){
+      dispatch(singleSubscribers(rowData));
+      navigat('/ViewRequest');
+    }
+  
   };
   const GetsubscribersAll = () => {
     const payload: any = {

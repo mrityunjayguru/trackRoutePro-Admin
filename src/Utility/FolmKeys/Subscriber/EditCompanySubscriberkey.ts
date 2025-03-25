@@ -48,6 +48,15 @@ export const EditCompanySubscriberkey = (SingleSubscriber:any, userpassword:any)
       value: SingleSubscriber?.status ? 'Active' : 'Inactive',
     },
     {
+      label: 'User Approval Status *',
+      name: 'isApproved',
+      type: 'select',
+      placeholder: 'Select Status',
+      options: ['Approved', 'Unapproved'],
+      value: SingleSubscriber?.isApproved==true ? 'Approved' : 'Unapproved',
+      disabled: false,
+    },
+    {
       label: 'Contact Person Name*',
       name: 'contactPerson',
       type: 'text',

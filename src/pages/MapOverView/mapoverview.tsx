@@ -30,7 +30,7 @@ function mapoverview() {
   useEffect(() => {
     // getDevicesList()
     if (
-      loginUser?.permissions?.Map?.View !=true && loginUser.role!="SuperAdmin"
+      loginUser?.permissions?.Map_Overview?.View !=true && loginUser.role!="SuperAdmin"
     ) {
       navigate('/');
     }
