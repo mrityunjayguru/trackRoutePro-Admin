@@ -85,7 +85,7 @@ if(profile=='' || null){
     if (validateForm()) {
       const uniqueNumber = [...new Set(Array.from({ length: 4 }, () => Math.floor(Math.random() * 10)))].join('');
       const payload: any = {
-        operator:selectedRole,
+        AdminType:selectedRole,
         username: formData.fullName,
         phone: formData.phoneNumber,
         password: formData.newPassword,
@@ -286,15 +286,15 @@ console.log(permissions,"permissions")
   </div>
 {selectedRole==="Admin"?(
   <>
-  <Admincheckbox permissions={permissions} setPermissions={setPermissions}/></>
+  <Admincheckbox permissions={permissions} setPermissions={setPermissions} /></>
 ):(null)}
 {selectedRole==="Moderator"?(
-  <><Moderate permissions={permissions} setPermissions={setPermissions}/>
+  <><Moderate permissions={permissions} setPermissions={setPermissions} />
  </>
 ):(null)}
 {selectedRole==="Operator"?(
   <>
-   <Operator permissions={permissions} setPermissions={setPermissions}/>
+   <Operator permissions={permissions} setPermissions={setPermissions} />
   </>
 ):(null)}
     

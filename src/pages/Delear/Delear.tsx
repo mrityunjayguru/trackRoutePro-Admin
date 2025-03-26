@@ -3,11 +3,13 @@ import { downloadDelear } from "../../api/DownloadDetail";
 import CommonHeader from "../../common/CommonHeader"
 import DelearTable from "./Component/Delear/DelearTable"
 import { AppDispatch } from "../../store/store";
+import { redirect } from "react-router-dom";
 function Delear() {
   const dispatch=useDispatch<AppDispatch>()
   const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
     const propsData={
         title:"List of All Dealer",
+        redirect:"AddDelear"
     }
     if(loginUser?.permissions?.Manage_Dealer?.Add || loginUser.role=="SuperAdmin"){
       Object.assign(propsData,{button:"Add New +"})

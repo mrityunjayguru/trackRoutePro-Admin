@@ -11,6 +11,9 @@ import Breadcrumb from '../../../common/Breadcrumb';
 import Admincheckbox from './Admincheckbox';
 import Moderate from './Moderate';
 import Operator from './Operator';
+import EditAdminCheckbox from './EditAdminCheckbox';
+import EditModerateCheckbox from './EditModerateCheckbox';
+import EditOperator from './EditOperator';
 const EditAdmin = () => {
   const dispatch = useDispatch<AppDispatch>();
   const singleadmin = useSelector((state: any) => state.adminRole.singleAdmin);
@@ -52,7 +55,7 @@ const EditAdmin = () => {
         let newpassword = await decrypt(singleadmin.password);
         setprofile(singleadmin.profile)
         // Update the form data
-        setSelectedRole(singleadmin?.operator)
+        setSelectedRole(singleadmin?.AdminType)
         setFormData({
           fullName: singleadmin.Name || '',
           phoneNumber: singleadmin.phone || '',
@@ -106,7 +109,7 @@ const EditAdmin = () => {
         status: formData.status === 'Active' ? true : false,
         permissions: permissions,
         profile:file,
-        operator:selectedRole,
+        AdminType:selectedRole,
         emailAddress:formData.emailAddress,
         password:formData.confirmPassword
       };
@@ -364,15 +367,15 @@ const EditAdmin = () => {
           </div>
           {selectedRole==="Admin"?(
   <>
-  <Admincheckbox permissions={permissions} setPermissions={setPermissions}/></>
+  <EditAdminCheckbox permissions={permissions} setPermissions={setPermissions} userPermissionHave={selectedRole==singleadmin?.AdminType?singleadmin?.permissions:null}/></>
 ):(null)}
 {selectedRole==="Moderator"?(
-  <><Moderate permissions={permissions} setPermissions={setPermissions}/>
+  <><EditModerateCheckbox permissions={permissions} setPermissions={setPermissions} userPermissionHave={selectedRole==singleadmin?.AdminType?singleadmin?.permissions:null} />
  </>
 ):(null)}
 {selectedRole==="Operator"?(
   <>
-   <Operator permissions={permissions} setPermissions={setPermissions}/>
+   <EditOperator permissions={permissions} setPermissions={setPermissions} userPermissionHave={selectedRole==singleadmin?.AdminType?singleadmin?.permissions:null}/>
   </>
 ):(null)}
           {/* Permissions */}

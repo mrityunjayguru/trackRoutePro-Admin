@@ -56,7 +56,9 @@ if(loginUser.role=="SuperAdmin"){
   return (
     <div>
       <CommonHeader propsData={propsData} handledownload={handledownload} />
+      {loginUser?.permissions?.Manage_Inventory?.View || loginUser.role=="SuperAdmin"?(
       <DeviceDetailTable/>
+      ):(null)}
 
     </div>
   )

@@ -5,13 +5,13 @@ export interface PermissionItem {
 }
 
 export const Permission: PermissionItem[] = [
+  { name: 'Dashboard', permissions: ['View'], value: ['View'] },
   { name: 'Manage_User', permissions: ['Add', 'View', 'Update'], value: ['Add', 'View', 'Update'] },
   { name: 'Manage_Dealer', permissions: ['Add', 'View', 'Update'], value: ['Add', 'View', 'Update'] },
   { name: 'Manage_Device', permissions: ['Add', 'View', 'Update'], value: ['Add', 'View', 'Update'] },
   { name: 'Map_Overview', permissions: ['View'], value: ['View'] },
   { name: 'Reports', permissions: ['View'], value: ['View'] },
   { name: 'Route_History', permissions: ['View'], value: ['View'] },
-
   { name: 'Notification', permissions: ['Add', 'View'], value: ['Add', 'View'] },
   { name: 'Manage_Inventory', permissions: ['Add', 'View'], value: ['Add', 'View'] },
   { name: 'Subscriber_Support', permissions: ['View', 'Update'], value: ['View', 'Update'] },
@@ -23,15 +23,13 @@ export const Permission: PermissionItem[] = [
 
 
 export const PermissionModerate : PermissionItem[] = [
+  { name: 'Dashboard', permissions: ['View'], value: ['View'] },
   { name: 'Manage_User', permissions: ['Add', 'View', 'Update'], value: ['Add', 'View', 'Update'] },
   { name: 'Manage_Dealer', permissions: ['Add', 'View', 'Update'], value: ['View'] },
   { name: 'Manage_Device', permissions: ['Add', 'View', 'Update'], value: [] },
   { name: 'Map_Overview', permissions: ['View'], value: [] },
   { name: 'Reports', permissions: ['View'], value: ['View'] },
   { name: 'Route_History', permissions: ['View'], value: ['View'] },
-  { name: 'Route_History', permissions: ['View'], value: ['View'] },
-
-  
   { name: 'Notification', permissions: ['Add', 'View'], value: ['View'] },
   { name: 'Manage_Inventory', permissions: ['Add', 'View'], value: ['View'] },
   { name: 'Subscriber_Support', permissions: ['View', 'Update'], value: [] },
@@ -42,13 +40,13 @@ export const PermissionModerate : PermissionItem[] = [
 ];
 
 export const PermissionOperator: PermissionItem[] = [
+  { name: 'Dashboard', permissions: ['View'], value: ['View'] },
   { name: 'Manage_User', permissions: ['Add', 'View', 'Update'], value: ['View'] },
   { name: 'Manage_Dealer', permissions: ['Add', 'View', 'Update'], value: ['View'] },
   { name: 'Manage_Device', permissions: ['Add', 'View', 'Update'], value: [] },
   { name: 'Map_Overview', permissions: ['View'], value: [] },
   { name: 'Reports', permissions: ['View'], value: ['View'] },
   { name: 'Route_History', permissions: ['View'], value: [''] },
-
   { name: 'Notification', permissions: ['Add', 'View'], value: ['View'] },
   { name: 'Manage_Inventory', permissions: ['Add', 'View'], value: ['View'] },
   { name: 'Subscriber_Support', permissions: ['View', 'Update'], value: ['View'] },
