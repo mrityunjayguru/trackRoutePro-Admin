@@ -12,6 +12,8 @@ import { DeveiceDetailTableKeys } from "./DeveiceDetailTableKeys";
 function DeviceDetailTable() {
   const navigate = useNavigate();
   const deviceDetail = useSelector((state: any) => state?.deviceDetail?.deviceDetail);
+  const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [filter, setFilter] = useState("");
   const itemsPerPage = 10;
@@ -20,6 +22,7 @@ function DeviceDetailTable() {
 
 const [total,setTotal]=useState<any>(0)
   const handleRowClick = async (data: any) => {
+    if(!loginUser?.permissions?.Manage_Inventory?.View && loginUser.role!=="SuperAdmin")return
     await dispatch(singleDeviceDetails(data));
     navigate("/manage/viewDeviceDetail");
   };

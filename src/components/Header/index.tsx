@@ -50,7 +50,7 @@ const Header = (props: {
     "/Reports/records":"Report",
     '/Request': 'Request',
     '/Delear': 'Dealer Management',
-    '/Manage-device':"Manage Device",
+    '/Manage-device':"View Device",
     '/device-management/Root-History':'Root History',
     '/manage-Inventory':'Manage Inventory',
     '/AddDelear': 'Add Dealer',

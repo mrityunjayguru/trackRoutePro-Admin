@@ -10,7 +10,7 @@ import { vehicleFields } from '../../../../Utility/FolmKeys/Devices/Devices';
 import { fetchVehicleType } from '../../../../api/VehicleType';
 import { AddDealear } from '../../../../Utility/FolmKeys/Dealear/AddDealear';
 import Loader from '../../../../common/Loader';
-import { setBlankArray } from '../../../../api/Device';
+import { GetDealearRecord, setBlankArray } from '../../../../api/Device';
 const AddSubscribe: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -35,9 +35,11 @@ const AddSubscribe: React.FC = () => {
       try {
         const payload: any = { role: 'Dealer' };
         const payload2: any = { status: 'Active' };
-
+const payload3:any={}
         await dispatch(fetchVehicleType(payload2));
         await dispatch(Getsubscribers(payload));
+              await dispatch(GetDealearRecord(payload3));
+        
       } catch (err) {
         console.error(err);
       }

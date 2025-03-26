@@ -67,7 +67,6 @@ export const AppDeviceViewKey = (SingleDevice: any, VehiclwType: any,devicetypeD
             options: ['Airtel', 'Jio', 'Vodafone', 'Other'],
             value: SingleDevice?.operator,
             disabled:true,
-
         },
         {
             label: 'Vehicle Category *',
@@ -77,7 +76,6 @@ export const AppDeviceViewKey = (SingleDevice: any, VehiclwType: any,devicetypeD
             options: VehiclwType,
             value: SingleDevice?.vehicleType,
             disabled:true,
-
         },
         {
             label: 'Device Status *',
@@ -87,8 +85,16 @@ export const AppDeviceViewKey = (SingleDevice: any, VehiclwType: any,devicetypeD
             options: ['Active', 'InActive'],
             value: SingleDevice?.status,
             disabled:true,
-
         },
+        {
+          label: 'Device Approval Status *',
+          name: 'deviceStatus',
+          type: 'select',
+          placeholder: 'Select Status',
+          options: ['Approved', 'Unapproved'],
+          value: SingleDevice?.isApproved ? 'Approved' : 'Unapproved',
+          disabled: true,
+        },        
         {
             label: 'Device ID',
             name: 'deviceId',

@@ -8,6 +8,12 @@ import { decrypt } from '../../../common/Encription';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import DocumentPopup from '../../ManageUsers/Component/Subscriber/DocumentPopup';
 import Breadcrumb from '../../../common/Breadcrumb';
+import Admincheckbox from './Admincheckbox';
+import Moderate from './Moderate';
+import Operator from './Operator';
+import EditAdminCheckbox from './EditAdminCheckbox';
+import EditModerateCheckbox from './EditModerateCheckbox';
+import EditOperator from './EditOperator';
 const EditAdmin = () => {
   const dispatch = useDispatch<AppDispatch>();
   const singleadmin = useSelector((state: any) => state.adminRole.singleAdmin);
@@ -49,6 +55,7 @@ const EditAdmin = () => {
         let newpassword = await decrypt(singleadmin.password);
         setprofile(singleadmin.profile)
         // Update the form data
+        setSelectedRole(singleadmin?.AdminType)
         setFormData({
           fullName: singleadmin.Name || '',
           phoneNumber: singleadmin.phone || '',
@@ -102,6 +109,7 @@ const EditAdmin = () => {
         status: formData.status === 'Active' ? true : false,
         permissions: permissions,
         profile:file,
+        AdminType:selectedRole,
         emailAddress:formData.emailAddress,
         password:formData.confirmPassword
       };
@@ -162,6 +170,12 @@ const EditAdmin = () => {
   const getCheckedPermission = (category: any, permissionType: any) => {
     return permissions[category]?.[permissionType] || false;
   };
+  const [selectedRole, setSelectedRole] = useState<string>("");
+
+  const handleRoleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedRole(e.target.value);
+  };
+
   const [preivew,setPreivew]=useState<any>(null)
   const [file,setfile]=useState(null)
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -210,7 +224,7 @@ const EditAdmin = () => {
                 placeholder="Enter Name"
                 value={formData.fullName}
                 onChange={handleChange}
-                className="w-[300px] rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
               />
               {errors.fullName && (
                 <p className="text-red-500 text-[12px]">{errors.fullName}</p>
@@ -228,7 +242,7 @@ const EditAdmin = () => {
                 placeholder="Enter Mobile"
                 value={formData.phoneNumber}
                 onChange={handleChange}
-                className="w-[300px]  rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
               />
               {errors.phoneNumber && (
                 <p className="text-red-500 text-[12px]">{errors.phoneNumber}</p>
@@ -244,7 +258,7 @@ const EditAdmin = () => {
                 placeholder="Enter Mobile"
                 value={formData.emailAddress}
                 onChange={handleChange}
-                className="w-[300px]  rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
               />
               {errors.emailAddress && (
                 <p className="text-red-500 text-[12px]">{errors.emailAddress}</p>
@@ -259,7 +273,7 @@ const EditAdmin = () => {
                 name="status"
                 value={formData.status}
                 onChange={handleChange}
-                className="w-[300px]  rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
               >
                 <option value="Active">Active</option>
                 <option value="Inactive">Inactive</option>
@@ -276,7 +290,7 @@ const EditAdmin = () => {
                   placeholder="**********"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className="w-full rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                  className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
                 />
                 <button
                   type="button"
@@ -295,6 +309,7 @@ const EditAdmin = () => {
                 </p>
               )}
             </div>
+            
             <div className="mb-2">
               <label className="mb-1 block text-black text-sm font-medium dark:text-white">
                 Upload Profile
@@ -304,62 +319,68 @@ const EditAdmin = () => {
                 name="profile"
                 placeholder="**********"
                 onChange={handleFileChange}
-                className="w-full rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
+                className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
               />
               {/* {errors.profile && <p className="text-red-500 text-[12px]">{errors.profile}</p>} */}
             </div>
-            <div onClick={handleopenimage} className="mb-2 mt-auto py-4 cursor-pointer text-[#02B754] ">
-              <FaEye style={{ fontSize: '24px' }} />
-              </div>
-          </div>
-{/* <div className="mx-5  my-2">
-  {preivew?(
-<img src={`${preivew}`} alt="Popup Image" className="w-25 object-cover h-20 " />
+            <div className="flex gap-5 w-full">
+    <div className="checkbox flex gap-5 w-full globalform items-center">
+      <div className="flex justify-center items-center gap-2">
+        <label htmlFor="admin">Admin</label>
+        <input
+          type="radio"
+          id="admin"
+          name="role"
+          value="Admin"
+          checked={selectedRole === "Admin"}
+          onChange={handleRoleChange}
+        />
+      </div>
+      <div className="flex justify-center items-center gap-2">
+        <label htmlFor="moderator">Moderator</label>
+        <input
+          type="radio"
+          id="moderator"
+          name="role"
+          value="Moderator"
+          checked={selectedRole === "Moderator"}
+          onChange={handleRoleChange}
+        />
+      </div>
+      <div className="flex justify-center items-center gap-2">
+        <label htmlFor="operator">Operator</label>
+        <input
+          type="radio"
+          id="operator"
+          name="role"
+          value="Operator"
+          checked={selectedRole === "Operator"}
+          onChange={handleRoleChange}
+        />
+      </div>
+    </div>
+  </div>
 
-  ):(null)}
-  {profile?(
-<img src={`${import.meta.env.VITE_APP_Image_Url}${profile}`} alt="Popup Image" className="w-25 object-cover h-20 " />
-
-  ):(null)}
-
-</div> */}
+ <div onClick={handleopenimage} className="mb-2 mt-auto py-4 cursor-pointer text-[#02B754] ">
+ <FaEye style={{ fontSize: '24px' }} />
+  </div>
+</div>
+          {selectedRole==="Admin"?(
+  <>
+  <EditAdminCheckbox permissions={permissions} setPermissions={setPermissions} userPermissionHave={selectedRole==singleadmin?.AdminType?singleadmin?.permissions:null}/></>
+):(null)}
+{selectedRole==="Moderator"?(
+  <><EditModerateCheckbox permissions={permissions} setPermissions={setPermissions} userPermissionHave={selectedRole==singleadmin?.AdminType?singleadmin?.permissions:null} />
+ </>
+):(null)}
+{selectedRole==="Operator"?(
+  <>
+   <EditOperator permissions={permissions} setPermissions={setPermissions} userPermissionHave={selectedRole==singleadmin?.AdminType?singleadmin?.permissions:null}/>
+  </>
+):(null)}
           {/* Permissions */}
           <div className="px-4 py-2 grid grid-cols-1 gap-6 sm:grid-cols-1">
-            <div className="">
-              <div>
-                <h2 className="text-black text-sm font-semibold px-4 ">
-                  Permission
-                </h2>
-              </div>
-              <div className="px-4 py-2 grid grid-cols-4 gap-6 sm:grid-cols-5">
-                {Permission.map((val: any, index: number) => {
-                  return (
-                    <div key={index}>
-                      <h1 className="py-2 text-black text-sm font-medium">
-                        {val.name}
-                      </h1>
-                      {val.Permission.map((perm: any, subIndex: number) => {
-                        return (
-                          <div className=" flex w-full py-1" key={subIndex}>
-                            <label className="mb-1 block w-1/2  text-sm font-medium dark:text-white">
-                              {perm}
-                            </label>
-                            <input
-                              type="checkbox"
-                              name={`${val.name}-${perm}`}
-                              id={`${val.name}-${perm}`}
-                              className="w-1/2  rounded-2xl bginput border-none border-stroke bg-transparent py-3 px-5 text-black text-sm font-medium outline-none transition focus:border-primary active:border-primary dark:border-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                              onChange={handleInputChange}
-                              checked={getCheckedPermission(val.name, perm)}
-                            />
-                          </div>
-                        );
-                      })}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+          
 
             {/* Submit Button */}
             <div className="mb-2 flex gap-2">

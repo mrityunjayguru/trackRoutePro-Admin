@@ -9,6 +9,7 @@ import { vehicleFields } from '../../../../Utility/FolmKeys/Devices/Devices';
 import { fetchVehicleType } from '../../../../api/VehicleType';
 import { AddDealear } from '../../../../Utility/FolmKeys/Dealear/AddDealear';
 import GlobalForm from '../../../../GlobalForm/GlobalForm';
+import { GetDealearRecord } from '../../../../api/Device';
 
 const AddSubscriberByDelear: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -43,8 +44,12 @@ const AddSubscriberByDelear: React.FC = () => {
         const vehiclepayload:any={
           status:"Active"
         }
+const payload3:any={}
+
         await dispatch(fetchVehicleType(vehiclepayload));
         await dispatch(Getsubscribers(payload));
+                      await dispatch(GetDealearRecord(payload3));
+        
       } catch (err) {
         console.error(err);
       }
@@ -72,6 +77,7 @@ const AddSubscriberByDelear: React.FC = () => {
     const payload = {
       ...formData,
       delearid: singleDelear._id,
+      isApproved:false,
       isView:false,
       createdDelearId: singleDelear._id,
       dealerCode: singleDelear._id,

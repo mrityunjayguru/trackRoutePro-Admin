@@ -62,6 +62,7 @@ const DealerAddDevices = () => {
       setloder(true)
     const payload: any = {
       ...val,
+      isApproved:false,
       displayParameters,
       createdDelearId:loginUser._id,
       delearid: loginUser._id,

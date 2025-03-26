@@ -1,16 +1,21 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { downloadDelear } from "../../api/DownloadDetail";
 import CommonHeader from "../../common/CommonHeader"
 import DelearTable from "./Component/Delear/DelearTable"
 import { AppDispatch } from "../../store/store";
+import { redirect } from "react-router-dom";
 function Delear() {
   const dispatch=useDispatch<AppDispatch>()
-
+  const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
     const propsData={
         title:"List of All Dealer",
-        button:"Add New +",
-        redirect:"AddDelear",
-        button3: "Download Delear's",
+        redirect:"AddDelear"
+    }
+    if(loginUser?.permissions?.Manage_Dealer?.Add || loginUser.role=="SuperAdmin"){
+      Object.assign(propsData,{button:"Add New +"})
+    }
+    if(loginUser?.role=="SuperAdmin"){
+      Object.assign(propsData,{button3:"Download Delear's"})
     }
       const handledownload = async () => {
         try {
@@ -35,7 +40,8 @@ function Delear() {
   return (
     <>
     <CommonHeader  propsData={propsData} handledownload={handledownload}/>
-    <DelearTable/>
+    {loginUser?.permissions?.Manage_Dealer?.View || loginUser.role=="SuperAdmin"?(<DelearTable/>):(null)}
+
     </>
   )
 }

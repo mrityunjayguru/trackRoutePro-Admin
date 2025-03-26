@@ -5,7 +5,11 @@ function Vehicle() {
   const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
   return (
     <div>
+       { loginUser.role=="SuperAdmin"?(
         <ManageVehicle/>
+
+       ):(null)}
+  
       <VehicleTable />
     </div>
   )

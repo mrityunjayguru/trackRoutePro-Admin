@@ -54,6 +54,15 @@ export const ViewKeySubscriber = (SingleSubscriber: any,userpassword:any) => {
       disabled: true,
     },
     {
+      label: 'User Approval Status *',
+      name: 'isApproved',
+      type: 'select',
+      placeholder: 'Select Status',
+      options: ['Approved', 'Unapproved'],
+      value: SingleSubscriber?.isApproved==true ? 'Approved' : 'Unapproved',
+      disabled: false,
+    }, 
+    {
       label: 'Gender',
       name: 'gender',
       type: 'select',

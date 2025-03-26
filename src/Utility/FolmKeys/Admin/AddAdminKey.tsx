@@ -1,6 +1,3 @@
-import { formattedStates } from '../State';
-
-
  export const AddAdminKey= [
     {
       label: 'Name*',
@@ -46,7 +43,6 @@ import { formattedStates } from '../State';
       options: ['Active', 'Inactive'], // Example options for status
       value: 'Active', // Dummy value
     },
- 
     {
       label: 'Upload Profile *',
       name: 'Document',
@@ -54,7 +50,6 @@ import { formattedStates } from '../State';
       placeholder: 'Upload',
       value: '', // Dummy value (you can add a sample file path if necessary)
     },
-   
     {
       label: 'Subscribers*',
       name: 'Subscribers',

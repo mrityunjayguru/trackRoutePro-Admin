@@ -56,6 +56,7 @@ const DelearTable: React.FC = () => {
   }, [data]);
 
   const handleRowClick = (user: Subscriber) => {
+    if(!loginUser?.permissions?.Manage_Dealer?.Update && loginUser?.role!="SuperAdmin") return 
     navigate(`/ViewDelear`);
     const payload: any = user;
     dispatch(singleDelearSubscribers(payload));

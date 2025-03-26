@@ -97,6 +97,15 @@ export const ViewDeviceKeysRequest = (
       disabled: false,
     },
     {
+      label: 'Device Approval Status *',
+      name: 'isApproved',
+      type: 'select',
+      placeholder: 'Select Status',
+      options: ['Approved', 'Unapproved'],
+      value: SingleDevice?.isApproved==true ? 'Approved' : 'Unapproved',
+      disabled: true,
+    }, 
+    {
       label: 'Device ID',
       name: 'deviceId',
       type: 'text',

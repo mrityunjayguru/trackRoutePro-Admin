@@ -10,6 +10,7 @@ import { DevicesKeys } from './DevicesKeys';
 import SearchAndFilter from '../../../common/SearchAndFilter';
 
 function ReviwDevices() {
+    const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10; // Adjust this value as needed
   const total = 10;
@@ -18,6 +19,7 @@ function ReviwDevices() {
   const [filter, setfilter] = useState('InActive');
   const [search, setSearch] = useState('');
   const handleRowClick = (payload: any) => {
+    if (!loginUser?.permissions?.Renew_Request?.Update && loginUser?.role !== "SuperAdmin") return;
     dispatch(manageSingleDevices(payload));
     let newpayload: any = {
       _id: payload?.ownerID,

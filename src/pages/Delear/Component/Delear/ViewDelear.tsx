@@ -14,13 +14,16 @@ const ViewDelear: React.FC = () => {
   const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
 
   const handleSubmit = async (e: any) => {
+    if(!loginUser?.permissions?.Manage_Dealer?.Add && loginUser?.role!=="SuperAdmin") return
     navigate(`/EditDelear`);
   };
   const propsData = {
     title: 'List of All Subscribers',
-    button: 'Add New +',
     redirect: 'AddSubscriberByDelear',
   };
+  if(loginUser?.permissions?.Manage_Dealer?.Add || loginUser?.role=="SuperAdmin"){
+    Object.assign(propsData,{button:"Add New"})
+  }
     const [userpassword,setuserpassword]=useState<any>("")
     const decryptPassword = async () => {
         if (SingleSubscriber?.password) {

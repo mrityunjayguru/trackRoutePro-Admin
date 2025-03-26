@@ -56,6 +56,7 @@ const DealerAddSubscriber: React.FC = () => {
       isAppCreated: true,
       createdDelearId: loginUser._id,
       delearid: loginUser._id,
+      isApproved:false,
       dealerCode:loginUser._id,
       subscribeType: subscriberType,
       status:false,
