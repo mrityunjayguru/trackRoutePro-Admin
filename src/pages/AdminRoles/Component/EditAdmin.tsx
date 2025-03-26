@@ -361,10 +361,10 @@ const EditAdmin = () => {
     </div>
   </div>
 
-            <div onClick={handleopenimage} className="mb-2 mt-auto py-4 cursor-pointer text-[#02B754] ">
-              <FaEye style={{ fontSize: '24px' }} />
-              </div>
-          </div>
+ <div onClick={handleopenimage} className="mb-2 mt-auto py-4 cursor-pointer text-[#02B754] ">
+ <FaEye style={{ fontSize: '24px' }} />
+  </div>
+</div>
           {selectedRole==="Admin"?(
   <>
   <EditAdminCheckbox permissions={permissions} setPermissions={setPermissions} userPermissionHave={selectedRole==singleadmin?.AdminType?singleadmin?.permissions:null}/></>
