@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import CardDataStats from '../../components/CardDataStats';
 import ChartThree from '../../components/Charts/ChartThree';
 import { AppDispatch } from '../../store/store';
@@ -11,6 +11,9 @@ function DashboardCart() {
   const data = useSelector((state: any) => state.subscriber.groupSubscriber);
   const datadashboard = useSelector((state: any) => state.dashboard.dashboard);
   const loginUser = useSelector((state: any) => state.Auth?.loginUserData);
+  useEffect(()=>{
+    setDashboard(datadashboard)
+  },[datadashboard])
   return (
     <div>
        <div className="grid grid-cols-1 sm:grid-cols-1 text-xl font-semibold text-black dark:text-white md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-5   justify-between px-3">
