@@ -365,7 +365,7 @@ const EditAdmin = () => {
  <FaEye style={{ fontSize: '24px' }} />
   </div>
 </div>
-          {selectedRole==="Admin"?(
+  {selectedRole==="Admin"?(
   <>
   <EditAdminCheckbox permissions={permissions} setPermissions={setPermissions} userPermissionHave={selectedRole==singleadmin?.AdminType?singleadmin?.permissions:null}/></>
 ):(null)}
@@ -381,7 +381,6 @@ const EditAdmin = () => {
           {/* Permissions */}
           <div className="px-4 py-2 grid grid-cols-1 gap-6 sm:grid-cols-1">
           
-
             {/* Submit Button */}
             <div className="mb-2 flex gap-2">
               <button
