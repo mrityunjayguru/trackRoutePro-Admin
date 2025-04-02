@@ -1,16 +1,22 @@
 export const consolidateSummaryKeys = {
-    vehicleNo: 'vehicleNo', // Status
-    driverName: 'driverName', // Status
-    startTime:'Start_Time',
-    endTime: 'End_Time', // Name
-    Start_Coords:"Start_Coords",
-    End_Coords:"End_Coords",
-    Start_Address:"Start_Address",
-    End_Address:"End_Address",
-    avg_speed: 'avg_speed', // Status
-    Max_Speed: 'Max_Speed', // Dealer Code
-    Max_Speed_Time:'Max_Speed_Time',
-    Total_Distance_Kms: 'Total_Distance_Kms', // Location
-    Total_Idle_Time: 'Total_Idle_Time', // Reg. Date
-    Total_Stop_Time:"Total_Stop_Time",
+    'Device IMEI': 'Device IMEI', // Status
+    'Device Type':'Device Type', // Status
+    'Vehicle Type':'Vehicle Type',
+    'Distance (Kms)': 'Distance (Kms)', // Name
+    'Avg Speed':"Avg Speed",
+    'Max Speed':"Max Speed",
+    'Max Speed Time':"Max Speed Time",
+    'Motion Time':"Motion Time",
+    'Idle Time': 'Idle Time', // Status
+    'Stop Time': 'Stop Time', // Dealer Code
+    'Start Address':'Start Address',
+    'End Address': 'End Address', // Location
+    'Start Time': 'Start Time', // Reg. Date
+    'End Time':"End Time",
+    'First Ignition':'First Ignition',
+    'Last Ignition':'Last Ignition',
+    'Geofence In':'Geofence In',
+    'Geofence Out':'Geofence Out',
+    'Ignition On':'Ignition On',
+    'Ignition Off':'Ignition Off'
   };
