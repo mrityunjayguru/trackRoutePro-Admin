@@ -36,100 +36,78 @@ const CommonTable: React.FC<TableProps> = ({
     setSortedData(data);
   }, [data]);
 
-  const getVal = useCallback((colKey: string, val: any,data:any) => {
+  const getVal = useCallback((colKey: string, val: any, data: any) => {
     if (colKey === 'updatedAt') {
       return formatDateToDDMMMYYYY(val);
-    } 
+    }
+    
     if (colKey === 'phonenumber') {
-      return data?.phone
-    } 
+      return data?.phone;
+    }
     if (colKey === 'topic') {
-      return data?.topic?.title
-    } 
+      return data?.topic?.title;
+    }
     if (colKey === 'User') {
-      if (data.sendTo === "Selected") {
+      if (data.sendTo === 'Selected') {
         // Joining names from the result array into a single string
-        return data.result.slice(0, 5).map((val: any) => val.name).join(', ');
+        return data.result
+          .slice(0, 5)
+          .map((val: any) => val.name)
+          .join(', ');
       }
-      return ""; // Return empty string if sendTo is not "Selected"
+      return ''; // Return empty string if sendTo is not "Selected"
     }
     if (colKey === 'createdAt') {
       return formatDateToDDMMMYYYY(val);
-    } 
+    }
     if (colKey === 'userNames') {
-      return data?.ownerIDDetail?.Name
-    } 
-    if(colKey=="isOnlines"){
-      if(data?.isOnline==true){
-        return "Online"
-      }else{
-        return "Retail"
+      return data?.ownerIDDetail?.Name;
+    }
+    if (colKey == 'isOnlines') {
+      if (data?.isOnline == true) {
+        return 'Online';
+      } else {
+        return 'Retail';
       }
-    }
-   else if (colKey === 'createdDealerRecord') {
-      return val?.uniqueCode || 'N/A';  
-    }
-    else if (colKey === 'isWireds') {
-      return data?.isWired?"Wire":"Wireless";  
-    }
-    
-    else if (colKey === 'userName') {
-     return data?.users?.Name || '-';  
-    }
-
-    else if (colKey === 'useremailAddress') {
-      return data?.users?.emailAddress || '-';  
-     }
- 
-    else if (colKey === 'SimNo') {
-      return data?.userDevices?.deviceSimNumber || '-';  
-    }
-    else if (colKey === 'title') {
-      return data?.notificationalert?.notification.title  || '-';  
-    }
-    else if (colKey === 'message') {
-      return data?.notificationalert?.notification.body  || '-';  
-    }
-    else if (colKey === 'test') {
-      return data?.notificationalert?.notification.title  || '-';  
-    }
-    else if (colKey === 'deviceType') {
-      return val?.deviceType?val.deviceType:val || 'N/A';  
-    }
-    else  if(colKey=='Assignedon'){
-      return  formatDateToDDMMMYYYY(data?.userDevices?.createdAt)
-    }
-    else  if(colKey=='vehiclenos'){
-      return  data?.deviceDetail?.vehicleNo
-    }
-    
-    else if (colKey === "timeRemaning") {
-     return (
-      <CountdownTimer createdAt={data?.createdAt} />
-     )
-    }
-    else if(colKey==='owneriddetail'){
-      return data?.userDevices?.owneriddetail?.uniqueCode || "-"
-    }
-    else  if(colKey==='Assignedto'){
-      return data?.userDevices?.owneriddetail?.uniqueCode || "-"
-    }
-    else if(colKey==='DealerCode'){
-      return data?.userDevices?.dealerCode?.uniqueCode || "-"
-    }
-    else if(colKey==='address'){
-      return `${data.state}, ${data.city}`
-    }
-    
-    else if(colKey==='assignStatus'){
-      if(data?.userDevices?.createdAt){
-        return "Assigned"
-      }else{
-        return "Unassigned"
+    } else if (colKey === 'createdDealerRecord') {
+      return val?.uniqueCode || 'N/A';
+    } else if (colKey === 'isWireds') {
+      return data?.isWired ? 'Wire' : 'Wireless';
+    } else if (colKey === 'userName') {
+      return data?.users?.Name || '-';
+    } else if (colKey === 'useremailAddress') {
+      return data?.users?.emailAddress || '-';
+    } else if (colKey === 'SimNo') {
+      return data?.userDevices?.deviceSimNumber || '-';
+    } else if (colKey === 'title') {
+      return data?.notificationalert?.notification.title || '-';
+    } else if (colKey === 'message') {
+      return data?.notificationalert?.notification.body || '-';
+    } else if (colKey === 'test') {
+      return data?.notificationalert?.notification.title || '-';
+    } else if (colKey === 'deviceType') {
+      return val?.deviceType ? val.deviceType : val || 'N/A';
+    } else if (colKey == 'Assignedon') {
+      return formatDateToDDMMMYYYY(data?.userDevices?.createdAt);
+    } else if (colKey == 'vehiclenos') {
+      return data?.deviceDetail?.vehicleNo;
+    } else if (colKey === 'timeRemaning') {
+      return <CountdownTimer createdAt={data?.createdAt} />;
+    } else if (colKey === 'owneriddetail') {
+      return data?.userDevices?.owneriddetail?.uniqueCode || '-';
+    } else if (colKey === 'Assignedto') {
+      return data?.userDevices?.owneriddetail?.uniqueCode || '-';
+    } else if (colKey === 'DealerCode') {
+      return data?.userDevices?.dealerCode?.uniqueCode || '-';
+    } else if (colKey === 'address') {
+      return `${data.state}, ${data.city}`;
+    } else if (colKey === 'assignStatus') {
+      if (data?.userDevices?.createdAt) {
+        return 'Assigned';
+      } else {
+        return 'Unassigned';
       }
-    }
-    
-    else {
+    } else {
       return val;
     }
   }, []);
@@ -171,14 +149,13 @@ const CommonTable: React.FC<TableProps> = ({
   return (
     <div className="table-container overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-[#EDEDED] text-gray-700 font-semibold text-base">
+        <thead className="bg-[#EDEDED] w-full text-gray-700 font-semibold text-base">
           <tr>
             <th className="p-1 text-[#949495] text-sm cursor-pointer">#No.</th>
-
             {Object.entries(columns).map(([key, label]) => (
               <th
                 key={key}
-                className="p-1 text-center text-[#949495] text-sm cursor-pointer"
+                className="p-1  text-center text-[#949495] text-sm cursor-pointer"
                 onClick={() => handleSort(key)} // Use key for sorting
               >
                 {label} {getSortIndicator(key)}
@@ -193,41 +170,46 @@ const CommonTable: React.FC<TableProps> = ({
           {sortedData?.length > 0 ? (
             sortedData?.map((row: any, index: number) => (
               <>
-             <tr
-  key={index}
-  className={`${
-    row.status === false ||  row.status === "Inactive" ||  row.status === "InActive"
-      ? 'bg-[#FFE2E2] text-black border-b border-[#D9E821] text-center text-[15px] font-medium'
-      : 'text-black border-b border-[#D9E821] text-center text-[15px] font-medium'
-  }`}
->
-                <td className=" p-1 text-center  cursor-pointer flex justify-center items-center  ">
-               
-                  {currentPage > 1
-                    ? (currentPage - 1) * 10 + index + 1
-                    : index + 1}
-                </td>
-                {Object.keys(columns).map((colKey) => (
-                  <td key={colKey} className="p-1 border-b border-[#D9E821]  whitespace-nowrap overflow-hidden text-ellipsis">
-                    {/* Handle Boolean Values */}
-                    {typeof row[colKey] === 'boolean' ? (
-                      row[colKey] ? (
-                        <span className="">Active</span>
-                      ) : (
-                        <span className="text-red-500">Inactive</span>
-                      )
-                    ) : (
-                      getVal(colKey, row[colKey],row)
-                    )}
-                  </td>
-                ))}
-                <td
-                  className="p-1 text-center  cursor-pointer flex justify-center items-center text-[#D9E821]"
-                  onClick={() => onRowClick && onRowClick(row)}
+                <tr
+                  key={index}
+                  className={`${
+                    row.status === false ||
+                    row.status === 'Inactive' ||
+                    row.status === 'InActive'
+                      ? 'bg-[#FFE2E2] text-black border-b border-[#D9E821] text-center text-[15px] font-medium'
+                      : 'text-black border-b border-[#D9E821] text-center text-[15px] font-medium'
+                  }`}
                 >
-                  <FaEye style={{ fontSize: '24px' }} />
-                </td>
-              </tr></>
+                  <td className=" p-1 text-center  cursor-pointer flex justify-center items-center  ">
+                    {currentPage > 1
+                      ? (currentPage - 1) * 10 + index + 1
+                      : index + 1}
+                  </td>
+                  {Object.keys(columns).map((colKey) => (
+                    <td
+                      key={colKey}
+                      className="p-1 border-b border-[#D9E821]  whitespace-nowrap overflow-hidden text-ellipsis"
+                    >
+                      {/* Handle Boolean Values */}
+                      {typeof row[colKey] === 'boolean' ? (
+                        row[colKey] ? (
+                          <span className="">Active</span>
+                        ) : (
+                          <span className="text-red-500">Inactive</span>
+                        )
+                      ) : (
+                        getVal(colKey, row[colKey], row)
+                      )}
+                    </td>
+                  ))}
+                  <td
+                    className="p-1 text-center  cursor-pointer flex justify-center items-center text-[#D9E821]"
+                    onClick={() => onRowClick && onRowClick(row)}
+                  >
+                    <FaEye style={{ fontSize: '24px' }} />
+                  </td>
+                </tr>
+              </>
             ))
           ) : (
             <tr>

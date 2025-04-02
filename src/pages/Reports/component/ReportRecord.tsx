@@ -34,9 +34,7 @@ function ReportRecord() {
   return (
     <div>
       {open?(<Mappopup text="Vehicle Report" showheader={false} records={val} onClose={handleonclose }/>):(null)}
-      
       <SummaryFilter />
-
 {traivelSummary && traivelSummary?.length>0?(<>
   <div className="my-5">
         {imeiRecords.name == 'Summary' ? (

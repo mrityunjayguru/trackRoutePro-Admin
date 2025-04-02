@@ -7,16 +7,22 @@ export const EventReportKey = {
 
 
   export const stopAndIdelKeys = {
-    imei: 'imei', // Name
-    duration: 'duration', // Dealer Code
-    idleEndTime:'idleEndTime',
-    idleStartTime:'idleStartTime',
+    'Device IMEI': 'Device IMEI', // Dealer Code
+    'Device Type': 'Device Type', // Name
+    'Vehicle Type':'Vehicle Type',
+    'Duration':'Duration',
+    'Address':'Address',
+    'Start Time':'Start Time',
+    'End Time':'End Time'
   };
 
   export const AlertsRecords = {
-    imei: 'imei', // Dealer Code
-    alertfor: 'type', // Name
-    title:'title',
-    message:'message',
-    createdAt:'createdAt',
+    'Vehicle Number': 'Vehicle Number', // Dealer Code
+    'Device IMEI': 'Device IMEI', // Name
+    'Vehicle Type':'Vehicle Type',
+    'Device Type':'Device Type',
+    'Event':'Event',
+    'GPS Time':'GPS Time',
+    'Coords':'Coords',
+    'Address':'Address'
   };
