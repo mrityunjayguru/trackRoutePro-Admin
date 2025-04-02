@@ -35,11 +35,10 @@ const AddSubscribe: React.FC = () => {
       try {
         const payload: any = { role: 'Dealer' };
         const payload2: any = { status: 'Active' };
-const payload3:any={}
+        const payload3: any = {};
         await dispatch(fetchVehicleType(payload2));
         await dispatch(Getsubscribers(payload));
-              await dispatch(GetDealearRecord(payload3));
-        
+        await dispatch(GetDealearRecord(payload3));
       } catch (err) {
         console.error(err);
       }
@@ -66,7 +65,7 @@ const payload3:any={}
 
     const payload = {
       ...formData,
-      isView:false,
+      isView: false,
       subscribeType: subscriberType,
       status: formData.status === 'Active' ? true : false,
     };
@@ -104,7 +103,6 @@ const payload3:any={}
           fields={AddCompanySubscriber(DealerRecord)}
           handleSubmit={handleSubmit}
           buttontext=""
-          
           disabled={loder}
         />
       );
@@ -121,11 +119,11 @@ const payload3:any={}
     }
     return null;
   };
-  useEffect(()=>{
-   let val: any = [];
-   
-      // dispatch(setBlankArray(val));
-  },[subscriberType])
+  useEffect(() => {
+    let val: any = [];
+
+    // dispatch(setBlankArray(val));
+  }, [subscriberType]);
   return (
     <>
       {loderval ? <Loader /> : null}
