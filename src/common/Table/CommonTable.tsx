@@ -64,7 +64,7 @@ const CommonTable: React.FC<TableProps> = ({
       return data?.ownerIDDetail?.Name;
     }
     if(colKey=="createdDelearCode"){
-    return  data?.dealerdetail[0]?.uniqueCode;
+    return  data?.dealerdetail?.uniqueCode;
     }
     if (colKey == 'isOnlines') {
       if (data?.isOnline == true) {

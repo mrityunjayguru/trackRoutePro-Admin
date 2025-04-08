@@ -59,7 +59,7 @@ function Devices() {
       label: dealer.uniqueCode,
       value: dealer._id,
     }));
-    const statusOptions = dealearRecord
+    const statusOptions:any = []
     const handleStatusChange = (e: any) => {
       setFilter(e.value);
       setCurrentPage(1); // Reset to first page when filter changes
