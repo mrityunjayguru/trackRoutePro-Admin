@@ -26,12 +26,13 @@ export default function SummaryFilter() {
   const [showVehicleModal, setShowVehicleModal] = useState(false);
   const [selectedVehicles, setSelectedVehicles] = useState<string[]>([]);
   const [imei, setImeino] = useState('');
+  const today = new Date().toISOString().split('T')[0];
   const [eventType, setEventType] = useState<string[]>([]);
   const [mingap, setminmingap] = useState('');
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-  const [starttime, setstartTime] = useState('');
-  const [endTime, setendTime] = useState('');
+  const [startDate, setStartDate] = useState(today);
+  const [endDate, setEndDate] = useState(today);
+  const [starttime, setstartTime] = useState('00:00');
+  const [endTime, setendTime] = useState('00:30');
   const [search,setSearch]=useState("")
 
   const datas: any = [
@@ -49,8 +50,7 @@ export default function SummaryFilter() {
     const payload: any = {};
     dispatch(DeviceByOwnerId(payload));
   }, [dispatch]);
-  useEffect(()=>{
-  },[])
+
   const [loder, setloder] = useState(false);
   const handleReportAction = async (actionType: string) => {
     if(selectedVehicles.length==0) return
