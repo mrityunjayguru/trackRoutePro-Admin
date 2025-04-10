@@ -1,24 +1,18 @@
-
 name: SSH Deploy
-
 on:
   push:
     branches:
       - main  # This will trigger the workflow on pushing to the 'main' branch
-
 jobs:
   deploy:
     runs-on: ubuntu-latest  # Specify the environment (latest Ubuntu in this case)
-
     steps:
     - name: Checkout code
       uses: actions/checkout@v2  # Checkout the code from the repository
-
     - name: Setup SSH
       uses: webfactory/ssh-agent@v0.5.3  # Use SSH Agent to deploy
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # Your private SSH key from secrets
-
     - name: SSH into EC2 instance and deploy
       run: |
         ssh -o StrictHostKeyChecking=no ubuntu@3.108.155.90 << 'EOF'
@@ -32,7 +26,14 @@ jobs:
         
         # Install dependencies
         sudo npm install
-
-        echo "Deployment completed"
+        
+        # Build the application
+        npm run build
+        
+        # Restart Nginx
+        echo "Restarting Nginx..."
+        sudo systemctl restart nginx
+        sudo systemctl status nginx
+        
+        echo "Deployment completed successfully"
         EOF
-
