@@ -81,7 +81,7 @@ function OtherDetail() {
           }`}
           onClick={() => handlefilter("exp15")}
         >
-          <p className="text-sm text-gray-600">Expiring in 15 days</p>
+          <p className="text-sm text-gray-600">Expiring in 15</p>
           <p className="text-lg font-semibold text-yellow-700">
             {datadashboard?.subscriberExp}
           </p>
