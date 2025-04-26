@@ -1,7 +1,7 @@
 import { AxiosInstance } from "axios";
 import axios from "axios";
 const Repository: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_APP_BASE_URL,
+  baseURL:"http://3.108.26.115:3100",
 });
 
 // Add a request interceptor to set the Authorization header
