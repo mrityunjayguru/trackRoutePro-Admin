@@ -31,7 +31,7 @@ export const useSidebarRoutes = () => {
     },
     {
       path: '/DealearDashboard',
-      label: 'DealearDashboard',
+      label: 'DealerDashboard',
       icon: <ManageSubscribersIcon />,
       condition: (pathname: string) => pathname === '/DealearDashboard',
       isView: loginUser.role == 'Dealer', // Added the isView property
@@ -113,7 +113,7 @@ export const useSidebarRoutes = () => {
       path: '/manage-Inventory',
       label: 'Manage Inventory',
       icon: <ManageinventryIcon/>,
-      isView: true, // Added the isView property
+      isView: loginUser.role === 'SuperAdmin', // Added the isView property
       condition: (pathname: string) =>
         pathname.includes('/manage-Inventory'),
     },
@@ -168,7 +168,7 @@ export const useSidebarRoutes = () => {
             pathname.includes('account-management'),
         },
       ],
-      isView:true
+      isView: loginUser.role === 'SuperAdmin', // Added the isView property
     },
     {
       path: '/device-management',

@@ -60,8 +60,10 @@ const DealerAddDevices = () => {
         return obj;
       }, {});
       setloder(true)
+      console.log(val,"valval")
     const payload: any = {
       ...val,
+      isWired:val.isWired=="false"?false:true,
       isApproved:false,
       displayParameters,
       createdDelearId:loginUser._id,

@@ -133,7 +133,7 @@ const DealerAddSubscriber: React.FC = () => {
     <>
       <div className="my-3">
         <div className="flex flex-row gap-3 ">
-          {['Individual', 'Company'].map((type) => (
+          {['Individual'].map((type) => (
             <button
               key={type}
               onClick={() => handlechangetype(type)}

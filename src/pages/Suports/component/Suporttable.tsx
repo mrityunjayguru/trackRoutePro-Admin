@@ -10,6 +10,7 @@ import {
   formatDateToDDMMMYYYYwithDate,
 } from '../../../common/ManageDate';
 import RejectionModal from './RejectionModal';
+import OtherDetail from './OtherDetail';
 
 interface HandleSnNo {
   currentPage: number;
@@ -109,6 +110,9 @@ const payload2:any={}
 
   return (
     <>
+    <OtherDetail isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        Suportdetails={Suportdetails}   />
       <RejectionModal
         isOpen={open}
         onClose={handleclose}
@@ -182,13 +186,13 @@ const payload2:any={}
                       }}
                     />
                   </td>
-                  {/* <td className="p-1 border-b border-[#D9E821]">
+                  <td className="p-1 border-b border-[#D9E821]">
                     <FaEye
                       className="text-[#02B754]"
                       style={{ fontSize: '24px', cursor: 'pointer' }}
                       onClick={() => viewDetails(subscriber)}
                     />
-                  </td> */}
+                  </td>
                 </tr>
               ))
             ) : (

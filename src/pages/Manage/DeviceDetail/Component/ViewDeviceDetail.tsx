@@ -12,6 +12,7 @@ function ViewDeviceDetail() {
   const devicetypeDetails = useSelector((state: any) => state?.DeviceTye?.deviceType);
   const dispatch = useDispatch<AppDispatch>();
   const [loder,setloder]=useState(false)
+  const [save,setSave]=useState("Save")
   const navigate=useNavigate()
   const handleSubmit = async(formData: any) => {
   let payload:any={
@@ -30,7 +31,8 @@ function ViewDeviceDetail() {
     }
   }
   useEffect(() => {
-    if (deviceDetail) {
+    if (deviceDetail?.assigned=="Assigned") {
+      setSave("")
       console.log("Updated device details:", deviceDetail);
     }
   }, [deviceDetail]);
@@ -45,7 +47,7 @@ function ViewDeviceDetail() {
         <GlobalForm
           fields={ViewDeviceDeailKeys(deviceDetail, devicetypeDetails)}
           handleSubmit={handleSubmit}
-          buttontext="Save" disabled={loder}        />
+          buttontext={save} disabled={loder}        />
       </div>
       {/* <DeviceDetailTable  /> */}
     </div>

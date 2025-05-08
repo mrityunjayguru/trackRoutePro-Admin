@@ -2,7 +2,8 @@ export const ViewDeviceDeailKeys = (
   deviceDetail: any,
   devicetypeDetails: any,
 ) => {
-  console.log(deviceDetail, "deviceDetaildeviceDetail");
+  console.log(deviceDetail?.assigned=="Assigned"
+    , "deviceDetaildeviceDetail");
 
   // Get the Device Type options from devicetypeDetails
   const DeviceType: any = devicetypeDetails?.map((vehicle: any) => ({
@@ -19,6 +20,7 @@ export const ViewDeviceDeailKeys = (
       placeholder: 'Choose Device',
       options: DeviceType, // Using DeviceType options
       value: deviceDetail.deviceType?._id, // Strictly pass value from deviceDetail
+      disabled:deviceDetail?.assigned=="Assigned"?true:false
     },
     {
       label: 'IMEI No.*',
@@ -26,7 +28,7 @@ export const ViewDeviceDeailKeys = (
       type: 'text',
       placeholder: 'Enter IMEI No.',
       value: deviceDetail?.imeiNo, // Strictly pass value from deviceDetail
-      disabled: false,
+      disabled:deviceDetail?.assigned=="Assigned"?true:false
     },
     {
       label: 'Device ID*',
@@ -34,7 +36,7 @@ export const ViewDeviceDeailKeys = (
       type: 'text',
       placeholder: 'Enter Device ID',
       value: deviceDetail?.deviceId, // Strictly pass value from deviceDetail
-      disabled: false,
+      disabled:deviceDetail?.assigned=="Assigned"?true:false
     },
     {
       label: 'Wired Device *',
@@ -43,7 +45,7 @@ export const ViewDeviceDeailKeys = (
       placeholder: 'Choose Device',
      options: ["true","false"], // Example options
       value:deviceDetail?.isWired?"true":"false", // Dummy value
-      disabled: false,
+      disabled:deviceDetail?.assigned=="Assigned"?true:false
     },
   ];
 

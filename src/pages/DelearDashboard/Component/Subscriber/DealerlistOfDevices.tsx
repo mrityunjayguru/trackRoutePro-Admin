@@ -7,7 +7,11 @@ import { AppDispatch } from "../../../../store/store";
 import Select from "react-select";
 import { Getsubscribers } from "../../../../api/users";
 import CommonHeader from "../../../../common/CommonHeader";
-
+import BasicDateRangePicker from "../../../../common/DateRangePicker";
+import SingleDatePicker from "../../../../common/DateRangePicker";
+import { DateRange } from '@mui/x-date-pickers-pro';
+import dayjs, { Dayjs } from 'dayjs';
+import DateRangePickerComponent from "../../../../common/DateRangePicker";
 interface Device {
   _id: string;
   deviceId: string;
@@ -28,20 +32,20 @@ const DealerlistOfDevices: React.FC = () => {
   const [deviceRecords, setDeviceRecords] = useState<Device[]>([]);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-
+  const [dateRange, setDateRange] = useState<any>([]);
   const data = useSelector((state: any) => state.subscriber.singleSubscriber);
+  const devicedata = useSelector((state: any) => state.subscriber.userDevices);
 
   useEffect(() => {
     if (data?.userDevices?.length > 0) {
-      setDevices(data.userDevices);
-      setDeviceRecords(data.userDevices);
+      setDevices(devicedata);
+      setDeviceRecords(devicedata);
     }
     if (data?._id) {
-      const payload: any = { _id: data._id };
+      const payload: any = { _id: data._id,startDate:dateRange[0]?.format('YYYY-MM-DD'),endDate:dateRange[1]?.format('YYYY-MM-DD')  };
       dispatch(DeviceByOwnerId(payload));
     }
-  }, [data, dispatch]);
-
+  }, [data, dispatch,dateRange]);
   useEffect(() => {
     const filtered = devices.filter((device) => {
       const matchesSearch =
@@ -97,9 +101,9 @@ const DealerlistOfDevices: React.FC = () => {
     button: "Add New +",
     redirect: "DealerAddDevices",
   };
-console.log(deviceRecords,"deviceRecordsdeviceRecords")
   return (
     <>
+     
       <CommonHeader propsData={propsData} />
       <div className="searchitem md:grid sm:flex sm:flex-col sm:gap-2 md:grid-cols-3 gap-4 my-2 py-1">
         <div className="col-span-2 relative w-full">
@@ -149,7 +153,10 @@ console.log(deviceRecords,"deviceRecordsdeviceRecords")
               }),
             }}
           />
+  {/* <DateRangePickerComponent value={dateRange} onChange={setDateRange} /> */}
         </div>
+      <DateRangePickerComponent value={dateRange} onChange={setDateRange} />
+
       </div>
 
       {/* Card Layout */}

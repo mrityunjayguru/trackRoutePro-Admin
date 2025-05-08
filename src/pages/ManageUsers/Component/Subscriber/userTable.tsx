@@ -9,6 +9,7 @@ import { setSearchType } from '../../../../store/subscriber';
 import CommonTable from '../../../../common/Table/CommonTable';
 import { usertableKeys } from './userTableKey';
 import SearchAndFilter from '../../../../common/SearchAndFilter';
+import { setUserImei } from '../../../../api/Device';
 
 // Define the shape of a subscriber object
 interface Subscriber {
@@ -38,7 +39,8 @@ const UserTable: React.FC = () => {
   const data = useSelector(
     (state: any) => state.subscriber.AllSubscriber?.records,
   );
-  // console.log(data,"datadatadata")
+   const userImei = useSelector((state: any) => state.subscriber?.userImei);
+ console.log(userImei,"userImeiuserImeiuserImei")
   const total: any = useSelector(
     (state: any) => state.subscriber.AllSubscriber?.totalCount,
   );
@@ -75,6 +77,21 @@ const UserTable: React.FC = () => {
     dispatch(Getsubscribers(payload));
   };
 
+  useEffect(() => {
+    setSearch(userImei.imei);
+    GetsubscribersAll();
+  
+    return () => {
+      const payload: any = { imei: null };
+  
+      const resetUserImei = async () => {
+        await dispatch(setUserImei(payload));
+      };
+  
+      resetUserImei(); // call async cleanup without awaiting it
+    };
+  }, [userImei?.imei]);
+  
   // Debounce function
   const useDebounce = (func: (...args: any[]) => void, delay: number) => {
     const timerRef = useRef<NodeJS.Timeout | null>(null);

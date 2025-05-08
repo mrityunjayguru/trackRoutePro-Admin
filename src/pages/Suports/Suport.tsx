@@ -100,57 +100,57 @@ function Suport() {
           <input
             onChange={debouncedSearch}
             className="w-full pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none"
-
             placeholder="Search"
             type="text"
           />
-      <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
-
+          <FaSearch className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400" />
         </div>
         <div className="rounded-3xl px-3 text-xl">
-  <Select
-    options={statusOptions}
-    placeholder="Filters"
-    isSearchable={false}
-    onChange={handleStatusChange}
-    styles={{
-      control: (provided: any) => ({
-        ...provided,
-        minHeight: '38px',
-        backgroundColor: '#000', // Set background color to black
-        borderRadius: '9999px', // Fully rounded border (pill shape)
-        border: 'none', // Remove any default borders
-        paddingTop: '2px',
-        paddingBottom: '2px',
-        display: 'flex',
-        justifyContent: 'center', // Centers content horizontally
-        alignItems: 'center', // Centers content vertically
-      }),
-      placeholder: (provided: any) => ({
-        ...provided,
-        color: '#D9E821', // Set placeholder color to #D9E821
-        textAlign: 'center', // Center the placeholder text
-      }),
-      option: (provided: any, state: { isSelected: any, isFocused: boolean }) => ({
-        ...provided,
-        color: '#000', // Set option text color to black
-        textAlign: 'center', // Center the option text
-        // backgroundColor: state.isFocused ? '#D9E821' : 'transparent', // Change background color on hover
-        cursor: 'pointer', // Show pointer cursor on hover
-        ':hover': {
-          backgroundColor: 'rgb(240 244 253)', // Set the hover background color
-          color: '#000', // Option text color on hover
-        },
-      }),
-      singleValue: (provided: any) => ({
-        ...provided,
-        color: '#D9E821', // Set the color of the selected value
-        textAlign: 'center', // Center the selected value
-      }),
-    }}
-  />
-</div>
-
+          <Select
+            options={statusOptions}
+            placeholder="Filters"
+            isSearchable={false}
+            onChange={handleStatusChange}
+            styles={{
+              control: (provided: any) => ({
+                ...provided,
+                minHeight: '38px',
+                backgroundColor: '#000', // Set background color to black
+                borderRadius: '9999px', // Fully rounded border (pill shape)
+                border: 'none', // Remove any default borders
+                paddingTop: '2px',
+                paddingBottom: '2px',
+                display: 'flex',
+                justifyContent: 'center', // Centers content horizontally
+                alignItems: 'center', // Centers content vertically
+              }),
+              placeholder: (provided: any) => ({
+                ...provided,
+                color: '#D9E821', // Set placeholder color to #D9E821
+                textAlign: 'center', // Center the placeholder text
+              }),
+              option: (
+                provided: any,
+                state: { isSelected: any; isFocused: boolean },
+              ) => ({
+                ...provided,
+                color: '#000', // Set option text color to black
+                textAlign: 'center', // Center the option text
+                // backgroundColor: state.isFocused ? '#D9E821' : 'transparent', // Change background color on hover
+                cursor: 'pointer', // Show pointer cursor on hover
+                ':hover': {
+                  backgroundColor: 'rgb(240 244 253)', // Set the hover background color
+                  color: '#000', // Option text color on hover
+                },
+              }),
+              singleValue: (provided: any) => ({
+                ...provided,
+                color: '#D9E821', // Set the color of the selected value
+                textAlign: 'center', // Center the selected value
+              }),
+            }}
+          />
+        </div>
       </div>
 
       {loading ? (
