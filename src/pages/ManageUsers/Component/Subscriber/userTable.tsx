@@ -39,7 +39,7 @@ const UserTable: React.FC = () => {
   const data = useSelector(
     (state: any) => state.subscriber.AllSubscriber?.records,
   );
-   const userImei = useSelector((state: any) => state.subscriber?.userImei);
+   const userImei = useSelector((state: any) => state?.subscriber?.userImei);
 
   const total: any = useSelector(
     (state: any) => state.subscriber.AllSubscriber?.totalCount,
