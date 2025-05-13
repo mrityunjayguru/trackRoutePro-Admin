@@ -40,7 +40,7 @@ const UserTable: React.FC = () => {
     (state: any) => state.subscriber.AllSubscriber?.records,
   );
    const userImei = useSelector((state: any) => state.subscriber?.userImei);
- console.log(userImei,"userImeiuserImeiuserImei")
+
   const total: any = useSelector(
     (state: any) => state.subscriber.AllSubscriber?.totalCount,
   );
@@ -78,7 +78,7 @@ const UserTable: React.FC = () => {
   };
 
   useEffect(() => {
-    setSearch(userImei.imei);
+    setSearch(userImei?.imei);
     GetsubscribersAll();
   
     return () => {
