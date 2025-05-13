@@ -132,6 +132,33 @@ const deviceType={
   getDeviceType:"deviceType/get",
   updateDeviceType:"deviceType/update"
 }
+
+const addOns={
+  addAddOns:"ecomm/addons/create",
+  getAddOns:"ecomm/addons/get",
+  updateAddOns:"ecomm/addons/update",
+}
+const designation={
+  adddesignation:"ecomm/designation/create",
+  getdesignation:"ecomm/designation/get",
+  updatedesignation:"ecomm/designation/update",
+}
+
+const salesTeam={
+  addsalesTeam:"ecomm/salesTeam/create",
+  getsalesTeam:"ecomm/salesTeam/get",
+  updatesalesTeam:"ecomm/salesTeam/update",
+}
+const gpsDevices={
+  addgpsDevices:"ecomm/gpsDevices/create",
+  getgpsDevices:"ecomm/gpsDevices/get",
+  updategpsDevices:"ecomm/gpsDevices/update",
+}
+const coupon={
+  addcoupon:"ecomm/coupon/create",
+  getcoupon:"ecomm/coupon/get",
+  updatecoupon:"ecomm/coupon/update",
+}
 const deviceDetails={
   createDeviceDetailWithExcel:"Imei/createwithExcel",
   updateDeviceDetail:"Imei/update",
@@ -169,7 +196,12 @@ const APIName = {
   ...deviceDetails,
   ...TermAndCondition,
   ...downloadDetailsExcel,
-  ...ReportsUser
+  ...ReportsUser,
+  ...addOns,
+  ...salesTeam,
+  ...gpsDevices,
+  ...coupon,
+  ...designation
 };
 
 export default APIName;
