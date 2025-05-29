@@ -143,7 +143,11 @@ const designation={
   getdesignation:"ecomm/designation/get",
   updatedesignation:"ecomm/designation/update",
 }
-
+const relaySecurity={
+   addrelaySecurity:"ecomm/relaySecurity/create",
+  getrelaySecurity:"ecomm/relaySecurity/get",
+  updaterelaySecurity:"ecomm/relaySecurity/update",
+}
 const salesTeam={
   addsalesTeam:"ecomm/salesTeam/create",
   getsalesTeam:"ecomm/salesTeam/get",
@@ -151,8 +155,15 @@ const salesTeam={
 }
 const gpsDevices={
   addgpsDevices:"ecomm/gpsDevices/create",
+  gpscategory:"ecomm/gpsDevices/gpscategory",
+  gpssubcategory:"ecomm/gpsDevices/gpssubcategory",
+  getcategory:"ecomm/gpsDevices/getcategory",
   getgpsDevices:"ecomm/gpsDevices/get",
   updategpsDevices:"ecomm/gpsDevices/update",
+  categoruResult:"ecomm/gpsDevices/getcategoryResult",
+  getGpsSubcaegory:"ecomm/gpsDevices/getGpsSubcaegory",
+  updatecategory:"ecomm/gpsDevices/updatecategory",
+  updatesubcategory:"ecomm/gpsDevices/updatesubcategory",
 }
 const coupon={
   addcoupon:"ecomm/coupon/create",
@@ -201,7 +212,8 @@ const APIName = {
   ...salesTeam,
   ...gpsDevices,
   ...coupon,
-  ...designation
+  ...designation,
+  ...relaySecurity
 };
 
 export default APIName;

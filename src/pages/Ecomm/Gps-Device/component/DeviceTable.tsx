@@ -8,11 +8,10 @@ import { Pencil } from "lucide-react";
 // ];
 import { UseSelector,useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../../../../store/store";
-import { getGpsDevices } from "../../../../api/ecomm/gpsDevices";
+import { getGpsDevices, setUpdateGpsDevices } from "../../../../api/ecomm/gpsDevices";
 const DeviceTable = () => {
 const dispatch=useDispatch<AppDispatch>()
 const deviceData=useSelector((state:any)=>state?.gpsDevices?.gpsDevices)
-console.log(deviceData,"datadatadata")
 useEffect(()=>{
 getStackedData()
 },[])
@@ -23,6 +22,9 @@ await dispatch(getGpsDevices(payload))
   }catch(err){
     console.log(err)
   }
+}
+const handleUpdate=async(val:any)=>{
+await dispatch(setUpdateGpsDevices(val))
 }
   return (
     <div className="">
@@ -42,7 +44,7 @@ await dispatch(getGpsDevices(payload))
         </thead>
         <tbody>
           {deviceData.map((device:any, idx:any) => (
-            <tr key={idx} className="bg-white text-sm text-[#1A1D1F] font-[500] rounded shadow-sm">
+            <tr  onClick={()=>handleUpdate(device)} key={idx} className="bg-white text-sm text-[#1A1D1F] font-[500] rounded shadow-sm">
               <td className="py-2 px-4">{device.deviceName}</td>
               <td>{device.deviceType?"wired":"wireless"}</td>
               <td>{device.usp1}</td>

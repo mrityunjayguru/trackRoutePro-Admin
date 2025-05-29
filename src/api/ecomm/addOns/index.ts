@@ -50,7 +50,7 @@ export const getaddOns = createAsyncThunk<boolean, Payload>(
     
       if (data.status === 200) {
       
-        thunkAPI.dispatch(setsingleaddOns(data.data.data));
+        thunkAPI.dispatch(setaddOns(data.data.data));
         return true;
       }
     } catch (err:any) {
@@ -103,6 +103,26 @@ export const updateaddOns = createAsyncThunk<boolean, Payload>(
         GetMessage("success","Records updated")
         return true;
       }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+)
+
+export const setUpdateaddOns = createAsyncThunk<boolean, Payload>(
+  APIName.subscribers,
+  async (payload, thunkAPI) => {
+    try {
+            thunkAPI.dispatch(setsingleaddOns(payload));
+
     } catch (err:any) {
       if(err.status==401){
         localStorage.removeItem("token")

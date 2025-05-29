@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setcoupon,setsinglecoupon} from "../../../store/ecomm/coupon";
+import { setcoupon,setsinglecoupon,updateCoupon} from "../../../store/ecomm/coupon";
 import APIName from "../../endPoints";
 import { couponRepo } from "./couponRepo";
 import Swal from "sweetalert2";
@@ -103,6 +103,27 @@ export const updatecoupon = createAsyncThunk<boolean, Payload>(
         GetMessage("success","Records updated")
         return true;
       }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+)
+
+
+export const setUpdatecoupon = createAsyncThunk<boolean, Payload>(
+  APIName.subscribers,
+  async (payload, thunkAPI) => {
+    try {
+             thunkAPI.dispatch(updateCoupon(payload));
+
     } catch (err:any) {
       if(err.status==401){
         localStorage.removeItem("token")

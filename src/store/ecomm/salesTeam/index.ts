@@ -2,11 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface DeviceState {
 slesTeame:any,
-singleslesTeame:any
+singleslesTeame:any,
+updateSalesTeam:any
 }
 const initialState: DeviceState = {
   slesTeame: null,
-  singleslesTeame:null
+  singleslesTeame:null,
+  updateSalesTeam:null
 };
 export const slesTeameSlice = createSlice({
   name: 'userData',
@@ -18,8 +20,11 @@ export const slesTeameSlice = createSlice({
     setsingleslesTeame: (state, action: PayloadAction<any>) => {
       state.singleslesTeame = action.payload; // Set login user data
     },
+        setUpdateSealTeam: (state, action: PayloadAction<any>) => {
+      state.updateSalesTeam = action.payload; // Set login user data
+    },
   },
 });
-export const {setslesTeame,setsingleslesTeame } = slesTeameSlice.actions;
+export const {setslesTeame,setsingleslesTeame ,setUpdateSealTeam} = slesTeameSlice.actions;
 
 export default slesTeameSlice.reducer;

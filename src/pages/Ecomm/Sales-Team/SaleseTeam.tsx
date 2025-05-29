@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddOnstable from './Component/SalesTeamTable';
 import RelayForm from './Component/RelayForm';
-import SalesTeamForm from './Component/salesTeamForm';
+import SalesTeamForm from './Component/SalesTeamForm';
+import { useSelector } from 'react-redux';
 
 const tabs = [
   { label: 'Team', key: 'Team' },
@@ -11,6 +12,11 @@ const tabs = [
 
 function SaleseTeam() {
   const [activeTab, setActiveTab] = useState('Team');
+  const updateSalesTeam = useSelector((state: any) => state?.slesTeame?.updateSalesTeam);
+
+  useEffect(()=>{
+setActiveTab("onboard")
+  },[updateSalesTeam])
 
   return (
     <div className="pb-20"> {/* padding-bottom to avoid hidden content behind fixed nav */}

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setgpsDevices,setsinglegpsDevices} from "../../../store/ecomm/gpsDevices";
+import { setgpsDevices,setsinglegpsDevices,setUpdategpsDevices,setCategory,setcategoruResult,setgpscategoruResult,setupdateCategory,setupdatesubCategory} from "../../../store/ecomm/gpsDevices";
 import APIName from "../../endPoints";
 import { gpsDevicesRepo } from "./gpsDevicesRepo";
 import Swal from "sweetalert2";
@@ -94,7 +94,7 @@ export const singlegpsDeaddgpsDevices = createAsyncThunk<boolean, Payload>(
 );
 
 
-export const updategpsDeaddgpsDevices = createAsyncThunk<boolean, Payload>(
+export const updateGpsDevices = createAsyncThunk<boolean, Payload>(
   APIName.subscribers,
   async (payload, thunkAPI) => {
     try {
@@ -116,3 +116,238 @@ export const updategpsDeaddgpsDevices = createAsyncThunk<boolean, Payload>(
     return false;
   }
 )
+
+
+
+export const setUpdateGpsDevices = createAsyncThunk<boolean, Payload>(
+  APIName.subscribers,
+  async (payload, thunkAPI) => {
+    try {
+       thunkAPI.dispatch(setUpdategpsDevices(payload));
+
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+)
+
+
+
+
+export const gpscategory = createAsyncThunk<boolean, Payload>(
+  APIName.subscribers,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await gpsDevicesRepo.gpscategory(payload);
+      if (data.status === 200) {
+        GetMessage("success","Records updated")
+        return true;
+      }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+)
+
+export const gpssubcategory = createAsyncThunk<boolean, Payload>(
+  APIName.subscribers,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await gpsDevicesRepo.gpssubcategory(payload);
+      if (data.status === 200) {
+        GetMessage("success","Records updated")
+        return true;
+      }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+)
+
+
+
+
+export const getCategorys = createAsyncThunk<boolean, Payload>(
+  APIName.updateSubscriber,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await gpsDevicesRepo.getCategory(payload);
+    
+      if (data.status === 200) {
+        thunkAPI.dispatch(setCategory(data.data.data));
+        return true;
+      }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+);
+
+
+export const getcategoryResult = createAsyncThunk<boolean, Payload>(
+  APIName.updateSubscriber,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await gpsDevicesRepo.categoruResult(payload);
+    
+      if (data.status === 200) {
+        thunkAPI.dispatch(setcategoruResult(data.data.data));
+        return true;
+      }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+);
+
+
+
+export const getGpsSubcaegory = createAsyncThunk<boolean, Payload>(
+  APIName.updateSubscriber,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await gpsDevicesRepo.getGpsSubcaegory(payload);
+    
+      if (data.status === 200) {
+        thunkAPI.dispatch(setgpscategoruResult(data.data.data));
+        return true;
+      }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+);
+
+
+
+export const updateCategory = createAsyncThunk<boolean, Payload>(
+  APIName.updateSubscriber,
+  async (payload, thunkAPI) => {
+    try {
+        thunkAPI.dispatch(setupdateCategory(payload));
+        return true;
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+);
+export const updatesubCategory = createAsyncThunk<boolean, Payload>(
+  APIName.updateSubscriber,
+  async (payload, thunkAPI) => {
+    try {
+        thunkAPI.dispatch(setupdatesubCategory(payload));
+        return true;
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+);
+export const handleupdateCategory = createAsyncThunk<boolean, Payload>(
+  APIName.updateSubscriber,
+  async (payload, thunkAPI) => {
+    try {
+    const data = await gpsDevicesRepo.updatecategory(payload);
+      if (data.status === 200) {
+        GetMessage("success","Records updated")
+        return true;
+      }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+);
+
+export const updateGpssubcategory = createAsyncThunk<boolean, Payload>(
+  APIName.updateSubscriber,
+  async (payload, thunkAPI) => {
+    try {
+    const data = await gpsDevicesRepo.updatesubcategory(payload);
+      if (data.status === 200) {
+        GetMessage("success","Records updated")
+        return true;
+      }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+);

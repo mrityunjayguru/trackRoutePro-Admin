@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import AddOnstable from './Component/AddOnstable';
+import AddOnstable from './Component/CouponTable';
 import RelayForm from './Component/DiscountForm';
 import DiscountForm from './Component/DiscountForm';
-import CouponManager from './Component/AddOnsForm';
+import CouponManager from './Component/CouponForm';
 
 const tabs = [
   { label: 'Discount', key: 'Discount' },
 ];
 
 function DiscountCopoun() {
-  const [activeTab, setActiveTab] = useState('Onboard');
+  const [activeTab, setActiveTab] = useState('Discount');
 
   return (
     <div className="pb-20"> {/* padding-bottom to avoid hidden content behind fixed nav */}

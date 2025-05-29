@@ -2,11 +2,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface couponState {
 coupon:any,
-singlecoupon:any
+singlecoupon:any,
+updateCoupon:any
 }
 const initialState: couponState = {
   coupon: null,
-  singlecoupon:null
+  singlecoupon:null,
+  updateCoupon:null
 };
 export const couponSlice = createSlice({
   name: 'userData',
@@ -18,8 +20,11 @@ export const couponSlice = createSlice({
     setsinglecoupon: (state, action: PayloadAction<any>) => {
       state.singlecoupon = action.payload; // Set login user data
     },
+     updateCoupon: (state, action: PayloadAction<any>) => {
+      state.updateCoupon = action.payload; // Set login user data
+    },
   },
 });
-export const {setcoupon,setsinglecoupon } = couponSlice.actions;
+export const {setcoupon,setsinglecoupon ,updateCoupon} = couponSlice.actions;
 
 export default couponSlice.reducer;
