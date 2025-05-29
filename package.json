@@ -16,9 +16,10 @@
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
-    "@mui/material": "^7.1.0",
-    "@mui/x-date-pickers-pro": "^8.2.0",
     "@headlessui/react": "^2.2.3",
+    "@mui/material": "^7.1.0",
+    "@mui/x-date-pickers": "^8.5.0",
+    "@mui/x-date-pickers-pro": "^8.2.0",
     "@react-google-maps/api": "^2.20.3",
     "@react-icons/all-files": "^4.1.0",
     "@reduxjs/toolkit": "^2.2.8",
