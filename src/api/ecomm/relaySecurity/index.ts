@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setslesTeame,setsingleslesTeame,setUpdateSealTeam} from "../../../store/ecomm/salesTeam";
+import { setrelaySecurity,setsinglerelaySecurity} from "../../../store/ecomm/relaySecurity";
 import APIName from "../../endPoints";
-import { salesTeamRepo } from "./salesRepo";
+import { relaySecurityRepo } from "./relaySecurityRepo";
 import Swal from "sweetalert2";
 
 interface Payload {
@@ -16,11 +16,11 @@ const GetMessage = (type:any, messga:string) => {
     timer: 2000,
   });
 };
-export const addSalesTeam = createAsyncThunk<boolean, Payload>(
+export const addrelaySecurity = createAsyncThunk<boolean, Payload>(
   APIName.subscribers,
   async (payload, thunkAPI) => {
     try {
-      const data = await salesTeamRepo.addsalesTeam(payload);
+      const data = await relaySecurityRepo.addrelaySecurity(payload);
       if (data.status === 200) {
         GetMessage("success","Records created")
        
@@ -41,40 +41,16 @@ export const addSalesTeam = createAsyncThunk<boolean, Payload>(
 );
 
 
-export const getSalesTeam = createAsyncThunk<boolean, Payload>(
+
+export const getrelaySecurity = createAsyncThunk<boolean, Payload>(
   APIName.updateSubscriber,
   async (payload, thunkAPI) => {
     try {
-      const data = await salesTeamRepo.getsalesTeam(payload);
-    
-      if (data.status === 200) {
-        thunkAPI.dispatch(setslesTeame(data.data.data));
-        return true;
-      }
-    } catch (err:any) {
-      if(err.status==401){
-        localStorage.removeItem("token")
-        GetMessage("warning", "Unauthorized");
-        window.location.href = "/auth/signin"; 
-      }else{
-        GetMessage("warning", "something went wrong");
-      }
-      console.error(err);
-    }
-    return false;
-  }
-);
-
-
-export const updateSalesTeams = createAsyncThunk<boolean, Payload>(
-  APIName.updateSubscriber,
-  async (payload, thunkAPI) => {
-    try {
-      const data = await salesTeamRepo.updatesalesTeam(payload);
+      const data = await relaySecurityRepo.getrelaySecurity(payload);
     
       if (data.status === 200) {
       
-        thunkAPI.dispatch(setslesTeame(data.data.data));
+        thunkAPI.dispatch(setrelaySecurity(data.data.data));
         return true;
       }
     } catch (err:any) {
@@ -91,11 +67,11 @@ export const updateSalesTeams = createAsyncThunk<boolean, Payload>(
   }
 );
 
-export const singlesalesupdatesalesTeam = createAsyncThunk<boolean, Payload>(
+export const singlegpsDeaddrelaySecurity = createAsyncThunk<boolean, Payload>(
   APIName.createDevice,
   async (payload,thunkAPI) => {
     try {
-        thunkAPI.dispatch(setsingleslesTeame(payload));
+        thunkAPI.dispatch(setsinglerelaySecurity(payload));
         return true;
     } catch (err:any) {
       if(err.status==401){
@@ -118,36 +94,15 @@ export const singlesalesupdatesalesTeam = createAsyncThunk<boolean, Payload>(
 );
 
 
-export const updatesalesTeam = createAsyncThunk<boolean, Payload>(
+export const updaterelaySecurity = createAsyncThunk<boolean, Payload>(
   APIName.subscribers,
   async (payload, thunkAPI) => {
     try {
-      const data = await salesTeamRepo.updatesalesTeam(payload);
+      const data = await relaySecurityRepo.updaterelaySecurity(payload);
       if (data.status === 200) {
         GetMessage("success","Records updated")
         return true;
       }
-    } catch (err:any) {
-      if(err.status==401){
-        localStorage.removeItem("token")
-        GetMessage("warning", "Unauthorized");
-        window.location.href = "/auth/signin"; 
-      }else{
-        GetMessage("warning", "something went wrong");
-      }
-      console.error(err);
-    }
-    return false;
-  }
-)
-
-
-export const setupdatesalesTeam = createAsyncThunk<boolean, Payload>(
-  APIName.subscribers,
-  async (payload, thunkAPI) => {
-    try {
-        thunkAPI.dispatch(setUpdateSealTeam(payload));
-     
     } catch (err:any) {
       if(err.status==401){
         localStorage.removeItem("token")

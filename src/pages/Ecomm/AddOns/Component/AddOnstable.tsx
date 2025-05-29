@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Pencil } from "lucide-react";
 
 const planData = [
@@ -17,8 +17,26 @@ const planData = [
     status: true,
   },
 ];
-
+import { UseSelector,useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../../../store/store";
+import { getaddOns, setUpdateaddOns } from "../../../../api/ecomm/addOns";
 const AddOnstable = () => {
+const dispatch=useDispatch<AppDispatch>()
+const addOns=useSelector((state:any)=>state?.addOns?.addOns)
+const getRecord=async()=>{
+  try{
+    const payload:any={}
+await dispatch(getaddOns(payload))
+  }catch(err){
+    console.log(err)
+  }
+}
+useEffect(()=>{
+getRecord()
+},[])
+const handleUpdate=(val:any)=>{
+  dispatch(setUpdateaddOns(val))
+}
   return (
     <div className="">
       <h2 className="text-lg font-semibold mb-4 text-[#585859]">Add-ons Catalogue</h2>
@@ -34,20 +52,20 @@ const AddOnstable = () => {
           </tr>
         </thead>
         <tbody>
-          {planData.map((device, idx) => (
-            <tr key={idx} className="bg-white rounded shadow-sm text-[#1A1D1F]">
-              <td className="py-2 px-4">{device.name}</td>
+          {addOns.map((device:any, idx:any) => (
+            <tr onClick={()=>handleUpdate(device)} key={idx} className="bg-white rounded shadow-sm text-[#1A1D1F]">
+              <td className="py-2 px-4">{device?.device?.deviceName}</td>
               <td>
-                <div>{device.year2.price}</div>
-                <div className="text-xs text-gray-500">{device.year2.discount}</div>
+                <div>{device.secondYearCost}</div>
+                <div className="text-xs text-gray-500">{device.secondYearDiscount}% Discount</div>
               </td>
               <td>
-                <div>{device.year3.price}</div>
-                <div className="text-xs text-gray-500">{device.year3.discount}</div>
+                <div>{device.thirdYearCost}</div>
+                <div className="text-xs text-gray-500">{device.thirdYearDiscount}% Discount</div>
               </td>
               <td>
-                <div>{device.year5.price}</div>
-                <div className="text-xs text-gray-500">{device.year5.discount}</div>
+                <div>{device.fifthYearCost}</div>
+                <div className="text-xs text-gray-500">{device.fifthYearDiscount}% Discount</div>
               </td>
               <td>
                 <Pencil className="w-4 h-4 text-purple-500 cursor-pointer" />
@@ -56,7 +74,7 @@ const AddOnstable = () => {
                 <label className="inline-flex items-center cursor-pointer">
                   <input
                     type="checkbox"
-                    checked={device.status}
+                    checked={device.isDeleted}
                     readOnly
                     className="sr-only peer"
                   />
