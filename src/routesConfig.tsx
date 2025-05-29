@@ -67,6 +67,12 @@ import ReportRecord from './pages/Reports/component/ReportRecord';
 import ManageDevices from './components/Manage-Devies/ManageDevices';
 import ViewMap from './components/Manage-Devies/Component/ViewMap';
 import SimManagment from './components/Sim-Managment/SimManagment';
+import EcommDshboard from './pages/Ecomm/dashboard/EcommDshboard';
+import GpsDevices from './pages/Ecomm/Gps-Device/Index';
+import Addons from './pages/Ecomm/AddOns/Addons';
+import SaleseTeam from './pages/Ecomm/Sales-Team/SaleseTeam';
+import DiscountCopoun from './pages/Ecomm/Discount-Copoun/DiscountCopoun';
+import ManageInvoice from './pages/Ecomm/Manage-Invoice/ManageInvoice';
 export const routes = [
   { path: '/auth/signin', title: 'TRP Signin', component: <SignIn /> },
   { path: '/', title: 'TRP ashboard', component: <ECommerce /> },
@@ -369,7 +375,36 @@ export const routes = [
   component: <SimManagment />,
 },
 
-
+// ecomm routes
+{
+  path: '/ecommdashboard',
+  title: 'ecommdashboard',
+  component: <EcommDshboard />,
+},
+{
+  path: '/ecommdashboard/gps_devices',
+  title: 'gps_devices',
+  component: <GpsDevices />,
+},
+{
+  path: '/ecommdashboard/add_ons',
+  title: 'add_ons',
+  component: <Addons />,
+},
+{
+  path: '/ecommdashboard/sales-team',
+  title: 'sales-team',
+  component: <SaleseTeam />,
+},
+{
+  path: '/ecommdashboard/Discount-Coupon',
+  title: 'Discount-Coupon',
+  component: <DiscountCopoun />,
+},
+{
+  path: '/ecommdashboard/Manage-Invoices',
+  title: 'Manage-Invoices',
+  component: <ManageInvoice />,
+},
 //sim managment
-
 ];

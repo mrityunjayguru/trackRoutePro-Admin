@@ -17,7 +17,7 @@ const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
       <div className="flex flex-1 overflow-hidden">
         {/* ===== Sidebar Start ===== */}
         {!isSignInPath && (
-          <div className="fixed top-0 left-0 bottom-0 w-64 z-10">
+          <div className="fixed top-0 left-0 bottom-0 w-64 z-10 bg-[#F2F6F9]">
             {/* Fixed Sidebar */}
             <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
           </div>
@@ -25,7 +25,8 @@ const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
         {/* ===== Sidebar End ===== */}
 
         {/* ===== Content Area Start ===== */}
-        <div className={`relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden ${!isSignInPath ? 'lg:ml-80 sm:ml-auto' : ''} gap-10`}>
+        <div className={`relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden ${!isSignInPath ? 'lg:ml-[16rem] sm:ml-auto' : ''} `}>
+        {/* gap-10 */}
           {/* Adjust content area */}
           {/* ===== Header Start ===== */}
           {!isSignInPath && (
@@ -35,7 +36,9 @@ const DefaultLayout: React.FC<{ children: ReactNode }> = ({ children }) => {
           
           {/* ===== Main Content Start ===== */}
           <main className="flex-1 ">
-            <div className="mx-auto max-w-screen-2xl mt-1.5 pl-5 mr-5">{children}</div>
+            <div className="mx-auto max-w-screen-2xl   ">{children}</div>
+            {/* mt-1.5 */}
+            {/* pl-5 */}
           </main>
           {/* ===== Main Content End ===== */}
         </div>

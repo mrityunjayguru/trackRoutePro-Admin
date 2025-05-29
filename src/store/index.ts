@@ -19,7 +19,9 @@ import suport from "./suport/index"
 import DeviceTye from "./deviceType/index"
 import deviceDetail from "./DeviceDetail/index"
 import userReport from "./Reports/index"
-
+import gpsDevices from "./ecomm/gpsDevices/index";
+import designation from "./ecomm/designation/index"
+import slesTeame from "./ecomm/salesTeam/index"
 const appReducer = combineReducers({
   userData: userDataSlice,
   Auth: authDataSlice,
@@ -39,7 +41,10 @@ const appReducer = combineReducers({
   suport:suport,
   DeviceTye:DeviceTye,
   deviceDetail:deviceDetail,
-  userReport:userReport
+  userReport:userReport,
+  gpsDevices:gpsDevices,
+  designation:designation,
+  slesTeame:slesTeame
 });
 
 // Create a root reducer with reset functionality
