@@ -49,7 +49,6 @@ const DeviceForm = () => {
   });
 
   useEffect(() => {
-    console.log(updatedPayload,"updatedPayloadupdatedPayload")
     if (updatedPayload) {
       reset({
         deviceType: updatedPayload.deviceType ? "Wired" : "Wireless",
@@ -120,7 +119,7 @@ const payload2:any={}
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-6xl ">
       <h2 className="block text-sm font-medium text-[#585859]">
         {isEditMode ? "Update Device" : "Onboard Device"}
       </h2>

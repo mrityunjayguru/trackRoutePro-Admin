@@ -26,6 +26,8 @@
     "crypto-js": "^4.2.0",
     "flatpickr": "^4.6.13",
     "headlessui": "^0.0.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^3.0.1",
     "jsvectormap": "^1.5.3",
     "lodash": "^4.17.21",
     "lodash.clonedeep": "^4.5.0",

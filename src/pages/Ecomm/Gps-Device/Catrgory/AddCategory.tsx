@@ -53,8 +53,8 @@ const AddCategory = () => {
   };
 
   return (
-    <div className="w-full md:w-1/2 p-4">
-      <h2 className="font-semibold mb-2">
+    <div className="w-full md:w-1/2">
+      <h2 className="font-semibold ">
         {updateCategorypayload ? 'Update Category' : 'Add Category'}
       </h2>
       <form onSubmit={handleSubmit(onSubmit)}>

@@ -26,7 +26,7 @@ function DesigationForm() {
      },[])
   return (
     <div>
-        <h2 className="text-lg font-semibold text-[#585859] mb-6">
+        <h2 className="text-lg font-semibold text-[#585859] ">
           Add Designation
         </h2>
         <label className="block mb-1 text-sm font-medium text-[#585859]">

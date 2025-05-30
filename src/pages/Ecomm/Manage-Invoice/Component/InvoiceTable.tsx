@@ -1,50 +1,60 @@
-import React, { useState } from "react";
-import { Eye, Pencil, Upload } from "lucide-react";
-
-const invoices = [
-  {
-    invoiceNo: "TRP/INV1",
-    salesAssistant: "Esmeralda Peck",
-    clientName: "Ian Molina",
-    amount: "2,999",
-    govtRelated: "No",
-  },
-  {
-    invoiceNo: "TRP/INV2",
-    salesAssistant: "Raylan Osborn",
-    clientName: "Campbell King",
-    amount: "4,999",
-    govtRelated: "Yes",
-  },
-  {
-    invoiceNo: "TRP/INV3",
-    salesAssistant: "Esmeralda Peck",
-    clientName: "Corbin French",
-    amount: "17,999",
-    govtRelated: "No",
-  },
-];
+import React, { useEffect, useState } from "react";
+import { Eye, Upload } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../../../../store/store";
+import { getInvoices } from "../../../../api/ecomm/relaySecurity";
+import InvoiceCard from "./InvoiceCard";
+import Pagination from "../../../../common/Loader/Pagination";
+import { UploadIcons, ViewIcons } from "../../../../components/Sidebar/SideBarSvgIcons";
 
 const InvoiceTable = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [invoice, setInvoiceData] = useState<any>(null);
 
-  const filteredInvoices = invoices.filter((invoice) =>
-    invoice.clientName.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const dispatch = useDispatch<AppDispatch>();
+  const invoicedata = useSelector((state: any) => state.relaySecurity.invoices);
+  const total: number = invoicedata?.totalCount || 0;
+  const itemsPerPage = 10;
+
+  const getAllInvoices = async () => {
+    try {
+      const payload: any = {
+        search: searchTerm,
+        offset: (currentPage - 1) * itemsPerPage,
+      };
+      await dispatch(getInvoices(payload));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getAllInvoices();
+  }, []);
+
+  useEffect(() => {
+    getAllInvoices();
+  }, [searchTerm, currentPage]);
+
+  const handleClick = (val: any) => {
+    setInvoiceData(val);
+  };
 
   return (
-    <div className="">
-      <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-normal text-[#585859]">Invoices</h2>
-        <div className="flex items-center gap-2">
+    <div className="p-4">
+      {/* Header */}
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-3">
+        <h2 className="text-lg font-semibold text-[#585859]">Invoices</h2>
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full sm:w-auto">
           <input
             type="text"
-            placeholder="Search"
-            className="border px-3 py-1 rounded-md text-sm"
+            placeholder="Search by client name"
+            className="border px-3 py-1 rounded-md text-sm w-full sm:w-auto"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <select className="border px-2 py-1 rounded-md text-sm bg-black text-white">
+          <select className="border px-2 py-1 rounded-md text-sm bg-black text-white w-full sm:w-auto">
             <option>Last month</option>
             <option>This month</option>
             <option>Last 3 months</option>
@@ -52,40 +62,64 @@ const InvoiceTable = () => {
         </div>
       </div>
 
-      <table className="w-full text-left border-separate border-spacing-y-2">
-        <thead className="text-sm text-[#A6A6A6]">
-          <tr>
-            <th>Invoice No.</th>
-            <th>Sales Assistant</th>
-            <th>Client Name</th>
-            <th>Invoice Amt.</th>
-            <th>Govt Related</th>
-            <th>View</th>
-            <th>Edit</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredInvoices.map((inv, index) => (
-            <tr key={index} className="bg-white shadow-sm text-sm font-medium text-[#1A1D1F] rounded">
-              <td className="">{inv.invoiceNo}</td>
-              <td>{inv.salesAssistant}</td>
-              <td>{inv.clientName}</td>
-              <td>{inv.amount}</td>
-              <td>{inv.govtRelated}</td>
-              <td>
-                <Eye className="w-4 h-4 text-purple-500 cursor-pointer" />
-              </td>
-              <td>
-                <Pencil className="w-4 h-4 text-purple-500 cursor-pointer" />
-              </td>
-              <td>
-                <Upload className="w-4 h-4 text-purple-500 cursor-pointer" />
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      {/* Table and InvoiceCard */}
+      <div className="flex flex-col lg:flex-row gap-4">
+        <div className={`w-full ${invoice ? "lg:w-[70%]" : ""} overflow-x-auto`}>
+          <table className="min-w-full text-left border-separate border-spacing-y-2">
+            <thead className="text-sm text-[#A6A6A6]">
+              <tr>
+                <th className="px-3 py-2">Invoice No.</th>
+                <th className="px-3 py-2">Sales Assistant</th>
+                <th className="px-3 py-2">Client Name</th>
+                <th className="px-3 py-2">Invoice Amt.</th>
+                <th className="px-3 py-2">Govt Related</th>
+                <th className="px-3 py-2">View</th>
+                <th className="px-3 py-2">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {invoicedata?.date?.map((inv: any, index: number) => (
+                <tr
+                  key={index}
+                  className="bg-white shadow-sm text-sm font-medium text-[#1A1D1F] rounded cursor-pointer"
+                  onClick={() => handleClick(inv)}
+                >
+                  <td className="px-3 py-2">{inv.invoiceNo}</td>
+                  <td className="px-3 py-2">{inv.salesTeam?.fullName}</td>
+                  <td className="px-3 py-2">{inv.personalinfo?.fullName}</td>
+                  <td className="px-3 py-2">₹ {inv.totalAmount}</td>
+                  <td className="px-3 py-2">
+                    {inv.item?.productInfo?.govtRelated ? "Yes" : "No"}
+                  </td>
+                  <td className="px-3 py-2">
+                    <ViewIcons />
+                  </td>
+                  <td className="px-3 py-2">
+                    <UploadIcons  />
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        {/* InvoiceCard */}
+        {invoice && (
+          <div className="w-full lg:w-[30%]">
+            <InvoiceCard invoice={invoice} />
+          </div>
+        )}
+      </div>
+
+      {/* Pagination */}
+      <div className="mt-6">
+        <Pagination
+          totalCount={total}
+          itemsPerPage={itemsPerPage}
+          currentPage={currentPage}
+          onPageChange={setCurrentPage}
+        />
+      </div>
     </div>
   );
 };
