@@ -67,11 +67,20 @@ export const getrelaySecurity = createAsyncThunk<boolean, Payload>(
   }
 );
 
-export const singlegpsDeaddrelaySecurity = createAsyncThunk<boolean, Payload>(
+export const getInvoices = createAsyncThunk<boolean, Payload>(
   APIName.createDevice,
   async (payload,thunkAPI) => {
     try {
+      const data:any = await relaySecurityRepo.getInvoices(payload);
+if(data.status==200){
+  const payload={
+    date:data.data.data,
+    totalCount:data.data.totalCount
+  }
+  console.log(payload,"payloadpayload")
         thunkAPI.dispatch(setsinglerelaySecurity(payload));
+
+}
         return true;
     } catch (err:any) {
       if(err.status==401){

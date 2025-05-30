@@ -10,6 +10,7 @@ interface relaySecurityRepo {
   addrelaySecurity: (payload: Payload) => Promise<AxiosResponse>;
   getrelaySecurity: (payload: Payload) => Promise<AxiosResponse>;
   updaterelaySecurity:(payload: Payload) => Promise<AxiosResponse>;
+  getInvoices:(payload: Payload) => Promise<AxiosResponse>;
 }
 
 export const relaySecurityRepo: relaySecurityRepo = {
@@ -21,5 +22,8 @@ export const relaySecurityRepo: relaySecurityRepo = {
   },
   updaterelaySecurity(payload) {
     return Repository.post(APIName.updaterelaySecurity, payload);
+  },
+  getInvoices(payload) {
+    return Repository.post(APIName.getInvoices, payload);
   }
 };

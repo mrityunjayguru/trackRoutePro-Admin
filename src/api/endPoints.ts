@@ -147,6 +147,7 @@ const relaySecurity={
    addrelaySecurity:"ecomm/relaySecurity/create",
   getrelaySecurity:"ecomm/relaySecurity/get",
   updaterelaySecurity:"ecomm/relaySecurity/update",
+  getInvoices:"ecomm/order/adminOrderHistory",
 }
 const salesTeam={
   addsalesTeam:"ecomm/salesTeam/create",
@@ -158,7 +159,7 @@ const gpsDevices={
   gpscategory:"ecomm/gpsDevices/gpscategory",
   gpssubcategory:"ecomm/gpsDevices/gpssubcategory",
   getcategory:"ecomm/gpsDevices/getcategory",
-  getgpsDevices:"ecomm/gpsDevices/get",
+  getgpsDevices:"ecomm/gpsDevices/AdminGpsDevices",
   updategpsDevices:"ecomm/gpsDevices/update",
   categoruResult:"ecomm/gpsDevices/getcategoryResult",
   getGpsSubcaegory:"ecomm/gpsDevices/getGpsSubcaegory",

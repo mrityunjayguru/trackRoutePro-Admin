@@ -2,11 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface relaySecurityState {
 relaySecurity:any,
-singlerelaySecurity:any
+invoices:any
 }
 const initialState: relaySecurityState = {
   relaySecurity: null,
-  singlerelaySecurity:null
+  invoices:null
 };
 export const relaySecuritySlice = createSlice({
   name: 'userData',
@@ -16,7 +16,7 @@ export const relaySecuritySlice = createSlice({
       state.relaySecurity = action.payload; // Set login user data
     },
     setsinglerelaySecurity: (state, action: PayloadAction<any>) => {
-      state.singlerelaySecurity = action.payload; // Set login user data
+      state.invoices = action.payload; // Set login user data
     },
   },
 });
