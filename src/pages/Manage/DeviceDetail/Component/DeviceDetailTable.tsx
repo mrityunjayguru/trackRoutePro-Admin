@@ -57,7 +57,7 @@ const [total,setTotal]=useState<any>(0)
 
   return (
     <>
-      <div className=" overflow-y-auto rounded-sm  xl:pb-1">
+      <div className=" overflow-y-auto rounded-sm  xl:pb-1 my-5 px-5">
         <div>
           <SearchAndFilter
             statusOptions={statusOptions} // Pass the options here

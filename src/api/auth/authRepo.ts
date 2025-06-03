@@ -16,7 +16,7 @@ interface AuthRepo {
   sendOtp: (payload: Payload) => Promise<AxiosResponse>;
   resetpassword: (payload: Payload) => Promise<AxiosResponse>;
   handlelogout: (payload: Payload) => Promise<AxiosResponse>;
-
+verifyOtp: (payload: Payload) => Promise<AxiosResponse>;
 
   
 
@@ -55,5 +55,8 @@ export const AuthRepo: AuthRepo = {
   },
   handlelogout(payload: Payload) {
     return Repository.post(APIName.logout, payload);
+  },
+  verifyOtp(payload: Payload) {
+    return Repository.post(APIName.verifyOtp, payload);
   },
 };

@@ -14,10 +14,9 @@ export const adminLogin = createAsyncThunk<boolean, Payload>(
     try {
       const data = await AuthRepo.adminLogin(payload);
       if (data.status === 200) {
-        console.log(data,"datadatadata")
         localStorage.setItem("token", data.data.token);
         thunkAPI.dispatch(setLoginUserData(data.data.data));
-        showMessage("success", "Successfully logged in");
+        // showMessage("success", "Successfully logged in");
         return data.data.data; // Return true on successful login
       }
     } catch (err: any) {
@@ -196,6 +195,35 @@ export const handleLogouts = createAsyncThunk<boolean, Payload>(
     return false;
   }
 );
+
+
+export const verifyOtp = createAsyncThunk<boolean, Payload>(
+  APIName.login,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await AuthRepo.verifyOtp(payload);
+      if (data.status === 200) {
+        localStorage.setItem("token", data.data.token);
+        thunkAPI.dispatch(setLoginUserData(data.data.data));
+        showMessage("success", "Successfully logged in");
+        return data.data.data; // Return true on successful login
+      }
+    } catch (err: any) {
+      if (err.response?.status === 403) {
+        showMessage("error", "Invalid Credentials");
+      } else if (err.response?.status === 400) {
+        showMessage("error",err.response?.data.message);
+      }
+      else if (err.response?.status === 405) {
+        showMessage("error",'Maximum 3 active logins allowed.');
+      }
+      
+    }
+    return false; // Return false on failure
+  }
+);
+
+
 
 const showMessage = (type: "success" | "error", message: string) => {
   Swal.fire({

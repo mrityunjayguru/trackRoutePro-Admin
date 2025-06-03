@@ -14,6 +14,11 @@ import {
 // Validation schema
 const schema = yup.object().shape({
   fullName: yup.string().required('Full name is required'),
+  email: yup.string().email('Invalid email').required('Email is required'),
+  phone: yup
+    .string()
+    .matches(/^[0-9]{10}$/, 'Phone number must be 10 digits')
+    .required('Phone number is required'),
   designation: yup.string(),
   operatingArea: yup.string(),
   discountPercent: yup.string(),
@@ -36,7 +41,6 @@ const SalesTeamForm = () => {
     handleSubmit,
     formState: { errors },
     reset,
-    setValue,
   } = useForm({ resolver: yupResolver(schema) });
 
   const onSubmit = async (data: any) => {
@@ -46,20 +50,17 @@ const SalesTeamForm = () => {
 
     if (isEditMode) {
       payload._id = updateSalesTeam._id;
-    }
-    if (isEditMode) {
       await dispatch(updateSalesTeams(payload));
     } else {
       await dispatch(addSalesTeam(payload));
     }
-    const val:any=null
-  await dispatch(setupdatesalesTeam(val))
-
+const payload2:any=null
+    await dispatch(setupdatesalesTeam(payload2));
     reset(); // clear form after submission
   };
 
   const getRecords = async () => {
-    const payload: any = {};
+    const payload:any={}
     await dispatch(getdesignation(payload));
   };
 
@@ -71,6 +72,8 @@ const SalesTeamForm = () => {
     if (updateSalesTeam?._id) {
       reset({
         fullName: updateSalesTeam.fullName || '',
+        email: updateSalesTeam.email || '',
+        phone: updateSalesTeam.phone || '',
         designation: updateSalesTeam.designation || '',
         operatingArea: updateSalesTeam.operatingArea || '',
         discountPercent: updateSalesTeam?.couponData?.discountPercent || '',
@@ -81,7 +84,7 @@ const SalesTeamForm = () => {
   }, [updateSalesTeam]);
 
   return (
-    <div className="max-w-5xl ">
+    <div className="max-w-5xl">
       <h2 className="text-lg font-semibold text-[#585859] mb-6">
         {isEditMode ? 'Update Employee' : 'Onboard Employee'}
       </h2>
@@ -113,6 +116,32 @@ const SalesTeamForm = () => {
               </div>
             </div>
           )}
+        </div>
+
+        {/* Email */}
+        <div>
+          <label className="block mb-1 font-medium">
+            Email<span className="text-yellow-500">*</span>
+          </label>
+          <input
+            {...register('email')}
+            placeholder="Enter email"
+            className="w-full border rounded px-3 py-2 placeholder:text-[#C8CEDD] focus:outline-none"
+          />
+          <p className="text-red-500 text-xs">{errors.email?.message}</p>
+        </div>
+
+        {/* Phone */}
+        <div>
+          <label className="block mb-1 font-medium">
+            Phone Number<span className="text-yellow-500">*</span>
+          </label>
+          <input
+            {...register('phone')}
+            placeholder="Enter phone number"
+            className="w-full border rounded px-3 py-2 placeholder:text-[#C8CEDD] focus:outline-none"
+          />
+          <p className="text-red-500 text-xs">{errors.phone?.message}</p>
         </div>
 
         {/* Designation */}
@@ -152,9 +181,7 @@ const SalesTeamForm = () => {
             />
           </div>
           <div className="w-1/2">
-            <label className="block mb-1 font-medium text-transparent">
-              or
-            </label>
+            <label className="block mb-1 font-medium text-transparent">or</label>
             <input
               {...register('discountValue')}
               placeholder="Amount"

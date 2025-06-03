@@ -2,15 +2,12 @@ export const ViewDeviceDeailKeys = (
   deviceDetail: any,
   devicetypeDetails: any,
 ) => {
-  console.log(deviceDetail?.assigned=="Assigned"
-    , "deviceDetaildeviceDetail");
 
   // Get the Device Type options from devicetypeDetails
   const DeviceType: any = devicetypeDetails?.map((vehicle: any) => ({
     label: vehicle.deviceType,
     value: vehicle._id,
   }));
-
   // Set up the fields array with actual values passed from the deviceDetail
   const filed: any = [
     {
@@ -36,6 +33,14 @@ export const ViewDeviceDeailKeys = (
       type: 'text',
       placeholder: 'Enter Device ID',
       value: deviceDetail?.deviceId, // Strictly pass value from deviceDetail
+      disabled:deviceDetail?.assigned=="Assigned"?true:false
+    },
+        {
+      label: 'Sim No*',
+      name: 'deviceId',
+      type: 'text',
+      placeholder: 'Enter Sim No',
+      value: deviceDetail?.simNo, // Strictly pass value from deviceDetail
       disabled:deviceDetail?.assigned=="Assigned"?true:false
     },
     {

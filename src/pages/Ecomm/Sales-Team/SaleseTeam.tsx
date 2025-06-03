@@ -3,11 +3,15 @@ import AddOnstable from './Component/SalesTeamTable';
 import RelayForm from './Component/RelayForm';
 import SalesTeamForm from './Component/SalesTeamForm';
 import { useSelector } from 'react-redux';
+import PerformanceChart from './Component/PerformanceChart';
+import TeamPerformance from './Component/TeamPerformance';
 
 const tabs = [
   { label: 'Team', key: 'Team' },
   { label: 'Onboard', key: 'onboard' },
   { label: 'Designation', key: 'Designation' },
+  { label: 'Performence', key: 'Performence' },
+
 ];
 
 function SaleseTeam() {
@@ -37,6 +41,8 @@ setActiveTab("onboard")
         {activeTab === 'Team' && <AddOnstable />}
         {activeTab === 'onboard' && <SalesTeamForm/>}
         {activeTab === 'Designation' && <RelayForm />}
+        {activeTab === 'Performence' &&  <TeamPerformance/>}
+
       </div>
     </div>
   );

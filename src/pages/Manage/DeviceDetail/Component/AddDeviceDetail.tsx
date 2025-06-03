@@ -26,7 +26,7 @@ const [disabled,setDesabled]=useState(false)
    let {payload}:any= await dispatch(createDeviceDetails(data));
    if(payload){
     setDesabled(false)
-    navigate("/device-management/gps/manage-Inventory")
+    navigate("/manage-Inventory")
    }
    setDesabled(false)
   };
@@ -68,7 +68,7 @@ const [disabled,setDesabled]=useState(false)
   
 
   return (
-    <div>
+    <div className='my-10'>
       <input
         ref={fileInputRef}
         type="file"
@@ -90,7 +90,7 @@ const [disabled,setDesabled]=useState(false)
         </button>
       </div>
 
-      <div className="mt-2">
+      <div className="mt-2 px-5">
         <GlobalForm
           fields={AddDeviceDetailKey(devicetypeDetails)}
           handleSubmit={handleSubmit}

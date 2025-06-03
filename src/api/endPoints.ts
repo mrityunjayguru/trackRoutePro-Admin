@@ -70,7 +70,7 @@ const aboutUs = {
 const adminauthAPI = {
   login: 'adminAuth/login',
   logout: 'adminAuth/logout',
-
+verifyOtp:'adminAuth/verifyOtp',
   register: 'auth/signup',
   LdapLogin: 'LDAPLOGIN',
   updateprofile: 'auth/updateUser',

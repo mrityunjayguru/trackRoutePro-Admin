@@ -49,7 +49,6 @@ const payload:any={
   subcategory:sub
 }
   await  dispatch(updatesubCategory(payload))
-
   }
 
   return (

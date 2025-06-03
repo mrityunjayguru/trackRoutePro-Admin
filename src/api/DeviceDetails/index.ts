@@ -102,7 +102,6 @@ export const createDeviceDetailWithExcel = createAsyncThunk<boolean, Payload>(
   async (payload) => {
     try {
       const data = await userRepo.createDeviceDetailwithExcel(payload);
-      console.log(data,"datadatadatadatadatadata")
       if (data.status === 200) {
         let msg = `Out of ${data.data.total} records, ${data.data.createdCount} were created and ${data.data.duplicateCount} were duplicates.`;
         GetMessage("success",msg)

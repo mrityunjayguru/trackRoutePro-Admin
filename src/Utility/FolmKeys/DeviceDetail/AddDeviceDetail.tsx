@@ -32,6 +32,14 @@ export const AddDeviceDetailKey = (devicetypeDetails: any) => {
         value: '', // Dummy value
         disabled: false,
       },
+        {
+        label: 'Sim No*',
+        name: 'simNo',
+        type: 'text',
+        placeholder: 'Enter Sim No.',
+        value: '', // Dummy value
+        disabled: false,
+      },
       {
         label: 'Wired Device *',
         name: 'isWired',

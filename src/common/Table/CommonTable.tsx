@@ -80,9 +80,11 @@ const CommonTable: React.FC<TableProps> = ({
       return data?.users?.Name || '-';
     } else if (colKey === 'useremailAddress') {
       return data?.users?.emailAddress || '-';
-    } else if (colKey === 'SimNo') {
-      return data?.userDevices?.deviceSimNumber || '-';
-    } else if (colKey === 'title') {
+    }
+    //  else if (colKey === 'SimNo') {
+    //   return data?.userDevices?.deviceSimNumber || '-';
+    // } 
+    else if (colKey === 'title') {
       return data?.notificationalert?.notification.title || '-';
     } else if (colKey === 'message') {
       return data?.notificationalert?.notification.body || '-';
@@ -153,7 +155,7 @@ const CommonTable: React.FC<TableProps> = ({
     <div className="table-container overflow-x-auto">
       <table className="min-w-full divide-y divide-gray-200">
         <thead className="bg-[#EDEDED] w-full text-gray-700 font-semibold text-base">
-          <tr>
+          <tr className='w-full'>
             <th className="p-1 text-[#949495] text-sm cursor-pointer">#No.</th>
             {Object.entries(columns).map(([key, label]) => (
               <th

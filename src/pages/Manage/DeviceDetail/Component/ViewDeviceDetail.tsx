@@ -43,7 +43,7 @@ function ViewDeviceDetail() {
 
   return (
     <div>
-      <div className="mt-2">
+      <div className="mt-2 py-5 px-5">
         <GlobalForm
           fields={ViewDeviceDeailKeys(deviceDetail, devicetypeDetails)}
           handleSubmit={handleSubmit}

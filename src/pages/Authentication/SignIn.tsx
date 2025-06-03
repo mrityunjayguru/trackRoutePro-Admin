@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logo from '../../images/logo/TrPro.png';
 import login from '../../images/user/login.jpg';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 import { AppDispatch } from '../../store/store';
 import { adminLogin } from '../../api/auth';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Footer } from '../../components/Footer/Footer';
 import { getDeviceInfo } from '../../common/getDeviceInfo';
-// import './SignIn.css'; // Import CSS for loader styles
+import OtpModal from './OtpModal';
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
@@ -20,6 +19,8 @@ const SignIn: React.FC = () => {
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const [payloadVal, setPayloadVal] = useState<any>(null);
 
   const handleAdminLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -38,7 +39,7 @@ const SignIn: React.FC = () => {
       return;
     }
 
-    const payload: any = { password: password.trim(),deviceInfo:getDeviceInfo() };
+    const payload: any = { password: password.trim(), deviceInfo: getDeviceInfo() };
     if (email.includes('@')) {
       payload.email = email.trim();
       payload.role = 'Admin';
@@ -46,31 +47,41 @@ const SignIn: React.FC = () => {
       payload.phone = email.trim();
       payload.role = 'Dealer';
     }
-    setLoading(true); // Start loader
+
+    setPayloadVal(payload);
+    setLoading(true);
+
     try {
       const response: any = await dispatch(adminLogin(payload));
+      const role = response.payload?.role;
       setLoading(false);
-      if (
-        response.payload?.role === 'SuperAdmin' ||
-        response.payload?.role === "Admin"
-      ) {
-        navigate('/');
-      } else if (response.payload?.role === 'Dealer') {
-        navigate('/DealearDashboard');
-      }
 
-    } catch (error) {
-      setError('An error occurred during login. Please try again.');
-    } finally {
-      setLoading(false); // Stop loader
+      if (role === 'SuperAdmin') {
+        setShowModal(true); // Show OTP modal
+      } else if (role === 'Admin') {
+        navigate('/');
+      } else if (role === 'Dealer') {
+        navigate('/DealearDashboard');
+      } else {
+        setError('Invalid credentials or role');
+      }
+    } catch (err) {
+      setError('Login failed. Please try again.');
+      setLoading(false);
     }
   };
 
   return (
     <>
-      <div className="flex flex-col min-h-screen ">
+      {showModal && (
+        <OtpModal
+          payloadval={payloadVal}
+          onClose={() => setShowModal(false)}
+        />
+      )}
+      <div className="flex flex-col min-h-screen">
         <div className="flex-grow flex items-center justify-center px-4">
-          <div className="w-full max-w-4xl rounded-lg overflow-hidden md:flex ">
+          <div className="w-full max-w-4xl rounded-lg overflow-hidden md:flex">
             <div className="w-full md:w-1/2 p-8">
               <div className="flex justify-center mb-6 bg-[#000] rounded-md">
                 <img
@@ -88,15 +99,13 @@ const SignIn: React.FC = () => {
                   <label className="block text-gray-600 font-semibold mb-2">
                     User Id
                   </label>
-                  <div className="relative">
-                    <input
-                      type="text"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none w-full"
-                      placeholder="Enter User Id"
-                    />
-                  </div>
+                  <input
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none w-full"
+                    placeholder="Enter User Id"
+                  />
                 </div>
 
                 <div className="mb-6">
@@ -122,28 +131,26 @@ const SignIn: React.FC = () => {
 
                 {error && <div className="text-red-500 mb-4">{error}</div>}
 
-                <div className="mb-4">
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className={`w-full bg-[#000] text-yellow-400 cursor-pointer rounded-lg py-3 font-semibold transition hover:bg-opacity-90 ${
-                      loading ? 'cursor-not-allowed opacity-100' : ''
-                    }`}
-                  >
-                    {loading ? (
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className={`w-full bg-[#000] text-yellow-400 cursor-pointer rounded-lg py-3 font-semibold transition hover:bg-opacity-90 ${
+                    loading ? 'cursor-not-allowed opacity-100' : ''
+                  }`}
+                >
+                  {loading ? (
                     <div className="flex justify-center items-center gap-2">
-                    <span className="text-[#fff]">Logging in</span>
-                    <div className="flex">
-                      <span className="dot-loader"></span>
-                      <span className="dot-loader"></span>
-                      <span className="dot-loader"></span>
+                      <span className="text-[#fff]">Logging in</span>
+                      <div className="flex">
+                        <span className="dot-loader"></span>
+                        <span className="dot-loader"></span>
+                        <span className="dot-loader"></span>
+                      </div>
                     </div>
-                  </div>
-                    ) : (
-                      'Login'
-                    )}
-                  </button>
-                </div>
+                  ) : (
+                    'Login'
+                  )}
+                </button>
 
                 <div className="text-center mt-4">
                   <p className="text-gray-600">

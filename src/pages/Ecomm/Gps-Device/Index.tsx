@@ -15,7 +15,7 @@ function DiscountCopoun() {
     const updatedPayload=useSelector((state:any)=>state.gpsDevices?.updateDevice)
   
 useEffect(()=>{
-setActiveTab("catalogue")
+setActiveTab("Onboard")
 },[updatedPayload])
   return (
     <div className="pb-20 "> {/* padding-bottom to avoid hidden content behind fixed nav */}
