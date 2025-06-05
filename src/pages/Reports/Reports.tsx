@@ -98,14 +98,14 @@ const handleclick=(report:any)=>{
   navigate("/Reports/records")
 }
   return (
-    <div className=" w-full">
-      <h2 className="text-black text-[20px] font-medium  font-[Satoshi] my-2"
+    <div className=" w-full ">
+      <h2 className="text-black text-[20px] font-medium  font-[Satoshi] my-2 px-5"
       >Select a Report</h2>
-      {loginUser?.permissions.Reports?.View || loginUser.role=="SuperAdmin"?( <div className="grid grid-cols-3 gap-4 w-full">
+      {loginUser?.permissions.Reports?.View || loginUser.role=="SuperAdmin"?( <div className="grid grid-cols-3 gap-4 w-full p-5">
         {reports.map((report, index) => (
           <div
             key={index}
-            className="flex flex-col items-center justify-center bg-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition cursor-pointer"
+            className=" flex flex-col items-center justify-center bg-gray-100 rounded-xl p-6 shadow-sm hover:shadow-md transition cursor-pointer"
             onClick={()=>handleclick(report)}
          >
             <span className="text-3xl mb-2">{report.icon}</span>

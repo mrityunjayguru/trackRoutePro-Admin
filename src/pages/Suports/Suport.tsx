@@ -95,7 +95,7 @@ function Suport() {
         <h1 className="text-[#D9E821] cursor-pointer">Support</h1>
       </div> */}
 
-      <div className="searchitem grid grid-cols-3 gap-4 my-2 py-1">
+      <div className="searchitem grid grid-cols-3 gap-4 my-2 py-1 px-5">
         <div className="col-span-2 relative w-full">
           <input
             onChange={debouncedSearch}
@@ -156,7 +156,7 @@ function Suport() {
       {loading ? (
         <div className="text-center my-4">Loading...</div> // Show loading message
       ) : (
-        <div>
+        <div className='p-5'>
           <Suporttable handleSnNo={handleno} />
           <Pagination
             totalCount={total}

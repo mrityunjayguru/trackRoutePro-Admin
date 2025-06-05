@@ -34,7 +34,7 @@ navigate("/support/Renew/manage")
   return (
     <div>
       {loginUser?.permissions?.Renew_Request?.View || loginUser.role=="SuperAdmin"?(  <div>
-        <div className="mt-5">
+        <div className="mt-5 p-5">
           <CommonTable
             columns={RenewColumnKey}
             data={renewdata}

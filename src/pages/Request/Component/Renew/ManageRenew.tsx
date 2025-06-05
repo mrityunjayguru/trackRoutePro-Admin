@@ -2,7 +2,7 @@ import React from "react";
 
 const ManageRenew = () => {
   return (
-    <div className="">
+    <div className="p-5">
       <h2 className="text-[16px] font-normal mb-4 text-[##000000]">Extend / Renew Subscription(s)</h2>
 
       <div className="grid grid-cols-5 gap-1 border-b pb-4 mb-4 bg-[#F4F4F4] px-5 py-2">

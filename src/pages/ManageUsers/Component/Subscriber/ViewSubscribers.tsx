@@ -26,7 +26,7 @@ function ViewSubscribers() {
   }, [data, navigate, userId]);
   return (
     <>
-      <div>
+      <div className='p-5'>
        
         <ViewUser />
         {/* <Edituser/> */}

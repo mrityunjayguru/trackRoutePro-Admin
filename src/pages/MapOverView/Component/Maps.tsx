@@ -85,7 +85,8 @@ const Maps: React.FC = () => {
   }
 
   return (
-    <GoogleMap
+  <div className="p-5">
+      <GoogleMap
       mapContainerStyle={{ width: "100vw", height: "100vh" }}
       center={center}
       zoom={zoom}
@@ -135,6 +136,7 @@ const Maps: React.FC = () => {
         />
       )}
     </GoogleMap>
+  </div>
   );
 };
 

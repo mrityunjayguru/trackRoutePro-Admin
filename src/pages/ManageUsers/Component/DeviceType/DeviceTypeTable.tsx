@@ -94,14 +94,16 @@ const DeviceTypeTable = () => {
   };
   return (
     <>
-      <CommonHeader propsData={propsData} handledownload={handledownload} />
+    <div className='px-5 my-2'> 
+        <CommonHeader propsData={propsData} handledownload={handledownload} />
       <SearchAndFilter
         statusOptions={statusOptions} // Pass the options here
         onSearchChange={handleSearchChange}
         onStatusChange={handleStatusChange}
         filter={filter}
       />
-      <div className="overflow-y-auto rounded-sm xl:pb-1 my-5">
+    </div>
+      <div className="overflow-y-auto rounded-sm xl:pb-1 my-5 p-5">
         <CommonTable
           columns={DeviceTypeTableKey}
           data={devicetypeDetails}

@@ -32,7 +32,7 @@ function ReportRecord() {
     setOpen(false)
   };
   return (
-    <div>
+    <div className='p-5'>
       {open?(<Mappopup text="Vehicle Report" showheader={false} records={val} onClose={handleonclose }/>):(null)}
       <SummaryFilter />
 {traivelSummary && traivelSummary?.length>0?(<>

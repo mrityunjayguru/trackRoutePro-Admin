@@ -115,7 +115,7 @@ const ManageMaps = () => {
     <>
       {/* <div className="text-2xl font-semibold text-[#000]">Map Overview</div> */}
 
-      <div className="grid grid-cols-[60.25%_auto_auto] gap-10 my-2">
+      <div className="grid grid-cols-[60.25%_auto_auto] gap-10 my-2 px-5">
         <div className="flex w-full gap-2">
           <div className="w-full">
             <Select

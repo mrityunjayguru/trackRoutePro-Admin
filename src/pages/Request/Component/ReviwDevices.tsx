@@ -53,7 +53,7 @@ function ReviwDevices() {
   };
 
   return (
-    <div>
+    <div className='p-5'>
       <SearchAndFilter
         statusOptions={statusOptions}
         onSearchChange={handleSearchChange}

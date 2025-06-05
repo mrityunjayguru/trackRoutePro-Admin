@@ -155,7 +155,7 @@ const ManageVehicle: React.FC = () => {
     title:"Vehicle Type Add"
   }
   return (
-    <div className="w-full">
+    <div className="w-full px-5 my-2">
       <h1 className="">
         <Breadcrumb />
       </h1>

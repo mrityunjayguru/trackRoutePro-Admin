@@ -64,7 +64,7 @@ const Edituser: React.FC = () => {
 
 
       <div className="my-3"></div>
-      <div className="w-full">
+      <div className="w-full p-5">
         {userpassword?(
        <>
        {SingleSubscriber?.subscribeType === 'Individual' ? (

@@ -39,8 +39,10 @@ function Delear() {
       };
   return (
     <>
-    <CommonHeader  propsData={propsData} handledownload={handledownload}/>
+ <div className="p-5">
+     <CommonHeader  propsData={propsData} handledownload={handledownload}/>
     {loginUser?.permissions?.Manage_Dealer?.View || loginUser.role=="SuperAdmin"?(<DelearTable/>):(null)}
+ </div>
 
     </>
   )

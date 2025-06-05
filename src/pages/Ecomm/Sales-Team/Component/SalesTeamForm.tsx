@@ -11,7 +11,7 @@ import {
 } from '../../../../api/ecomm/salesTeam';
 import { getdesignation } from '../../../../api/ecomm/designation';
 
-// Validation schema
+// ✅ Validation schema with password
 const schema = yup.object().shape({
   fullName: yup.string().required('Full name is required'),
   email: yup.string().email('Invalid email').required('Email is required'),
@@ -19,6 +19,11 @@ const schema = yup.object().shape({
     .string()
     .matches(/^[0-9]{10}$/, 'Phone number must be 10 digits')
     .required('Phone number is required'),
+  password: yup.string().when('$isEditMode', {
+    is: false,
+    then: (schema) => schema.required('Password is required').min(6, 'Min 6 characters'),
+    otherwise: (schema) => schema.notRequired(),
+  }),
   designation: yup.string(),
   operatingArea: yup.string(),
   discountPercent: yup.string(),
@@ -28,9 +33,7 @@ const schema = yup.object().shape({
 
 const SalesTeamForm = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const updateSalesTeam = useSelector(
-    (state: any) => state?.slesTeame?.updateSalesTeam
-  );
+  const updateSalesTeam = useSelector((state: any) => state?.slesTeame?.updateSalesTeam);
   const records = useSelector((state: any) => state?.designation?.designation);
   const isEditMode = Boolean(updateSalesTeam?._id);
 
@@ -39,7 +42,10 @@ const SalesTeamForm = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm({ resolver: yupResolver(schema) });
+  } = useForm({
+    resolver: yupResolver(schema),
+    context: { isEditMode },
+  });
 
   const [photo, setPhoto] = useState<File | null>(null);
   const [photoPreview, setPhotoPreview] = useState<string | null>(null);
@@ -53,8 +59,11 @@ const SalesTeamForm = () => {
   };
 
   const onSubmit = async (data: any) => {
-    const formData:any = new FormData();
-    Object.entries(data).forEach(([key, value]) => formData.append(key, value as string));
+    const formData: any = new FormData();
+    Object.entries(data).forEach(([key, value]) => {
+      if (value) formData.append(key, value);
+    });
+
     if (photo) {
       formData.append('photo', photo);
     }
@@ -65,8 +74,7 @@ const SalesTeamForm = () => {
     } else {
       await dispatch(addSalesTeam(formData));
     }
-    const payload:any=null
-
+const payload:any=null
     await dispatch(setupdatesalesTeam(payload));
     setPhoto(null);
     setPhotoPreview(null);
@@ -118,20 +126,20 @@ const SalesTeamForm = () => {
           <input
             {...register('fullName')}
             placeholder="Enter full name"
-            className="w-full border rounded px-3 py-2 placeholder:text-[#C8CEDD] focus:outline-none"
+            className="w-full border rounded px-3 py-2 placeholder:text-[#C8CEDD]"
           />
           <p className="text-red-500 text-xs">{errors.fullName?.message}</p>
         </div>
 
-        {/* Employee Code (static) */}
+        {/* Employee Code */}
         <div>
-          {updateSalesTeam && (
-            <div>
+          {isEditMode && (
+            <>
               <label className="block mb-1 font-medium">Employee Code</label>
-              <div className="px-3 py-2 border rounded text-[#585859] bg-gray-50">
+              <div className="px-3 py-2 border rounded bg-gray-50">
                 {updateSalesTeam?.employeecode}
               </div>
-            </div>
+            </>
           )}
         </div>
 
@@ -143,7 +151,7 @@ const SalesTeamForm = () => {
           <input
             {...register('email')}
             placeholder="Enter email"
-            className="w-full border rounded px-3 py-2 placeholder:text-[#C8CEDD] focus:outline-none"
+            className="w-full border rounded px-3 py-2 placeholder:text-[#C8CEDD]"
           />
           <p className="text-red-500 text-xs">{errors.email?.message}</p>
         </div>
@@ -156,17 +164,33 @@ const SalesTeamForm = () => {
           <input
             {...register('phone')}
             placeholder="Enter phone number"
-            className="w-full border rounded px-3 py-2 placeholder:text-[#C8CEDD] focus:outline-none"
+            className="w-full border rounded px-3 py-2 placeholder:text-[#C8CEDD]"
           />
           <p className="text-red-500 text-xs">{errors.phone?.message}</p>
         </div>
+
+        {/* Password */}
+        {!isEditMode && (
+          <div>
+            <label className="block mb-1 font-medium">
+              Password<span className="text-yellow-500">*</span>
+            </label>
+            <input
+              type="password"
+              {...register('password')}
+              placeholder="Enter password"
+              className="w-full border rounded px-3 py-2 placeholder:text-[#C8CEDD]"
+            />
+            <p className="text-red-500 text-xs">{errors.password?.message}</p>
+          </div>
+        )}
 
         {/* Designation */}
         <div>
           <label className="block mb-1 font-medium">Designation</label>
           <select
             {...register('designation')}
-            className="w-full border rounded px-3 py-2 text-[#585859] placeholder:text-[#C8CEDD]"
+            className="w-full border rounded px-3 py-2"
           >
             <option value="">Select Designation</option>
             {records?.map((val: any, i: number) => (
@@ -182,12 +206,12 @@ const SalesTeamForm = () => {
           <label className="block mb-1 font-medium">Operating Area</label>
           <input
             {...register('operatingArea')}
-            placeholder="Enter Location"
+            placeholder="Enter location"
             className="w-full border rounded px-3 py-2 placeholder:text-[#C8CEDD]"
           />
         </div>
 
-        {/* Discount */}
+        {/* Discount Fields */}
         <div className="flex space-x-4">
           <div className="w-1/2">
             <label className="block mb-1 font-medium">Discount</label>
@@ -207,7 +231,7 @@ const SalesTeamForm = () => {
           </div>
         </div>
 
-        {/* Coupon Code */}
+        {/* Discount Code */}
         <div>
           <label className="block mb-1 font-medium">Coupon Code</label>
           <input
@@ -217,14 +241,14 @@ const SalesTeamForm = () => {
           />
         </div>
 
-        {/* Profile Photo Upload */}
+        {/* Photo Upload */}
         <div className="col-span-2">
           <label className="block mb-1 font-medium">Upload Photo</label>
           <input
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            className="w-full border rounded px-3 py-2 text-[#585859]"
+            className="w-full border rounded px-3 py-2"
           />
           {photoPreview && (
             <div className="mt-3">
@@ -238,7 +262,7 @@ const SalesTeamForm = () => {
           )}
         </div>
 
-        {/* Submit Button */}
+        {/* Submit */}
         <div className="col-span-2">
           <button
             type="submit"

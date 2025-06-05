@@ -60,7 +60,7 @@ function Request() {
     setfilter(e.value);
   };
   return (
-    <div>
+    <div className='p-5'>
       <SearchAndFilter
         statusOptions={statusOptions}
         onSearchChange={handleSearchChange}

@@ -55,7 +55,8 @@ function AdminRoleTable() {
 
   return (
     <>
-      <SearchAndFilter
+  <div className='p-5'>
+        <SearchAndFilter
         statusOptions={statusOptions}
         onSearchChange={handleSearchChange}
         onStatusChange={handleStatusChange}
@@ -73,6 +74,7 @@ function AdminRoleTable() {
         currentPage={currentPage}
         onPageChange={setCurrentPage}
       />
+  </div>
     </>
   );
 }

@@ -47,7 +47,9 @@ function AdmiHeaders() {
       };
   return (
 <>
-<CommonHeader  propsData={propsData} handledownload={handledownload} />
+<div className="p-5">
+  <CommonHeader  propsData={propsData} handledownload={handledownload} />
+</div>
 
 </>
   )

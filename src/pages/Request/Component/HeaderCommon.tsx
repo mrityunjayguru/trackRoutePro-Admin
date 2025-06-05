@@ -9,7 +9,7 @@ function HeaderCommon() {
 
   return (
     <>
-      <div className="flex gap-5">
+      <div className="flex gap-5 px-5 my-1">
         <div
           onClick={() => setActiveTab("New subscriber")}
           className={`font-medium text-xl cursor-pointer relative transition-colors duration-300 ease-in-out ${

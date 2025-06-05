@@ -134,7 +134,8 @@ const UserTable: React.FC = () => {
   ];
   return (
     <>
-      <SearchAndFilter
+    <div className='p-5'>
+        <SearchAndFilter
         statusOptions={statusOptions}
         onSearchChange={handleSearchChange}
         onStatusChange={handleStatusChange}
@@ -155,6 +156,7 @@ const UserTable: React.FC = () => {
           onPageChange={setCurrentPage}
         />
       </div>
+    </div>
     </>
   );
 };

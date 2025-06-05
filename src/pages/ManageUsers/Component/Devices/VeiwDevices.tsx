@@ -87,7 +87,7 @@ const VeiwDevices = () => {
  
   return (
     <>
-      <div className="w-full">
+      <div className="w-full p-5">
         <DeviceHeader sibglesubscriber={PropsRecord} />
         <div className="my-5 p-2 ">
           <GlobalForm

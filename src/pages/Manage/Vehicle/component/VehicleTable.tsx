@@ -42,7 +42,7 @@ const propsData={
         <CommonHeader  propsData={propsData} />
 
 
-      <div className="grid grid-cols-6 gap-4">
+      <div className="grid grid-cols-6 gap-4 p-5">
         { data &&  data.map((item: any, index: number) => (
           <div key={index} className="flex justify-center items-center flex-col">
             <div>

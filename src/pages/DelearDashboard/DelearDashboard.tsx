@@ -18,10 +18,8 @@ const DelearDashboard = () => {
     title: 'List of All Subscribers',
     button: 'Add New +',
     redirect: 'existignuser',
-
   };
   const itemsPerPage = 10; // Adjust this value as needed
- 
    const [filter, setfilter] = useState();
     const [search, setSearch] = useState('');
     const [currentPage, setCurrentPage] = useState(1);

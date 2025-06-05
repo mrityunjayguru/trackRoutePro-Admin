@@ -36,7 +36,8 @@ const ViewDelear: React.FC = () => {
       },[])
   return (
     <>
-  <CodeComponent SingleSubscriber={SingleSubscriber}/>
+ <div className="p-5">
+   <CodeComponent SingleSubscriber={SingleSubscriber}/>
 
       <div className="w-full mt-2">
         <div className="">
@@ -54,6 +55,7 @@ const ViewDelear: React.FC = () => {
         <CommonHeader propsData={propsData} />
         <SubscriberlistByDelear />
       </div>
+ </div>
     </>
   );
 };
