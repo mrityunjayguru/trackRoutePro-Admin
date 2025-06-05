@@ -50,6 +50,7 @@ const AddOnstable = () => {
             <th>Employee Code</th>
             <th>Discount</th>
             <th>Location</th>
+            <th>image</th>
             <th>Edit</th>
             <th>Status</th>
           </tr>
@@ -62,6 +63,8 @@ const AddOnstable = () => {
               <td>{device.employeecode}</td>
               <td>{device.couponData?.discountCode}</td>
               <td>{device.operatingArea}</td>
+              <td> <img className='w-20 h-20 object-cover' src={ `${import.meta.env.VITE_APP_Image_Url}${device.photo}`} alt="" /></td>
+
               <td>
                 <Pencil
                   onClick={() => handleUpdate(device)}

@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import React, { useEffect, useState } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { getdesignation } from '../../../../api/ecomm/designation';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../../../store/store';
 import {
@@ -10,6 +9,7 @@ import {
   setupdatesalesTeam,
   updateSalesTeams,
 } from '../../../../api/ecomm/salesTeam';
+import { getdesignation } from '../../../../api/ecomm/designation';
 
 // Validation schema
 const schema = yup.object().shape({
@@ -28,12 +28,10 @@ const schema = yup.object().shape({
 
 const SalesTeamForm = () => {
   const dispatch = useDispatch<AppDispatch>();
-
   const updateSalesTeam = useSelector(
-    (state: any) => state?.slesTeame?.updateSalesTeam,
+    (state: any) => state?.slesTeame?.updateSalesTeam
   );
   const records = useSelector((state: any) => state?.designation?.designation);
-
   const isEditMode = Boolean(updateSalesTeam?._id);
 
   const {
@@ -43,20 +41,36 @@ const SalesTeamForm = () => {
     reset,
   } = useForm({ resolver: yupResolver(schema) });
 
+  const [photo, setPhoto] = useState<File | null>(null);
+  const [photoPreview, setPhotoPreview] = useState<string | null>(null);
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setPhoto(file);
+      setPhotoPreview(URL.createObjectURL(file));
+    }
+  };
+
   const onSubmit = async (data: any) => {
-    const payload = {
-      ...data,
-    };
+    const formData:any = new FormData();
+    Object.entries(data).forEach(([key, value]) => formData.append(key, value as string));
+    if (photo) {
+      formData.append('photo', photo);
+    }
 
     if (isEditMode) {
-      payload._id = updateSalesTeam._id;
-      await dispatch(updateSalesTeams(payload));
+      formData.append('_id', updateSalesTeam._id);
+      await dispatch(updateSalesTeams(formData));
     } else {
-      await dispatch(addSalesTeam(payload));
+      await dispatch(addSalesTeam(formData));
     }
-const payload2:any=null
-    await dispatch(setupdatesalesTeam(payload2));
-    reset(); // clear form after submission
+    const payload:any=null
+
+    await dispatch(setupdatesalesTeam(payload));
+    setPhoto(null);
+    setPhotoPreview(null);
+    reset();
   };
 
   const getRecords = async () => {
@@ -80,6 +94,9 @@ const payload2:any=null
         discountValue: updateSalesTeam?.couponData?.discountValue || '',
         discountCode: updateSalesTeam.discountCode || '',
       });
+      if (updateSalesTeam?.photoUrl) {
+        setPhotoPreview(updateSalesTeam.photoUrl);
+      }
     }
   }, [updateSalesTeam]);
 
@@ -152,7 +169,7 @@ const payload2:any=null
             className="w-full border rounded px-3 py-2 text-[#585859] placeholder:text-[#C8CEDD]"
           >
             <option value="">Select Designation</option>
-            {records.map((val: any, i: number) => (
+            {records?.map((val: any, i: number) => (
               <option key={i} value={val._id}>
                 {val.designation}
               </option>
@@ -198,6 +215,27 @@ const payload2:any=null
             placeholder="Enter code"
             className="w-full border rounded px-3 py-2 placeholder:text-[#C8CEDD]"
           />
+        </div>
+
+        {/* Profile Photo Upload */}
+        <div className="col-span-2">
+          <label className="block mb-1 font-medium">Upload Photo</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="w-full border rounded px-3 py-2 text-[#585859]"
+          />
+          {photoPreview && (
+            <div className="mt-3">
+              <p className="mb-1 text-sm">Preview:</p>
+              <img
+                src={photoPreview}
+                alt="Preview"
+                className="w-32 h-32 object-cover rounded border"
+              />
+            </div>
+          )}
         </div>
 
         {/* Submit Button */}

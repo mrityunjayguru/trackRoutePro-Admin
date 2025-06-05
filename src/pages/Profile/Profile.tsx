@@ -89,7 +89,7 @@ const [userecord,setUserRecord]=useState<any>(null)
             </div>
           </div>
           <div>
-            <p>Reg Date: {formatDateToDDMMMYYYYwithTime(loginUser.updatedAt)}</p>
+            <p>Last Update: {formatDateToDDMMMYYYYwithTime(loginUser.updatedAt)}</p>
              <span className="inline-block px-4 py-2 my-3 text-sm font-medium text-[#000000] bg-[#D9E821] rounded-full">
               {profile.status}
             </span>

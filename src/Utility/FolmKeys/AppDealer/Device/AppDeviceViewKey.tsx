@@ -12,7 +12,6 @@ export const AppDeviceViewKey = (SingleDevice: any, VehiclwType: any,devicetypeD
 
     // Ensure the displayParameters exists and is populated before processing
     const displayParams = SingleDevice?.displayParameters || {};
-    console.log("Display Parameters:", displayParams);
 
     // Get the keys with true values
     const trueKeys = getKeysWithTrueValues(displayParams);
@@ -28,7 +27,7 @@ export const AppDeviceViewKey = (SingleDevice: any, VehiclwType: any,devicetypeD
             type: 'select',
             placeholder: 'Choose Device',
             options: DeviceType,
-            value: SingleDevice?.deviceTypeDetail?.deviceType,
+            value: SingleDevice?.deviceTypeRecord?._id,
             disabled:true,
 
         },
@@ -38,7 +37,7 @@ export const AppDeviceViewKey = (SingleDevice: any, VehiclwType: any,devicetypeD
             name: 'imei',
             type: 'text',
             placeholder: 'Enter IMEI No.',
-            value:SingleDevice?.deviceTypeDetail?.imeiNo,
+            value:SingleDevice?.imei,
             disabled:true,
         },
         {

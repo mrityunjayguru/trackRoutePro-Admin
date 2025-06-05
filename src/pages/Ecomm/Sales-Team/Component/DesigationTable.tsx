@@ -18,7 +18,7 @@ function DesigationTable() {
             </tr>
           </thead>
           <tbody>
-            {records.map((item:any, index:any) => (
+            {records?.map((item:any, index:any) => (
               <tr
                 key={index}
                 className={item.status ? "bg-[#F5F7FA]" : ""}

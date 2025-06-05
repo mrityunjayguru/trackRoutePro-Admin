@@ -56,7 +56,8 @@ const handleSearchChange = (e:any) => {
   };
   return (
     <>
-      <CommonHeader propsData={propsData} />
+    <div className='p-5'>
+        <CommonHeader propsData={propsData} />
       <SearchAndFilter
         statusOptions={statusOptions} 
         onSearchChange={handleSearchChange}
@@ -70,6 +71,7 @@ const handleSearchChange = (e:any) => {
           currentPage={currentPage}
           onPageChange={setCurrentPage}
         />
+    </div>
     </>
   );
 };

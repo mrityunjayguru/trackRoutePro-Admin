@@ -38,7 +38,7 @@ const DealerViewSubscriber: React.FC = () => {
       <SubscriverHeader SingleSubscriber={SingleSubscriber} />
       <div className="w-full">
         {userpassword ? (
-          <div className="">
+          <div className="p-5">
             {SingleSubscriber.subscribeType == 'Company' ? (
               <GlobalForm
                 fields={DviewCompanySubscriberkey(
@@ -61,7 +61,7 @@ const DealerViewSubscriber: React.FC = () => {
         ) : null}
       </div>
 
-      <div className="my-4">
+      <div className="p-5">
         <DealerlistOfDevices />
       </div>
     </>

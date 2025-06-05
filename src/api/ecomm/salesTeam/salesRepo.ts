@@ -14,12 +14,22 @@ interface salesTeamRepo {
 
 export const salesTeamRepo: salesTeamRepo = {
   addsalesTeam(payload) {
-    return Repository.post(APIName.addsalesTeam, payload);
+    return Repository.post(APIName.addsalesTeam, payload,{
+       headers: {
+        Accept: "multipart/form-data",
+        "Content-Type": "multipart/form-data",
+      },
+    });
   },
   getsalesTeam(payload) {
     return Repository.post(APIName.getsalesTeam, payload);
   },
   updatesalesTeam(payload) {
-    return Repository.post(APIName.updatesalesTeam, payload);
+    return Repository.post(APIName.updatesalesTeam, payload,{
+      headers: {
+        Accept: "multipart/form-data",
+        "Content-Type": "multipart/form-data",
+      },
+    });
   }
 };

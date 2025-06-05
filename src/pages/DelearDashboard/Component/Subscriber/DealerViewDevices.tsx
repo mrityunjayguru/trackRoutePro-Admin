@@ -90,7 +90,7 @@ const DealerViewDevices = () => {
   return (
     <div className="w-full">
             {/* <DeviceHeader sibglesubscriber={PropsRecord}  /> */}
-      <div className="my-5 ">
+      <div className="my-5 p-5 ">
         <GlobalForm fields={AppDeviceViewKey(singleUserDevice, formattedVehicleTypes, devicetypeDetails, DealerRecord)} handleSubmit={handleSubmit} buttontext="" disabled={false} />
 
         {/* Subscription Expiry and Renewal */}
