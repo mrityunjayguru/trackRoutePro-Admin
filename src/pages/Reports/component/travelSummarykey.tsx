@@ -9,7 +9,8 @@ export const travelSummarykey = {
   'End Time':'End Time',
   'Start Coords':'Start Coords',
   'Total Distance (Kms)':'Total Distance (Kms)',
-  'Total Engine Time':'Total Engine Time',
+  'Total Motion Time':'Total Motion Time',
+  'Total Engine Hour':'Total Engine Hour',
  'Total Idle Time':'Total Idle Time', // Status
   'Total Stop Time': 'Total Stop Time', // Location
 };

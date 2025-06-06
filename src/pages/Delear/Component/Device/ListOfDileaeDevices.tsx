@@ -170,6 +170,8 @@ console.log(deviceRecords,"deviceRecordsdeviceRecords")
                     <th className="p-1.5 xl:p-2 text-center">No#</th>
                     <th className="p-1.5 xl:p-2 text-center">Device ID</th>
                     <th className="p-1.5 xl:p-2 text-center">IMEI No.</th>
+                    <th className="p-1.5 xl:p-2 text-center">Sim No.</th>
+
                     <th className="p-1.5 xl:p-2 text-center">Type</th>
                     <th className="p-1.5 xl:p-2 text-center">Status</th>
                     <th className="p-1.5 xl:p-2 text-center">Vehicle No.</th>
@@ -188,6 +190,7 @@ console.log(deviceRecords,"deviceRecordsdeviceRecords")
                       <td className="p-1.5 xl:p-2 text-center">{i + 1}</td>
                       <td className="p-1.5 xl:p-2 text-center">{device.deviceTypeDetail?.deviceId}</td>
                       <td className="p-1.5 xl:p-2 text-center">{device.imei}</td>
+                      <td className="p-1.5 xl:p-2 text-center">{device.simNo}</td>
                       <td className="p-1.5 xl:p-2 text-center">
                         {device.vehicleTypeDetails?.vehicleTypeName || 'No Type'}
                       </td>
