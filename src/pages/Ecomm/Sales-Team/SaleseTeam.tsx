@@ -38,7 +38,7 @@ setActiveTab("Performence")
     <div className="pb-20"> {/* padding-bottom to avoid hidden content behind fixed nav */}
       {/* Top Navigation Tabs */}
       <div className="topnav">
-        {tabs.map((tab:any) => (
+        {tabs?.map((tab:any) => (
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
