@@ -76,9 +76,9 @@ const SalesTeamForm = () => {
     }
 const payload:any=null
     await dispatch(setupdatesalesTeam(payload));
-    setPhoto(null);
-    setPhotoPreview(null);
-    reset();
+    // setPhoto(null);
+    // setPhotoPreview(null);
+    // reset();
   };
 
   const getRecords = async () => {

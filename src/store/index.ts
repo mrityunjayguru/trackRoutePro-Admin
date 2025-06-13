@@ -25,6 +25,8 @@ import slesTeame from "./ecomm/salesTeam/index"
 import addOns from "./ecomm/addOns/index"
 import coupon from "./ecomm/coupon/index"
 import relaySecurity from "./ecomm/relaySecurity/index"
+import salesAppNotification from "./salesApp/addOns/index"
+
 const appReducer = combineReducers({
   userData: userDataSlice,
   Auth: authDataSlice,
@@ -50,7 +52,8 @@ const appReducer = combineReducers({
   slesTeame:slesTeame,
   addOns:addOns,
   coupon:coupon,
-  relaySecurity:relaySecurity
+  relaySecurity:relaySecurity,
+  salesAppNotification:salesAppNotification
 });
 
 // Create a root reducer with reset functionality

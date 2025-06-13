@@ -10,6 +10,9 @@ interface salesTeamRepo {
   addsalesTeam: (payload: Payload) => Promise<AxiosResponse>;
   getsalesTeam: (payload: Payload) => Promise<AxiosResponse>;
   updatesalesTeam:(payload: Payload) => Promise<AxiosResponse>;
+  performance:(payload: Payload) => Promise<AxiosResponse>;
+  getleave:(payload: Payload) => Promise<AxiosResponse>;
+  updateLeaveStatus:(payload: Payload) => Promise<AxiosResponse>;
 }
 
 export const salesTeamRepo: salesTeamRepo = {
@@ -23,6 +26,15 @@ export const salesTeamRepo: salesTeamRepo = {
   },
   getsalesTeam(payload) {
     return Repository.post(APIName.getsalesTeam, payload);
+  },
+    performance(payload) {
+    return Repository.post(APIName.performance, payload);
+  },
+  getleave(payload) {
+    return Repository.post(APIName.getleave, payload);
+  },
+  updateLeaveStatus(payload) {
+    return Repository.post(APIName.updateLeaveStatus, payload);
   },
   updatesalesTeam(payload) {
     return Repository.post(APIName.updatesalesTeam, payload,{

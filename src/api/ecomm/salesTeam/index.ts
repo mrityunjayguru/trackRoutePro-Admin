@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setslesTeame,setsingleslesTeame,setUpdateSealTeam} from "../../../store/ecomm/salesTeam";
+import { setslesTeame,setsingleslesTeame,setUpdateSealTeam,setUpdatePerformancre,performanceRecord,setLeave} from "../../../store/ecomm/salesTeam";
 import APIName from "../../endPoints";
 import { salesTeamRepo } from "./salesRepo";
 import Swal from "sweetalert2";
@@ -31,7 +31,11 @@ export const addSalesTeam = createAsyncThunk<boolean, Payload>(
         localStorage.removeItem("token")
         GetMessage("warning", "Unauthorized");
         window.location.href = "/auth/signin"; 
-      }else{
+      }
+      if(err.status==400){
+        GetMessage("warning", err?.response?.data?.message);
+      }
+      else{
         GetMessage("warning", "something went wrong");
       }
       console.error(err);
@@ -123,6 +127,7 @@ export const updatesalesTeam = createAsyncThunk<boolean, Payload>(
   async (payload, thunkAPI) => {
     try {
       const data = await salesTeamRepo.updatesalesTeam(payload);
+      console.log(data,"datadatadatadatadatadatadatadata")
       if (data.status === 200) {
         GetMessage("success","Records updated")
         return true;
@@ -161,3 +166,97 @@ export const setupdatesalesTeam = createAsyncThunk<boolean, Payload>(
     return false;
   }
 )
+export const handlePerformence = createAsyncThunk<boolean, Payload>(
+  APIName.subscribers,
+  async (payload, thunkAPI) => {
+    try {
+        thunkAPI.dispatch(setUpdatePerformancre(payload));
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+)
+
+
+export const performanceData = createAsyncThunk<boolean, Payload>(
+  APIName.updateSubscriber,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await salesTeamRepo.performance(payload);
+    
+      if (data.status === 200) {
+      
+        thunkAPI.dispatch(performanceRecord(data.data.data));
+        return true;
+      }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+);
+
+
+export const getLeave = createAsyncThunk<boolean, Payload>(
+  APIName.updateSubscriber,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await salesTeamRepo.getleave(payload);
+    
+      if (data.status === 200) {
+      
+        thunkAPI.dispatch(setLeave(data.data.data));
+        return true;
+      }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+);
+
+
+export const updateLeaveStatus = createAsyncThunk<boolean, Payload>(
+  APIName.updateSubscriber,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await salesTeamRepo.updateLeaveStatus(payload);
+    
+      if (data.status === 200) {
+      
+      }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+);

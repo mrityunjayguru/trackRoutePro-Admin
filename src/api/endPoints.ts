@@ -153,6 +153,9 @@ const salesTeam={
   addsalesTeam:"ecomm/salesTeam/create",
   getsalesTeam:"ecomm/salesTeam/get",
   updatesalesTeam:"ecomm/salesTeam/update",
+  performance:"salesApp/target/getPerformanceData",
+  getleave:"salesApp/Attendence/leave",
+  updateLeaveStatus:"salesApp/Attendence/updateLeave"
 }
 const gpsDevices={
   addgpsDevices:"ecomm/gpsDevices/create",
@@ -185,7 +188,12 @@ const downloadDetailsExcel={
  deviceTypes:"download/downloaddeviceTypes",
  downloadInventry:"download/downloadInventry",
 }
+const salesAppNotification={
+  salesAppgetNotification:"salesApp/notification/get",
+  sendNotification:"salesApp/notification/create",
+}
 const APIName = {
+  ...salesAppNotification,
   ...BillboardAPI,
   ...Users,
   ...adminauthAPI,

@@ -73,6 +73,7 @@ import Addons from './pages/Ecomm/AddOns/Addons';
 import SaleseTeam from './pages/Ecomm/Sales-Team/SaleseTeam';
 import DiscountCopoun from './pages/Ecomm/Discount-Copoun/DiscountCopoun';
 import ManageInvoice from './pages/Ecomm/Manage-Invoice/ManageInvoice';
+import NotificationIndex from './pages/Ecomm/Notification/NotificationIndex';
 export const routes = [
   { path: '/auth/signin', title: 'TRP Signin', component: <SignIn /> },
   { path: '/', title: 'TRP ashboard', component: <ECommerce /> },
@@ -406,5 +407,28 @@ export const routes = [
   title: 'Manage-Invoices',
   component: <ManageInvoice />,
 },
-//sim managment
+//salesApp managment
+
+{
+  path: '/salesApp',
+  title: 'salesApp',
+  component: <EcommDshboard />,
+},
+
+{
+  path: '/salesApp/sales-team',
+  title: 'sales-team',
+  component: <SaleseTeam />,
+},
+{
+  path: '/salesApp/Discount-Coupon',
+  title: 'Discount-Coupon',
+  component: <DiscountCopoun />,
+},
+{
+  path: '/salesApp/Notification',
+  title: 'Notification',
+  component: <NotificationIndex />,
+},
+
 ];

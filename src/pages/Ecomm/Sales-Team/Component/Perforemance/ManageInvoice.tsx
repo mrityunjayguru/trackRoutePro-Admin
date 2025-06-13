@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Eye, Upload } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch } from "../../../../store/store";
-import { getInvoices } from "../../../../api/ecomm/relaySecurity";
-import InvoiceCard from "./InvoiceCard";
-import Pagination from "../../../../common/Loader/Pagination";
-import { UploadIcons, ViewIcons } from "../../../../components/Sidebar/SideBarSvgIcons";
+import { AppDispatch } from "../../../../../store/store";
+import { UploadIcons, ViewIcons } from "../../../../../components/Sidebar/SideBarSvgIcons";
+import InvoiceCard from "../../../Manage-Invoice/Component/InvoiceCard";
+import Pagination from "../../../../../common/Loader/Pagination";
+import { getInvoices } from "../../../../../api/ecomm/relaySecurity";
+import InvoiceDatePicker from "./InvoiceDatePicker";
 
-const InvoiceTable = () => {
+const ManageInvoice = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [invoice, setInvoiceData] = useState<any>(null);
+  const performance = useSelector((state:any) => state?.slesTeame?.performance);
 
   const dispatch = useDispatch<AppDispatch>();
   const invoicedata = useSelector((state: any) => state.relaySecurity.invoices);
@@ -23,6 +25,9 @@ const InvoiceTable = () => {
         search: searchTerm,
         offset: (currentPage - 1) * itemsPerPage,
       };
+      if(performance._id){
+        Object.assign(payload,{userId:performance._id})
+      }
       await dispatch(getInvoices(payload));
     } catch (err) {
       console.log(err);
@@ -45,21 +50,10 @@ const InvoiceTable = () => {
     <div className="p-4">
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-3">
-        <h2 className="text-lg font-semibold text-[#a8a8b1]">Invoices</h2>
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full sm:w-auto">
-          <input
-            type="text"
-            placeholder="Search by client name"
-            className="border px-3 py-1 rounded-md text-sm w-full sm:w-auto"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
-          <select className="border px-2 py-1 rounded-md text-sm bg-black text-white w-full sm:w-auto">
-            <option>Last month</option>
-            <option>This month</option>
-            <option>Last 3 months</option>
-          </select>
+         <InvoiceDatePicker/>
         </div>
+        <h2 className="text-lg font-semibold text-[#a8a8b1]">Invoices</h2>
       </div>
 
       {/* Table and InvoiceCard */}
@@ -124,4 +118,4 @@ const InvoiceTable = () => {
   );
 };
 
-export default InvoiceTable;
+export default ManageInvoice;

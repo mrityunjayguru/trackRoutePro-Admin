@@ -2,8 +2,9 @@ import React, { useEffect } from 'react';
 import { Pencil } from 'lucide-react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../../../store/store';
-import { getSalesTeam, setupdatesalesTeam, updatesalesTeam } from '../../../../api/ecomm/salesTeam';
-
+import { getSalesTeam, handlePerformence, setupdatesalesTeam, updatesalesTeam } from '../../../../api/ecomm/salesTeam';
+import { TbEdit } from "react-icons/tb";
+import { ViewIcons } from '../../../../components/Sidebar/SideBarSvgIcons';
 const AddOnstable = () => {
   const dispatch = useDispatch<AppDispatch>();
   const salesTeam = useSelector((state: any) => state?.slesTeame?.slesTeame);
@@ -38,7 +39,11 @@ const AddOnstable = () => {
       console.error("Failed to update status", err);
     }
   };
+const handlePerformences=async(val:any)=>{
+    await dispatch(handlePerformence(val));
 
+  console.log(val,"valvalval")
+}
   return (
     <div>
       <h2 className="text-lg font-semibold mb-4 text-[#585859]">Add-ons Catalogue</h2>
@@ -46,19 +51,24 @@ const AddOnstable = () => {
         <thead>
           <tr className="text-left text-sm text-[#A6A6A6]">
             <th>Name</th>
+            <th>email</th>
+            <th>phone</th>
             <th>Designation</th>
             <th>Employee Code</th>
             <th>Discount</th>
             <th>Location</th>
             <th>image</th>
             <th>Edit</th>
+            <th>Perforamence</th>
             <th>Status</th>
           </tr>
         </thead>
         <tbody>
           {salesTeam?.map((device: any, idx: number) => (
-            <tr key={idx} className="bg-white rounded shadow-sm text-[#1A1D1F]">
-              <td className="py-2 px-4">{device.fullName}</td>
+            <tr key={idx} className="bg-white font-[500]  rounded shadow-sm text-[#1A1D1F]">
+              <td className="">{device.fullName}</td>
+              <td className="">{device.email}</td>
+              <td className="">{device.phone}</td>
               <td>{device.designationData?.designation}</td>
               <td>{device.employeecode}</td>
               <td>{device.couponData?.discountCode}</td>
@@ -66,9 +76,14 @@ const AddOnstable = () => {
               <td> <img className='w-20 h-20 object-cover' src={ `${import.meta.env.VITE_APP_Image_Url}${device.photo}`} alt="" /></td>
 
               <td>
-                <Pencil
+                <TbEdit size={24}
                   onClick={() => handleUpdate(device)}
-                  className="w-4 h-4 text-purple-500 cursor-pointer"
+                  className="  text-[#6C63FF] cursor-pointer"
+                />
+              </td>
+                  <td  onClick={() => handlePerformences(device)} className='cursor-pointer'>
+                < ViewIcons 
+                
                 />
               </td>
               <td>
