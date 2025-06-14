@@ -56,6 +56,7 @@ setData(val)
           </div>
           <div className="flex flex-col items-center p-3 bg-gray-50 rounded-lg">
             <div className="text-sm text-gray-500 mb-1">Revenue Generated</div>
+            
             <div className="text-3xl font-bold text-gray-800">{record?.totalsellrevenue[0]?.totalsellrevenue}</div>
           </div>
         </div>
