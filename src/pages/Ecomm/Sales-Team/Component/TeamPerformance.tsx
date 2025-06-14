@@ -18,9 +18,6 @@ function TeamPerformance() {
   const performancedata:any= useSelector((state: any) => state?.slesTeame?.performancedata);
 
 
-   const myWorkdays = 30;
-  const myPresent = 27;
-  const myAbsent = 3;
 const dispatch=useDispatch<AppDispatch>()
   const getData=async()=>{
     try{

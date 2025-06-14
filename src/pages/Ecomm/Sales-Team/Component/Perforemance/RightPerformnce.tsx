@@ -56,11 +56,9 @@ setData(val)
           </div>
           <div className="flex flex-col items-center p-3 bg-gray-50 rounded-lg">
             <div className="text-sm text-gray-500 mb-1">Revenue Generated</div>
-            
             <div className="text-3xl font-bold text-gray-800">{record?.totalsellrevenue[0]?.totalsellrevenue}</div>
           </div>
         </div>
-
         {/* Download Buttons */}
         <div className="flex flex-col sm:flex-row justify-end space-y-3 sm:space-y-0 sm:space-x-4 mt-6">
           <button className="bg-[#000000] text-[#D9E821]  px-6 py-3 rounded-lg font-semibold shadow  transition-colors">

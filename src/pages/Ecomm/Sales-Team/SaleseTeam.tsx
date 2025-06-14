@@ -22,10 +22,11 @@ function SaleseTeam() {
   const updateSalesTeam = useSelector((state: any) => state?.slesTeame?.updateSalesTeam);
   const performance = useSelector((state: any) => state?.slesTeame?.performance);
 
+  console.log(performance,"performanceperformanceperformanceperformanceperformanceperformance")
   useEffect(() => {
     if (updateSalesTeam) {
-      const payload: any = null;
-      dispatch(handlePerformence(payload));
+      // const payload: any = null;
+      // dispatch(handlePerformence(payload));
       setActiveTab('onboard');
     }else{
       setActiveTab('Team');
@@ -37,14 +38,14 @@ function SaleseTeam() {
       setActiveTab('Performence');
     }
 
-    return () => {
-      const reset = async () => {
-        const payload: any = null;
-        await dispatch(setupdatesalesTeam(payload));
-        await dispatch(handlePerformence(payload))
-      };
-      reset();
-    };
+    // return () => {
+    //   const reset = async () => {
+    //     const payload: any = null;
+    //     await dispatch(setupdatesalesTeam(payload));
+    //     await dispatch(handlePerformence(payload))
+    //   };
+    //   reset();
+    // };
   }, [performance]);
 
   return (

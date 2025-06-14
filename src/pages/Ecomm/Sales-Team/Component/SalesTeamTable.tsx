@@ -42,7 +42,7 @@ const AddOnstable = () => {
 const handlePerformences=async(val:any)=>{
     await dispatch(handlePerformence(val));
 
-  console.log(val,"valvalval")
+  // console.log(val,"valvalval")
 }
   return (
     <div>
