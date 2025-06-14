@@ -4,7 +4,7 @@ import DeviceTable from './component/DeviceTable';
 import { useSelector } from 'react-redux';
 import Category from './Catrgory/Category';
 
-const tabs = [
+const tabs:any = [
   { label: 'Catalogue', key: 'catalogue' },
   { label: 'Category', key: 'Category' },
   { label: 'Onboard', key: 'Onboard' },
@@ -21,7 +21,7 @@ setActiveTab("Onboard")
     <div className="pb-20 "> {/* padding-bottom to avoid hidden content behind fixed nav */}
       {/* Top Navigation Tabs */}
       <div className="topnav ">
-        {tabs.map((tab) => (
+        {tabs?.map((tab:any) => (
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
