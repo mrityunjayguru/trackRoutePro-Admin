@@ -3,7 +3,9 @@ import AddOnsForm from './Component/AddOnsForm';
 import AddOnstable from './Component/AddOnstable';
 import RelayForm from './Component/RelayForm';
 import AddonForm from './Component/AddOnsForm';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setUpdateaddOns } from '../../../api/ecomm/addOns';
+import { AppDispatch } from '../../../store/store';
 
 const tabs = [
   { label: 'Catalogue', key: 'catalogue' },
@@ -14,10 +16,19 @@ const tabs = [
 function Addons() {
   const [activeTab, setActiveTab] = useState('catalogue');
   const updateData=useSelector((state:any)=>state.addOns?.singleaddOns)
-
+ const dispatch=useDispatch<AppDispatch>()
   useEffect(()=>{
+    if(updateData){
 setActiveTab("onboard")
+    }
   },[updateData])
+  useEffect(()=>{
+return()=>{
+  let val:any=null
+       dispatch(setUpdateaddOns(val));
+  
+}
+  },[])
   return (
     <div className="pb-20"> {/* padding-bottom to avoid hidden content behind fixed nav */}
       {/* Top Navigation Tabs */}

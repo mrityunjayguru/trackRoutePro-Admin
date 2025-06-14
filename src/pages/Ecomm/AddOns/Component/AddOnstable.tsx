@@ -21,8 +21,8 @@ const AddOnstable = () => {
     getRecord();
   }, []);
 
-  const handleUpdate = (val: any) => {
-    dispatch(setUpdateaddOns(val));
+  const handleUpdate =async (val: any) => {
+    await dispatch(setUpdateaddOns(val));
   };
 
   const handleToggleStatus = async (device: any) => {
