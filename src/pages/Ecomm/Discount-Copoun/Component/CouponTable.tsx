@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { getcoupon, setUpdatecoupon, updatecoupon } from '../../../../api/ecomm/coupon';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../../../store/store';
-import { formatDateToDDMMMYYYYwithTime } from '../../../../common/ManageDate';
+import { formatDateToDDMMMYYYYwithDate, formatDateToDDMMMYYYYwithTime } from '../../../../common/ManageDate';
 
 function CouponTable() {
   const couponRecord = useSelector((state: any) => state?.coupon?.coupon);
@@ -58,8 +58,8 @@ function CouponTable() {
             <tr key={i} className="border-b">
               <td className="p-2" onClick={() => handleUpdate(c)}>{c.discountCode}</td>
               <td className="p-2">{c.discountPercent}%</td>
-              <td className="p-2">{c?.discountStart ? formatDateToDDMMMYYYYwithTime(c?.discountStart) : "NA"}</td>
-              <td className="p-2">{c?.discountEnd ? formatDateToDDMMMYYYYwithTime(c?.discountEnd) : "NA"}</td>
+              <td className="p-2">{c?.discountStart ? formatDateToDDMMMYYYYwithDate(c?.discountStart) : "NA"}</td>
+              <td className="p-2">{c?.discountEnd ? formatDateToDDMMMYYYYwithDate(c?.discountEnd) : "NA"}</td>
               <td className="p-2 text-center">
                 <button className="text-indigo-500 hover:text-indigo-700" onClick={() => handleUpdate(c)}>
                   ✏️

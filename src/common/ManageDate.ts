@@ -46,7 +46,7 @@ export const formatDateToDDMMMYYYYwithDate = (dateInput:any) => {
     const year = date.getFullYear();
   
     // Return the formatted date
-    return `${day} ${month} ${year}`;
+    return `${day}-${month}-${year}`;
   };
   
 

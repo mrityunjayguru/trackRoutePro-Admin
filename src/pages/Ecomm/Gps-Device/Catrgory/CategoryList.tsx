@@ -32,11 +32,14 @@ const CategoryList = () => {
     }
   }, [categoryresult]);
 
-  const handleToggle = (id: string) => {
-    setStatusMap((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+  const handleToggle = async(val:any) => {
+  const payload:any = {
+      _id:val._id,
+      isDeleted: !val.isDeleted,
+    };
+  await  dispatch(handleupdateCategory(payload))
+   await getCategoryResults();
+
     // Optional: Trigger API call here to update status
   };
 
@@ -84,9 +87,9 @@ const payload:any={
               </td>
               <td>
                 <label className="inline-flex items-center cursor-pointer">
-                  <input
+                  <input onChange={()=>handleToggle(cat)}
                     type="checkbox"
-                    checked={cat.status}
+                    checked={cat.isDeleted}
                     readOnly
                     className="sr-only peer"
                   />
