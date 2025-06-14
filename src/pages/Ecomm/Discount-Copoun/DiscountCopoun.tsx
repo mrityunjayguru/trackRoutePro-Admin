@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddOnstable from './Component/CouponTable';
 import RelayForm from './Component/DiscountForm';
 import DiscountForm from './Component/DiscountForm';
 import CouponManager from './Component/CouponForm';
+import { setUpdatecoupon } from '../../../api/ecomm/coupon';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../../store/store';
 
 const tabs = [
   { label: 'Discount', key: 'Discount' },
@@ -10,7 +13,13 @@ const tabs = [
 
 function DiscountCopoun() {
   const [activeTab, setActiveTab] = useState('Discount');
-
+  const dispatch=useDispatch<AppDispatch>()
+useEffect(()=>{
+  return ()=>{
+      const payload2:any=null
+         dispatch(setUpdatecoupon(payload2))
+  }
+})
   return (
     <div className="pb-20"> {/* padding-bottom to avoid hidden content behind fixed nav */}
       {/* Top Navigation Tabs */}

@@ -75,10 +75,9 @@ export const updateSalesTeams = createAsyncThunk<boolean, Payload>(
   async (payload, thunkAPI) => {
     try {
       const data = await salesTeamRepo.updatesalesTeam(payload);
-    
       if (data.status === 200) {
-      
-        thunkAPI.dispatch(setslesTeame(data.data.data));
+        GetMessage("success","Records Updated")
+        // thunkAPI.dispatch(setslesTeame(data.data.data));
         return true;
       }
     } catch (err:any) {

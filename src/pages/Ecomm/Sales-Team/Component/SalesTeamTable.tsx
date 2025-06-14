@@ -51,13 +51,13 @@ const handlePerformences=async(val:any)=>{
         <thead>
           <tr className="text-left text-sm text-[#A6A6A6]">
             <th>Name</th>
-            <th>email</th>
-            <th>phone</th>
-            <th>Designation</th>
             <th>Employee Code</th>
-            <th>Discount</th>
+            <th>Designation</th>
             <th>Location</th>
-            <th>image</th>
+            <th>phone</th>
+            <th>email</th>
+            <th>Discount</th>
+            {/* <th>image</th> */}
             <th>Edit</th>
             <th>Perforamence</th>
             <th>Status</th>
@@ -67,13 +67,13 @@ const handlePerformences=async(val:any)=>{
           {salesTeam?.map((device: any, idx: number) => (
             <tr key={idx} className="bg-white font-[500]  rounded shadow-sm text-[#1A1D1F]">
               <td className="">{device.fullName}</td>
-              <td className="">{device.email}</td>
-              <td className="">{device.phone}</td>
-              <td>{device.designationData?.designation}</td>
               <td>{device.employeecode}</td>
-              <td>{device.couponData?.discountCode}</td>
+              <td>{device.designationData?.designation}</td>
               <td>{device.operatingArea}</td>
-              <td> <img className='w-20 h-20 object-cover' src={ `${import.meta.env.VITE_APP_Image_Url}${device.photo}`} alt="" /></td>
+              <td className="">{device.phone}</td>
+              <td className="">{device.email}</td>
+              <td>{device.couponData?.discountCode}</td>
+              {/* <td> <img className='w-20 h-20 object-cover' src={ `${import.meta.env.VITE_APP_Image_Url}${device.photo}`} alt="" /></td> */}
 
               <td>
                 <TbEdit size={24}

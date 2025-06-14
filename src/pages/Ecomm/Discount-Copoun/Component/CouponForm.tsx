@@ -49,7 +49,7 @@ console.log(updatecouponRecord,"updatecouponRecord")
       reset({
         discountCode: updatecouponRecord.discountCode || "",
         discountPercent: updatecouponRecord.discountPercent || 0,
-        discountValue: updatecouponRecord.discountValue || 0,
+        // discountValue: updatecouponRecord.discountValue || 0,
         discountStart: updatecouponRecord.discountStart?.slice(0, 10) || "", // Trim date
         discountEnd: updatecouponRecord.discountEnd?.slice(0, 10) || "",
       });
@@ -72,7 +72,7 @@ console.log(updatecouponRecord,"updatecouponRecord")
       await dispatch(addcoupon(payload));
       }
       const payload2:any=null
-    dispatch(setUpdatecoupon(payload2))
+    await dispatch(setUpdatecoupon(payload2))
       
       reset(); // Clear the form
     } catch (error) {
@@ -107,7 +107,7 @@ console.log(updatecouponRecord,"updatecouponRecord")
           {errors.discountPercent && <p className="text-red-500 text-sm">{errors.discountPercent.message}</p>}
         </div>
 
-        <div>
+        {/* <div>
           <input
             type="text"
             placeholder="Discount Value"
@@ -115,7 +115,7 @@ console.log(updatecouponRecord,"updatecouponRecord")
             className="border p-2 rounded w-full"
           />
           {errors.discountValue && <p className="text-red-500 text-sm">{errors.discountValue.message}</p>}
-        </div>
+        </div> */}
 
         <div>
           <input

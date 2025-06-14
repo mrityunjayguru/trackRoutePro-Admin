@@ -57,7 +57,7 @@ const RelayForm = () => {
     const payload:any = {
       id: item.id || item._id, // adjust if using _id instead of id
       designation: item.designation,
-      status: !item.status,
+      isDeleted: !item.isDeleted,
     };
     await dispatch(updatedesignation(payload));
     getRecords();
@@ -120,7 +120,7 @@ const RelayForm = () => {
                     <input
                       type="checkbox"
                       className="sr-only peer"
-                      checked={item.status}
+                      checked={item.isDeleted}
                       onChange={() => toggleStatus(item)}
                     />
                     <div className="w-11 h-6 bg-gray-300 peer-focus:outline-none rounded-full peer peer-checked:bg-black transition-colors"></div>

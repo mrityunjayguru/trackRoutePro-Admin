@@ -3,42 +3,54 @@ import AddOnstable from './Component/SalesTeamTable';
 import RelayForm from './Component/RelayForm';
 import SalesTeamForm from './Component/SalesTeamForm';
 import { useDispatch, useSelector } from 'react-redux';
-import PerformanceChart from './Component/PerformanceChart';
 import TeamPerformance from './Component/TeamPerformance';
-import { handlePerformence } from '../../../api/ecomm/salesTeam';
+import { handlePerformence, setupdatesalesTeam } from '../../../api/ecomm/salesTeam';
 import { AppDispatch } from '../../../store/store';
 import ApplicationTable from './Component/Application/ApplicationTable';
-// ApplicationTable 
+
 const tabs:any = [
   { label: 'Team', key: 'Team' },
   { label: 'Onboard', key: 'onboard' },
   { label: 'Designation', key: 'Designation' },
   { label: 'Performence', key: 'Performence' },
   { label: 'Leave Applications', key: 'LeaveApplications' },
-
 ];
 
 function SaleseTeam() {
-  const dispatch=useDispatch<AppDispatch>()
+  const dispatch = useDispatch<AppDispatch>();
   const [activeTab, setActiveTab] = useState('Team');
   const updateSalesTeam = useSelector((state: any) => state?.slesTeame?.updateSalesTeam);
-  const performance= useSelector((state: any) => state?.slesTeame?.performance);
+  const performance = useSelector((state: any) => state?.slesTeame?.performance);
 
+  useEffect(() => {
+    if (updateSalesTeam) {
+      const payload: any = null;
+      dispatch(handlePerformence(payload));
+      setActiveTab('onboard');
+    }else{
+      setActiveTab('Team');
+    }
+  }, [updateSalesTeam]);
 
-  useEffect(()=>{
-    const payload:any=null
-     dispatch(handlePerformence(payload));
+  useEffect(() => {
+    if (performance) {
+      setActiveTab('Performence');
+    }
 
-setActiveTab("onboard")
-  },[updateSalesTeam])
-useEffect(()=>{
-setActiveTab("Performence")
-},[performance])
+    return () => {
+      const reset = async () => {
+        const payload: any = null;
+        await dispatch(setupdatesalesTeam(payload));
+        await dispatch(handlePerformence(payload))
+      };
+      reset();
+    };
+  }, [performance]);
+
   return (
-    <div className="pb-20"> {/* padding-bottom to avoid hidden content behind fixed nav */}
-      {/* Top Navigation Tabs */}
+    <div className="pb-20">
       <div className="topnav">
-        {tabs?.map((tab:any) => (
+        {tabs.map((tab: { key: string | number | bigint | ((prevState: string) => string) | null | undefined; label: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | Iterable<React.ReactNode> | React.ReactPortal | null | undefined; }) => (
           <button
             key={tab.key}
             onClick={() => setActiveTab(tab.key)}
@@ -48,15 +60,13 @@ setActiveTab("Performence")
           </button>
         ))}
       </div>
-      {/* Tab Content */}
+
       <div className="p-4">
         {activeTab === 'Team' && <AddOnstable />}
-        {activeTab === 'onboard' && <SalesTeamForm/>}
+        {activeTab === 'onboard' && <SalesTeamForm />}
         {activeTab === 'Designation' && <RelayForm />}
-        {activeTab === 'Performence' &&  <TeamPerformance/>}
-        {activeTab === 'LeaveApplications' &&  <ApplicationTable/>}
-
-
+        {activeTab === 'Performence' && <TeamPerformance />}
+        {activeTab === 'LeaveApplications' && <ApplicationTable />}
       </div>
     </div>
   );

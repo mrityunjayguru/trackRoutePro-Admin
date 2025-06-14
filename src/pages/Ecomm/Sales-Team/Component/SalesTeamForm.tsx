@@ -30,7 +30,7 @@ const schema = yup.object().shape({
   designation: yup.string(),
   operatingArea: yup.string(),
   discountPercent: yup.string(),
-  discountValue: yup.string(),
+  // discountValue: yup.string(),
   discountCode: yup.string(),
 });
 
@@ -148,7 +148,7 @@ const SalesTeamForm = () => {
           designation: updateSalesTeam.designation || '',
           operatingArea: updateSalesTeam.operatingArea || '',
           discountPercent: updateSalesTeam?.couponData?.discountPercent || '',
-          discountValue: updateSalesTeam?.couponData?.discountValue || '',
+          // discountValue: updateSalesTeam?.couponData?.discountValue || '',
           discountCode: updateSalesTeam.discountCode || '',
         });
 
@@ -296,14 +296,14 @@ const SalesTeamForm = () => {
               className="w-full border rounded px-3 py-2 placeholder:text-[#C8CEDD]"
             />
           </div>
-          <div className="w-1/2">
+          {/* <div className="w-1/2">
             <label className="block mb-1 font-medium text-transparent">Value</label>
             <input
               {...register('discountValue')}
               placeholder="Amount"
               className="w-full border rounded px-3 py-2 placeholder:text-[#C8CEDD]"
             />
-          </div>
+          </div> */}
         </div>
 
         {/* Discount Code */}

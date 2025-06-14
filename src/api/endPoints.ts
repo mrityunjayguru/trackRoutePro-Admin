@@ -136,7 +136,7 @@ const deviceType={
 const addOns={
   addAddOns:"ecomm/addons/create",
   getAddOns:"ecomm/addons/get",
-  updateAddOns:"ecomm/addons/update",
+  updateAddOns:"ecomm/addons/update",  
 }
 const designation={
   adddesignation:"ecomm/designation/create",
