@@ -74,7 +74,7 @@ const payload:any={
               </td>
               <td className="py-3 px-3">
                 <div className="flex flex-wrap gap-4">
-                  {cat.subCategories?.map((sub: any) => (
+                  {cat?.subCategories?.map((sub: any) => (
                     <div key={sub._id} className="flex items-center gap-1 text-yellow-500">
                       {sub.subcategory}
                       <FaEdit className="cursor-pointer" onClick={()=>handleUpdateSubcategory(cat,sub)} />
