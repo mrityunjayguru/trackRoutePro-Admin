@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import logo from '../../images/logo/TrPro.png';
-import login from '../../images/user/login.jpg';
+import logo from '../../images/logo/TrPro.png'; // Make sure this path is correct
+import login from '../../images/user/login.jpg'; // Make sure this path is correct
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
-import { adminLogin } from '../../api/auth';
+import { adminLogin } from '../../api/auth'; // Assuming this API handles both admin and dealer logins
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Footer } from '../../components/Footer/Footer';
 import { getDeviceInfo } from '../../common/getDeviceInfo';
 import OtpModal from './OtpModal';
+
+type LoginType = 'admin' | 'salesTeam';
 
 const SignIn: React.FC = () => {
   const navigate = useNavigate();
@@ -21,16 +23,17 @@ const SignIn: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [payloadVal, setPayloadVal] = useState<any>(null);
+  const [loginType, setLoginType] = useState<LoginType>('admin'); // New state for login type
 
-  const handleAdminLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setError('');
-    if (!email) {
-      setError('Please enter a valid UserID.');
+    if (!email.trim()) {
+      setError(`Please enter a valid UserID for ${loginType === 'admin' ? 'Admin' : 'Sales Team'}.`);
       return;
     }
-    if (!password) {
+    if (!password.trim()) {
       setError('Password is required');
       return;
     }
@@ -39,36 +42,48 @@ const SignIn: React.FC = () => {
       return;
     }
 
-    const payload: any = { password: password.trim(), deviceInfo: getDeviceInfo() };
+    const payload: any = {
+      password: password.trim(),
+      deviceInfo: getDeviceInfo(),
+      role: loginType === 'admin' ? 'Admin' : 'Dealer', // Role based on selection
+    };
+
     if (email.includes('@')) {
       payload.email = email.trim();
-      payload.role = 'Admin';
     } else {
       payload.phone = email.trim();
-      payload.role = 'Dealer';
     }
 
     setPayloadVal(payload);
     setLoading(true);
 
     try {
-      const response: any = await dispatch(adminLogin(payload));
+      const response: any = await dispatch(adminLogin(payload)); // Using adminLogin for both roles
       const role = response.payload?.role;
       setLoading(false);
 
       if (role === 'SuperAdmin') {
-        setShowModal(true); // Show OTP modal
+        setShowModal(true); // Show OTP modal for SuperAdmin
       } else if (role === 'Admin') {
         navigate('/');
-      } else if (role === 'Dealer') {
+      } else if (role === 'Dealer') { // Navigate for Dealer (Sales Team)
         navigate('/DealearDashboard');
       } else {
         setError('Invalid credentials or role');
       }
     } catch (err) {
-      setError('Login failed. Please try again.');
+      console.error("Login API error:", err); // Log the full error for debugging
+      setError('Login failed. Please check your credentials and try again.');
       setLoading(false);
     }
+  };
+
+  const handleRadioChange = (type: LoginType) => {
+    setLoginType(type);
+    // Reset fields and errors when switching login type
+    setEmail('');
+    setPassword('');
+    setError('');
   };
 
   return (
@@ -94,17 +109,43 @@ const SignIn: React.FC = () => {
                 Login Into Your Account
               </h2>
 
-              <form onSubmit={handleAdminLogin}>
+              {/* Radio Button Selection */}
+              <div className="mb-6 flex justify-center gap-6">
+                <label className="inline-flex items-center">
+                  <input
+                    type="radio"
+                    className="form-radio text-[#D9E821] h-5 w-5"
+                    name="loginType"
+                    value="admin"
+                    checked={loginType === 'admin'}
+                    onChange={() => handleRadioChange('admin')}
+                  />
+                  <span className="ml-2 text-gray-700 font-semibold">Login as Admin</span>
+                </label>
+                <label className="inline-flex items-center">
+                  <input
+                    type="radio"
+                    className="form-radio text-[#D9E821] h-5 w-5"
+                    name="loginType"
+                    value="salesTeam"
+                    checked={loginType === 'salesTeam'}
+                    onChange={() => handleRadioChange('salesTeam')}
+                  />
+                  <span className="ml-2 text-gray-700 font-semibold">Login as Sales Team</span>
+                </label>
+              </div>
+
+              <form onSubmit={handleLogin}> {/* Changed to handleLogin */}
                 <div className="mb-4">
                   <label className="block text-gray-600 font-semibold mb-2">
-                    User Id
+                    User Id ({loginType === 'admin' ? 'Email/Phone' : 'Phone'})
                   </label>
                   <input
                     type="text"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="pl-10 pr-10 py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none w-full"
-                    placeholder="Enter User Id"
+                    placeholder={`Enter ${loginType === 'admin' ? 'Admin' : 'Sales Team'} User Id`}
                   />
                 </div>
 
@@ -135,7 +176,7 @@ const SignIn: React.FC = () => {
                   type="submit"
                   disabled={loading}
                   className={`w-full bg-[#000] text-yellow-400 cursor-pointer rounded-lg py-3 font-semibold transition hover:bg-opacity-90 ${
-                    loading ? 'cursor-not-allowed opacity-100' : ''
+                    loading ? 'cursor-not-allowed opacity-100' : '' // Keep original opacity during loading
                   }`}
                 >
                   {loading ? (

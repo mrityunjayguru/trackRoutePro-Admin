@@ -60,7 +60,7 @@ const DeviceTable = () => {
           </tr>
         </thead>
         <tbody>
-          {deviceData.map((device: any, idx: any) => (
+          {deviceData?.map((device: any, idx: any) => (
             <tr
             
               key={idx}

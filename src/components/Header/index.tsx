@@ -1,9 +1,9 @@
-import { Link, useParams, useLocation } from 'react-router-dom';
+import { Link, useParams, useLocation, useNavigate } from 'react-router-dom';
 import DropdownUser from './DropdownUser';
 import LogoIcon from '../../images/logo/logo-icon.svg';
 import { useEffect, useState } from 'react';
 import Breadcrumb from '../../common/Breadcrumb';
-
+import salesApp from "../../images/salesApp.svg"
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
@@ -79,7 +79,7 @@ const Header = (props: {
 
     setTitle(updatedTitle);
   }, [location.pathname, userId]); // Re-run effect when pathname or userId changes
-
+ const navigate=useNavigate()
   return (
     <header className="sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
       <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
@@ -136,6 +136,16 @@ const Header = (props: {
         <div className="flex items-center gap-3 2xsm:gap-7">
           <ul className="flex items-center gap-2 2xsm:gap-4">
             {/* User Area */}
+{!location.pathname.includes('ecommdashboard') && (
+  <img
+    className="cursor-pointer"
+    onClick={() => navigate('/ecommdashboard')}
+    src={salesApp}
+    alt="Sales App"
+  />
+)}
+
+
             <DropdownUser />
           </ul>
         </div>
