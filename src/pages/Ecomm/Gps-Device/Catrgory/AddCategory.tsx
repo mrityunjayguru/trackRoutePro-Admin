@@ -16,7 +16,6 @@ const AddCategory = () => {
   const updateCategorypayload = useSelector(
     (state: any) => state.gpsDevices?.updateCategorypayload
   );
-
   const {
     register,
     handleSubmit,

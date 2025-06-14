@@ -4,16 +4,16 @@ import DeviceTable from './component/DeviceTable';
 import { useSelector } from 'react-redux';
 import Category from './Catrgory/Category';
 
-const tabs:any = [
-  { label: 'Catalogue', key: 'catalogue' },
-  { label: 'Category', key: 'Category' },
-  { label: 'Onboard', key: 'Onboard' },
-];
+
 
 function DiscountCopoun() {
   const [activeTab, setActiveTab] = useState('catalogue');
     const updatedPayload=useSelector((state:any)=>state.gpsDevices?.updateDevice)
-  
+  const tabs:any = [
+  { label: 'Catalogue', key: 'catalogue' },
+  { label: 'Category', key: 'Category' },
+  { label: 'Onboard', key: 'Onboard' },
+];
 useEffect(()=>{
 setActiveTab("Onboard")
 },[updatedPayload])

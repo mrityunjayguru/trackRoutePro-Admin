@@ -26,7 +26,7 @@ const CategoryList = () => {
   useEffect(() => {
     if (categoryresult) {
       const initialStatus = Object.fromEntries(
-        categoryresult.map((cat: any) => [cat._id, !cat.isDeleated])
+        categoryresult?.map((cat: any) => [cat._id, !cat.isDeleated])
       );
       setStatusMap(initialStatus);
     }
