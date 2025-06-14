@@ -52,7 +52,7 @@ setData(val)
           <div className="flex flex-col items-center p-3 bg-gray-50 rounded-lg">
             <div className="text-sm text-gray-500 mb-1">Client Visits</div>
             <div className="text-3xl font-bold text-gray-800">{record?.totalVisits}</div>
-            <div className="text-xs text-gray-500">/230*</div>
+            {/* <div className="text-xs text-gray-500">/230*</div> */}
           </div>
           <div className="flex flex-col items-center p-3 bg-gray-50 rounded-lg">
             <div className="text-sm text-gray-500 mb-1">Revenue Generated</div>
