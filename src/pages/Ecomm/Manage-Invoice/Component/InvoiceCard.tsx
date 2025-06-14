@@ -47,7 +47,7 @@ const InvoiceCard = ({ invoice }: { invoice: any }) => {
         <div className="mb-3">
           <div className="flex items-center gap-2 text-lg font-bold mb-2">
             <TrackRouteLogo />
-            <span>Brillovate Private Limited</span>
+            <span>Brillovate Pvt. Ltd.</span>
           </div>
           <div className="text-xs text-gray-600 leading-snug">
             <p>E-1001, AIG PARK AVENUE, SECTOR-4</p>
