@@ -24,39 +24,33 @@ jobs:
           sudo chmod 600 /swapfile
           sudo mkswap /swapfile
           sudo swapon /swapfile
-          
-          # Make swap permanent
           echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
-          
-          # Optimize swap usage
-          echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
-          echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
-          
           echo "Swap created successfully"
-          free -h
-        else
-          echo "Swap already exists"
         fi
         
         cd /home/ubuntu/trackRoutePro-Admin
         
         # Reset any local changes
-        sudo git reset --hard
+        git reset --hard
         
         # Pull latest changes
-        sudo git pull origin main
+        git pull origin main
         
-        # Clear npm cache to free up space
+        # Stop PM2 apps to free up memory
+        pm2 stop all
+        
+        # IMPORTANT: Clean install without sudo and include optional dependencies
+        rm -rf node_modules package-lock.json
         npm cache clean --force
+        npm install --include=optional
         
-        # Install dependencies
-        sudo npm install
-        
-        # Build with conservative memory limit (1.5GB)
+        # Build with increased memory
         NODE_OPTIONS="--max-old-space-size=1536" npm run build
         
+        # Restart PM2 apps
+        pm2 restart all
+        
         # Restart Nginx
-        echo "Restarting Nginx..."
         sudo systemctl restart nginx
         sudo systemctl status nginx
         
