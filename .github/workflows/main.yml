@@ -30,25 +30,32 @@ jobs:
         
         cd /home/ubuntu/trackRoutePro-Admin
         
-        # Reset any local changes
-        git reset --hard
+        # Stop PM2 to free memory and prevent conflicts
+        pm2 stop all || true
+        
+        # Reset any local changes (this fixes the git ahead issue)
+        git reset --hard origin/main
         
         # Pull latest changes
         git pull origin main
         
-        # Stop PM2 apps to free up memory
-        pm2 stop all
-        
-        # IMPORTANT: Clean install without sudo and include optional dependencies
+        # Clean and reinstall properly (NO sudo, include optional)
         rm -rf node_modules package-lock.json
         npm cache clean --force
         npm install --include=optional
         
-        # Build with increased memory
+        # Build the production version
         NODE_OPTIONS="--max-old-space-size=1536" npm run build
         
-        # Restart PM2 apps
-        pm2 restart all
+        # If PM2 is running dev server, delete and recreate with production build
+        pm2 delete all || true
+        
+        # Start PM2 to serve the built files (not dev server)
+        pm2 serve dist 3000 --name "vite-app" --spa
+        pm2 save
+        
+        # Alternative: If you want to keep dev server, restart it
+        # pm2 start npm --name "vite-app" -- run dev
         
         # Restart Nginx
         sudo systemctl restart nginx
