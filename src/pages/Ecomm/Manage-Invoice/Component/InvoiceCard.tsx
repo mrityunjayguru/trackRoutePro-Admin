@@ -3,19 +3,23 @@ import Logo from '../../../../images/logo/TrPro.png';
 import { TrackRouteLogo } from "../../../../components/Sidebar/SideBarSvgIcons";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import InvoiceGenerator from "./DownloadPdf";
 
 const InvoiceCard = ({ invoice }: { invoice: any }) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const deviceType = invoice?.item?.deviceType ? "Wired" : "Wireless";
-  const devicePrice = invoice?.item?.price || 0;
-  const relayPrice = invoice?.item?.relayPrice || 0;
-  const planPrice = invoice?.item?.internalPlanPrice || 0;
+  const deviceQuantity = invoice?.item?.quantity || 0;
+
+  const devicePrice = (invoice?.item?.price || 0) * deviceQuantity;
+  const relayPrice = (invoice?.item?.relayPrice || 0) * deviceQuantity;
+  const planPrice = (invoice?.item?.internalPlanPrice || 0) * deviceQuantity;
   const duration = parseInt(invoice?.item?.duration) || 1;
 
   const rawTotal = devicePrice + relayPrice + planPrice;
   const gst = parseFloat((rawTotal * 0.18).toFixed(2));
-  const discount = parseFloat((rawTotal * 0.2).toFixed(2));
+  const couponPercent = invoice?.couponDetail?.discountPercent || 0;
+  const discount = parseFloat(((rawTotal * couponPercent) / 100).toFixed(2));
   const totalPayable = rawTotal + gst - discount;
 
   const downloadPDF = async () => {
@@ -47,8 +51,8 @@ const InvoiceCard = ({ invoice }: { invoice: any }) => {
         <div className="mb-3">
           <div className="flex items-center gap-2 text-lg font-bold mb-2">
             <TrackRouteLogo />
-            <span>Brillovate Pvt. Ltd.</span>
           </div>
+            <span>Brillovate Pvt. Ltd.</span>
           <div className="text-xs text-gray-600 leading-snug">
             <p>E-1001, AIG PARK AVENUE, SECTOR-4</p>
             <p>GAUR CITY-1, GAUTAM BUDDHA NAGAR</p>
@@ -66,7 +70,7 @@ const InvoiceCard = ({ invoice }: { invoice: any }) => {
         {/* Invoice Info */}
         <div className="border-t border-gray-200 py-2 text-xs">
           <p>Invoice: {invoice?.invoiceNo || "TRAXXXXXXXX"}</p>
-          <p>Date: {invoice?.date || "16 May 2025 (10:19 AM)"}</p>
+          <p>Date: {invoice?.orderedAt || "16 May 2025 (10:19 AM)"}</p>
           <p className="mt-1 font-semibold">Buyer: {invoice?.personalinfo?.fullName || "N/A"}</p>
           <p className="text-gray-600">
             Address: {invoice?.personalinfo?.district || ""}, {invoice?.personalinfo?.address || ""}
@@ -80,22 +84,16 @@ const InvoiceCard = ({ invoice }: { invoice: any }) => {
         {/* Bill Details */}
         <div className="border-t border-gray-200 py-2 text-xs">
           <h3 className="font-semibold mb-1 text-gray-700">Bill Details</h3>
-          <div className="flex justify-between"><span>{deviceType} GPS Amount</span><span>₹ {devicePrice}</span></div>
-          <div className="flex justify-between"><span>Anti Theft (Relay) Amount</span><span>₹ {relayPrice}</span></div>
-          <div className="flex justify-between"><span>{duration} Year Subscription (W)</span><span>₹ {planPrice}</span></div>
-          {deviceType === "Wireless" && (
-            <div className="flex justify-between">
-              <span>{duration} Year Subscription (WL)</span>
-              <span>₹ {planPrice}</span>
-            </div>
-          )}
+          <div className="flex justify-between"><span>{deviceType} GPS Amount × {deviceQuantity}</span><span>₹ {devicePrice.toFixed(2)}</span></div>
+          <div className="flex justify-between"><span>Anti Theft (Relay) Amount × {deviceQuantity}</span><span>₹ {relayPrice.toFixed(2)}</span></div>
+          <div className="flex justify-between"><span>{duration} Year Subscription × {deviceQuantity}</span><span>₹ {planPrice.toFixed(2)}</span></div>
         </div>
 
         {/* Summary */}
         <div className="border-t border-gray-200 py-2 text-xs">
           <div className="flex justify-between"><span>Total</span><span>₹ {rawTotal.toFixed(2)}</span></div>
           <div className="flex justify-between"><span>18% GST</span><span>₹ {gst.toFixed(2)}</span></div>
-          <div className="flex justify-between text-green-600"><span>Discount Coupon (20%)</span><span>− ₹ {discount.toFixed(2)}</span></div>
+          <div className="flex justify-between text-green-600"><span>Discount Coupon {couponPercent}%</span><span>− ₹ {discount.toFixed(2)}</span></div>
         </div>
 
         {/* Total Payable */}
@@ -104,15 +102,16 @@ const InvoiceCard = ({ invoice }: { invoice: any }) => {
         </div>
       </div>
 
+<InvoiceGenerator invoice={invoice}/>
       {/* Download Button */}
-      <div className="text-center mt-4">
+      {/* <div className="text-center mt-4">
         <button
           onClick={downloadPDF}
           className="bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-700 text-sm"
         >
           Download PDF
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -151,7 +151,6 @@ const SalesTeamForm = () => {
           // discountValue: updateSalesTeam?.couponData?.discountValue || '',
           discountCode: updateSalesTeam.discountCode || '',
         });
-
         if (updateSalesTeam.password) {
           try {
             const decryptedPassword = await decrypt(updateSalesTeam.password);

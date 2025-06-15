@@ -55,7 +55,7 @@ setData(val)
             {/* <div className="text-xs text-gray-500">/230*</div> */}
           </div>
           <div className="flex flex-col items-center p-3 bg-gray-50 rounded-lg">
-            <div className="text-sm text-gray-500 mb-1">Revenue Generated</div>
+            <div className="text-sm text-gray-500 mb-1">Total Sell</div>
             <div className="text-3xl font-bold text-gray-800">{record?.totalsellrevenue[0]?.totalsellrevenue}</div>
           </div>
         </div>
@@ -74,7 +74,7 @@ setData(val)
       <div className="flex flex-col lg:flex-row gap-6">
         {/* Left Card: Image and Location */}
         <div className="bg-white rounded-xl shadow-lg p-6 lg:w-1/3 flex flex-col items-start">
-          <div className="text-gray-500 text-sm mb-4">20 May 2025</div>
+          <div className="text-xl font-semibold text-gray-800 mb-4 md:mb-0">Client Visit Preivew</div>
           <div className="w-full h-48 bg-gray-200 rounded-lg overflow-hidden mb-4">
             {/* Placeholder image */}
             <img
@@ -116,9 +116,9 @@ setData(val)
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Client Name
                   </th>
-                  <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  {/* <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Date
-                  </th>
+                  </th> */}
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Outcome
                   </th>
@@ -132,7 +132,7 @@ setData(val)
                   <tr key={index}>
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{index+1}</td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{visit.clientName}</td>
-                    <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{new Date(visit.startTime).toLocaleString()}</td>
+                    {/* <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{new Date(visit.startTime).toLocaleString()}</td> */}
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{visit.outcome}</td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900" onClick={()=>handleClikc(visit)}>
                       {/* Custom Eye Icon (SVG) */}

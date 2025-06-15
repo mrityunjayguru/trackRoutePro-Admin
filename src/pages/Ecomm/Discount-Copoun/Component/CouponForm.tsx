@@ -23,17 +23,11 @@ const schema = yup.object().shape({
     .min(0, "Minimum is 0")
     .max(100, "Maximum is 100")
     .required("Discount percent is required"),
-  discountValue: yup
-    .number()
-    .typeError("Must be a number")
-    .positive("Must be positive")
-    .required("Discount value is required"),
 });
 
 function CouponForm() {
   const dispatch = useDispatch<AppDispatch>();
   const updatecouponRecord = useSelector((state: any) => state?.coupon?.updateCoupon);
-console.log(updatecouponRecord,"updatecouponRecord")
   const {
     register,
     handleSubmit,

@@ -126,6 +126,8 @@ const PerformanceCalendar: React.FC<PerformanceCalendarProps> = ({ attendenceRec
         return 'bg-red-500 text-white font-bold shadow-md';
       case 'Holiday':
         return 'bg-blue-400 text-white font-bold shadow-md'; // Example for holidays
+             case 'Halfday':
+        return 'bg-[#FEDD25] text-[#000000] font-bold shadow-md'; // Example for holidays
       // Add more cases for other statuses
       default:
         // Default style for days with no record or other status

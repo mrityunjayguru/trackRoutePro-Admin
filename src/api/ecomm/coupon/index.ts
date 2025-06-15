@@ -49,8 +49,13 @@ export const getcoupon = createAsyncThunk<boolean, Payload>(
       const data = await couponRepo.getcoupon(payload);
     
       if (data.status === 200) {
-      
-        thunkAPI.dispatch(setcoupon(data.data.data));
+        console.log(data.data,"datadatadatadatadatadatadata")
+
+      const payload:any={
+        Record:data.data.data,
+        totalcount:data.data?.totalCount
+      }
+        thunkAPI.dispatch(setcoupon(payload));
         return true;
       }
     } catch (err:any) {
