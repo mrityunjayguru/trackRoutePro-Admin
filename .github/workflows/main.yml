@@ -1,66 +1,65 @@
-name: SSH Deploy
+name: Build and Deploy
 on:
   push:
     branches:
       - main
 jobs:
-  deploy:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-    - name: Setup SSH
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci --include=optional
+      
+    - name: Build application
+      run: npm run build
+      
+    - name: Create deployment archive
+      run: tar -czf dist.tar.gz dist/
+      
+    - name: Deploy to EC2
       uses: webfactory/ssh-agent@v0.5.3
       with:
         ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-    - name: SSH into EC2 instance and deploy
+        
+    - name: Upload and deploy
       run: |
+        # Upload build files
+        scp -o StrictHostKeyChecking=no dist.tar.gz ubuntu@3.108.155.90:/home/ubuntu/
+        
+        # Deploy on server
         ssh -o StrictHostKeyChecking=no ubuntu@3.108.155.90 << 'EOF'
         
-        # Check if swap exists, if not create it
-        if [ $(swapon --show | wc -l) -eq 0 ]; then
-          echo "Creating 2GB swap file..."
-          sudo fallocate -l 2G /swapfile
-          sudo chmod 600 /swapfile
-          sudo mkswap /swapfile
-          sudo swapon /swapfile
-          echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
-          echo "Swap created successfully"
-        fi
-        
-        cd /home/ubuntu/trackRoutePro-Admin
-        
-        # Stop PM2 to free memory and prevent conflicts
+        # Stop PM2
         pm2 stop all || true
         
-        # Reset any local changes (this fixes the git ahead issue)
-        git reset --hard origin/main
+        # Extract new build
+        cd /home/ubuntu
+        rm -rf dist_backup
+        mv dist dist_backup 2>/dev/null || true
+        tar -xzf dist.tar.gz
+        rm dist.tar.gz
         
-        # Pull latest changes
-        git pull origin main
+        # Update application directory
+        rm -rf /home/ubuntu/trackRoutePro-Admin/dist
+        mv dist /home/ubuntu/trackRoutePro-Admin/
         
-        # Clean and reinstall properly (NO sudo, include optional)
-        rm -rf node_modules package-lock.json
-        npm cache clean --force
-        npm install --include=optional
-        
-        # Build the production version
-        NODE_OPTIONS="--max-old-space-size=1536" npm run build
-        
-        # If PM2 is running dev server, delete and recreate with production build
+        # Restart PM2
+        cd /home/ubuntu/trackRoutePro-Admin
         pm2 delete all || true
-        
-        # Start PM2 to serve the built files (not dev server)
         pm2 serve dist 3000 --name "vite-app" --spa
         pm2 save
         
-        # Alternative: If you want to keep dev server, restart it
-        # pm2 start npm --name "vite-app" -- run dev
-        
         # Restart Nginx
         sudo systemctl restart nginx
-        sudo systemctl status nginx
         
-        echo "Deployment completed successfully"
-        free -h
+        echo "Deployment completed in seconds!"
         EOF
