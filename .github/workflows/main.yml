@@ -2,33 +2,58 @@ name: SSH Deploy
 on:
   push:
     branches:
-      - main  # This will trigger the workflow on pushing to the 'main' branch
+      - main
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # Specify the environment (latest Ubuntu in this case)
+    runs-on: ubuntu-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2  # Checkout the code from the repository
+      uses: actions/checkout@v2
     - name: Setup SSH
-      uses: webfactory/ssh-agent@v0.5.3  # Use SSH Agent to deploy
+      uses: webfactory/ssh-agent@v0.5.3
       with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # Your private SSH key from secrets
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
     - name: SSH into EC2 instance and deploy
       run: |
         ssh -o StrictHostKeyChecking=no ubuntu@3.108.155.90 << 'EOF'
+        
+        # Check if swap exists, if not create it
+        if [ $(swapon --show | wc -l) -eq 0 ]; then
+          echo "Creating 2GB swap file..."
+          sudo fallocate -l 2G /swapfile
+          sudo chmod 600 /swapfile
+          sudo mkswap /swapfile
+          sudo swapon /swapfile
+          
+          # Make swap permanent
+          echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+          
+          # Optimize swap usage
+          echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
+          echo 'vm.vfs_cache_pressure=50' | sudo tee -a /etc/sysctl.conf
+          
+          echo "Swap created successfully"
+          free -h
+        else
+          echo "Swap already exists"
+        fi
+        
         cd /home/ubuntu/trackRoutePro-Admin
         
-        # Reset any local changes to avoid merge conflicts
+        # Reset any local changes
         sudo git reset --hard
         
-        # Pull the latest changes from the 'main' branch
+        # Pull latest changes
         sudo git pull origin main
+        
+        # Clear npm cache to free up space
+        npm cache clean --force
         
         # Install dependencies
         sudo npm install
         
-        # Build the application
-        npm run build
+        # Build with conservative memory limit (1.5GB)
+        NODE_OPTIONS="--max-old-space-size=1536" npm run build
         
         # Restart Nginx
         echo "Restarting Nginx..."
@@ -36,4 +61,5 @@ jobs:
         sudo systemctl status nginx
         
         echo "Deployment completed successfully"
+        free -h
         EOF
