@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch } from '../../../../store/store'
 import { performanceData } from '../../../../api/ecomm/salesTeam'
 import ManageInvoice from './Perforemance/ManageInvoice'
+import CurrentDayAttendenceRecord from './Perforemance/CurrentDayAttendenceRecord'
 
 function TeamPerformance() {
   const performance= useSelector((state: any) => state?.slesTeame?.performance);
@@ -39,6 +40,9 @@ getData()
       <div className="grid grid-cols-[30%_70%] gap-4">
         <div>
           <UserCard record={performancedata?.salesTeam}/>
+          <div className='mt-5'>
+            <CurrentDayAttendenceRecord record={performancedata?.salesTeam}/>
+          </div>
          <div className='my-5'>
            <CalendarCard attendenceRecord={performancedata?.attendenceRecord} />
          </div>
