@@ -1,65 +1,39 @@
-name: Build and Deploy
+name: SSH Deploy
 on:
   push:
     branches:
-      - main
+      - main  # This will trigger the workflow on pushing to the 'main' branch
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
+  deploy:
+    runs-on: ubuntu-latest  # Specify the environment (latest Ubuntu in this case)
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
-      
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
+      uses: actions/checkout@v2  # Checkout the code from the repository
+    - name: Setup SSH
+      uses: webfactory/ssh-agent@v0.5.3  # Use SSH Agent to deploy
       with:
-        node-version: '18'
-        cache: 'npm'
-        
-    - name: Install dependencies
-      run: npm ci --include=optional
-      
-    - name: Build application
-      run: npm run build
-      
-    - name: Create deployment archive
-      run: tar -czf dist.tar.gz dist/
-      
-    - name: Deploy to EC2
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-        
-    - name: Upload and deploy
+        ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}  # Your private SSH key from secrets
+    - name: SSH into EC2 instance and deploy
       run: |
-        # Upload build files
-        scp -o StrictHostKeyChecking=no dist.tar.gz ubuntu@3.108.155.90:/home/ubuntu/
-        
-        # Deploy on server
         ssh -o StrictHostKeyChecking=no ubuntu@3.108.155.90 << 'EOF'
-        
-        # Stop PM2
-        pm2 stop all || true
-        
-        # Extract new build
-        cd /home/ubuntu
-        rm -rf dist_backup
-        mv dist dist_backup 2>/dev/null || true
-        tar -xzf dist.tar.gz
-        rm dist.tar.gz
-        
-        # Update application directory
-        rm -rf /home/ubuntu/trackRoutePro-Admin/dist
-        mv dist /home/ubuntu/trackRoutePro-Admin/
-        
-        # Restart PM2
         cd /home/ubuntu/trackRoutePro-Admin
-        pm2 delete all || true
-        pm2 serve dist 3000 --name "vite-app" --spa
-        pm2 save
+        
+        # Reset any local changes to avoid merge conflicts
+        sudo git reset --hard
+        
+        # Pull the latest changes from the 'main' branch
+        sudo git pull origin main
+        
+        # Install dependencies
+        sudo npm install
+        
+        # Build the application
+        npm run build
         
         # Restart Nginx
+        echo "Restarting Nginx..."
         sudo systemctl restart nginx
+        sudo systemctl status nginx
         
-        echo "Deployment completed in seconds!"
+        echo "Deployment completed successfully"
         EOF
