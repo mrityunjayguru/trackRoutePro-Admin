@@ -10,9 +10,10 @@ const InvoiceCard = ({ invoice }: { invoice: any }) => {
 
   const deviceType = invoice?.item?.deviceType ? "Wired" : "Wireless";
   const deviceQuantity = invoice?.item?.quantity || 0;
+  const relayQuentity=invoice?.item?.relayQuentity || 0;
 
   const devicePrice = (invoice?.item?.price || 0) * deviceQuantity;
-  const relayPrice = (invoice?.item?.relayPrice || 0) * deviceQuantity;
+  const relayPrice = (invoice?.item?.relayPrice || 0) * relayQuentity;
   const planPrice = (invoice?.item?.internalPlanPrice || 0) * deviceQuantity;
   const duration = parseInt(invoice?.item?.duration) || 1;
 
@@ -54,11 +55,11 @@ const InvoiceCard = ({ invoice }: { invoice: any }) => {
           </div>
             <span>Brillovate Pvt. Ltd.</span>
           <div className="text-xs text-gray-600 leading-snug">
-            <p>E-1001, AIG PARK AVENUE, SECTOR-4</p>
-            <p>GAUR CITY-1, GAUTAM BUDDHA NAGAR</p>
-            <p>UTTAR PRADESH - 201318</p>
-            <p>GSTIN/UIN: 09CZXPK0270J1ZS</p>
-            <p>State Name: Uttar Pradesh, Code 09</p>
+            <p>GE AMBIKA AMBIKA</p>
+            <p>SHIV BAGAN,NEAR RAJ BHA</p>
+            <p>Ranchi G.P.O., Ranchi, Ranchi- 834001</p>
+            <p>GSTIN/UIN: 20AANCB5092K1ZJ</p>
+            <p>State Name: Jharkhand</p>
 
             <hr className="my-2 border-gray-200" />
 
@@ -85,8 +86,8 @@ const InvoiceCard = ({ invoice }: { invoice: any }) => {
         <div className="border-t border-gray-200 py-2 text-xs">
           <h3 className="font-semibold mb-1 text-gray-700">Bill Details</h3>
           <div className="flex justify-between"><span>{deviceType} GPS Amount × {deviceQuantity}</span><span>₹ {devicePrice.toFixed(2)}</span></div>
-          <div className="flex justify-between"><span>Anti Theft (Relay) Amount × {deviceQuantity}</span><span>₹ {relayPrice.toFixed(2)}</span></div>
-          <div className="flex justify-between"><span>{duration} Year Subscription × {deviceQuantity}</span><span>₹ {planPrice.toFixed(2)}</span></div>
+          <div className="flex justify-between"><span>Anti Theft (Relay) Amount × {relayQuentity}</span><span>₹ {relayPrice.toFixed(2)}</span></div>
+          <div className="flex justify-between"><span>{duration} Year Subscription</span><span>₹ {planPrice.toFixed(2)}</span></div>
         </div>
 
         {/* Summary */}

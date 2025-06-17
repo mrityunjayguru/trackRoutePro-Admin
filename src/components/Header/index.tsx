@@ -4,6 +4,7 @@ import LogoIcon from '../../images/logo/logo-icon.svg';
 import { useEffect, useState } from 'react';
 import Breadcrumb from '../../common/Breadcrumb';
 import salesApp from "../../images/salesApp.svg"
+import { useSelector } from 'react-redux';
 const Header = (props: {
   sidebarOpen: string | boolean | undefined;
   setSidebarOpen: (arg0: boolean) => void;
@@ -11,7 +12,8 @@ const Header = (props: {
   const location = useLocation();
   const { userId } = useParams(); // Extract userId from params
   const [title, setTitle] = useState<string>('');
-
+  const data = useSelector((state: any) => state.Auth?.loginUserData);
+console.log(data,"data?.loginUser?.r")
   // Define a mapping of pathnames to titles
   const pageTitles: Record<string, string> = {
     '/': 'Dashboard',
@@ -63,8 +65,6 @@ const Header = (props: {
     '/ViewDelearDevices': 'View Device',
     '/DealerAddSubscriber': 'Add Subscriber',
     '/existignuser': 'Add Subscriber',
-
-    
   };
 
   useEffect(() => {
@@ -136,7 +136,7 @@ const Header = (props: {
         <div className="flex items-center gap-3 2xsm:gap-7">
           <ul className="flex items-center gap-2 2xsm:gap-4">
             {/* User Area */}
-{!location.pathname.includes('ecommdashboard') && (
+{!location.pathname.includes('ecommdashboard') && data?.role=="SuperAdmin" &&  (
   <img
     className="cursor-pointer"
     onClick={() => navigate('/ecommdashboard')}
@@ -144,9 +144,7 @@ const Header = (props: {
     alt="Sales App"
   />
 )}
-
-
-            <DropdownUser />
+  <DropdownUser />
           </ul>
         </div>
       </div>

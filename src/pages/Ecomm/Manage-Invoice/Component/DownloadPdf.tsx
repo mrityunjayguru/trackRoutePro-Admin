@@ -130,10 +130,11 @@ const styles = StyleSheet.create({
 const MyDocument = ({ invoice }) => {
   const companyName = "Brillovate Private Limited";
   const companyAddress =
-    "GE AMBIKA AMBIKA, SHIV BAGAN,NEAR RAJ BHA,\nRanchi G.P.O., Ranchi,\nRanchi- 834001, Jharkhand";
+    "GE AMBIKA AMBIKA, SHIV BAGAN,NEAR RAJ BHA, Ranchi G.P.O., Ranchi, Ranchi- 834001, Jharkhand";
   const companyGSTIN = "20AANCB5092K1ZJ";
-  const companyStateName = "Uttar Pradesh";
+  const companyStateName = "Jharkhand";
   const companyStateCode = "09";
+  const relayQuentity=invoice?.item?.relayQuentity || 0;
 
   const invoiceNumber = invoice?.invoiceNo;
   const invoiceDate = invoice?.orderedAt;
@@ -148,7 +149,7 @@ const MyDocument = ({ invoice }) => {
   const deviceQuantity = invoice?.item?.quantity || 0;
 
   const devicePrice = (invoice?.item?.price || 0) * deviceQuantity;
-  const relayPrice = (invoice?.item?.relayPrice || 0) * deviceQuantity;
+  const relayPrice = (invoice?.item?.relayPrice || 0) * relayQuentity;
   const planPrice = (invoice?.item?.internalPlanPrice || 0) * deviceQuantity;
   const duration = parseInt(invoice?.item?.duration) || 1;
 
@@ -181,9 +182,9 @@ const MyDocument = ({ invoice }) => {
           <Text style={styles.companyName}>{companyName}</Text>
           <Text style={styles.companyAddress}>{companyAddress}</Text>
           <Text style={styles.companyAddress}>GSTIN/UIN: {companyGSTIN}</Text>
-          <Text style={styles.companyAddress}>
+          {/* <Text style={styles.companyAddress}>
             State Name: {companyStateName}, Code {companyStateCode}
-          </Text>
+          </Text> */}
         </View>
 
         <View style={styles.hr} />
@@ -228,11 +229,11 @@ const MyDocument = ({ invoice }) => {
               <Text> {devicePrice.toFixed(2)}</Text>
             </View>
             <View style={styles.row}>
-              <Text>Anti Theft Relay × {deviceQuantity}</Text>
+              <Text>Anti Theft Relay × {relayQuentity}</Text>
               <Text> {relayPrice.toFixed(2)}</Text>
             </View>
             <View style={styles.row}>
-              <Text>{duration} Year Plan × {deviceQuantity}</Text>
+              <Text>{duration} Year Plan</Text>
               <Text> {planPrice.toFixed(2)}</Text>
             </View>
           </View>

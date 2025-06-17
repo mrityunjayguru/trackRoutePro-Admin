@@ -34,6 +34,31 @@ export const adminLogin = createAsyncThunk<boolean, Payload>(
   }
 );
 
+export const salesTeamLogin = createAsyncThunk<boolean, Payload>(
+  APIName.login,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await AuthRepo.salesTeamLogin(payload);
+      if (data.status === 200) {
+        localStorage.setItem("token", data.data.token);
+        thunkAPI.dispatch(setLoginUserData(data.data.data));
+        // showMessage("success", "Successfully logged in");
+        return data.data.data; // Return true on successful login
+      }
+    } catch (err: any) {
+      if (err.response?.status === 403) {
+        showMessage("error", "Invalid Credentials");
+      } else if (err.response?.status === 400) {
+        showMessage("error",err.response?.data.message);
+      }
+      else if (err.response?.status === 405) {
+        showMessage("error",'Maximum 3 active logins allowed.');
+      }
+      
+    }
+    return false; // Return false on failure
+  }
+);
 export const registerUser = createAsyncThunk<boolean, Payload>(
   APIName.register,
   async (payload, thunkAPI) => {

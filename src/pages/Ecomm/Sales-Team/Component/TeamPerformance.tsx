@@ -39,9 +39,9 @@ getData()
       <Header />
       <div className="grid grid-cols-[30%_70%] gap-4">
         <div>
-          <UserCard record={performancedata?.salesTeam}/>
+          <UserCard record={performancedata?.salesTeam[0]}/>
           <div className='mt-5'>
-            <CurrentDayAttendenceRecord record={performancedata?.salesTeam}/>
+            <CurrentDayAttendenceRecord record={performancedata?.currentDayattendence[0]}/>
           </div>
          <div className='my-5'>
            <CalendarCard attendenceRecord={performancedata?.attendenceRecord} />

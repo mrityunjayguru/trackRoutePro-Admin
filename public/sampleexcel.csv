@@ -1,7 +1,7 @@
-ImeiNo,deviceId,deviceType,isWired
-ssssssss,ssssssss,Sentinel Max (MT200),true
-85w595,asasasasas,Sentinel Max (MT200),true
-sdsdsdsdsd,vxcvxcxcv,Sentinel Max (MT200),true
-sfsfsdfsdfs,sdfsdfsdfdsfdsf,Sentinel Max (MT200),true
-dfsdf,sdsdsds,Sentinel Max (MT200),true
-"2,232","32,323",Sentinel Max (MT200),true
+ImeiNo,deviceId,deviceType,isWired,simNo
+ssssssss,ssssssss,Sentinel Max (MT200),TRUE,8318096514
+85w595,asasasasas,Sentinel Max (MT200),TRUE,9696064742
+sdsdsdsdsd,vxcvxcxcv,Sentinel Max (MT200),TRUE,8796525458
+sfsfsdfsdfs,sdfsdfsdfdsfdsf,Sentinel Max (MT200),TRUE,7856985478
+dfsdf,sdsdsds,Sentinel Max (MT200),TRUE,4569854875
+"2,232","32,323",Sentinel Max (MT200),FALSE,4569871236

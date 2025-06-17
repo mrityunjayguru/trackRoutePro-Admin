@@ -17,7 +17,7 @@ const AttendanceSummary: React.FC<Props> = ({ performancedata }) => {
     <div className="flex items-start bg-white p-4 space-x-8 rounded-xl shadow-sm">
       {/* Workdays Section */}
       <div className="flex flex-col items-start">
-        <span className="text-gray-600 text-sm mb-1">Workdays</span>
+        <span className="text-gray-600 text-sm mb-1">totalDays</span>
         <span className="text-gray-900 text-2xl font-semibold">
           {performancedata?.totalDays}
         </span>

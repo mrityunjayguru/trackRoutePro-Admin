@@ -48,15 +48,15 @@ const SlesAppsidebar: React.FC<SidebarProps> = ({ sidebarOpen }) => {
           )}
 
           {/* Back Button (Example) */}
-          <li>
+          <li onClick={()=>localStorage.removeItem("token")}>
             <NavLink 
-              to="dashboard"
+              to="#"
               className="flex items-center gap-2 px-4 py-2 rounded-md text-black hover:bg-gray-100"
             >
               <span className="text-xl">
                 <BackIcon />
               </span>
-              <span className="text-[15px]">Back</span>
+              <span className="text-[15px]">LogOut</span>
             </NavLink>
           </li>
         </ul>

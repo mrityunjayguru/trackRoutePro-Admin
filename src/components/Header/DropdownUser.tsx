@@ -52,11 +52,11 @@ try{
               {data ? data.Name : ''}
             </span>
             <span className="block text-xs"> {data ? data.phone : ''}</span>
-            <span className="block text-xs"> {data ? data.uniqueCode : ''}</span>
+            <span className="block text-xs"> {data ? data.uniqueCode || data.employeecode : ''}</span>
           </span>
-          {data?.profile ? (
+          {data?.profile ||data?.photo   ? (
             <span className="h-12 w-12 rounded-full overflow-hidden" onClick={handleImageClick}>
-              <img className='h-full w-full object-cover' src={`${import.meta.env.VITE_APP_Image_Url}${data?.profile}`} alt="User" />
+              <img className='h-full w-full object-cover' src={`${import.meta.env.VITE_APP_Image_Url}${data?.profile || data?.photo }`} alt="User" />
             </span>
           ) : (
             <span className="h-12 w-12 rounded-full overflow-hidden mcenter text-2xl" onClick={handleImageClick}>

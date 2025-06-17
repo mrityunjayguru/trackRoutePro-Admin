@@ -4,7 +4,7 @@ import logo from '../../images/logo/TrPro.png'; // Make sure this path is correc
 import login from '../../images/user/login.jpg'; // Make sure this path is correct
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store/store';
-import { adminLogin } from '../../api/auth'; // Assuming this API handles both admin and dealer logins
+import { adminLogin, salesTeamLogin } from '../../api/auth'; // Assuming this API handles both admin and dealer logins
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Footer } from '../../components/Footer/Footer';
 import { getDeviceInfo } from '../../common/getDeviceInfo';
@@ -41,7 +41,10 @@ const SignIn: React.FC = () => {
       setError('Password must be at least 4 characters long');
       return;
     }
+console.log(loginType,"loginTypeloginType")
+    try {
 
+if(loginType=="admin"){
     const payload: any = {
       password: password.trim(),
       deviceInfo: getDeviceInfo(),
@@ -57,7 +60,6 @@ const SignIn: React.FC = () => {
     setPayloadVal(payload);
     setLoading(true);
 
-    try {
       const response: any = await dispatch(adminLogin(payload)); // Using adminLogin for both roles
       const role = response.payload?.role;
       setLoading(false);
@@ -71,6 +73,18 @@ const SignIn: React.FC = () => {
       } else {
         setError('Invalid credentials or role');
       }
+}else{
+const payload:any={
+   password: password.trim(),
+    email:email
+}
+let response:any=await dispatch(salesTeamLogin(payload))
+if(response.payload){
+ navigate('/salesApp/sales-team');
+}
+
+}
+
     } catch (err) {
       console.error("Login API error:", err); // Log the full error for debugging
       setError('Login failed. Please check your credentials and try again.');

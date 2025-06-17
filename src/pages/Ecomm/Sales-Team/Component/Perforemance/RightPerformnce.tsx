@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Search, ChevronDown } from 'lucide-react'; // Importing icons from lucide-react
+import { formatDateToDDMMMYYYYwithTime } from '../../../../../common/ManageDate';
 interface UserRecord {
   targetAchievedPercentage?: string;
   devicesSold?: string;
@@ -84,7 +85,7 @@ setData(val)
               onError={(e:any) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/D1D5DB/4B5563?text=Error+Loading"; }}
             />
           </div>
-          <div className="text-gray-700 text-sm mb-2">Clock-in Time : {new Date(data?.startTime).toLocaleString()}</div>
+          <div className="text-gray-700 text-sm mb-2">Clock-in Time : {new Date(data?.startTime).toString()}</div>
           <div className="text-gray-700 text-sm">Location : {data?.clientLocation}</div>
         </div>
 

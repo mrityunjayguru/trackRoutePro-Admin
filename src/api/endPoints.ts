@@ -73,6 +73,7 @@ const adminauthAPI = {
 verifyOtp:'adminAuth/verifyOtp',
   register: 'auth/signup',
   LdapLogin: 'LDAPLOGIN',
+  salesTeamLogin:'salesApp/Auth/login',
   updateprofile: 'auth/updateUser',
   sendotp: 'auth/send_otp',
   resetpassword: 'auth/reset_password',

@@ -6,6 +6,7 @@ interface UserRecord {
   email?: string;
   phone?: string;
   photo?:string;
+  designation?:any;
 }
 
 interface UserProfileProps {
@@ -26,7 +27,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ record }) => {
         />
        <div>
          <h2 className="text-xl sm:text-xl font-semibold text-gray-800">{record?.fullName || "Unnamed User"}</h2>
-        <p className="text-sm sm:text-base text-gray-600">Sales Assistant</p>
+        <p className="text-sm sm:text-base text-gray-600">{record?.designation?.designation}</p>
        </div>
       </div>
       <div className="flex-grow">

@@ -10,6 +10,7 @@ interface AuthRepo {
   register: (payload: Payload) => Promise<AxiosResponse>;
   updateProfile: (payload: Payload) => Promise<AxiosResponse>;
   adminLogin: (payload: Payload) => Promise<AxiosResponse>;
+  salesTeamLogin: (payload: Payload) => Promise<AxiosResponse>;
   adminRegister: (payload: Payload) => Promise<AxiosResponse>;
   allUsers: (payload: Payload) => Promise<AxiosResponse>;
   updatePassowrdWithOld: (payload: Payload) => Promise<AxiosResponse>;
@@ -26,6 +27,9 @@ verifyOtp: (payload: Payload) => Promise<AxiosResponse>;
 export const AuthRepo: AuthRepo = {
   register(payload: Payload) {
     return Repository.post(APIName.register, payload);
+  },
+    salesTeamLogin(payload: Payload) {
+    return Repository.post(APIName.salesTeamLogin, payload);
   },
   updateProfile(payload: Payload) {
     return Repository.post(APIName.updateprofile, payload, {
