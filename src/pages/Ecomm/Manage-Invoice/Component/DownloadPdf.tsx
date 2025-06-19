@@ -151,13 +151,21 @@ const MyDocument = ({ invoice }) => {
   const devicePrice = (invoice?.item?.price || 0) * deviceQuantity;
   const relayPrice = (invoice?.item?.relayPrice || 0) * relayQuentity;
   const planPrice = (invoice?.item?.internalPlanPrice || 0) * deviceQuantity;
-  const duration = parseInt(invoice?.item?.duration) || 1;
+const durationMap: Record<number, number> = {
+  1: 2,
+  2: 3,
+  3: 5,
+};
 
-  const rawTotal = devicePrice + relayPrice + planPrice;
-  const gst = parseFloat((rawTotal * 0.18).toFixed(2));
+const duration = durationMap[invoice?.item?.duration] || 1;
+
+
+const rawTotal = devicePrice + relayPrice + planPrice;
   const couponPercent = invoice?.couponDetail?.discountPercent || 0;
   const discount = parseFloat(((rawTotal * couponPercent) / 100).toFixed(2));
-  const totalPayable = rawTotal + gst - discount;
+  let managediscount=rawTotal-discount
+  const gst = parseFloat((managediscount * 0.18).toFixed(2));
+  const totalPayable = managediscount+ gst ;
 
 
   return (
@@ -194,6 +202,9 @@ const MyDocument = ({ invoice }) => {
           <Text>
             <Text style={{ fontWeight: 'bold' }}>Invoice No:</Text> {invoiceNumber}
           </Text>
+           <Text>
+            <Text style={{ fontWeight: 'bold' }}>Payment ID::</Text> {invoice?.paymentDetails?.razorpay_payment_id}
+          </Text>
           <Text>
             <Text style={{ fontWeight: 'bold' }}>Date:</Text> {invoiceDate}
           </Text>
@@ -215,6 +226,7 @@ const MyDocument = ({ invoice }) => {
           <Text>
             <Text style={{ fontWeight: 'bold' }}>Phone:</Text> {buyerPhone}
           </Text>
+          
         </View>
 
         <View style={styles.hr} />

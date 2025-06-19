@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Search, ChevronDown } from 'lucide-react'; // Importing icons from lucide-react
 import { formatDateToDDMMMYYYYwithTime } from '../../../../../common/ManageDate';
+import { getAddressFromCoords } from '../../../../../common/getLocation';
 interface UserRecord {
   targetAchievedPercentage?: string;
   devicesSold?: string;
@@ -9,6 +10,7 @@ interface UserRecord {
   visitrecord:any;
   totalDeals:any;
   totalsellrevenue:any
+  location:any;
 }
 
 interface UserProfileProps {
@@ -22,9 +24,25 @@ const RightPerformnce: React.FC<UserProfileProps> = ({ record })  => {
     { sNo: 3, clientName: 'Corbin French', date: '14 May 2025', outcome: 'Differed' },
   ];
   const [data,setData]=useState<any>(null)
+  const [address,setaddress]=useState()
 const handleClikc=(val:any)=>{
+
 setData(val)
 }
+useEffect(() => {
+  const fetchAddress = async () => {
+console.log(address,"addressaddress")
+
+    if (data?.location?.latitude && data?.location?.longitude) {
+      const address:any = await getAddressFromCoords(data?.location?.latitude, data?.location?.longitude);
+      setaddress(address);
+    }
+  };
+
+  fetchAddress();
+}, [data]);
+
+console.log(record?.visitrecord[0]?.location,"totalVisitstotalVisits")
   return (
     <div className="min-h-screen bg-gray-100 p-4 font-inter">
       {/* Top Section */}
@@ -87,6 +105,7 @@ setData(val)
           </div>
           <div className="text-gray-700 text-sm mb-2">Clock-in Time : {new Date(data?.startTime).toString()}</div>
           <div className="text-gray-700 text-sm">Location : {data?.clientLocation}</div>
+          <div className="text-gray-700 text-sm">Address : {address}</div>
         </div>
 
         {/* Right Card: Client Visits Table */}

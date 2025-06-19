@@ -15,13 +15,23 @@ const InvoiceCard = ({ invoice }: { invoice: any }) => {
   const devicePrice = (invoice?.item?.price || 0) * deviceQuantity;
   const relayPrice = (invoice?.item?.relayPrice || 0) * relayQuentity;
   const planPrice = (invoice?.item?.internalPlanPrice || 0) * deviceQuantity;
-  const duration = parseInt(invoice?.item?.duration) || 1;
+const durationMap: Record<number, number> = {
+  1: 2,
+  2: 3,
+  3: 5,
+};
+
+const duration = durationMap[invoice?.item?.duration] || 1;
+
 
   const rawTotal = devicePrice + relayPrice + planPrice;
-  const gst = parseFloat((rawTotal * 0.18).toFixed(2));
+  console.log(rawTotal,"rawTotalrawTotal")
   const couponPercent = invoice?.couponDetail?.discountPercent || 0;
   const discount = parseFloat(((rawTotal * couponPercent) / 100).toFixed(2));
-  const totalPayable = rawTotal + gst - discount;
+  console.log(discount,"discountdiscount")
+  let managediscount=rawTotal-discount
+  const gst = parseFloat((managediscount * 0.18).toFixed(2));
+  const totalPayable = managediscount+ gst  ;
 
   const downloadPDF = async () => {
     if (!cardRef.current) return;
@@ -71,6 +81,9 @@ const InvoiceCard = ({ invoice }: { invoice: any }) => {
         {/* Invoice Info */}
         <div className="border-t border-gray-200 py-2 text-xs">
           <p>Invoice: {invoice?.invoiceNo || "TRAXXXXXXXX"}</p>
+           <div className=" mt-1">
+          <span>Payment ID: </span><span>{ invoice?.paymentDetails?.razorpay_payment_id}</span>
+        </div>
           <p>Date: {invoice?.orderedAt || "16 May 2025 (10:19 AM)"}</p>
           <p className="mt-1 font-semibold">Buyer: {invoice?.personalinfo?.fullName || "N/A"}</p>
           <p className="text-gray-600">
@@ -80,6 +93,7 @@ const InvoiceCard = ({ invoice }: { invoice: any }) => {
             <br />
             Phone: {invoice?.personalinfo?.phone || "N/A"}
           </p>
+          
         </div>
 
         {/* Bill Details */}
@@ -101,6 +115,7 @@ const InvoiceCard = ({ invoice }: { invoice: any }) => {
         <div className="border-t border-gray-300 pt-2 text-base font-bold flex justify-between">
           <span>Total Payable</span><span>₹ {totalPayable.toFixed(2)}</span>
         </div>
+        
       </div>
 
 <InvoiceGenerator invoice={invoice}/>
