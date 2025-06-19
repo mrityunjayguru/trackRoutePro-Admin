@@ -46,10 +46,18 @@ export default function InvoiceDatePicker() {
   const getPerformanceData = async () => {
     // Only dispatch if at least a startDate is set
     if (!startDate) return;
+ const getDates=(mydate:any)=>{
+      const date = new Date(mydate);
+const yyyy = date.getFullYear();                             // 2025
+const mm = String(date.getMonth() + 1).padStart(2, '0');     // "06"
+const dd = String(date.getDate()).padStart(2, '0');          // "21"
 
+const formattedDate = `${yyyy}-${mm}-${dd}`;
+return formattedDate
+    }
     // Correctly format Date objects to ISO strings before splitting
-    const formattedStartDate = startDate.toISOString().split('T')[0];
-    const formattedEndDate = endDate ? endDate.toISOString().split('T')[0] : null;
+    const formattedStartDate =await  getDates(startDate);
+    const formattedEndDate =await  getDates(endDate);
 
     const payload: any = {
       userId: performance?._id,

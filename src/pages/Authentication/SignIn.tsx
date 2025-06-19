@@ -41,20 +41,21 @@ const SignIn: React.FC = () => {
       setError('Password must be at least 4 characters long');
       return;
     }
-console.log(loginType,"loginTypeloginType")
     try {
 
 if(loginType=="admin"){
     const payload: any = {
       password: password.trim(),
       deviceInfo: getDeviceInfo(),
-      role: loginType === 'admin' ? 'Admin' : 'Dealer', // Role based on selection
     };
 
     if (email.includes('@')) {
       payload.email = email.trim();
+      payload.role="Admin"
     } else {
       payload.phone = email.trim();
+      payload.role="Dealer"
+
     }
 
     setPayloadVal(payload);
