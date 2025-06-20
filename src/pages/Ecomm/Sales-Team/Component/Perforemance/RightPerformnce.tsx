@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Search, ChevronDown } from 'lucide-react'; // Importing icons from lucide-react
-import { formatDateToDDMMMYYYYwithTime } from '../../../../../common/ManageDate';
+import { formatDateToDDMMMYYYYwithTime, formatDateToYMDHM } from '../../../../../common/ManageDate';
 import { getAddressFromCoords } from '../../../../../common/getLocation';
 interface UserRecord {
   targetAchievedPercentage?: string;
@@ -31,8 +31,6 @@ setData(val)
 }
 useEffect(() => {
   const fetchAddress = async () => {
-console.log(address,"addressaddress")
-
     if (data?.location?.latitude && data?.location?.longitude) {
       const address:any = await getAddressFromCoords(data?.location?.latitude, data?.location?.longitude);
       setaddress(address);
@@ -42,7 +40,6 @@ console.log(address,"addressaddress")
   fetchAddress();
 }, [data]);
 
-console.log(record?.visitrecord[0]?.location,"totalVisitstotalVisits")
   return (
     <div className="min-h-screen bg-gray-100 p-4 font-inter">
       {/* Top Section */}
@@ -103,9 +100,9 @@ console.log(record?.visitrecord[0]?.location,"totalVisitstotalVisits")
               onError={(e:any) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/D1D5DB/4B5563?text=Error+Loading"; }}
             />
           </div>
-          <div className="text-gray-700 text-sm mb-2">Clock-in Time : {new Date(data?.startTime).toString()}</div>
-          <div className="text-gray-700 text-sm">Location : {data?.clientLocation}</div>
-          <div className="text-gray-700 text-sm">Address : {address}</div>
+          <div className="text-gray-700 text-sm mb-2">Clock-in Time : {formatDateToYMDHM(data?.startTime)}</div>
+          <div className="text-gray-700 text-sm">Location : {data?.clientLocation || "NA"}</div>
+          <div className="text-gray-700 text-sm">Address : {address || "NA"}</div>
         </div>
 
         {/* Right Card: Client Visits Table */}

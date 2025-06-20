@@ -11,8 +11,12 @@ interface PerformanceState {
   // Add other properties of your performance state if needed
 }
 
-// Main App component
-export default function InvoiceDatePicker() {
+interface InvoiceDatePickerProps {
+  value: string | null;
+  onDateChange: (date: string) => void;
+}
+
+export default function InvoiceDatePicker({ value, onDateChange }: InvoiceDatePickerProps) {
   const dispatch = useDispatch<AppDispatch>();
   const performance = useSelector((state: { slesTeame: { performance: PerformanceState } }) => state?.slesTeame?.performance);
 
@@ -64,12 +68,19 @@ return formattedDate
       startDate: formattedStartDate,
       endDate: formattedEndDate,
     };
-    await dispatch(getInvoices(payload));
+     onDateChange(payload);
+    // await dispatch(getInvoices(payload));
   };
 
   useEffect(() => {
     getPerformanceData();
   }, [startDate, endDate, performance?._id]); // Dependencies for fetching data
+useEffect(() => {
+  if (value === null) {
+    setStartDate(null);
+    setEndDate(null);
+  }
+}, [value]);
 
   // Function to format a date into MM/DD/YYYY string
   const formatDate = (date: Date | null): string => {

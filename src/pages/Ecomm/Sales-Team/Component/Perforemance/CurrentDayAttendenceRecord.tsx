@@ -1,5 +1,5 @@
 import React from 'react';
-import { formatDateToDDMMMYYYYwithTime } from '../../../../../common/ManageDate';
+import { formatDateToDDMMMYYYYwithTime, formatDateToYMDHM } from '../../../../../common/ManageDate';
 import { format } from 'date-fns';
 interface UserRecord {
   fullName:string,
@@ -52,7 +52,7 @@ const CurrentDayAttendenceRecord: React.FC<CurrentDayAttendenceRecordProps> = ({
       <span className="font-medium text-[#585859]">
   Clock-in Time:
 </span>{" "}
-{record?.startTime ? format(new Date(record.startTime), 'dd-MM-yy H m') : 'N/A'}
+{formatDateToYMDHM(record.startTime)}
         </p>
 
       </div>

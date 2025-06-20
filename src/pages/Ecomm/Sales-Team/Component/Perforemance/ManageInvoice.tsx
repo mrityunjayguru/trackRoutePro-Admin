@@ -12,6 +12,8 @@ const ManageInvoice = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [invoice, setInvoiceData] = useState<any>(null);
+   const [selectedDate, setSelectedDate] = useState<any>(null);
+  
   const performance = useSelector((state:any) => state?.slesTeame?.performance);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -24,6 +26,8 @@ const ManageInvoice = () => {
       const payload: any = {
         search: searchTerm,
         offset: (currentPage - 1) * itemsPerPage,
+         endDate:selectedDate?.endDate,
+        startDate:selectedDate?.startDate,
       };
       if(performance._id){
         Object.assign(payload,{userId:performance._id})
@@ -40,21 +44,71 @@ const ManageInvoice = () => {
 
   useEffect(() => {
     getAllInvoices();
-  }, [searchTerm, currentPage]);
+  }, [searchTerm, currentPage,selectedDate]);
 
   const handleClick = (val: any) => {
     setInvoiceData(val);
   };
-
+   const handleDateChange = (date: any) => {
+    setSelectedDate(date);
+    console.log('Date from child:', date);
+  };
+  const handleReload = async() => {
+    setSearchTerm("")
+    setCurrentPage(1)
+    setSelectedDate(null)
+    setInvoiceData(null)
+   await getAllInvoices();
+     
+    // Logic to reload data or refresh the dashboard
+    console.log("Reloading invoices...");
+    // You would typically dispatch an action here to refetch data
+  };
   return (
     <div className="p-4">
       {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-3">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full sm:w-auto">
-         <InvoiceDatePicker/>
+  <div className="">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
+        {/* Date Picker and Search Input */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 w-full md:w-auto">
+          <InvoiceDatePicker value={selectedDate} onDateChange={handleDateChange} />
+          <input
+            type="text"
+            placeholder="Search by client name..."
+            className="border border-gray-300 px-4 py-4 rounded-lg text-sm text-gray-700 w-full sm:w-64 bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            aria-label="Search by client name"
+          />
         </div>
-        <h2 className="text-lg font-semibold text-[#a8a8b1]">Invoices</h2>
+
+        {/* Reload Button and Title */}
+        <div className="flex items-center gap-4 w-full md:w-auto justify-end md:justify-start">
+          <button
+            onClick={handleReload}
+            className="p-3 bg-indigo-500 text-white rounded-full shadow-md hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition-all duration-200 flex items-center justify-center flex-shrink-0"
+            aria-label="Reload invoices"
+          >
+            {/* Replaced IoReloadOutline with inline SVG for compilation */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2.5}
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M16.023 9.348h4.922a2.25 2.25 0 0 1 2.244 2.244v2.071M16.023 9.348A14.945 14.945 0 0 1 12 10.5a14.945 14.945 0 0 1-4.023-1.152M16.023 9.348H9.375M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z"
+              />
+            </svg>
+          </button>
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-800 tracking-tight">Invoices</h2>
+        </div>
       </div>
+    </div>
 
       {/* Table and InvoiceCard */}
       <div className="flex flex-col lg:flex-row gap-4">

@@ -77,3 +77,24 @@ export const formatDateToDDMMMYYYYwithDate = (dateInput:any) => {
     return `${day}-${month}-${year} ${hours}:${minutes}`;
   };
   
+
+
+
+export const formatDateToYMDHM = (dateStr: any) => {
+  if(!dateStr)
+    return "NA"
+  const date = new Date(dateStr); // FIX: 'new dateStr' is invalid
+
+  // Subtract 5 hours and 30 minutes (330 minutes)
+  date.setMinutes(date.getMinutes() - 330);
+
+  const yyyy = date.getFullYear();
+  const mm = String(date.getMonth() + 1).padStart(2, '0');
+  const dd = String(date.getDate()).padStart(2, '0');
+  const hh = String(date.getHours()).padStart(2, '0');
+  const min = String(date.getMinutes()).padStart(2, '0');
+
+  return `${yyyy}-${mm}-${dd} ${hh}:${min}`;
+};
+
+
