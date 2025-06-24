@@ -52,7 +52,7 @@ const CurrentDayAttendenceRecord: React.FC<CurrentDayAttendenceRecordProps> = ({
       <span className="font-medium text-[#585859]">
   Clock-in Time:
 </span>{" "}
-{formatDateToYMDHM(record.startTime)}
+{formatDateToYMDHM(record?.startTime)}
         </p>
 
       </div>

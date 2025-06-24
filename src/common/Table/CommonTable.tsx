@@ -47,6 +47,10 @@ const CommonTable: React.FC<TableProps> = ({
     if (colKey === 'topic') {
       return data?.topic?.title;
     }
+    if (colKey === 'faqtitle') {
+      return data?.title;
+    }
+    
     if (colKey === 'User') {
       if (data.sendTo === 'Selected') {
         // Joining names from the result array into a single string

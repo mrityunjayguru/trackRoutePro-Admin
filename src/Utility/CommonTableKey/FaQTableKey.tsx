@@ -1,5 +1,5 @@
 export const topicTableKeys = {
-    title: 'title', // Name
+    faqtitle: 'title', // Name
     priority:'priority',
     status: 'Status', // Status
   };
