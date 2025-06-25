@@ -155,7 +155,7 @@ export const useSidebarRoutes = () => {
           path: '/support/dealers',
           label: 'Dealer Requests',
           icon: '',
-          isView: true, // Added the isView property
+          isView:loginUser.role == 'SuperAdmin' || loginUser?.permissions?.Dealer_Vehicle_Request?.View, // Added the isView property
           condition: (pathname: string) =>
             pathname.includes('account-management'),
         },
@@ -163,12 +163,12 @@ export const useSidebarRoutes = () => {
           path: '/support/Renew',
           label: 'Renew Requests',
           icon: '',
-          isView: true, // Added the isView property
+          isView:loginUser.role == 'SuperAdmin' || loginUser?.permissions?.Renew_Request?.View, // Added the isView property
           condition: (pathname: string) =>
             pathname.includes('account-management'),
         },
       ],
-      isView: loginUser.role === 'SuperAdmin', // Added the isView property
+      isView: true, // Added the isView property
     },
     {
       path: '/device-management',
@@ -204,7 +204,16 @@ export const useSidebarRoutes = () => {
       isView: loginUser?.role=="SuperAdmin", // Make sure this is true
       condition: (pathname: string) =>
         pathname.includes('/device-management/app-settings'),
+     
         children: [
+             {
+              path: '/device-management/content/maintenance',
+              label: 'Maintenance',
+              icon: '',
+              isView: true, // Ensure it's not false
+              condition: (pathname: string) =>
+                pathname.includes('/device-management/content/maintenance'),
+            },
         {
           path: '/device-management/app-settings/content-manager',
           label: 'Content Manager',

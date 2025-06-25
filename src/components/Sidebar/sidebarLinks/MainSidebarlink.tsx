@@ -131,7 +131,7 @@ export const useSidebarRoutes = () => {
       icon: <NotificationsIcons />,
       condition: (pathname: string) => pathname.includes('notifications'),
       isView:
-        loginUser.role === 'SuperAdmin' || loginUser.role === 'Admin'
+        loginUser.role === 'SuperAdmin' || loginUser.role === 'Admin' || loginUser?.permissions?.Subscriber_Support?.View 
           ? true
           : false, // Corrected condition
     },
@@ -155,7 +155,8 @@ export const useSidebarRoutes = () => {
           path: '/support/dealers',
           label: 'Dealer Requests',
           icon: '',
-          isView: true, // Added the isView property
+         isView:loginUser.role == 'SuperAdmin' || loginUser?.permissions?.Dealer_Vehicle_Request?.View,
+
           condition: (pathname: string) =>
             pathname.includes('account-management'),
         },
@@ -168,7 +169,7 @@ export const useSidebarRoutes = () => {
             pathname.includes('account-management'),
         },
       ],
-      isView: loginUser.role === 'SuperAdmin', // Added the isView property
+      isView: true, // Added the isView property
     },
     {
       path: '/device-management',

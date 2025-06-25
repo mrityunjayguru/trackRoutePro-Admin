@@ -40,6 +40,8 @@ const device = {
   devicesByOwnerID:'vehicle/devicesByOwnerID',
   dealearRecord:'subscribers/getUserUserCode',
   getRenewRequest:'vehicle/getRenewRequest',
+  getMaintenance:"maintenance/get",
+  addMaintenance:"maintenance/create"
 
 };
 const privacyPolicy = {

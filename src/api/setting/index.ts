@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setAllsetting,singlesetting,singleDevices } from "../../store/setting";
+import { setAllsetting,singlesetting,singleDevices,setMaintenance } from "../../store/setting";
 import APIName from "../endPoints";
 import { userRepo } from "./setting";
 import Swal from "sweetalert2";
@@ -124,6 +124,55 @@ export const updateDevices = createAsyncThunk<boolean, Payload>(
       if(err.status==500){
       // console.error(err.response.data.message);
         GetMessage("error",err.response.data.message)
+      }
+    }
+    return false;
+  }
+);
+
+
+
+
+export const getMaintenance = createAsyncThunk<boolean, Payload>(
+  APIName.getsetting,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await userRepo.getMaintenance(payload);
+      if (data.status === 200) {
+        thunkAPI.dispatch(setMaintenance(data.data.data));
+        return true;
+      }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+    }
+    return false;
+  }
+);
+
+
+export const addMaintenance = createAsyncThunk<boolean, Payload>(
+  APIName.getsetting,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await userRepo.addMaintenance(payload);
+      if (data.status === 200) {
+        GetMessage("success", "success");
+
+        return true;
+      }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
       }
     }
     return false;

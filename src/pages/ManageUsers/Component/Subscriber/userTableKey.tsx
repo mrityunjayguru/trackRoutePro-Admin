@@ -1,6 +1,6 @@
 export const usertableKeys = {
     Name: 'Name', // Name
-    subscribeType: 'subscribeType', // Dealer Code
+    uniqueCode: 'ID No', // Dealer Code
     phone:'phone',
     emailAddress:'email',
     address: 'Area', // Location

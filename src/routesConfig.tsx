@@ -74,6 +74,7 @@ import SaleseTeam from './pages/Ecomm/Sales-Team/SaleseTeam';
 import DiscountCopoun from './pages/Ecomm/Discount-Copoun/DiscountCopoun';
 import ManageInvoice from './pages/Ecomm/Manage-Invoice/ManageInvoice';
 import NotificationIndex from './pages/Ecomm/Notification/NotificationIndex';
+import Maintannance from './pages/Manage/Maintanance/Maintannance';
 export const routes = [
   { path: '/auth/signin', title: 'TRP Signin', component: <SignIn /> },
   { path: '/', title: 'TRP ashboard', component: <ECommerce /> },
@@ -375,7 +376,11 @@ export const routes = [
   title: 'sim-managment',
   component: <SimManagment />,
 },
-
+{
+  path: '/device-management/content/maintenance',
+  title: 'maintenance',
+  component: <Maintannance />,
+},
 // ecomm routes
 {
   path: '/ecommdashboard',

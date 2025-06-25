@@ -7,6 +7,7 @@ interface UserDataState {
   singlesetting:any
   singleDevice:any
   groupsetting:any
+  mainenance:any
 }
 
 // Initial state for the slice
@@ -15,7 +16,8 @@ const initialState: UserDataState = {
   userTableData: null,
   singlesetting:null,
   singleDevice:null,
-  groupsetting:null
+  groupsetting:null,
+  mainenance:null
 };
 
 // Create the user data slice
@@ -38,6 +40,9 @@ export const settingSlice = createSlice({
       groupsetting: (state, action: PayloadAction<any>) => {
         state.groupsetting = action.payload; // Set user table data
       },
+           setMaintenance: (state, action: PayloadAction<any>) => {
+        state.mainenance = action.payload; // Set user table data
+      },
     clearUserData: (state) => {
       state.Allsetting = null; // Clear login user data
       state.userTableData = null; // Clear user table data
@@ -48,7 +53,7 @@ export const settingSlice = createSlice({
 });
 
 // Export actions
-export const {setAllsetting,singlesetting, clearUserData,singleDevices,groupsetting } = settingSlice.actions;
+export const {setAllsetting,singlesetting, clearUserData,singleDevices,groupsetting ,setMaintenance} = settingSlice.actions;
 
 // Export reducer
 export default settingSlice.reducer;
