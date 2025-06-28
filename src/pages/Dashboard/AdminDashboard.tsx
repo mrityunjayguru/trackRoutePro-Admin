@@ -56,9 +56,9 @@ const [toggle,settoggle]=useState(false)
     {toggle?(<Loader/>):(null)}
     {loginUser?.permissions?.Dashboard?.View || loginUser?.role=="SuperAdmin"?(
    <div className='p-5'>
-      {/* <DashboardCart/> */}
-      <DashboardOverview data={dashboardoverviews}/>
-    <DashboardTablesOverview/>
+      <DashboardCart/>
+      {/* <DashboardOverview data={dashboardoverviews}/> */}
+    {/* <DashboardTablesOverview/> */}
 
    </div>
 
@@ -66,10 +66,10 @@ const [toggle,settoggle]=useState(false)
       {loginUser?.permissions?.Manage_User?.View === true || loginUser?.role=="SuperAdmin" ? (
      <div className="mt-4 grid grid-cols-12 gap-4 md:mt-6 md:gap-6 2xl:mt-7.5 2xl:gap-7.5">
      <div className="col-span-12 xl:col-span-12 p-5">
-       {/* <TableOne type="Company" Subscriber={subscriberndCompany} /> */}
+       <TableOne type="Company" Subscriber={subscriberndCompany} />
        {/* <Table  data={subscriberndividual}/> */}
        <div className="mt-5">
-         {/* <TableOne type="Individual" Subscriber={subscriberndividual} /> */}
+         <TableOne type="Individual" Subscriber={subscriberndividual} />
        </div>
      </div>
    </div>
