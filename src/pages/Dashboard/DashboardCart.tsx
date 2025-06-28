@@ -20,7 +20,7 @@ function DashboardCart() {
 
 <div className="col-span-2 ">
   {' '}
-  <ChartThree records={dashboard.groupDevices} />
+  <ChartThree records={dashboard?.groupDevices} />
 </div>
 <CardDataStats
   text=""

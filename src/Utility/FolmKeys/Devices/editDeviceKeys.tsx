@@ -19,7 +19,6 @@ export const editDeviceKeys = (
 
   // Get the keys with true values
   const trueKeys = getKeysWithTrueValues(displayParams);
-console.log(trueKeys,"trueKeystrueKeys")
   const DeviceType: any = devicetypeDetails?.map((vehicle: any) => ({
     label: vehicle.deviceType,
     value: vehicle._id,
@@ -92,7 +91,24 @@ console.log(trueKeys,"trueKeystrueKeys")
       value: SingleDevice?.status,
       disabled: false,
     },
-  
+     {
+      label: 'Vehicle Type *',
+      name: 'isheavy',
+      type: 'select',
+      placeholder: 'Choose Status',
+      options: ['heavy', 'light'],
+      value: SingleDevice?.isheavy==true?"light":"heavy",
+      disabled: false,
+    },
+       {
+      label: 'Vehicle duration *',
+      name: 'duration',
+      type: 'select',
+      placeholder: 'Choose duration',
+      options: ['1', '2',"3", "4", "5"],
+      value: SingleDevice?.duration,
+      disabled: false,
+    },
     {
       label: 'Device Type *',
       name: 'isWired',

@@ -8,10 +8,15 @@ interface Payload {
 
 interface Dashboard {
   Dashboards: (payload: Payload) => Promise<AxiosResponse>;
+  setdashboardoverview: (payload: Payload) => Promise<AxiosResponse>;
 }
 
 export const Dashboard: Dashboard = {
   Dashboards(payload) {
     return Repository.post(APIName.getDashboard, payload);
   },
+
+  setdashboardoverview(payload) {
+    return Repository.post(APIName.getDashboardOverview, payload);
+  }
 };

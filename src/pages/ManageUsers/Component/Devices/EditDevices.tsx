@@ -59,6 +59,7 @@ const EditDevices = () => {
       // Assign the newly created object to displayParameters key
       payload.displayParameters = displayParametersObject;
       payload._id=singleUserDevice._id
+      payload.isheavy=val?.isheavy=="light" ? true : false; // Set ishevy based on light parameter
     }
     // Dispatch the updated payload
     let responce:any=await dispatch(updateDevices(payload));
@@ -110,8 +111,7 @@ const EditDevices = () => {
     <div className="w-full">
             <DeviceHeader sibglesubscriber={PropsRecord}  />
 
-
-      <div className="my-5 ">
+      <div className="my-5 py-2 px-5 ">
         <GlobalForm fields={editDeviceKeys(singleUserDevice, formattedVehicleTypes,devicetypeDetails,DealerRecord)} handleSubmit={handleSubmit} buttontext="Submit" disabled={loder}/>
 
         {/* Subscription Expiry and Renewal */}

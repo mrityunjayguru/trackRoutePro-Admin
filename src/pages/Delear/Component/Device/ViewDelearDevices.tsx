@@ -95,7 +95,7 @@ const ViewDelearDevices = () => {
       <div className="w-full">
         <DeviceHeader sibglesubscriber={PropsRecord} />
 
-        <div className="my-5 p-2 ">
+        <div className="my-5   p-5">
           <GlobalForm
             fields={ViewDeviceKeys(
               singleDevices,

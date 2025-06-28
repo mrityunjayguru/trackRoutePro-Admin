@@ -90,6 +90,15 @@ export const ViewDeviceKeys = (
       value: SingleDevice?.vehicleType,
       disabled: true,
     },
+      {
+      label: 'Vehicle Type *',
+      name: 'isheavy',
+      type: 'select',
+      placeholder: 'Choose Status',
+      options: ['heavy', 'light'],
+      value: SingleDevice?.isheavy==true?"light":"heavy",
+      disabled: false,
+    },
     {
       label: 'Device Status *',
       name: 'deviceStatus',
@@ -98,6 +107,16 @@ export const ViewDeviceKeys = (
       options: ['Active', 'InActive'],
       value: SingleDevice?.status,
       disabled: true,
+    },
+   {
+      label: 'Vehicle duration *',
+      name: 'duration',
+      type: 'select',
+      placeholder: 'Choose duration',
+      options: ['1', '2',"3", "4", "5"],
+      value: SingleDevice?.duration,
+      deafultValue: '1',
+      disabled: false,
     },
     {
       label: 'Device ID',

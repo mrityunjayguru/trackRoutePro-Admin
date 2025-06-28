@@ -31,6 +31,7 @@ const vehicleType = {
 };
 const dashboard = {
   getDashboard: 'dashboard/get',
+  getDashboardOverview:"dashboard/dashboard",
 };
 const device = {
   createDevice: 'vehicle/create',
