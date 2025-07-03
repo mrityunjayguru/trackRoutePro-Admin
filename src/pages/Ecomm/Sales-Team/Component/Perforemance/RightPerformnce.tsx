@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from 'axios';
 import { Search, ChevronDown } from 'lucide-react'; // Importing icons from lucide-react
 import { formatDateToDDMMMYYYYwithTime, formatDateToYMDHM } from '../../../../../common/ManageDate';
 import { getAddressFromCoords } from '../../../../../common/getLocation';
@@ -24,7 +25,7 @@ const RightPerformnce: React.FC<UserProfileProps> = ({ record })  => {
     { sNo: 3, clientName: 'Corbin French', date: '14 May 2025', outcome: 'Differed' },
   ];
   const [data,setData]=useState<any>(null)
-  const [address,setaddress]=useState()
+  const [address, setaddress] = useState<string | undefined>(undefined)
 const handleClikc=(val:any)=>{
 
 setData(val)
@@ -32,11 +33,15 @@ setData(val)
 useEffect(() => {
   const fetchAddress = async () => {
     if (data?.location?.latitude && data?.location?.longitude) {
-      const address:any = await getAddressFromCoords(data?.location?.latitude, data?.location?.longitude);
-      setaddress(address);
+       const url = `https://nominatim.openstreetmap.org/reverse?lat=${data?.location?.latitude}&lon=${data?.location?.longitude}&format=json`;
+       const { data: responseData } = await axios.get<{ display_name: string }>(url, {
+      headers: {
+      'User-Agent': 'YourAppNameHere'
+    }
+  });
+      setaddress(responseData.display_name);
     }
   };
-
   fetchAddress();
 }, [data]);
 

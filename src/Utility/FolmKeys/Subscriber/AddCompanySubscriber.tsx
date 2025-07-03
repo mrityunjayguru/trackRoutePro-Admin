@@ -128,6 +128,13 @@ export const AddCompanySubscriber = (DealerRecord:any)=>{
       placeholder: 'Upload',
       value: '', // Dummy value (you can add a sample file path if necessary)
     },
+        {
+      label: 'Upload Document *',
+      name: 'Document2',
+      type: 'file',
+      placeholder: 'Upload',
+      value: '', // Dummy value (you can add a sample file path if necessary)
+    },
   ];
   
 }

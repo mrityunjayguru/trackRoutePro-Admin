@@ -2,7 +2,6 @@ import { formattedStates } from '../State';
 
 
 export const EditDelearKey = (SingleSubscriber: any,userpassword:any) => {
-
   return [
     {
       label: 'Dealer Full Name *',

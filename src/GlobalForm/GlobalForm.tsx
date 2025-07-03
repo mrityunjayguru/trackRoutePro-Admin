@@ -29,11 +29,10 @@ const GlobalForm: React.FC<GlobalFormProps> = ({
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [imageSrc, setImageSrc] = useState('');
-  const [filename, setFileName] = useState('');
+  const [filename, setFilenames] = useState<{ [key: string]: string }>({});
   useEffect(() => {
     const fetchData = async () => {
       if (fields?.length > 0) {
-        // Handle async logic if needed
         try {
           await dispatch(HandleFormData(fields)); // Assuming HandleFormData supports async
         } catch (error) {
@@ -47,7 +46,6 @@ const GlobalForm: React.FC<GlobalFormProps> = ({
       dispatch(setBlankArray(val)); // Clear form data when unmounting
     };
   }, []);
-  
 
   useEffect(() => {
     const fieldMap = globalFormData?.reduce(
@@ -62,23 +60,29 @@ const GlobalForm: React.FC<GlobalFormProps> = ({
     dispatch(storeFormData(fieldMap)); // Set initial state in Redux
   }, [globalFormData, dispatch]);
 
-  const handleChange = (e: any) => {
-    const { name, type, files, value, checked } = e.target;
-    const updatedValue =
-      type === 'file' ? files : type === 'checkbox' ? checked : value;
-    if (type == 'file') {
-      setFileName(e.target.files[0].name);
-    }
-    const updatedFormData = {
-      ...formData,
-      [name]: type === 'file' ? files[0] : updatedValue,
-    };
-    dispatch(storeFormData(updatedFormData));
-    // Validate on change
-    const validationErrors = validateForm(updatedFormData);
-    console.log(validationErrors,"validationErrors")
-    setErrors(validationErrors);
+
+
+const handleChange = (e: any) => {
+  const { name, type, files, value, checked } = e.target;
+  const updatedValue =
+    type === 'file' ? files : type === 'checkbox' ? checked : value;
+
+  if (type === 'file' && files[0]) {
+    setFilenames(prev => ({
+      ...prev,
+      [name]: files[0].name,
+    }));
+  }
+
+  const updatedFormData = {
+    ...formData,
+    [name]: type === 'file' ? files[0] : updatedValue,
   };
+  dispatch(storeFormData(updatedFormData));
+  const validationErrors = validateForm(updatedFormData);
+  setErrors(validationErrors);
+};
+
 
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, checked } = e.target;
@@ -106,6 +110,7 @@ const GlobalForm: React.FC<GlobalFormProps> = ({
     setPasswordVisible((prevState) => !prevState);
   };
   const handlePreview = (url: any) => {
+    console.log(url, "url");
     if (url) {
       setImageSrc(url);
       setIsPopupOpen(true);
@@ -207,29 +212,27 @@ const GlobalForm: React.FC<GlobalFormProps> = ({
                 </div>
               ) : field.type === 'file' ? (
                 <>
-                  <div className="flex gap-2  items-center">
-                    <label
-                      htmlFor="fileInput"
-                      className=" flex justify-center items-center gap-2 custom-file-button text-center text-sm text-[#000]"
-                    >
-                      <LuUpload />
-                      Upload
-                    </label>
-                    <p className=" text-sm #9F9EA2">
-                      {filename ? filename : 'No File Chosen'}
-                    </p>
-                  </div>
-                  <input
-                    type="file"
-                    id="fileInput"
-                    name={field.name}
-                    onChange={handleChange}
-                    disabled={field?.disabled}
-                    className={`w-full py-2 border rounded-lg focus:ring-2 focus:ring-[#D9E821] focus:outline-none ${
-                      errors[field.name] ? 'border-red-500' : ''
-                    }`}
-                    style={{ display: 'none' }} // Hide the default file input
-                  />
+                 <div className="flex gap-2 items-center">
+  <label
+    htmlFor={`fileInput_${field.name}`}
+    className="flex justify-center items-center gap-2 custom-file-button text-center text-sm text-[#000]"
+  >
+    <LuUpload />
+    Upload
+  </label>
+  <p className="text-sm #9F9EA2">
+    {filename[field.name] ? filename[field.name] : 'No File Chosen'}
+  </p>
+</div>
+<input
+  type="file"
+  id={`fileInput_${field.name}`}
+  name={field.name}
+  onChange={handleChange}
+  disabled={field?.disabled}
+  className="hidden"
+/>
+
                 </>
               ) : field.type === 'view' ? (
                 <button className='bg-[#D9E821] px-7 py-2 text-[#000000]'

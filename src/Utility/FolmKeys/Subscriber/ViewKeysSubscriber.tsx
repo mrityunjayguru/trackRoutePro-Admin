@@ -148,6 +148,14 @@ export const ViewKeySubscriber = (SingleSubscriber: any,userpassword:any) => {
       value: SingleSubscriber?.Document || '',
       disabled: true,
     },
+        {
+      label: 'View Document*',
+      name: 'Document2',
+      type: 'view',
+      placeholder: 'Upload',
+      value: SingleSubscriber?.Document2 || '',
+      disabled: true,
+    },
   ];
   return field;
 };

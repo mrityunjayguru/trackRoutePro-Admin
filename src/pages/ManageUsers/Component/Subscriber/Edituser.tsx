@@ -62,7 +62,6 @@ const Edituser: React.FC = () => {
       <div className="my-3"></div>
       <SubscriverHeader SingleSubscriber={singleSubscriber} />
 
-
       <div className="my-3"></div>
       <div className="w-full p-5">
         {userpassword?(

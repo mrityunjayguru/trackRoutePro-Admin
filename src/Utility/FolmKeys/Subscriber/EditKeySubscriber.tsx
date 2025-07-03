@@ -144,6 +144,13 @@ export const EditKeySubscriber = (SingleSubscriber: any,userpassword:any) => {
       value: SingleSubscriber?.Document || '',
       disabled:false,
     },
+       {
+      label: 'Upload Document2 *',
+      name: 'Document2',
+      type: 'file',
+      placeholder: 'Upload',
+      value: '', // Dummy value (you can add a sample file path if necessary)
+    },
   ];
 };
 

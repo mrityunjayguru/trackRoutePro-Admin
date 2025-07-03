@@ -123,4 +123,11 @@ export const AddSubscriberKey = [
     placeholder: 'Upload',
     value: '', // Dummy value (you can add a sample file path if necessary)
   },
+   {
+      label: 'Upload Document2 *',
+      name: 'Document2',
+      type: 'file',
+      placeholder: 'Upload',
+      value: '', // Dummy value (you can add a sample file path if necessary)
+    },
 ];
