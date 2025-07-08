@@ -10,6 +10,8 @@ interface designationRepo {
   adddesignation: (payload: Payload) => Promise<AxiosResponse>;
   getdesignation: (payload: Payload) => Promise<AxiosResponse>;
   updatedesignation:(payload: Payload) => Promise<AxiosResponse>;
+  SSM:(payload: Payload) => Promise<AxiosResponse>;
+  TSL:(payload: Payload) => Promise<AxiosResponse>;
 }
 
 export const designationRepo: designationRepo = {
@@ -21,5 +23,11 @@ export const designationRepo: designationRepo = {
   },
   updatedesignation(payload) {
     return Repository.post(APIName.updatedesignation, payload);
+  },
+   SSM(payload) {
+    return Repository.post(APIName.getSSM, payload);
+  },
+  TSL(payload) {
+    return Repository.post(APIName.getTSL, payload);
   }
 };

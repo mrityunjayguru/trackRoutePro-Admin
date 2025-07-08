@@ -8,6 +8,7 @@ import {
 
 const ApplicationTable = () => {
   const dispatch = useDispatch<AppDispatch>();
+    const data = useSelector((state: any) => state.Auth?.loginUserData);
 
   const leavedata = useSelector((state: any) => state.slesTeame?.leave || []);
 
@@ -17,6 +18,10 @@ const ApplicationTable = () => {
 
   const getData = async () => {
     const payload: any = {};
+       if(data?.designation?.designation=="TSL"){
+        Object.assign(payload,{role:"TSL"})
+        Object.assign(payload,{_id:data?._id})
+      }
     await dispatch(getLeave(payload));
   };
   const handleStatusChange = async (

@@ -64,7 +64,7 @@ useEffect(() => {
           <div className="flex flex-col items-center p-3 bg-gray-50 rounded-lg">
             <div className="text-sm text-gray-500 mb-1">Devices Sold</div>
             <div className="text-3xl font-bold text-gray-800">{record?.devicesSold}</div>
-            <div className="text-xs text-gray-500">/35*</div>
+            <div className="text-xs text-gray-500">/{record?.target}*</div>
           </div>
           <div className="flex flex-col items-center p-3 bg-gray-50 rounded-lg">
             <div className="text-sm text-gray-500 mb-1">Deals Closed</div>

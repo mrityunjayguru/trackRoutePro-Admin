@@ -11,12 +11,16 @@ import { TbEdit } from 'react-icons/tb';
 import { ViewIcons } from '../../../../components/Sidebar/SideBarSvgIcons';
 
 const AddOnstable = () => {
+  
   const dispatch = useDispatch<AppDispatch>();
   const salesTeam = useSelector((state: any) => state?.slesTeame?.slesTeame);
-
+  const data = useSelector((state: any) => state.Auth?.loginUserData);
   const getRecord = async () => {
     try {
-      const payload:any={}
+      const payload:any={
+        _id:data?._id,
+        designation:data?.designation?.designation
+      }
       await dispatch(getSalesTeam(payload));
     } catch (err) {
       console.error('Failed to fetch sales team', err);
@@ -28,6 +32,8 @@ const AddOnstable = () => {
   }, []);
 
   const handleUpdate = async (val: any) => {
+    if(data?.designation?.designation=="TSL")
+      return
     await dispatch(setupdatesalesTeam(val));
   };
 

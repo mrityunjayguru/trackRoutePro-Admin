@@ -10,7 +10,6 @@ interface PerformanceData {
 }
 
 const PerformanceChart = ({ val }: { val: PerformanceData }) => {
-  console.log(val, "valvalval");
 
   return (
     <div className="w-1/2 p-4">

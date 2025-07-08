@@ -13,10 +13,12 @@ interface salesTeamRepo {
   performance:(payload: Payload) => Promise<AxiosResponse>;
   getleave:(payload: Payload) => Promise<AxiosResponse>;
   updateLeaveStatus:(payload: Payload) => Promise<AxiosResponse>;
+  salesTeamDashboard:(payload: Payload) => Promise<AxiosResponse>;
 }
 
 export const salesTeamRepo: salesTeamRepo = {
   addsalesTeam(payload) {
+    console.log(payload,"payloadpayloadpayload")
     return Repository.post(APIName.addsalesTeam, payload,{
        headers: {
         Accept: "multipart/form-data",
@@ -35,6 +37,9 @@ export const salesTeamRepo: salesTeamRepo = {
   },
   updateLeaveStatus(payload) {
     return Repository.post(APIName.updateLeaveStatus, payload);
+  },
+  salesTeamDashboard(payload) {
+    return Repository.post(APIName.salesdashboard, payload);
   },
   updatesalesTeam(payload) {
     return Repository.post(APIName.updatesalesTeam, payload,{
