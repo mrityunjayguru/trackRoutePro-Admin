@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Search, ChevronDown } from 'lucide-react'; // Importing icons from lucide-react
 import { formatDateToDDMMMYYYYwithTime, formatDateToYMDHM } from '../../../../../common/ManageDate';
 import { getAddressFromCoords } from '../../../../../common/getLocation';
+import { FaEye } from "react-icons/fa";
+import VisitPopup from './VisitPopup';
 interface UserRecord {
   targetAchievedPercentage?: string;
   devicesSold?: string;
@@ -45,7 +47,20 @@ useEffect(() => {
   fetchAddress();
 }, [data]);
 
+  const [selectedVisit, setSelectedVisit] = useState(null);
+
+  const handleOpenToggle = (visit: any) => {
+    setSelectedVisit(visit);
+  };
+
+  const handleClose = () => {
+    setSelectedVisit(null);
+  };
   return (
+     <>
+      {selectedVisit && (
+        <VisitPopup visit={selectedVisit} onClose={handleClose} />
+      )}
     <div className="min-h-screen bg-gray-100 p-4 font-inter">
       {/* Top Section */}
       <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
@@ -144,6 +159,9 @@ useEffect(() => {
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Outcome
                   </th>
+                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                   feedBack
+                  </th>
                   <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                     Details
                   </th>
@@ -156,6 +174,8 @@ useEffect(() => {
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{visit.clientName}</td>
                     {/* <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{new Date(visit.startTime).toLocaleString()}</td> */}
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900">{visit.outcome}</td>
+                    <td onClick={()=>handleOpenToggle(visit)} className="px-4 py-4 whitespace-nowrap text-sm flex justify-center items-center cursor-pointer text-center text-green-500"><FaEye size={20}/></td>
+
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-gray-900" onClick={()=>handleClikc(visit)}>
                       {/* Custom Eye Icon (SVG) */}
                       <svg
@@ -182,6 +202,7 @@ useEffect(() => {
         </div>
       </div>
     </div>
+     </>
   );
 };
 
