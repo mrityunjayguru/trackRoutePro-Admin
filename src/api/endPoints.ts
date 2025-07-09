@@ -163,7 +163,9 @@ const salesTeam={
   performance:"salesApp/target/getPerformanceData",
   getleave:"salesApp/Attendence/leave",
   updateLeaveStatus:"salesApp/Attendence/updateLeave",
-  salesdashboard:"ecomm/salesTeam/dashboard"
+  salesdashboard:"ecomm/salesTeam/dashboard",
+  userdashboard:"ecomm/salesTeam/performance",
+  TslDashboard:"ecomm/salesTeam/tlPerformance"
 
 }
 const gpsDevices={

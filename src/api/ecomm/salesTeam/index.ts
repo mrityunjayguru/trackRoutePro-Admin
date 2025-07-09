@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setslesTeame,setDashboard,setsingleslesTeame,setUpdateSealTeam,setUpdatePerformancre,performanceRecord,setLeave} from "../../../store/ecomm/salesTeam";
+import { setslesTeame,setUsersales,setDashboard,setsingleslesTeame,setUpdateSealTeam,setUpdatePerformancre,performanceRecord,setLeave} from "../../../store/ecomm/salesTeam";
 import APIName from "../../endPoints";
 import { salesTeamRepo } from "./salesRepo";
 import Swal from "sweetalert2";
@@ -268,6 +268,57 @@ export const salesTeamDashboard = createAsyncThunk<boolean, Payload>(
     
       if (data.status === 200) {
         thunkAPI.dispatch(setDashboard(data.data.data));
+      
+      }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+);
+
+
+
+export const salesDashboard = createAsyncThunk<boolean, Payload>(
+  APIName.updateSubscriber,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await salesTeamRepo.salesDashboard(payload);
+    
+      if (data.status === 200) {
+        thunkAPI.dispatch(setUsersales(data.data.data));
+      
+      }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+);
+
+
+export const TslDashboard = createAsyncThunk<boolean, Payload>(
+  APIName.updateSubscriber,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await salesTeamRepo.TslDashboard(payload);
+    
+      if (data.status === 200) {
+        thunkAPI.dispatch(setUsersales(data.data.data));
       
       }
     } catch (err:any) {

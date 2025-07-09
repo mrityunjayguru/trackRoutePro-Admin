@@ -8,6 +8,7 @@ import Pagination from "../../../../common/Loader/Pagination";
 import { UploadIcons, ViewIcons } from "../../../../components/Sidebar/SideBarSvgIcons";
 import InvoiceDatePicker from "../../Sales-Team/Component/Perforemance/InvoiceDatePicker";
 import { IoReloadOutline } from "react-icons/io5";
+import { formatDateToYMDHM } from "../../../../common/ManageDate";
 const InvoiceTable = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
@@ -117,7 +118,7 @@ const InvoiceTable = () => {
                 <th className="px-3 py-2">Sales Assistant</th>
                 <th className="px-3 py-2">Client Name</th>
                 <th className="px-3 py-2">Invoice Amt.</th>
-                <th className="px-3 py-2">Govt Related</th>
+                <th className="px-3 py-2">Date</th>
                 <th className="px-3 py-2">View</th>
                 <th className="px-3 py-2">Status</th>
               </tr>
@@ -134,7 +135,7 @@ const InvoiceTable = () => {
                   <td className="px-3 py-2">{inv.personalinfo?.fullName}</td>
                   <td className="px-3 py-2">₹ {inv.totalAmount}</td>
                   <td className="px-3 py-2">
-                    {inv.item?.productInfo?.govtRelated ? "Yes" : "No"}
+                  {formatDateToYMDHM(inv?.orderedAt)}
                   </td>
                   <td className="px-3 py-2">
                     <ViewIcons />

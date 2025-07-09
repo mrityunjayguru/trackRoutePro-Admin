@@ -23,7 +23,8 @@ await dispatch(salesTeamDashboard(payload))
 getData()
   },[])
   return (
-    <div className="p-6 space-y-6 bg-[#ffffff] min-h-screen">
+    
+    <div className="p-6 space-y-6 bg-[#ffffff]">
       {/* Revenue Insights Card */}
       <div className="bg-[#F2F6F9] rounded-2xl shadow p-6">
         <div className="flex justify-between items-center mb-4">

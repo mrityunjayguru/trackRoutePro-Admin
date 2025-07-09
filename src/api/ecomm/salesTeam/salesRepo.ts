@@ -14,6 +14,8 @@ interface salesTeamRepo {
   getleave:(payload: Payload) => Promise<AxiosResponse>;
   updateLeaveStatus:(payload: Payload) => Promise<AxiosResponse>;
   salesTeamDashboard:(payload: Payload) => Promise<AxiosResponse>;
+  salesDashboard:(payload: Payload) => Promise<AxiosResponse>;
+  TslDashboard:(payload: Payload) => Promise<AxiosResponse>;
 }
 
 export const salesTeamRepo: salesTeamRepo = {
@@ -40,6 +42,12 @@ export const salesTeamRepo: salesTeamRepo = {
   },
   salesTeamDashboard(payload) {
     return Repository.post(APIName.salesdashboard, payload);
+  },
+  salesDashboard(payload) {
+    return Repository.post(APIName.userdashboard, payload);
+  },
+  TslDashboard(payload) {
+    return Repository.post(APIName.TslDashboard, payload);
   },
   updatesalesTeam(payload) {
     return Repository.post(APIName.updatesalesTeam, payload,{

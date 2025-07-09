@@ -120,6 +120,8 @@ useEffect(() => {
               onError={(e:any) => { e.target.onerror = null; e.target.src = "https://placehold.co/600x400/D1D5DB/4B5563?text=Error+Loading"; }}
             />
           </div>
+          <div className="text-gray-700 text-sm">Phone : {data?.phone || "NA"}</div>
+
           <div className="text-gray-700 text-sm mb-2">Clock-in Time : {formatDateToYMDHM(data?.startTime)}</div>
           <div className="text-gray-700 text-sm">Location : {data?.clientLocation || "NA"}</div>
           <div className="text-gray-700 text-sm">Address : {address || "NA"}</div>
