@@ -32,7 +32,7 @@ function EcommDashboard() {
   return (
     <>
       {userData.role == 'SuperAdmin' && (
-        <div className="flex gap-2 w-full h-[70vh]">
+        <div className="flex gap-2 w-full h-[65vh]">
           <div className="w-[60%]">
             <LeftDashboard />
           </div>
@@ -41,7 +41,7 @@ function EcommDashboard() {
           </div>
         </div>
       )}
-      {userData?.designation?.designation=="TSL"?(  <div className="bg-[#F2F6F9] rounded-2xl shadow p-6">
+      {userData?.designation?.designation=="TSL" || userData?.designation?.designation=="SSM"?(  <div className="bg-[#F2F6F9] rounded-2xl shadow p-6">
         <div className="flex justify-between items-center mb-2">
           <h2 className="text-xl font-medium text-[#1A1D1F]">Employee of the month</h2>
           <select className="border rounded px-3 py-1 text-sm">

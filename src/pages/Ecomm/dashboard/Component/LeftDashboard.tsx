@@ -68,7 +68,7 @@ getData()
         </div>
         <h3 className="text-lg font-bold text-[#000000]">{dashboard?.highestSales?.name}</h3>
         <p className="text-sm text-[#1A1D1F] font-[400] mt-1">
-          for achieving outstanding performance with total sales of ₹ <span className="font-bold">{dashboard?.highestSales?.totalSales}</span> in the last month!
+          for achieving outstanding performance with total device sales  <span className="font-bold">{dashboard?.highestSales?.orderCount}</span> in the last month!
         </p>
       </div>
     </div>

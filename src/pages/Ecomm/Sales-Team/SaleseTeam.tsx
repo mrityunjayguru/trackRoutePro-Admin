@@ -17,16 +17,24 @@ function SaleseTeam() {
   const performance = useSelector((state: any) => state?.slesTeame?.performance);
   const data = useSelector((state: any) => state.Auth?.loginUserData);
 const tabs = useMemo(() => {
-    const baseTabs = [
-      { label: 'Team', key: 'Team' },
-      { label: 'Designation', key: 'Designation' },
-      { label: 'Performence', key: 'Performence' },
-      { label: 'Leave Applications', key: 'LeaveApplications' }
-    ];
+ const baseTabs = [
+  { label: 'Team', key: 'Team' }
+];
 
-    if (data?.designation?.designation !== "TSL") {
-      baseTabs.push({ label: 'Onboard', key: 'onboard' });
-    }
+// Conditionally insert 'Onboard' and 'Designation' after 'Team'
+if (data?.role == "SuperAdmin") {
+  baseTabs.push(
+    { label: 'Onboard', key: 'onboard' },
+    { label: 'Designation', key: 'Designation' }
+  );
+}
+
+// Always push Performance and Leave Applications at the end
+baseTabs.push(
+  { label: 'Performance', key: 'Performence' },
+  { label: 'Leave Applications', key: 'LeaveApplications' }
+);
+
 
     return baseTabs;
   }, [data]);

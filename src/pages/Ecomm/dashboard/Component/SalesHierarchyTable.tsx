@@ -14,7 +14,7 @@ console.log(data,"datadata")
           <tr className="bg-gray-100 text-left text-sm">
             <th className="border p-2">Role</th>
             <th className="border p-2">Name</th>
-            <th className="border p-2">Email</th>
+            <th className="border p-2">employeecode</th>
             <th className="border p-2">Phone</th>
             {userData?.role === "SuperAdmin" && (
               <th className="border p-2">Total Revenue</th>
@@ -29,7 +29,7 @@ console.log(data,"datadata")
               <tr className="bg-blue-50 font-medium">
                 <td className="border p-2">SSM</td>
                 <td className="border p-2">{ssm.fullName}</td>
-                <td className="border p-2">{ssm.email}</td>
+                <td className="border p-2">{ssm.employeecode}</td>
                 <td className="border p-2">{ssm.phone}</td>
                 {userData?.role === "SuperAdmin" && (
                   <td className="border p-2">₹ {ssm.totalRevenue}</td>
@@ -43,7 +43,7 @@ console.log(data,"datadata")
                   <tr className="bg-green-50">
                     <td className="border p-2 pl-6">TL</td>
                     <td className="border p-2">{tl.fullName}</td>
-                    <td className="border p-2">{tl.email}</td>
+                    <td className="border p-2">{tl.employeecode}</td>
                     <td className="border p-2">{tl.phone}</td>
                     {userData?.role === "SuperAdmin" && (
                       <td className="border p-2">₹ {tl.totalRevenue}</td>
@@ -56,7 +56,7 @@ console.log(data,"datadata")
                     <tr key={sro._id} className="bg-yellow-50">
                       <td className="border p-2 pl-12">SRO</td>
                       <td className="border p-2">{sro.fullName}</td>
-                      <td className="border p-2">{sro.email}</td>
+                      <td className="border p-2">{sro.employeecode}</td>
                       <td className="border p-2">{sro.phone}</td>
                       {userData?.role === "SuperAdmin" && (
                         <td className="border p-2">₹ {sro.totalRevenue}</td>

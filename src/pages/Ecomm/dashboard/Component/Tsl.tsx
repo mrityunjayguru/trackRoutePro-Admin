@@ -14,7 +14,7 @@ const TSLSalesHierarchyTable = ({ data }) => {
           <tr className="bg-gray-100 text-left text-sm">
             <th className="border p-2">Role</th>
             <th className="border p-2">Name</th>
-            <th className="border p-2">Email</th>
+            <th className="border p-2">employeecode</th>
             <th className="border p-2">Phone</th>
             {userData?.role === "SuperAdmin" && (
               <th className="border p-2">Total Revenue</th>
@@ -27,7 +27,7 @@ const TSLSalesHierarchyTable = ({ data }) => {
           <tr className="bg-green-50 font-medium">
             <td className="border p-2">TL</td>
             <td className="border p-2">{data.fullName}</td>
-            <td className="border p-2">{data.email}</td>
+            <td className="border p-2">{data.employeecode}</td>
             <td className="border p-2">{data.phone}</td>
             {userData?.role === "SuperAdmin" && (
               <td className="border p-2">₹ {data.totalRevenue}</td>
@@ -40,7 +40,7 @@ const TSLSalesHierarchyTable = ({ data }) => {
             <tr key={sro._id} className="bg-yellow-50">
               <td className="border p-2 pl-6">SRO</td>
               <td className="border p-2">{sro.fullName}</td>
-              <td className="border p-2">{sro.email}</td>
+              <td className="border p-2">{sro.employeecode}</td>
               <td className="border p-2">{sro.phone}</td>
               {userData?.role === "SuperAdmin" && (
                 <td className="border p-2">₹ {sro.totalRevenue}</td>

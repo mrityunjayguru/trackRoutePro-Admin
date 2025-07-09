@@ -32,9 +32,10 @@ const AddOnstable = () => {
   }, []);
 
   const handleUpdate = async (val: any) => {
-    if(data?.designation?.designation=="TSL")
-      return
+    if(data?.role=="SuperAdmin"){
     await dispatch(setupdatesalesTeam(val));
+    }
+     
   };
 
   const handleToggleStatus = async (device: any) => {
