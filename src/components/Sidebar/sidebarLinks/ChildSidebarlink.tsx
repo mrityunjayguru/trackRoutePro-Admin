@@ -47,7 +47,7 @@ export const useChildSidebarRoutes = () => {
       label: 'Discount Coupon',
       icon: <DiscountCopoun />,
       condition: (pathname: string) => pathname.match('/ecommdashboard/Discount-Coupon'),
-      isView:true
+      isView:loginUser?.designation?.designation=="SSM" || loginUser?.role=="SuperAdmin" 
     },
     {
       path: '/ecommdashboard/Manage-Invoices',

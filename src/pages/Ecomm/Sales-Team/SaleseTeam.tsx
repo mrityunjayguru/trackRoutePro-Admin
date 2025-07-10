@@ -21,18 +21,23 @@ const tabs = useMemo(() => {
   { label: 'Team', key: 'Team' }
 ];
 
+
 // Conditionally insert 'Onboard' and 'Designation' after 'Team'
-if (data?.role == "SuperAdmin") {
+
+
+
+if (data?.role == "SuperAdmin" || data?.designation?.designation == "SSM") {
   baseTabs.push(
     { label: 'Onboard', key: 'onboard' },
-    { label: 'Designation', key: 'Designation' }
+    { label: 'Designation', key: 'Designation' },
+  { label: 'Leave Applications', key: 'LeaveApplications' }
+
   );
 }
 
 // Always push Performance and Leave Applications at the end
 baseTabs.push(
   { label: 'Performance', key: 'Performence' },
-  { label: 'Leave Applications', key: 'LeaveApplications' }
 );
 
 

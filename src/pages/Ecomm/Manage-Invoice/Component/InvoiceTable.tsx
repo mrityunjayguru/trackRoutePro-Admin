@@ -17,6 +17,8 @@ const InvoiceTable = () => {
 
   const dispatch = useDispatch<AppDispatch>();
   const invoicedata = useSelector((state: any) => state.relaySecurity.invoices);
+    const data = useSelector((state: any) => state.Auth?.loginUserData);
+  
   const total: number = invoicedata?.totalCount || 0;
   const itemsPerPage = 10;
 
@@ -28,6 +30,9 @@ const InvoiceTable = () => {
         endDate:selectedDate?.endDate,
         startDate:selectedDate?.startDate,
       };
+      if(data?.designation?.designation && data?.designation?.designation=="TSL"){
+        payload.TSL=data?._id
+      }
       await dispatch(getInvoices(payload));
     } catch (err) {
       console.log(err);

@@ -45,12 +45,12 @@ export const useSalesAppSidebarLink = () => {
       isView:true
     },
     
-    // {
-    //   path: '/salesApp/Manage-Invoices',
-    //   label: 'Manage Invoices',
-    //   icon: <ManageInvoive />,
-    //   condition: (pathname: string) => pathname.match('/salesApp/Manage-Invoices'),
-    //   isView:true
-    // },
+    {
+   path: '/ecommdashboard/Manage-Invoices',
+      label: 'Manage Invoices',
+      icon: <ManageInvoive />,
+      condition: (pathname: string) => pathname.match('/salesApp/Manage-Invoices'),
+      isView:true
+    },
   ];
 };
