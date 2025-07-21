@@ -50,7 +50,7 @@ const duration = durationMap[invoice?.item?.duration] || 1;
     pdf.addImage(imgData, "PNG", 0, 0, pageWidth, imgHeight);
     pdf.save(`${invoice?.invoiceNo || "invoice"}.pdf`);
   };
-
+console.log(invoice,"lllllllllllllllll")
   return (
     <div className="px-4 py-6">
       <div
@@ -73,14 +73,23 @@ const duration = durationMap[invoice?.item?.duration] || 1;
 
             <hr className="my-2 border-gray-200" />
 
-            <p>Invoice No: {invoice?.invoiceNo || "N/A"}</p>
+            {/* <p>Invoice No: {invoice?.invoiceNo || "N/A"}</p> */}
             <p>Operating Area: {invoice?.salesTeam?.operatingArea || "N/A"}</p>
           </div>
         </div>
 
         {/* Invoice Info */}
-        <div className="border-t border-gray-200 py-2 text-xs">
+        <div className="border-t border-gray-200 py-1 text-xs">
           <p>Invoice: {invoice?.invoiceNo || "TRAXXXXXXXX"}</p>
+{invoice?.imeiDetails?.map((val: any, index: number) => (
+  <div key={val._id || index} className="text-xs text-gray-600 leading-snug ">
+    <p className="py-1"><strong>IMEI No:</strong> {val.imeiNo}</p>
+    <p className="py-1"><strong>SIM No:</strong> {val.simNo}</p>
+    <p className="py-1"><strong>Devicetype:</strong> {val.isWired ? "Wired" : "Wireless"}</p>
+  </div>
+))}
+
+
            <div className=" mt-1">
           <span>Payment ID: </span><span>{ invoice?.paymentDetails?.razorpay_payment_id}</span>
         </div>
@@ -99,7 +108,7 @@ const duration = durationMap[invoice?.item?.duration] || 1;
         {/* Bill Details */}
         <div className="border-t border-gray-200 py-2 text-xs">
           <h3 className="font-semibold mb-1 text-gray-700">Bill Details</h3>
-          <div className="flex justify-between"><span>{deviceType} GPS Amount × {deviceQuantity}</span><span>₹ {devicePrice.toFixed(2)}</span></div>
+          <div className="flex justify-between"><span> GPS device × {deviceQuantity}</span><span>₹ {devicePrice.toFixed(2)}</span></div>
           <div className="flex justify-between"><span>Anti Theft (Relay) Amount × {relayQuentity}</span><span>₹ {relayPrice.toFixed(2)}</span></div>
           <div className="flex justify-between"><span>{duration} Year Subscription</span><span>₹ {planPrice.toFixed(2)}</span></div>
         </div>

@@ -16,10 +16,13 @@ console.log(data,"datadata")
             <th className="border p-2">Name</th>
             <th className="border p-2">employeecode</th>
             <th className="border p-2">Phone</th>
+
             {userData?.role === "SuperAdmin" && (
               <th className="border p-2">Total Revenue</th>
             )}
             <th className="border p-2">Items Sold</th>
+            <th className="border p-2">Target's</th>
+
           </tr>
         </thead>
         <tbody>
@@ -35,6 +38,8 @@ console.log(data,"datadata")
                   <td className="border p-2">₹ {ssm.totalRevenue}</td>
                 )}
                 <td className="border p-2">{ssm.totalItemsSold}</td>
+                <td className="border p-2">{ssm.totalDeviceSold +ssm.totalItemsSold }/{ssm.currentMonthTarget}</td>
+
               </tr>
 
               {/* TL Rows */}
@@ -49,6 +54,8 @@ console.log(data,"datadata")
                       <td className="border p-2">₹ {tl.totalRevenue}</td>
                     )}
                     <td className="border p-2">{tl.totalItemsSold}</td>
+                    <td className="border p-2">{tl.totalDeviceSold}/{tl.totalTarget}</td>
+
                   </tr>
 
                   {/* SRO Rows */}
@@ -62,6 +69,8 @@ console.log(data,"datadata")
                         <td className="border p-2">₹ {sro.totalRevenue}</td>
                       )}
                       <td className="border p-2">{sro.totalItemsSold}</td>
+                    <td className="border p-2">{sro.totalItemsSold}/{sro.totalTarget}</td>
+
                     </tr>
                   ))}
                 </React.Fragment>

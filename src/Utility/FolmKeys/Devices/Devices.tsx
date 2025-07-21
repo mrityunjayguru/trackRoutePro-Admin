@@ -115,6 +115,8 @@ export const vehicleFields = (devicetypeDetails: any,DealerRecord:any=[]) => {
             { label: 'Device Battery', value: 'internalBattery' },
             { label: 'Vehicle Battery', value: 'extBattery' },
             { label: 'Vehicle Motion', value: 'vehicleMotion' },
+          { label: 'view Address', value: 'vehicleMotion' },
+
         ],
         },
       )
@@ -134,6 +136,8 @@ export const vehicleFields = (devicetypeDetails: any,DealerRecord:any=[]) => {
             { label: 'Bluetooth', value: 'bluetooth' },
             { label: 'Device Battery', value: 'internalBattery' },
             { label: 'Vehicle Motion', value: 'vehicleMotion' },
+          { label: 'view Address', value: 'vehicleMotion' },
+
         ],
         },
       )

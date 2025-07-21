@@ -20,6 +20,8 @@ const TSLSalesHierarchyTable = ({ data }) => {
               <th className="border p-2">Total Revenue</th>
             )}
             <th className="border p-2">Items Sold</th>
+            <th className="border p-2">Target</th>
+
           </tr>
         </thead>
         <tbody>
@@ -33,6 +35,8 @@ const TSLSalesHierarchyTable = ({ data }) => {
               <td className="border p-2">₹ {data.totalRevenue}</td>
             )}
             <td className="border p-2">{data.totalItemsSold}</td>
+            <td className="border p-2">{data.totalTeamSell+data.totalItemsSold}/{data.totalTarget}</td>
+
           </tr>
 
           {/* SRO Rows */}
@@ -46,6 +50,8 @@ const TSLSalesHierarchyTable = ({ data }) => {
                 <td className="border p-2">₹ {sro.totalRevenue}</td>
               )}
               <td className="border p-2">{sro.totalItemsSold}</td>
+              <td className="border p-2">{sro.totalItemsSold}/{sro.totalTarget}</td>
+
             </tr>
           ))}
         </tbody>
