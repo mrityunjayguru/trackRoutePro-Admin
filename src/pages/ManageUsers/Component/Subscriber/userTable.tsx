@@ -35,7 +35,7 @@ const UserTable: React.FC = () => {
   const [filter, setfilter] = useState();
   const [search, setSearch] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 10; // Adjust this value as needed
+  const itemsPerPage = 7; // Adjust this value as needed
   const data = useSelector(
     (state: any) => state.subscriber.AllSubscriber?.records,
   );
