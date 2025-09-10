@@ -15,6 +15,7 @@ const AddOnstable = () => {
   const dispatch = useDispatch<AppDispatch>();
   const salesTeam = useSelector((state: any) => state?.slesTeame?.slesTeame);
   const data = useSelector((state: any) => state.Auth?.loginUserData);
+  console.log(data,"datadatadatadatadata")
   const getRecord = async () => {
     try {
       const payload:any={
@@ -32,7 +33,7 @@ const AddOnstable = () => {
   }, []);
 
   const handleUpdate = async (val: any) => {
-    if(data?.role=="SuperAdmin"){
+    if(data?.role=="SuperAdmin" || data?.designation?.designation=="SSM"  ){
     await dispatch(setupdatesalesTeam(val));
     }
      
