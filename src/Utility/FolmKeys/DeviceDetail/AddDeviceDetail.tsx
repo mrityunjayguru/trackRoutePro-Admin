@@ -40,6 +40,7 @@ export const AddDeviceDetailKey = (devicetypeDetails: any) => {
         value: '', // Dummy value
         disabled: false,
       },
+      
       {
         label: 'Wired Device *',
         name: 'isWired',
