@@ -15,6 +15,7 @@ export const adminLogin = createAsyncThunk<boolean, Payload>(
       const data = await AuthRepo.adminLogin(payload);
       if (data.status === 200) {
         localStorage.setItem("token", data.data.token);
+        localStorage.setItem("jsessionid", data.data.jsessionid);
         thunkAPI.dispatch(setLoginUserData(data.data.data));
         // showMessage("success", "Successfully logged in");
         return data.data.data; // Return true on successful login
