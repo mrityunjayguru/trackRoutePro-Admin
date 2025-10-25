@@ -37,7 +37,7 @@ export const ViewDeviceDeailKeys = (
     },
         {
       label: 'Sim No*',
-      name: 'deviceId',
+      name: 'simNo',
       type: 'text',
       placeholder: 'Enter Sim No',
       value: deviceDetail?.simNo, // Strictly pass value from deviceDetail
