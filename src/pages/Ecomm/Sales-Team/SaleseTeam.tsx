@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import AddOnstable from './Component/SalesTeamTable';
 import RelayForm from './Component/RelayForm';
 import SalesTeamForm from './Component/SalesTeamForm';
@@ -8,23 +8,43 @@ import { handlePerformence, setupdatesalesTeam } from '../../../api/ecomm/salesT
 import { AppDispatch } from '../../../store/store';
 import ApplicationTable from './Component/Application/ApplicationTable';
 
-const tabs:any = [
-  { label: 'Team', key: 'Team' },
-  { label: 'Onboard', key: 'onboard' },
-  { label: 'Designation', key: 'Designation' },
-  { label: 'Performence', key: 'Performence' },
-  { label: 'Leave Applications', key: 'LeaveApplications' },
-];
+
 
 function SaleseTeam() {
   const dispatch = useDispatch<AppDispatch>();
   const [activeTab, setActiveTab] = useState('Team');
   const updateSalesTeam = useSelector((state: any) => state?.slesTeame?.updateSalesTeam);
   const performance = useSelector((state: any) => state?.slesTeame?.performance);
+  const data = useSelector((state: any) => state.Auth?.loginUserData);
+const tabs = useMemo(() => {
+ const baseTabs = [
+  { label: 'Team', key: 'Team' }
+];
 
+
+// Conditionally insert 'Onboard' and 'Designation' after 'Team'
+
+
+
+if (data?.role == "SuperAdmin" || data?.designation?.designation == "SSM") {
+  baseTabs.push(
+    { label: 'Onboard', key: 'onboard' },
+    { label: 'Designation', key: 'Designation' },
+  { label: 'Leave Applications', key: 'LeaveApplications' }
+
+  );
+}
+
+// Always push Performance and Leave Applications at the end
+baseTabs.push(
+  { label: 'Performance', key: 'Performence' },
+);
+
+
+    return baseTabs;
+  }, [data]);
   useEffect(() => {
     if (updateSalesTeam) {
-   
       setActiveTab('onboard');
     }else{
       setActiveTab('Team');
@@ -35,7 +55,6 @@ function SaleseTeam() {
     if (performance) {
       setActiveTab('Performence');
     }
-
     // return () => {
     //   const reset = async () => {
     //     const payload: any = null;

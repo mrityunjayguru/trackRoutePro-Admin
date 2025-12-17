@@ -26,14 +26,14 @@ export const useChildSidebarRoutes = () => {
       label: 'GPS Devices',
       icon: <GpsDevice />,
       condition: (pathname: string) => pathname.match('/ecommdashboard/gps_devices'),
-      isView:true
+      isView:loginUser?.role=="SuperAdmin"
     },
     {
       path: '/ecommdashboard/add_ons',
       label: 'Add-ons',
       icon: <AddOns />,
       condition: (pathname: string) => pathname.match('/ecommdashboard/add_ons'),
-      isView: true,
+    isView:loginUser?.role=="SuperAdmin"
     },
     {
       path: '/ecommdashboard/sales-team',
@@ -47,7 +47,7 @@ export const useChildSidebarRoutes = () => {
       label: 'Discount Coupon',
       icon: <DiscountCopoun />,
       condition: (pathname: string) => pathname.match('/ecommdashboard/Discount-Coupon'),
-      isView:true
+      isView:loginUser?.designation?.designation=="SSM" || loginUser?.role=="SuperAdmin" 
     },
     {
       path: '/ecommdashboard/Manage-Invoices',

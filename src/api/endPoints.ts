@@ -147,6 +147,8 @@ const designation={
   adddesignation:"ecomm/designation/create",
   getdesignation:"ecomm/designation/get",
   updatedesignation:"ecomm/designation/update",
+  getSSM:"ecomm/salesTeam/getSSM",
+  getTSL:"ecomm/salesTeam/getTl",
 }
 const relaySecurity={
    addrelaySecurity:"ecomm/relaySecurity/create",
@@ -160,7 +162,11 @@ const salesTeam={
   updatesalesTeam:"ecomm/salesTeam/update",
   performance:"salesApp/target/getPerformanceData",
   getleave:"salesApp/Attendence/leave",
-  updateLeaveStatus:"salesApp/Attendence/updateLeave"
+  updateLeaveStatus:"salesApp/Attendence/updateLeave",
+  salesdashboard:"ecomm/salesTeam/dashboard",
+  userdashboard:"ecomm/salesTeam/performance",
+  TslDashboard:"ecomm/salesTeam/tlPerformance"
+
 }
 const gpsDevices={
   addgpsDevices:"ecomm/gpsDevices/create",

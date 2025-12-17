@@ -41,7 +41,14 @@ getData()
         <div>
           <UserCard record={performancedata?.salesTeam[0]}/>
           <div className='mt-5'>
-            <CurrentDayAttendenceRecord record={performancedata?.currentDayattendence[0]}/>
+          <CurrentDayAttendenceRecord
+  record={
+    performancedata?.currentDayattendence?.length > 0
+      ? performancedata.currentDayattendence[0]
+      : {}
+  }
+/>
+
           </div>
          <div className='my-5'>
            <CalendarCard attendenceRecord={performancedata?.attendenceRecord} />

@@ -7,6 +7,7 @@ import InvoiceCard from "../../../Manage-Invoice/Component/InvoiceCard";
 import Pagination from "../../../../../common/Loader/Pagination";
 import { getInvoices } from "../../../../../api/ecomm/relaySecurity";
 import InvoiceDatePicker from "./InvoiceDatePicker";
+import { formatDateToYMDHM } from "../../../../../common/ManageDate";
 
 const ManageInvoice = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -120,7 +121,7 @@ const ManageInvoice = () => {
                 <th className="px-3 py-2">Sales Assistant</th>
                 <th className="px-3 py-2">Client Name</th>
                 <th className="px-3 py-2">Invoice Amt.</th>
-                <th className="px-3 py-2">Govt Related</th>
+                <th className="px-3 py-2">Date</th>
                 <th className="px-3 py-2">View</th>
                 <th className="px-3 py-2">Status</th>
               </tr>
@@ -137,7 +138,7 @@ const ManageInvoice = () => {
                   <td className="px-3 py-2">{inv.personalinfo?.fullName}</td>
                   <td className="px-3 py-2">₹ {inv.totalAmount}</td>
                   <td className="px-3 py-2">
-                    {inv.item?.productInfo?.govtRelated ? "Yes" : "No"}
+                    {formatDateToYMDHM(inv?.orderedAt)}
                   </td>
                   <td className="px-3 py-2">
                     <ViewIcons />

@@ -7,6 +7,8 @@ updateSalesTeam:any,
 performance:any,
 performancedata:any,
 leave:any,
+dashboard:any,
+userSales:any
 }
 const initialState: DeviceState = {
   slesTeame: null,
@@ -14,7 +16,9 @@ const initialState: DeviceState = {
   updateSalesTeam:null,
   performance:null,
   performancedata:null,
-  leave:null
+  leave:null,
+  dashboard:null,
+  userSales:null
 };
 export const slesTeameSlice = createSlice({
   name: 'userData',
@@ -38,8 +42,14 @@ export const slesTeameSlice = createSlice({
     setLeave: (state: { leave: any; }, action: PayloadAction<any>) => {
       state.leave = action.payload; // Set login user data
     },
+       setDashboard: (state: { dashboard: any; }, action: PayloadAction<any>) => {
+      state.dashboard = action.payload; // Set login user data
+    },
+    setUsersales: (state: { userSales: any; }, action: PayloadAction<any>) => {
+      state.userSales = action.payload; // Set login user data
+    },
   },
 });
-export const {setslesTeame,setsingleslesTeame ,setUpdateSealTeam,setUpdatePerformancre,performanceRecord,setLeave} = slesTeameSlice.actions;
+export const {setslesTeame,setUsersales,setDashboard,setsingleslesTeame ,setUpdateSealTeam,setUpdatePerformancre,performanceRecord,setLeave} = slesTeameSlice.actions;
 
 export default slesTeameSlice.reducer;

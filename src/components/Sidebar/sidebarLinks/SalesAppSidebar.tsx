@@ -16,13 +16,13 @@ export const useSalesAppSidebarLink = () => {
 
   return [
    
-    // {
-    //   path: '/salesApp/add_ons',
-    //   label: 'Add-ons',
-    //   icon: <AddOns />,
-    //   condition: (pathname: string) => pathname.match('/salesApp/add_ons'),
-    //   isView: true,
-    // },
+   {
+      path: '/ecommdashboard',
+      label: 'Dashboard',
+      icon: <EcommDash />,
+      condition: (pathname: string) =>pathname.match('/ecommdashboard'),
+      isView:true
+    },
     {
       path: '/salesApp/sales-team',
       label: 'Sales Team',
@@ -45,12 +45,12 @@ export const useSalesAppSidebarLink = () => {
       isView:true
     },
     
-    // {
-    //   path: '/salesApp/Manage-Invoices',
-    //   label: 'Manage Invoices',
-    //   icon: <ManageInvoive />,
-    //   condition: (pathname: string) => pathname.match('/salesApp/Manage-Invoices'),
-    //   isView:true
-    // },
+    {
+   path: '/ecommdashboard/Manage-Invoices',
+      label: 'Manage Invoices',
+      icon: <ManageInvoive />,
+      condition: (pathname: string) => pathname.match('/salesApp/Manage-Invoices'),
+      isView:true
+    },
   ];
 };

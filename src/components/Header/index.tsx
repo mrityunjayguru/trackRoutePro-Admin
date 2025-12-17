@@ -13,7 +13,7 @@ const Header = (props: {
   const { userId } = useParams(); // Extract userId from params
   const [title, setTitle] = useState<string>('');
   const data = useSelector((state: any) => state.Auth?.loginUserData);
-console.log(data,"data?.loginUser?.r")
+
   // Define a mapping of pathnames to titles
   const pageTitles: Record<string, string> = {
     '/': 'Dashboard',

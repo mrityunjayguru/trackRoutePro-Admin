@@ -147,6 +147,8 @@ export const ViewDeviceKeys = (
         { label: 'internalBattery', value: 'internalBattery' },
         { label: 'extBattery', value: 'extBattery' },
         { label: 'vehicleMotion', value: 'vehicleMotion' },
+          { label: 'view Address', value: 'isAddress' },
+
       ],
       value: trueKeys, // Display only the keys with 'true' values (e.g., 'AC')
     },

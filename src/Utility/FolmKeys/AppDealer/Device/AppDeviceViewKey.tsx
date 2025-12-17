@@ -149,6 +149,8 @@ export const AppDeviceViewKey = (SingleDevice: any, VehiclwType: any,devicetypeD
             { label: 'internalBattery', value: 'internalBattery' },
             { label: 'extBattery', value: 'extBattery' },
             { label: 'vehicleMotion', value: 'vehicleMotion' },
+          { label: 'view Address', value: 'vehicleMotion' },
+
 
         ],
         value: trueKeys,  // Display only the keys with 'true' values (e.g., 'AC')
@@ -171,6 +173,10 @@ export const AppDeviceViewKey = (SingleDevice: any, VehiclwType: any,devicetypeD
             { label: 'bluetooth', value: 'bluetooth' },
             { label: 'internalBattery', value: 'internalBattery' },
             { label: 'vehicleMotion', value: 'vehicleMotion' },
+          { label: 'view Address', value: 'vehicleMotion' },
+          { label: 'view Address', value: 'vehicleMotion' },
+
+
         ],
         value: trueKeys,  // Display only the keys with 'true' values (e.g., 'AC')
         },

@@ -11,7 +11,11 @@ interface PerformanceState {
 }
 
 // Main App component
-export default function DatePickerRange() {
+interface DatePickerRangeProps {
+  setblank: any; // Replace 'any' with a more specific type if possible
+}
+
+export default function DatePickerRange({ setblank }: DatePickerRangeProps) {
   const dispatch = useDispatch<AppDispatch>();
   const performance = useSelector((state: { slesTeame: { performance: PerformanceState } }) => state?.slesTeame?.performance);
 
@@ -20,7 +24,10 @@ export default function DatePickerRange() {
   const [endDate, setEndDate] = useState<Date | null>(null); // State for the selected end date
   const [hoverDate, setHoverDate] = useState<Date | null>(null); // State for date hovering during range selection
   const pickerRef = useRef<HTMLDivElement>(null); // Ref for the picker container to handle outside clicks
-
+useEffect(()=>{
+setStartDate(null)
+setEndDate(null)
+},[setblank])
   // Initialize current months for the two calendars
   const [currentMonthLeft, setCurrentMonthLeft] = useState(new Date());
   const [currentMonthRight, setCurrentMonthRight] = useState(() => {
@@ -64,7 +71,6 @@ return formattedDate
       endDate: formattedEndDate,
     };
 
-    console.log("Dispatching payload:", payload); // For debugging
     await dispatch(performanceData(payload));
   };
 
@@ -156,18 +162,18 @@ return formattedDate
       [start, end] = [end, start]; // Swap them if start is greater than end
     }
 
-    return (start && end && day >= start && day <= end) ||
-           (start && !end && day.toDateString() === start.toDateString()); // For single selection
+    return (!!start && !!end && day >= start && day <= end) ||
+           (!!start && !end && day.toDateString() === start.toDateString()); // For single selection
   };
 
   // Checks if a date is the start date
   const isStartDate = (day: Date | null): boolean => {
-    return day && startDate && day.toDateString() === startDate.toDateString();
+    return !!(day && startDate && day.toDateString() === startDate.toDateString());
   };
 
   // Checks if a date is the end date
   const isEndDate = (day: Date | null): boolean => {
-    return day && endDate && day.toDateString() === endDate.toDateString();
+    return !!(day && endDate && day.toDateString() === endDate.toDateString());
   };
 
   // Navigates to the previous month for the specified calendar

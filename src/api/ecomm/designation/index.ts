@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { setdesignation,setsingledesignation} from "../../../store/ecomm/designation";
+import { setdesignation,setsingledesignation,setTSL,setSSM} from "../../../store/ecomm/designation";
 import APIName from "../../endPoints";
 import { designationRepo } from "./designationRepo";
 import Swal from "sweetalert2";
@@ -116,3 +116,56 @@ export const updatedesignation = createAsyncThunk<boolean, Payload>(
     return false;
   }
 )
+
+
+
+export const getSSM = createAsyncThunk<boolean, Payload>(
+  APIName.updateSubscriber,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await designationRepo.SSM(payload);
+    
+      if (data.status === 200) {
+      
+        thunkAPI.dispatch(setSSM(data.data.data));
+        return true;
+      }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+);
+
+
+export const getTSL = createAsyncThunk<boolean, Payload>(
+  APIName.updateSubscriber,
+  async (payload, thunkAPI) => {
+    try {
+      const data = await designationRepo.TSL(payload);
+    
+      if (data.status === 200) {
+      
+        thunkAPI.dispatch(setTSL(data.data.data));
+        return true;
+      }
+    } catch (err:any) {
+      if(err.status==401){
+        localStorage.removeItem("token")
+        GetMessage("warning", "Unauthorized");
+        window.location.href = "/auth/signin"; 
+      }else{
+        GetMessage("warning", "something went wrong");
+      }
+      console.error(err);
+    }
+    return false;
+  }
+);

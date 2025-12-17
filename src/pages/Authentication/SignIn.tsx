@@ -81,7 +81,7 @@ const payload:any={
 }
 let response:any=await dispatch(salesTeamLogin(payload))
 if(response.payload){
- navigate('/salesApp/sales-team');
+ navigate('/ecommdashboard');
 }
 
 }
