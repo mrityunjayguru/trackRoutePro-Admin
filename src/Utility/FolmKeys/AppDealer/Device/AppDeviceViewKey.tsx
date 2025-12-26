@@ -149,7 +149,9 @@ export const AppDeviceViewKey = (SingleDevice: any, VehiclwType: any,devicetypeD
             { label: 'internalBattery', value: 'internalBattery' },
             { label: 'extBattery', value: 'extBattery' },
             { label: 'vehicleMotion', value: 'vehicleMotion' },
-          { label: 'view Address', value: 'vehicleMotion' },
+          { label: 'view Address', value: 'isAddress' },
+         { label: 'view Notification Address', value: 'isNotificationAddress' },
+
 
 
         ],
@@ -174,7 +176,9 @@ export const AppDeviceViewKey = (SingleDevice: any, VehiclwType: any,devicetypeD
             { label: 'internalBattery', value: 'internalBattery' },
             { label: 'vehicleMotion', value: 'vehicleMotion' },
           { label: 'view Address', value: 'vehicleMotion' },
-          { label: 'view Address', value: 'vehicleMotion' },
+          { label: 'view Address', value: 'isAddress' },
+         { label: 'view Notification Address', value: 'isNotificationAddress' },
+
 
 
         ],

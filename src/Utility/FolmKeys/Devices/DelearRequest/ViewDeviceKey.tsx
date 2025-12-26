@@ -158,7 +158,8 @@ export const ViewDeviceKeysRequest = (
           { label: 'internalBattery', value: 'internalBattery' },
           { label: 'extBattery', value: 'extBattery' },
           { label: 'vehicleMotion', value: 'vehicleMotion' },
-          { label: 'view Address', value: 'vehicleMotion' },
+          { label: 'view Address', value: 'isAddress' },
+          { label: 'view Notification Address', value: 'isNotificationAddress' },
 
       ],
       value: trueKeys,  // Display only the keys with 'true' values (e.g., 'AC')
@@ -182,8 +183,8 @@ export const ViewDeviceKeysRequest = (
           { label: 'internalBattery', value: 'internalBattery' },
           { label: 'extBattery', value: 'extBattery' },
           { label: 'vehicleMotion', value: 'vehicleMotion' },
-          { label: 'vehicleMotion', value: 'vehicleMotion' },
-          { label: 'view Address', value: 'vehicleMotion' },
+          { label: 'view Address', value: 'isAddress' },
+          { label: 'view Notification Address', value: 'isNotificationAddress' },
 
       ],
       value: trueKeys,  // Display only the keys with 'true' values (e.g., 'AC')

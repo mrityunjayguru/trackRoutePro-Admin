@@ -111,6 +111,8 @@ export const DealervehicleFields = (
           { label: 'Vehicle Battery', value: 'extBattery' },
           { label: 'Vehicle Motion', value: 'vehicleMotion' },
           { label: 'view Address', value: 'vehicleMotion' },
+         { label: 'view Notification Address', value: 'isNotificationAddress' },
+
 
       ],
       },
@@ -132,6 +134,8 @@ export const DealervehicleFields = (
           { label: 'Device Battery', value: 'internalBattery' },
           { label: 'Vehicle Motion', value: 'vehicleMotion' },
           { label: 'view Address', value: 'vehicleMotion' },
+         { label: 'view Notification Address', value: 'isNotificationAddress' },
+
       ],
       },
     )

@@ -25,10 +25,8 @@ const duration = durationMap[invoice?.item?.duration] || 1;
 
 
   const rawTotal = devicePrice + relayPrice + planPrice;
-  console.log(rawTotal,"rawTotalrawTotal")
   const couponPercent = invoice?.couponDetail?.discountPercent || 0;
   const discount = parseFloat(((rawTotal * couponPercent) / 100).toFixed(2));
-  console.log(discount,"discountdiscount")
   let managediscount=rawTotal-discount
   const gst = parseFloat((managediscount * 0.18).toFixed(2));
   const totalPayable = managediscount+ gst  ;
@@ -50,7 +48,6 @@ const duration = durationMap[invoice?.item?.duration] || 1;
     pdf.addImage(imgData, "PNG", 0, 0, pageWidth, imgHeight);
     pdf.save(`${invoice?.invoiceNo || "invoice"}.pdf`);
   };
-console.log(invoice,"lllllllllllllllll")
   return (
     <div className="px-4 py-6">
       <div
