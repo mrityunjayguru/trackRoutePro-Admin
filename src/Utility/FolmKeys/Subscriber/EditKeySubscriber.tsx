@@ -136,6 +136,19 @@ export const EditKeySubscriber = (SingleSubscriber: any,userpassword:any) => {
       value: SingleSubscriber?.idno || '',
       disabled:false,
     },
+       {
+      label: 'View Address *',
+      name: 'isNotificationAddressed',
+       type: 'radioGroup',
+      options: [
+        { label: 'Off', value: 'Off' },
+        { label: 'On', value: 'On' },
+      ],
+      value: SingleSubscriber?.isNotificationAddressed?"On" : 'Off',
+      // value: SingleSubscriber?.isNotificationAddressed || '',
+      defaultValue: 'Off',
+      disabled:false,
+    },
     {
       label: 'Upload Document *',
       name: 'Document',

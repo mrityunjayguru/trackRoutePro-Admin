@@ -140,6 +140,18 @@ export const ViewKeySubscriber = (SingleSubscriber: any,userpassword:any) => {
       value: SingleSubscriber?.idno || '',
       disabled: true,
     },
+      {
+      label: 'View Address *',
+      name: 'isNotificationAddressed',
+       type: 'radioGroup',
+      options: [
+        { label: 'Off', value: 'Off' },
+        { label: 'On', value: 'On' },
+      ],
+      value: SingleSubscriber?.isNotificationAddressed?"On" : 'Off',
+      // value: SingleSubscriber?.isNotificationAddressed || '',
+      disabled:true,
+    },
     {
       label: 'View Document*',
       name: 'Document',
