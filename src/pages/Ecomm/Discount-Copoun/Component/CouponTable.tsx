@@ -86,7 +86,7 @@ function CouponTable() {
           {couponRecord?.map((c: any, i: number) => (
             <tr key={i} className="border-b">
               <td className="p-2" onClick={() => handleUpdate(c)}>{c.discountCode}</td>
-              <td className="p-2">{c.discountPercent}%</td>
+              <td className="p-2">{c.discountValue}</td>
               <td className="p-2">{c?.discountStart ? formatDateToDDMMMYYYYwithDate(c?.discountStart) : "NA"}</td>
               <td className="p-2">{c?.discountEnd ? formatDateToDDMMMYYYYwithDate(c?.discountEnd) : "NA"}</td>
               <td className="p-2 text-center">

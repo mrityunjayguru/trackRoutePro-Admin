@@ -23,20 +23,20 @@ export const AddSubscriberKey = [
     icon: null, // No icon specified, leave as null or add one if needed
     value: '', // Dummy value
   },
-  {
-    label: 'Password *',
-    name: 'password',
-    type: "password",
-    placeholder: 'Enter Password',
-    value: '', // Dummy value
-  },
-  {
-    label: 'Confirm Password *',
-    name: 'confirmPassword',
-    type: "password",
-    placeholder: 'Enter Password Again',
-    value: '', // Dummy value
-  },
+  // {
+  //   label: 'Password *',
+  //   name: 'password',
+  //   type: "password",
+  //   placeholder: 'Enter Password',
+  //   value: '', // Dummy value
+  // },
+  // {
+  //   label: 'Confirm Password *',
+  //   name: 'confirmPassword',
+  //   type: "password",
+  //   placeholder: 'Enter Password Again',
+  //   value: '', // Dummy value
+  // },
   {
     label: 'Status *',
     name: 'status',

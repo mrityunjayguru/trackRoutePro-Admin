@@ -49,6 +49,7 @@ export const getcoupon = createAsyncThunk<boolean, Payload>(
       const data = await couponRepo.getcoupon(payload);
     
       if (data.status === 200) {
+        console.log(data.data,"datadatadatadatadatadatadata")
 
       const payload:any={
         Record:data.data.data,

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '../../../../store/store';
 import {
@@ -15,12 +15,13 @@ const AddOnstable = () => {
   const dispatch = useDispatch<AppDispatch>();
   const salesTeam = useSelector((state: any) => state?.slesTeame?.slesTeame);
   const data = useSelector((state: any) => state.Auth?.loginUserData);
-  console.log(data,"datadatadatadatadata")
+  const [status,setStatus]=useState("active")
   const getRecord = async () => {
     try {
       const payload:any={
         _id:data?._id,
-        designation:data?.designation?.designation
+        designation:data?.designation?.designation,
+        status:status=="active"?true:false
       }
       await dispatch(getSalesTeam(payload));
     } catch (err) {
@@ -31,7 +32,9 @@ const AddOnstable = () => {
   useEffect(() => {
     getRecord();
   }, []);
-
+useEffect(()=>{
+  getRecord();
+},[status])
   const handleUpdate = async (val: any) => {
     if(data?.role=="SuperAdmin" || data?.designation?.designation=="SSM"  ){
     await dispatch(setupdatesalesTeam(val));
@@ -58,7 +61,15 @@ const AddOnstable = () => {
 
   return (
     <div className="w-full overflow-x-auto">
-      <h2 className="text-lg font-semibold mb-4 text-[#585859]">Add-ons Catalogue</h2>
+     <div className='flex justify-between'>
+       <h2 className="text-lg font-semibold mb-4 text-[#585859]">Add-ons Catalogue</h2>
+      <select value={status} onChange={(e) => setStatus(e.target.value)}>
+  <option value="">Select status</option>
+  <option value="active">Active</option>
+  <option value="inactive">Inactive</option>
+</select>
+
+     </div>
 
       <table className="min-w-[800px] w-full table-auto border-separate border-spacing-y-2">
         <thead>

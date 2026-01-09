@@ -8,7 +8,7 @@ import { addcoupon, setUpdatecoupon, updatecoupon } from "../../../../api/ecomm/
 
 interface CouponFormData {
   discountCode: string;
-  discountPercent: number;
+  discountValue: number;
   discountValue: number;
   discountStart: string;
   discountEnd: string;
@@ -17,11 +17,10 @@ interface CouponFormData {
 
 const schema = yup.object().shape({
   discountCode: yup.string().required("Discount code is required"),
-  discountPercent: yup
+  discountValue: yup
     .number()
     .typeError("Must be a number")
     .min(0, "Minimum is 0")
-    .max(100, "Maximum is 100")
     .required("Discount percent is required"),
 });
 
@@ -42,7 +41,7 @@ function CouponForm() {
     if (updatecouponRecord) {
       reset({
         discountCode: updatecouponRecord.discountCode || "",
-        discountPercent: updatecouponRecord.discountPercent || 0,
+        discountValue: updatecouponRecord.discountValue || 0,
         // discountValue: updatecouponRecord.discountValue || 0,
         discountStart: updatecouponRecord.discountStart?.slice(0, 10) || "", // Trim date
         discountEnd: updatecouponRecord.discountEnd?.slice(0, 10) || "",
@@ -94,11 +93,11 @@ function CouponForm() {
         <div>
           <input
             type="text"
-            placeholder="%"
-            {...register("discountPercent")}
+            placeholder="Discount Value"
+            {...register("discountValue")}
             className="border p-2 rounded w-full"
           />
-          {errors.discountPercent && <p className="text-red-500 text-sm">{errors.discountPercent.message}</p>}
+          {errors.discountValue && <p className="text-red-500 text-sm">{errors.discountValue.message}</p>}
         </div>
 
         {/* <div>

@@ -332,15 +332,15 @@ const payload:any=null
           <input {...register('operatingArea')} className="w-full border rounded px-3 py-2" />
         </div>
 
-        <div>
+        {/* <div>
           <label className="font-medium">Discount %</label>
           <input {...register('discountPercent')} className="w-full border rounded px-3 py-2" />
-        </div>
+        </div> */}
 
-        <div>
+        {/* <div>
           <label className="font-medium">Coupon Code</label>
           <input {...register('discountCode')} className="w-full border rounded px-3 py-2" />
-        </div>
+        </div> */}
 
         {/* Photo Upload */}
         <div className="col-span-2">
